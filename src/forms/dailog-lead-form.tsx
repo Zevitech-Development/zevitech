@@ -37,7 +37,6 @@ import { FaCircleXmark } from "react-icons/fa6";
 import Logo from "../../public/favicons/logo-black.png";
 
 function DailogLeadForm({ trigger }: DailogLeadFormProps) {
-  const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const [system01, setSystem01] = useState("");
@@ -79,7 +78,6 @@ function DailogLeadForm({ trigger }: DailogLeadFormProps) {
       });
 
       reset();
-      setOpen(false);
     } catch (error) {
       if (error instanceof Error) {
         toast.error("Submission Failed", {
@@ -105,12 +103,8 @@ function DailogLeadForm({ trigger }: DailogLeadFormProps) {
     }
   };
 
-  useEffect(() => {
-    setOpen(true);
-  }, []);
-
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
 
       <DialogContent className="bg-white md:max-h-[650px] md:h-full max-md:w-[90%] max-md:max-h-[600px] max-md:h-[90%] max-w-[800px] overflow-auto !rounded-2xl border-2">
