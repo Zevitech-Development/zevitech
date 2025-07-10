@@ -1,8 +1,12 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 import { Button } from "../ui/button";
+
+import { OpenLiveChat } from "@/utils/open-live-chat";
 
 import Logo from "../../../public/favicons/logo-white.png";
 import { IoCall, IoChatbox } from "react-icons/io5";
@@ -23,11 +27,16 @@ function BusinessHeader() {
 
         {/* DESKTOP HEADER */}
         <div className="md:flex hidden items-center gap-3">
-          <Button className="cta-button bg-transparent border-4 border-primary text-primary-foreground text-lg h-[48px] font-bold rounded-full px-6 hover:bg-primary hover:scale-105 !animation-standard">
-            <IoCall /> Call Us
-          </Button>
+          <a href="tel:+13022176872">
+            <Button className="cta-button bg-transparent border-4 border-primary text-primary-foreground text-lg h-[48px] font-bold rounded-full px-6 hover:bg-primary hover:scale-105 !animation-standard">
+              <IoCall /> Call Us
+            </Button>
+          </a>
 
-          <Button className="cta-button bg-primary text-primary-foreground text-lg h-[48px] font-semibold rounded-full px-6 hover:bg-primary-hover hover:scale-105 !animation-standard">
+          <Button
+            onClick={OpenLiveChat}
+            className="cta-button bg-primary text-primary-foreground text-lg h-[48px] font-semibold rounded-full px-6 hover:bg-primary-hover hover:scale-105 !animation-standard"
+          >
             <IoChatbox /> Chat Now
           </Button>
         </div>

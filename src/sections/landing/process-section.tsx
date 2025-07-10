@@ -1,8 +1,12 @@
+"use client";
+
 import React from "react";
 
 import { ProcessSectionContent } from "@/contents/landing-page-content";
 
 import { Button } from "@/components/ui/button";
+
+import { OpenLiveChat } from "@/utils/open-live-chat";
 
 import { FaArrowRightLong } from "react-icons/fa6";
 
@@ -68,7 +72,10 @@ function ProcessSection() {
             <FaArrowRightLong className="w-5 h-5 lg:group-hover:translate-x-[3px] animation-standard" />
           </Button>
 
-          <Button className="cta-button h-[60px] px-6 bg-transparent border-4 border-primary group lg:hover:scale-105 rounded-full text-heading md:text-xl text-base lg:!animation-standard font-bold max-md:w-full">
+          <Button
+            onClick={OpenLiveChat}
+            className="cta-button h-[60px] px-6 bg-transparent border-4 border-primary group lg:hover:scale-105 rounded-full text-heading md:text-xl text-base lg:!animation-standard font-bold max-md:w-full"
+          >
             Chat Now
           </Button>
         </div>

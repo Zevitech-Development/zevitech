@@ -67,7 +67,12 @@ function CustomerSatisfactionSection() {
       </div>
 
       <div className="section-padding-standard pb-4 mt-16 flex items-center lg:justify-between max-lg:flex-col gap-4">
-        <Image src={TrustpilotIcon} alt="Trustpilot" />
+        <Link
+          href={"https://www.trustpilot.com/review/zevitech.com"}
+          target="_blank"
+        >
+          <Image src={TrustpilotIcon} alt="Trustpilot" />
+        </Link>
 
         <Image
           src={CertificateFooterIcon}
@@ -77,10 +82,16 @@ function CustomerSatisfactionSection() {
 
         <div className="flex flex-col max-lg:text-center">
           <h1 className="text-heading text-xl font-bold mb-1">Get in Touch</h1>
-          <Link href={"/"} className="hover:text-primary transition-colors">
+          <Link
+            href="tel:+13022176872"
+            className="hover:text-primary transition-colors"
+          >
             (302) 217-6872
           </Link>
-          <Link href={"/"} className="hover:text-primary transition-colors">
+          <Link
+            href="mailto:info@zevitech.com"
+            className="hover:text-primary transition-colors"
+          >
             info@zevitech.com
           </Link>
         </div>

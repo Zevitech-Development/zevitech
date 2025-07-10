@@ -68,7 +68,7 @@ function LandingReviewsSection() {
           <Swiper
             modules={[Autoplay]}
             direction="horizontal"
-            spaceBetween={30}
+            spaceBetween={15}
             loop={true}
             autoplay={{
               delay: 4000,

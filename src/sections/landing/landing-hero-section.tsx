@@ -4,6 +4,8 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+import DailogLeadForm from "@/forms/dailog-lead-form";
+
 import { Button } from "@/components/ui/button";
 
 import LandingHeroImg from "../../../public/images/landing-hero-img.png";
@@ -11,6 +13,7 @@ import { FaCheck, FaArrowRightLong } from "react-icons/fa6";
 import ClutchIOIcon from "../../../public/icons/clutch-io-icon.png";
 import TrustpilotIcon from "../../../public/icons/truspilot-icon.svg";
 import GoogleReviewsIcon from "../../../public/icons/google-reviews-icon.png";
+import { OpenLiveChat } from "@/utils/open-live-chat";
 
 function LandingHeroSection() {
   return (
@@ -54,18 +57,29 @@ function LandingHeroSection() {
           </div>
 
           <div className="flex items-center md:gap-4 gap-2 mt-4">
-            <Button className="cta-button h-[60px] md:px-6 group lg:hover:scale-105 rounded-full lg:hover:bg-primary-hover md:text-xl text-base lg:!animation-standard font-bold">
-              Let&apos;s Get Started
-              <FaArrowRightLong className="group-hover:translate-x-[2px] animation-standard" />
-            </Button>
+            <DailogLeadForm
+              trigger={
+                <Button className="cta-button h-[60px] md:px-6 group lg:hover:scale-105 rounded-full lg:hover:bg-primary-hover md:text-xl text-base lg:!animation-standard font-bold">
+                  Let&apos;s Get Started
+                  <FaArrowRightLong className="group-hover:translate-x-[2px] animation-standard" />
+                </Button>
+              }
+            />
 
-            <Button className="cta-button h-[60px] md:px-6 bg-transparent border-4 border-primary group lg:hover:scale-105 rounded-full text-primary-foreground md:text-xl text-base lg:!animation-standard font-bold">
+            <Button
+              onClick={OpenLiveChat}
+              className="cta-button h-[60px] md:px-6 bg-transparent border-4 border-primary group lg:hover:scale-105 rounded-full text-primary-foreground md:text-xl text-base lg:!animation-standard font-bold"
+            >
               Chat Now
             </Button>
           </div>
 
           <div className="flex items-center gap-8 mt-6">
-            <Link href={"/"} passHref>
+            <Link
+              href={"https://clutch.co/profile/zevitech"}
+              target="_blank"
+              passHref
+            >
               <Image
                 src={ClutchIOIcon}
                 alt="Clutch IO"
@@ -74,7 +88,11 @@ function LandingHeroSection() {
               />
             </Link>
 
-            <Link href={"/"} passHref>
+            <Link
+              href={"https://www.trustpilot.com/review/zevitech.com"}
+              target="_blank"
+              passHref
+            >
               <Image
                 src={TrustpilotIcon}
                 alt="Trustpilot"
@@ -83,7 +101,13 @@ function LandingHeroSection() {
               />
             </Link>
 
-            <Link href={"/"} passHref>
+            <Link
+              href={
+                "https://www.google.com/search?q=zevitech&oq=zevitech&gs_lcrp=EgZjaHJvbWUyDggAEEUYJxg5GIAEGIoFMgYIARBFGDwyBggCECMYJzIHCAMQABjvBTIKCAQQABiABBiiBDIKCAUQABiABBiiBDIKCAYQABiABBiiBDIGCAcQRRg80gEJNjkzN2owajE1qAIIsAIB8QXmrH0VQ5vS1A&sourceid=chrome&ie=UTF-8#lrd=0xa6b3ae377e4210c3:0x375b0f1a6e9d091e,1,,,,"
+              }
+              target="_blank"
+              passHref
+            >
               <Image
                 src={GoogleReviewsIcon}
                 alt="Google Reviews"

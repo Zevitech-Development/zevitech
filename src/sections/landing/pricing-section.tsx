@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 
@@ -11,6 +13,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+
+import { OpenLiveChat } from "@/utils/open-live-chat";
 
 import AddCreaditSealIcon from "../../../public/icons/add-creadit-seal-icon.webp";
 import BestSellerSealIcon from "../../../public/icons/best-seller-seal-icon.webp";
@@ -66,7 +70,9 @@ function ProcessSection() {
             </CardHeader>
 
             <CardContent className="py-4 flex flex-col gap-4 border-b border-border">
-              <p className="md:text-base text-sm font-medium h-24">{item.description}</p>
+              <p className="md:text-base text-sm font-medium h-24">
+                {item.description}
+              </p>
 
               <div className="md:!h-72 !h-24 w-full overflow-y-auto pr-2 custom-scrollbar">
                 <div className="h-full w-full flex flex-col gap-3">
@@ -88,7 +94,10 @@ function ProcessSection() {
                 <FaArrowRightLong className="md:w-5 md:h-5 w-3 h-3 md:group-hover:translate-x-[3px] md:animation-standard" />
               </Button>
 
-              <Button className="h-[50px] text-heading bg-transparent px-4 py-4 rounded-full font-bold md:text-base md:!animation-standard flex items-center gap-2 border-4 border-primary cta-button text-sm md:hover:scale-105">
+              <Button
+                onClick={OpenLiveChat}
+                className="h-[50px] text-heading bg-transparent px-4 py-4 rounded-full font-bold md:text-base md:!animation-standard flex items-center gap-2 border-4 border-primary cta-button text-sm md:hover:scale-105"
+              >
                 Chat Now
               </Button>
             </CardFooter>
