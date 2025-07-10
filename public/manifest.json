@@ -1,0 +1,27 @@
+{
+  "name": "Zevitech",
+  "short_name": "Zevitech",
+  "icons": [
+    {
+      "src": "/favicons/logo-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/favicons/logo-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/favicons/logo-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "theme_color": "#007afc",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}

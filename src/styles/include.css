@@ -1,0 +1,85 @@
+.image-hover-animation {
+  transition: transform 0.6s ease;
+}
+
+.image-hover-animation:hover {
+  transform: scale(1.05) rotate(1deg);
+}
+
+.package-tag-clip-path {
+  clip-path: polygon(100% 0, 95% 50%, 100% 100%, 0% 100%, 5% 50%, 0% 0%);
+}
+
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.cta-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: skewX(-20deg);
+  animation: shine 2s linear infinite;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #96bf48;
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  transition: background-color 0.3s ease;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #7aa63d;
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #96bf48 transparent;
+}
+
+@keyframes loader {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+.loader-ui {
+  width: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(farthest-side, #007afc 94%, #0000) top/8px 8px
+      no-repeat,
+    conic-gradient(#0000 30%, #007afc);
+
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
+  mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
+  will-change: transform;
+  animation: loader 1s infinite linear;
+}

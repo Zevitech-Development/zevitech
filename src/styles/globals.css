@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #ffffff;
+    --secondary-background: #f9f9f9;
+
+    --foreground: #1a1a1a;
+    --heading: #2d2d2d;
+    --paragraph: #585858;
+
+    --card: #f5f5f5;
+    --card-foreground: #444444;
+
+    --popover: #f5f5f5;
+    --popover-foreground: #444444;
+
+    --primary: #007afc;
+    --primary-foreground: #ffffff;
+    --primary-hover: #0063c7;
+
+    --secondary: #96bf48;
+    --secondary-foreground: #ffffff;
+    --secondary-hover: #7ea13c;
+
+    --muted: #eeeeee;
+    --muted-foreground: #666666;
+    --muted-hover: #dddddd;
+
+    --accent: #f4b400;
+    --accent-foreground: #1a1a1a;
+
+    --destructive: #e63946;
+    --destructive-foreground: #ffffff;
+
+    --border: #dddddd;
+    --input: #f0f0f0;
+    --ring: #007afc;
+
+    --radius: 0.625rem;
+
+    --font-coolvetica: "Coolvetica Rg", sans-serif;
+  }
+}
+
+@font-face {
+  font-family: "Coolvetica Rg";
+  src: url("/fonts/coolvetica/CoolveticaRg.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--paragraph);
+  background-color: var(--background);
+  font-family: var(--font-inter), sans-serif;
+  text-rendering: optimizeLegibility;
+  border: var(--border);
+}
