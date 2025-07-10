@@ -43,11 +43,16 @@ function BusinessHeader() {
 
         {/* MOBILE HEADER */}
         <div className="md:hidden flex items-center gap-2">
-          <Button className="cta-button bg-transparent border-4 border-primary text-primary-foreground h-[48px] rounded-xl px-6">
-            <IoCall />
-          </Button>
+          <a href="tel:+13022176872">
+            <Button className="cta-button bg-transparent border-4 border-primary text-primary-foreground h-[48px] rounded-xl px-6">
+              <IoCall />
+            </Button>
+          </a>
 
-          <Button className="cta-button bg-primary text-primary-foreground h-[48px] rounded-xl px-6">
+          <Button
+            onClick={OpenLiveChat}
+            className="cta-button bg-primary text-primary-foreground h-[48px] rounded-xl px-6"
+          >
             <IoChatbox />
           </Button>
         </div>
