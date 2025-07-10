@@ -20,7 +20,7 @@ function CustomerSatisfactionSection() {
         </h1>
         <p className="md:text-2xl text-base lg:max-w-3xl text-center font-medium text-paragraph">
           Our designs have helped over 5000 clients make $1.5M+ in revenue. Join
-          us, and let's create success together!
+          us, and let&apos;s create success together!
         </p>
       </div>
 

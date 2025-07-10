@@ -27,7 +27,7 @@ function LandingCTASection() {
           </p>
 
           <Button className="lg:mt-4 mt-2 md:h-[60px] h-[50px] rounded-full md:text-lg text-sm font-bold hover:bg-primary-hover md:px-8 px-4 cta-button">
-            I AM READY, LET'S GET STARTED
+            I AM READY, LET&apos;S GET STARTED
           </Button>
         </div>
       </div>

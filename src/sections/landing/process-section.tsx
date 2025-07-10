@@ -20,7 +20,7 @@ function ProcessSection() {
           </h1>
           <p className="md:text-2xl text-base md:max-w-3xl text-center font-medium">
             We use a proven approach to create attractive and fully functional
-            Shopify stores for our clients. Here's how we work:
+            Shopify stores for our clients. Here&apos;s how we work:
           </p>
         </div>
 
@@ -59,8 +59,10 @@ function ProcessSection() {
         </div>
 
         {/* CALL TO ACTION */}
-        <div className="flex flex-col md:flex-row md:gap-4 gap-2
-         items-center justify-center">
+        <div
+          className="flex flex-col md:flex-row md:gap-4 gap-2
+         items-center justify-center"
+        >
           <Button className="cta-button h-[60px] px-6 group lg:hover:scale-105 rounded-full lg:hover:bg-primary-hover md:text-xl text-base lg:!animation-standard font-bold max-md:w-full">
             Let&apos;s Get Started
             <FaArrowRightLong className="w-5 h-5 lg:group-hover:translate-x-[3px] animation-standard" />

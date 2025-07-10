@@ -19,9 +19,9 @@ function WhyChooseUsSection() {
             Design
           </h1>
           <p className="md:text-2xl text-base md:max-w-3xl text-center font-medium">
-            At Zevitech, we've got a top-notch team of award-winning designers
-            with extensive experience and skills ready to handle your Shopify
-            project.
+            At Zevitech, we&apos;ve got a top-notch team of award-winning
+            designers with extensive experience and skills ready to handle your
+            Shopify project.
           </p>
         </div>
 

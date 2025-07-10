@@ -23,11 +23,11 @@ function LandingHeroSection() {
           </h1>
 
           <h2 className="text-white/90 font-medium md:text-xl text-base leading-relaxed">
-            Shopify is a top choice for online businesses. Whether you're
-            starting fresh or moving an established business to Shopify, we'll
-            help your brand reach its full potential. Our Shopify store
-            development ensures maximum lead generation and exponential sales
-            growth.
+            Shopify is a top choice for online businesses. Whether you&apos;re
+            starting fresh or moving an established business to Shopify,
+            we&apos;ll help your brand reach its full potential. Our Shopify
+            store development ensures maximum lead generation and exponential
+            sales growth.
           </h2>
 
           <div className="flex flex-col gap-4 md:text-lg text-sm">
