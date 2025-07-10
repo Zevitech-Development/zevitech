@@ -37,6 +37,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning className={`${inter.variable}`}>
+        {/* Google Tag (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-4V3XW7Q5EG"
+          strategy="afterInteractive"
+        />
+
+        <Script id="google-gtag" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-4V3XW7Q5EG');
+          `}
+        </Script>
+
         {/* LiveChat Widget */}
         <Script id="livechat-widget" strategy="afterInteractive">
           {`
