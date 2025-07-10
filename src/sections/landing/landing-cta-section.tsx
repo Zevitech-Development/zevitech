@@ -1,6 +1,8 @@
 import React from "react";
 import Image from "next/image";
 
+import DailogLeadForm from "@/forms/dailog-lead-form";
+
 import { Button } from "@/components/ui/button";
 
 import MoneyBackIcon from "../../../public/icons/money-back-icon.webp";
@@ -26,9 +28,13 @@ function LandingCTASection() {
             we&apos;ll issue a full refund
           </p>
 
-          <Button className="lg:mt-4 mt-2 md:h-[60px] h-[50px] rounded-full md:text-lg text-sm font-bold hover:bg-primary-hover md:px-8 px-4 cta-button">
-            I AM READY, LET&apos;S GET STARTED
-          </Button>
+          <DailogLeadForm
+            trigger={
+              <Button className="lg:mt-4 mt-2 md:h-[60px] h-[50px] rounded-full md:text-lg text-sm font-bold hover:bg-primary-hover md:px-8 px-4 cta-button">
+                I AM READY, LET&apos;S GET STARTED
+              </Button>
+            }
+          />
         </div>
       </div>
     </section>

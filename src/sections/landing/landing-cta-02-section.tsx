@@ -3,6 +3,8 @@
 import React from "react";
 import Image from "next/image";
 
+import DailogLeadForm from "@/forms/dailog-lead-form";
+
 import { Button } from "@/components/ui/button";
 
 import { OpenLiveChat } from "@/utils/open-live-chat";
@@ -25,10 +27,14 @@ function LandingCTA02Section() {
             grow with your business. Start now and watch your revenue soar.
           </p>
           <div className="flex items-center max-lg:justify-center max-md:flex-col md:gap-4 gap-2 mt-8">
-            <Button className="cta-button h-[60px] md:px-6 group lg:hover:scale-105 rounded-full lg:hover:bg-primary-hover md:text-xl text-base lg:!animation-standard font-bold max-md:w-full">
-              Let&apos;s Get Started
-              <FaArrowRightLong className="group-hover:translate-x-[2px] animation-standard" />
-            </Button>
+            <DailogLeadForm
+              trigger={
+                <Button className="cta-button h-[60px] md:px-6 group lg:hover:scale-105 rounded-full lg:hover:bg-primary-hover md:text-xl text-base lg:!animation-standard font-bold max-md:w-full">
+                  Let&apos;s Get Started
+                  <FaArrowRightLong className="group-hover:translate-x-[2px] animation-standard" />
+                </Button>
+              }
+            />
 
             <Button
               onClick={OpenLiveChat}

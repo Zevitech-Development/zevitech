@@ -4,6 +4,8 @@ import React from "react";
 
 import { ProcessSectionContent } from "@/contents/landing-page-content";
 
+import DailogLeadForm from "@/forms/dailog-lead-form";
+
 import { Button } from "@/components/ui/button";
 
 import { OpenLiveChat } from "@/utils/open-live-chat";
@@ -67,10 +69,14 @@ function ProcessSection() {
           className="flex flex-col md:flex-row md:gap-4 gap-2
          items-center justify-center"
         >
-          <Button className="cta-button h-[60px] px-6 group lg:hover:scale-105 rounded-full lg:hover:bg-primary-hover md:text-xl text-base lg:!animation-standard font-bold max-md:w-full">
-            Let&apos;s Get Started
-            <FaArrowRightLong className="w-5 h-5 lg:group-hover:translate-x-[3px] animation-standard" />
-          </Button>
+          <DailogLeadForm
+            trigger={
+              <Button className="cta-button h-[60px] px-6 group lg:hover:scale-105 rounded-full lg:hover:bg-primary-hover md:text-xl text-base lg:!animation-standard font-bold max-md:w-full">
+                Let&apos;s Get Started
+                <FaArrowRightLong className="w-5 h-5 lg:group-hover:translate-x-[3px] animation-standard" />
+              </Button>
+            }
+          />
 
           <Button
             onClick={OpenLiveChat}

@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
+import DailogLeadForm from "@/forms/dailog-lead-form";
+
 import { OpenLiveChat } from "@/utils/open-live-chat";
 
 import AddCreaditSealIcon from "../../../public/icons/add-creadit-seal-icon.webp";
@@ -89,10 +91,14 @@ function ProcessSection() {
             </CardContent>
 
             <CardFooter className="gap-2 pt-6">
-              <Button className="h-[50px] bg-primary hover:bg-primary-hover md:px-8 px-4 py-4 rounded-full font-bold md:text-base text-sm !animation-standard flex items-center gap-2 group md:hover:scale-105 cta-button">
-                Let&apos;s Get Started
-                <FaArrowRightLong className="md:w-5 md:h-5 w-3 h-3 md:group-hover:translate-x-[3px] md:animation-standard" />
-              </Button>
+              <DailogLeadForm
+                trigger={
+                  <Button className="h-[50px] bg-primary hover:bg-primary-hover md:px-8 px-4 py-4 rounded-full font-bold md:text-base text-sm !animation-standard flex items-center gap-2 group md:hover:scale-105 cta-button">
+                    Let&apos;s Get Started
+                    <FaArrowRightLong className="md:w-5 md:h-5 w-3 h-3 md:group-hover:translate-x-[3px] md:animation-standard" />
+                  </Button>
+                }
+              />
 
               <Button
                 onClick={OpenLiveChat}

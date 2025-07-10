@@ -22,12 +22,19 @@ function ResultSection() {
 
       <div className="w-full grid lg:grid-cols-3 lg:grid-col-2 gap-8 lg:max-w-[80%] lg:mx-auto">
         {ResultSectionContent.map((result) => (
-          <Image
+          <a
             key={result.resultNo}
-            src={result.img}
-            alt={`Result No-${result.resultNo}`}
-            className="lg:w-[400px] md:w-[500px] w-full mx-auto lg:h-[500px] md:h-[600px] h-[450px] rounded-2xl shadow-lg animate-glow-blue animation-standard hover:scale-105 cursor-pointer"
-          />
+            href="https://www.trustpilot.com/review/zevitech.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block"
+          >
+            <Image
+              src={result.img}
+              alt={`Result No-${result.resultNo}`}
+              className="lg:w-[400px] md:w-[500px] w-full mx-auto lg:h-[500px] md:h-[600px] h-[450px] rounded-2xl shadow-lg animate-glow-blue animation-standard hover:scale-105 cursor-pointer"
+            />
+          </a>
         ))}
       </div>
     </section>

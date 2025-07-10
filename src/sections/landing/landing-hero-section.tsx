@@ -8,12 +8,13 @@ import DailogLeadForm from "@/forms/dailog-lead-form";
 
 import { Button } from "@/components/ui/button";
 
+import { OpenLiveChat } from "@/utils/open-live-chat";
+
 import LandingHeroImg from "../../../public/images/landing-hero-img.png";
 import { FaCheck, FaArrowRightLong } from "react-icons/fa6";
 import ClutchIOIcon from "../../../public/icons/clutch-io-icon.png";
 import TrustpilotIcon from "../../../public/icons/truspilot-icon.svg";
 import GoogleReviewsIcon from "../../../public/icons/google-reviews-icon.png";
-import { OpenLiveChat } from "@/utils/open-live-chat";
 
 function LandingHeroSection() {
   return (
