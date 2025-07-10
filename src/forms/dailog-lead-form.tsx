@@ -168,7 +168,7 @@ function DailogLeadForm({ trigger }: DailogLeadFormProps) {
               />
             </div>
 
-            <DialogFooter className="mt-8 flex items-center">
+            <DialogFooter className="mt-8 flex items-center md:flex-row flex-col gap-4">
               <Button
                 className={cn(
                   "w-full h-[60px] text-base !rounded-full hover:bg-primary-hover  bg-primary"
