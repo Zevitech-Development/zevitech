@@ -89,9 +89,9 @@ function ThankyouPage() {
           </div>
         </div>
         <p className="md:text-base text-sm text-center max-w-6xl text-white/80">
-          We've received your request and our team is already reviewing your
-          submission. Whether it's a mobile app, SaaS platform, custom website,
-          or a full-scale digital solution — we're excited to collaborate with
+          We&apos;ve received your request and our team is already reviewing your
+          submission. Whether it&apos;s a mobile app, SaaS platform, custom website,
+          or a full-scale digital solution — we&apos;re excited to collaborate with
           you. Expect a detailed response and next steps from our experts within
           the next 24 hours. Your project journey with Zevitech starts now.
         </p>
