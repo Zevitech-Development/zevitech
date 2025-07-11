@@ -1,6 +1,6 @@
 import React from "react";
 
-import LandingPage from "@/containers/landing-page";
+import LandingPage from "@/containers/business/landing-page";
 
 function Home() {
   return <LandingPage />;

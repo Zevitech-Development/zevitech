@@ -32,14 +32,16 @@ import CustomTextarea from "@/components/common/custom-textarea";
 import { cn } from "@/lib/utils";
 
 import { LoaderCircle } from "lucide-react";
-import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import { FaTimesCircle } from "react-icons/fa";
 import { FaCircleXmark } from "react-icons/fa6";
 import Logo from "../../public/favicons/logo-black.png";
+import { useRouter } from "next/navigation";
 
 function DailogLeadForm({ trigger }: DailogLeadFormProps) {
   const [loading, setLoading] = useState(false);
-
   const [system01, setSystem01] = useState("");
+
+  const router = useRouter();
 
   const form = useForm({
     resolver: zodResolver(DailogLeadFormSchema),
@@ -62,22 +64,18 @@ function DailogLeadForm({ trigger }: DailogLeadFormProps) {
     setLoading(true);
 
     try {
-      await SendDailogLeadFormEmail(data);
+      const emailSent = await SendDailogLeadFormEmail(data);
 
-      toast.success("Thank you! We've received your request.", {
-        description: "Our team will get back to you shortly.",
-        icon: <FaCheckCircle className="text-green-600" size={20} />,
-        duration: 5000,
-        style: {
-          border: "1px solid #d1fae5",
-          background: "#f0fdf4",
-          color: "#065f46",
-          boxShadow: "0 4px 14px rgba(0,0,0,0.08)",
-        },
-        className: "rounded-lg px-4 py-3 text-sm font-medium",
-      });
+      if (emailSent) {
+        sessionStorage.setItem("form_submitted", "true");
+        sessionStorage.setItem("submission_timestamp", Date.now().toString());
 
-      reset();
+        reset();
+
+        router.push("/thankyou");
+      } else {
+        throw new Error("Failed to send email");
+      }
     } catch (error) {
       if (error instanceof Error) {
         toast.error("Submission Failed", {
