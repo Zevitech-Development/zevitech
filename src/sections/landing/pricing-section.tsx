@@ -120,14 +120,13 @@
 
 
 
-"use client"
+"use client";
 import React, { useState } from "react";
 
 import { Check, X, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { Button } from "@/components/ui/button";
-
 
 import { cn } from "@/lib/utils";
 import DailogLeadForm from "@/forms/dailog-lead-form";
@@ -408,20 +407,20 @@ const FeatureComparisonTable: React.FC<{
 
   const allRows = featuresData.flatMap((section) =>
     section.items.map((item) => ({
-      type: 'feature',
+      type: "feature",
       name: item.name,
       isCategory: false,
-      data: item
+      data: item,
     }))
   );
 
-  const [direction, setDirection] = useState<'forward' | 'backward'>('forward');
+  const [direction, setDirection] = useState<"forward" | "backward">("forward");
 
   const nextPackage = () => {
     setCurrentPackageIndex((prev) => {
       const nextIndex = prev + 1;
       if (nextIndex >= packages.length) {
-        setDirection('backward');
+        setDirection("backward");
         return prev - 1;
       }
       return nextIndex;
@@ -432,7 +431,7 @@ const FeatureComparisonTable: React.FC<{
     setCurrentPackageIndex((prev) => {
       const prevIndex = prev - 1;
       if (prevIndex < 0) {
-        setDirection('forward');
+        setDirection("forward");
         return prev + 1;
       }
       return prevIndex;
@@ -440,7 +439,7 @@ const FeatureComparisonTable: React.FC<{
   };
 
   const handleNavigation = () => {
-    if (direction === 'forward') {
+    if (direction === "forward") {
       nextPackage();
     } else {
       prevPackage();
@@ -457,15 +456,21 @@ const FeatureComparisonTable: React.FC<{
       <div className="md:hidden">
         <motion.button
           onClick={handleNavigation}
-          className="absolute right-4 top-11 z-20 bg-white border border-gray-300 rounded-full p-3 shadow-lg hover:bg-gray-50 hover:shadow-xl transition-all duration-200"
+          className="absolute right-2 sm:right-4 top-11 z-20 bg-white border border-gray-300 rounded-full p-2 sm:p-3 shadow-lg hover:bg-gray-50 hover:shadow-xl transition-all duration-200"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
           <AnimatePresence mode="wait">
             <motion.div
               key={direction}
-              initial={{ opacity: 0, rotate: direction === 'backward' ? 180 : 0 }}
-              animate={{ opacity: 1, rotate: direction === 'backward' ? 180 : 0 }}
+              initial={{
+                opacity: 0,
+                rotate: direction === "backward" ? 180 : 0,
+              }}
+              animate={{
+                opacity: 1,
+                rotate: direction === "backward" ? 180 : 0,
+              }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
@@ -475,19 +480,18 @@ const FeatureComparisonTable: React.FC<{
         </motion.button>
       </div>
 
-      <div className="bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden w-full transition-all duration-300 ease-in-out">
+      <div className="bg-white rounded-xl overflow-hidden shadow-xl border border-gray-200 w-full transition-all duration-300 ease-in-out">
         {/* Main Grid Container */}
         <div className="w-full">
-
           {/* Header Row */}
-          <div className="grid grid-cols-[minmax(200px,1fr)_minmax(180px,1fr)] md:grid-cols-[minmax(250px,300px)_repeat(4,minmax(180px,1fr))] w-full border-b border-gray-200">
+          <div className="grid grid-cols-[minmax(160px,1fr)_minmax(160px,1fr)] md:grid-cols-[minmax(250px,300px)_repeat(4,minmax(180px,1fr))] w-full border-b border-gray-200">
             {/* Features Header */}
-            <div className="flex items-center justify-center h-16 md:h-20 lg:h-24 bg-primary text-white font-bold text-base md:text-lg border-r border-gray-200">
+            <div className="flex items-center justify-center h-[90px] lg:h-24 bg-primary text-white font-bold text-base md:text-lg border-r border-gray-200">
               Features
             </div>
 
             {/* Package Headers - Mobile: Show only current package, Desktop: Show all */}
-            <div className="md:hidden relative flex flex-col items-center justify-center h-16 border-r border-gray-200 last:border-r-0 bg-gray-50 text-gray-900 overflow-hidden">
+            <div className="md:hidden relative flex flex-col items-center justify-center h-[90px] border-r border-gray-200 last:border-r-0 bg-gray-50 text-gray-900">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentPackageIndex}
@@ -502,7 +506,7 @@ const FeatureComparisonTable: React.FC<{
                       initial={{ scale: 0, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
                       transition={{ delay: 0.2, duration: 0.3 }}
-                      className="absolute -top-1 -right-1 px-1.5 py-0.5 text-[10px] font-bold bg-primary text-white rounded-bl-lg rounded-tr-lg shadow-sm"
+                      className="absolute -top-1 px-1.5 py-1 text-[10px] font-bold bg-primary text-white rounded-bl-lg rounded-tr-lg shadow-sm"
                     >
                       {currentPackage.badge}
                     </motion.span>
@@ -511,7 +515,7 @@ const FeatureComparisonTable: React.FC<{
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.1, duration: 0.3 }}
-                    className="text-sm font-bold text-center px-2"
+                    className="text-sm font-bold text-center px-2 mt-2"
                   >
                     {currentPackage.name}
                   </motion.h3>
@@ -532,7 +536,7 @@ const FeatureComparisonTable: React.FC<{
               <div
                 key={pkg.id}
                 className={cn(
-                  "hidden md:flex relative flex-col items-center justify-center h-20 lg:h-24 border-r border-gray-200 last:border-r-0",
+                  "hidden md:flex relative flex-col items-center justify-center h-[90px] lg:h-24 border-r border-gray-200 last:border-r-0",
                   pkg.highlight
                     ? "bg-gray-800 text-white"
                     : "bg-gray-50 text-gray-900"
@@ -541,7 +545,7 @@ const FeatureComparisonTable: React.FC<{
                 {pkg.badge && (
                   <span
                     className={cn(
-                      "absolute top-0 right-0 px-2 py-1 text-xs font-semibold",
+                      "absolute top-0 right-0 px-2 py-1 lg:py-1 text-xs font-semibold",
                       pkg.highlight
                         ? "bg-emerald-500 text-white"
                         : "bg-primary text-white"
@@ -553,7 +557,7 @@ const FeatureComparisonTable: React.FC<{
                     {pkg.badge}
                   </span>
                 )}
-                <h3 className="text-sm lg:text-base font-bold text-center px-2">
+                <h3 className="text-sm lg:text-base font-bold text-center px-2 mt-3">
                   {pkg.name}
                 </h3>
                 <p className="text-lg lg:text-xl font-extrabold mt-1">
@@ -566,7 +570,6 @@ const FeatureComparisonTable: React.FC<{
           {/* Scrollable Content Area */}
           <div className="overflow-x-auto w-full">
             <div className="min-w-full">
-
               {/* All Rows (Categories + Features) */}
               {allRows.map((row, index) => {
                 if (row.isCategory) {
@@ -576,8 +579,6 @@ const FeatureComparisonTable: React.FC<{
                       key={`category-${index}`}
                       className="grid grid-cols-[minmax(200px,1fr)_minmax(180px,1fr)] md:grid-cols-[minmax(250px,300px)_repeat(4,minmax(180px,1fr))] w-full border-b border-gray-200 bg-gray-50"
                     >
-
-
                       {/* Mobile: Empty cell for current package */}
                       <div className="md:hidden py-4 border-r border-gray-200 bg-gray-50" />
 
@@ -596,7 +597,7 @@ const FeatureComparisonTable: React.FC<{
                     <div
                       key={`feature-${index}`}
                       className={cn(
-                        "grid grid-cols-[minmax(200px,1fr)_minmax(180px,1fr)] md:grid-cols-[minmax(250px,300px)_repeat(4,minmax(180px,1fr))] w-full border-b border-gray-200 hover:bg-gray-50/50 transition-colors",
+                        "grid grid-cols-[minmax(160px,1fr)_minmax(160px,1fr)] md:grid-cols-[minmax(250px,300px)_repeat(4,minmax(180px,1fr))] w-full border-b border-gray-200 hover:bg-gray-50/50 transition-colors",
                         index === allRows.length - 1 && "border-b-0"
                       )}
                     >
@@ -617,10 +618,9 @@ const FeatureComparisonTable: React.FC<{
                           >
                             <FeatureValueDisplay
                               value={
-                                row.data[currentPackage.id as keyof typeof row.data] as
-                                | boolean
-                                | string
-                                | number
+                                row.data[
+                                  currentPackage.id as keyof typeof row.data
+                                ] as boolean | string | number
                               }
                             />
                           </motion.div>
@@ -636,9 +636,9 @@ const FeatureComparisonTable: React.FC<{
                           <FeatureValueDisplay
                             value={
                               row.data[pkg.id as keyof typeof row.data] as
-                              | boolean
-                              | string
-                              | number
+                                | boolean
+                                | string
+                                | number
                             }
                           />
                         </div>
@@ -649,7 +649,7 @@ const FeatureComparisonTable: React.FC<{
               })}
 
               {/* Call-to-Action Row */}
-              <div className="grid grid-cols-[minmax(200px,1fr)_minmax(180px,1fr)] md:grid-cols-[minmax(250px,300px)_repeat(4,minmax(180px,1fr))] w-full bg-gray-50 border-t-2 border-gray-200">
+              <div className="grid grid-cols-[minmax(160px,1fr)_minmax(160px,1fr)] md:grid-cols-[minmax(250px,300px)_repeat(4,minmax(180px,1fr))] w-full bg-gray-50 border-t-2 border-gray-200">
                 {/* Empty cell for features column */}
                 <div className="py-4 md:py-6 px-3 md:px-4 border-r border-gray-200 flex items-center justify-center">
                   <span className="text-gray-600 font-semibold text-sm md:text-lg">
@@ -663,7 +663,7 @@ const FeatureComparisonTable: React.FC<{
                     trigger={
                       <Button className="h-[50px] bg-primary hover:bg-primary-hover md:px-8 px-4 py-4 rounded-full font-bold md:text-base text-sm !animation-standard flex items-center gap-2 group md:hover:scale-105 cta-button">
                         Let&apos;s Get Started
-                        <FaArrowRightLong className="md:w-5 md:h-5 w-3 h-3 md:group-hover:translate-x-[3px] md:animation-standard" />
+                        <FaArrowRightLong className="hidden sm:block md:w-5 md:h-5 w-3 h-3 md:group-hover:translate-x-[3px] md:animation-standard" />
                       </Button>
                     }
                   />
@@ -677,16 +677,15 @@ const FeatureComparisonTable: React.FC<{
                   >
                     <DailogLeadForm
                       trigger={
-                        <Button className="h-[50px] bg-primary hover:bg-primary-hover md:px-8 px-4 py-4 rounded-full font-bold md:text-base text-sm !animation-standard flex items-center gap-2 group md:hover:scale-105 cta-button">
+                        <Button className="h-[50px] bg-primary hover:bg-primary-hover md:px-8 px-4 py-4 rounded-full font-bold xl:text-base text-sm !animation-standard flex items-center gap-2 group md:hover:scale-105 cta-button">
                           Let&apos;s Get Started
-                          <FaArrowRightLong className="md:w-5 md:h-5 w-3 h-3 md:group-hover:translate-x-[3px] md:animation-standard" />
+                          <FaArrowRightLong className="hidden xl:block lg:w-5 lg:h-5 w-3 h-3 md:group-hover:translate-x-[3px] md:animation-standard" />
                         </Button>
                       }
                     />
                   </div>
                 ))}
               </div>
-
             </div>
           </div>
         </div>

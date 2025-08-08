@@ -27,9 +27,13 @@ function BusinessHeader() {
 
         {/* DESKTOP HEADER */}
         <div className="md:flex hidden items-center gap-3">
-          <a href="tel:+13022176872">
+          <a
+            href="https://wa.me/13022190703?text=Hello%20I%20am%20interested%20in%20your%20services"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Button className="cta-button bg-transparent border-4 border-primary text-primary-foreground text-lg h-[48px] font-bold rounded-full px-6 hover:bg-primary hover:scale-105 !animation-standard">
-              <IoCall /> Call Us
+              <IoCall /> What&apos;sapp Now
             </Button>
           </a>
 

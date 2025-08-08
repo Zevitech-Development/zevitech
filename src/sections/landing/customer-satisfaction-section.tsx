@@ -8,7 +8,8 @@ import CustomerSatisfactionLogo03 from "../../../public/images/customer-satisfac
 import CustomerSatisfactionLogo04 from "../../../public/images/customer-satisfaction-logo-04.svg";
 import CustomerSatisfactionLogo05 from "../../../public/images/customer-satisfaction-logo-05.svg";
 import TrustpilotIcon from "../../../public/icons/trustpilot-footer-icon.png";
-import CertificateFooterIcon from "../../../public/icons/certificate-footer-icon.png";
+// import CertificateFooterIcon from "../../../public/icons/certificate-footer-icon.png";
+import CertificateFooterIcon02 from "../../../public/icons/certificate-footer-icon-02.png";
 
 function CustomerSatisfactionSection() {
   return (
@@ -75,9 +76,9 @@ function CustomerSatisfactionSection() {
         </Link>
 
         <Image
-          src={CertificateFooterIcon}
+          src={CertificateFooterIcon02}
           alt="Certificate Logos"
-          width={250}
+          width={230}
         />
 
         <div className="flex flex-col max-lg:text-center">
