@@ -275,7 +275,7 @@ const featuresData = [
         brand: true,
       },
       {
-        name: "Premium Apps Integration (Reviews, Upsells, etc.)",
+        name: "Premium Apps Integration ",
         basic: false,
         business: false,
         pro: true,
@@ -332,13 +332,6 @@ const featuresData = [
       },
       {
         name: "Store Speed Optimization",
-        basic: false,
-        business: false,
-        pro: false,
-        brand: true,
-      },
-      {
-        name: "Funnel / Upsell Setup",
         basic: false,
         business: false,
         pro: false,
