@@ -1,10 +1,5 @@
+import { EmailRegex, HiddenCharacterRegex, StringRegex } from "@/constants/regex-formats";
 import { z } from "zod";
-
-import {
-  EmailRegex,
-  HiddenCharacterRegex,
-  StringRegex,
-} from "@/constants/regex-formats";
 
 export const StrictStringValidator = (field: string) =>
   z

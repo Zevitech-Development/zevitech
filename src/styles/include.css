@@ -1,33 +1,235 @@
-.image-hover-animation {
-  transition: transform 0.6s ease;
+/* CALL TO ACTION BUTTONS */
+.cta-button-01 {
+  --h-button: 48px;
+  --w-button: 102px;
+  --round: 0.75rem;
+  cursor: pointer;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: all 0.25s ease;
+  background: radial-gradient(
+      65.28% 65.28% at 50% 100%,
+      rgba(0, 122, 252, 0.8) 0%,
+      rgba(0, 122, 252, 0) 100%
+    ),
+    linear-gradient(0deg, #007afc, #007afc);
+  border-radius: var(--round);
+  border: none;
+  outline: none;
+  padding: 12px 18px;
 }
 
-.image-hover-animation:hover {
-  transform: scale(1.05) rotate(1deg);
+.cta-button-01::before,
+.cta-button-01::after {
+  content: "";
+  position: absolute;
+  inset: var(--space);
+  transition: all 0.5s ease-in-out;
+  border-radius: calc(var(--round) - var(--space));
+  z-index: 0;
 }
 
-.package-tag-clip-path {
-  clip-path: polygon(100% 0, 95% 50%, 100% 100%, 0% 100%, 5% 50%, 0% 0%);
+.cta-button-01::before {
+  --space: 1px;
+
+  background: linear-gradient(
+    177.95deg,
+    rgba(255, 255, 255, 0.19) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
 }
 
-@keyframes shine {
-  0% {
-    left: -100%;
-  }
-  50% {
-    left: 100%;
-  }
-  100% {
-    left: 100%;
-  }
+.cta-button-01::after {
+  --space: 2px;
+
+  background: radial-gradient(
+      65.28% 65.28% at 50% 100%,
+      rgba(0, 122, 252, 0.8) 0%,
+      rgba(0, 122, 252, 0) 100%
+    ),
+    linear-gradient(0deg, #007afc, #007afc);
 }
 
-.cta-button {
+.cta-button-01:active {
+  transform: scale(0.95);
+}
+
+.cta-button-01-fold {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 1rem;
+  width: 1rem;
+  display: inline-block;
+  transition: all 0.5s ease-in-out;
+  background: radial-gradient(
+    100% 75% at 55%,
+    rgba(0, 122, 252, 0.8) 0%,
+    rgba(0, 122, 252, 0) 100%
+  );
+  box-shadow: 0 0 3px black;
+  border-bottom-left-radius: 0.5rem;
+  border-top-right-radius: var(--round);
+}
+
+.cta-button-01-fold::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 150%;
+  height: 150%;
+  transform: rotate(45deg) translateX(0%) translateY(-18px);
+  background-color: #e8e8e8;
+  pointer-events: none;
+}
+
+.cta-button-01:hover .cta-button-01-fold {
+  margin-top: -1rem;
+  margin-right: -1rem;
+}
+
+.cta-button-01-points-wrapper {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.cta-button-01-points-wrapper .cta-button-01-point {
+  bottom: -10px;
+  position: absolute;
+  animation: floating-points infinite ease-in-out;
+  pointer-events: none;
+  width: 2px;
+  height: 2px;
+  background-color: #fff;
+  border-radius: 9999px;
+}
+
+.cta-button-01-points-wrapper .cta-button-01-point:nth-child(1) {
+  left: 10%;
+  opacity: 1;
+  animation-duration: 2.35s;
+  animation-delay: 0.2s;
+}
+
+.cta-button-01-points-wrapper .cta-button-01-point:nth-child(2) {
+  left: 30%;
+  opacity: 0.7;
+  animation-duration: 2.5s;
+  animation-delay: 0.5s;
+}
+
+.cta-button-01-points-wrapper .cta-button-01-point:nth-child(3) {
+  left: 25%;
+  opacity: 0.8;
+  animation-duration: 2.2s;
+  animation-delay: 0.1s;
+}
+
+.cta-button-01-points-wrapper .cta-button-01-point:nth-child(4) {
+  left: 44%;
+  opacity: 0.6;
+  animation-duration: 2.05s;
+}
+
+.cta-button-01-points-wrapper .cta-button-01-point:nth-child(5) {
+  left: 50%;
+  opacity: 1;
+  animation-duration: 1.9s;
+}
+
+.cta-button-01-points-wrapper .cta-button-01-point:nth-child(6) {
+  left: 75%;
+  opacity: 0.5;
+  animation-duration: 1.5s;
+  animation-delay: 1.5s;
+}
+
+.cta-button-01-points-wrapper .cta-button-01-point:nth-child(7) {
+  left: 88%;
+  opacity: 0.9;
+  animation-duration: 2.2s;
+  animation-delay: 0.2s;
+}
+
+.cta-button-01-points-wrapper .cta-button-01-point:nth-child(8) {
+  left: 58%;
+  opacity: 0.8;
+  animation-duration: 2.25s;
+  animation-delay: 0.2s;
+}
+
+.cta-button-01-points-wrapper .cta-button-01-point:nth-child(9) {
+  left: 98%;
+  opacity: 0.6;
+  animation-duration: 2.6s;
+  animation-delay: 0.1s;
+}
+
+.cta-button-01-points-wrapper .cta-button-01-point:nth-child(10) {
+  left: 65%;
+  opacity: 1;
+  animation-duration: 2.5s;
+  animation-delay: 0.2s;
+}
+
+.cta-button-01-inner {
+  z-index: 2;
+  gap: 6px;
+  position: relative;
+  width: 100%;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  transition: color 0.2s ease-in-out;
+}
+
+.cta-button-01-inner svg.cta-button-01-icon {
+  width: 18px;
+  height: 18px;
+  transition: fill 0.1s linear;
+}
+
+.cta-button-01:focus svg.cta-button-01-icon {
+  fill: white;
+}
+
+.cta-button-01:hover svg.cta-button-01-icon {
+  fill: transparent;
+  animation: dasharray 1s linear forwards, filled 0.1s linear forwards 0.95s;
+}
+
+.cta-button-02 {
+  border: 4px solid transparent;
   position: relative;
   overflow: hidden;
+  font-size: 1rem !important;
+  line-height: 1.5rem !important;
+  height: 50px !important;
+  border-radius: 9999px !important;
+  font-weight: 600 !important;
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+  transition: all 0.3s ease-in-out !important;
 }
 
-.cta-button::after {
+.cta-button-02:hover {
+  transform: scale(1.05) !important;
+}
+
+.cta-button-02::after {
   content: "";
   position: absolute;
   top: 0;
@@ -38,6 +240,9 @@
   transform: skewX(-20deg);
   animation: shine 2s linear infinite;
 }
+
+
+
 
 .custom-scrollbar::-webkit-scrollbar {
   width: 8px;
@@ -62,24 +267,4 @@
 .custom-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: #96bf48 transparent;
-}
-
-@keyframes loader {
-  100% {
-    transform: rotate(1turn);
-  }
-}
-
-.loader-ui {
-  width: 50px;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(farthest-side, #007afc 94%, #0000) top/8px 8px
-      no-repeat,
-    conic-gradient(#0000 30%, #007afc);
-
-  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
-  mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
-  will-change: transform;
-  animation: loader 1s infinite linear;
 }

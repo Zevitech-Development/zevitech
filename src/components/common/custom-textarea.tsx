@@ -1,12 +1,12 @@
 import React from "react";
 import { FieldValues } from "react-hook-form";
 
-import { CustomTextareaInterface } from "@/interfaces/common-interfaces";
 
 import { FormControl, FormField, FormItem, FormMessage } from "../ui/form";
 import { Textarea } from "../ui/textarea";
 
 import { cn } from "@/lib/utils";
+import { CustomTextareaInterface } from "@/interfaces/common-interfaces";
 
 const CustomTextarea = <T extends FieldValues>({
   control,

@@ -6,10 +6,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import Image from "next/image";
 
-import {
-  DailogLeadFormProps,
-  DailogLeadFormType,
-} from "@/interfaces/forms-interface";
+
 import { DailogLeadFormSchema } from "@/schemas/dailog-lead-form-schema";
 
 import { SendDailogLeadFormEmail } from "@/services/email-service";
@@ -25,9 +22,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import CustomSystemField from "@/components/common/custom-system-field";
-import CustomInput from "@/components/common/custom-input";
-import CustomTextarea from "@/components/common/custom-textarea";
+
 
 import { cn } from "@/lib/utils";
 
@@ -36,6 +31,11 @@ import { FaTimesCircle } from "react-icons/fa";
 import { FaCircleXmark } from "react-icons/fa6";
 import Logo from "../../public/favicons/logo-black.png";
 import { useRouter } from "next/navigation";
+import { DailogLeadFormProps, DailogLeadFormType } from "@/interfaces/forms-interface";
+import CustomSystemField from "@/components/common/custom-system-field";
+import CustomInput from "@/components/common/custom-input";
+import CustomTextarea from "@/components/common/custom-textarea";
+import CustomSelect from "@/components/common/custome-select";
 
 function DailogLeadForm({ trigger }: DailogLeadFormProps) {
   const [loading, setLoading] = useState(false);
@@ -49,6 +49,7 @@ function DailogLeadForm({ trigger }: DailogLeadFormProps) {
       name: "",
       emailAddress: "",
       phoneNumber: "",
+      services: "",
       information: "",
     },
   });
@@ -101,11 +102,22 @@ function DailogLeadForm({ trigger }: DailogLeadFormProps) {
     }
   };
 
+  const servicesOptions = [
+    { value: "shopify-design", label: "Shopify Store Design" },
+    { value: "logo-design", label: "Logo Design" },
+    { value: "animated-logo", label: "Animated Logo Design" },
+    { value: "web-development", label: "Web Development" },
+    { value: "mobile-app", label: "Mobile App Development" },
+    { value: "ui-ux-design", label: "UI/UX Design" },
+    { value: "digital-marketing", label: "Digital Marketing" },
+    { value: "seo", label: "SEO Services" },
+    { value: "other", label: "Other" },
+  ];
+
   return (
     <Dialog>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-
-      <DialogContent className="bg-white md:max-h-[650px] md:h-full max-md:w-[90%] max-md:max-h-[600px] max-md:h-[90%] max-w-[800px] overflow-auto !rounded-2xl border-2">
+      <DialogContent className="bg-white md:max-h-[700px] md:h-full max-md:w-[90%] max-md:max-h-[600px] max-md:h-[90%] max-w-[800px] overflow-auto !rounded-2xl border-2">
         {/* DAILOG HEADER */}
         <DialogHeader className="flex flex-col gap-4">
           <div className="flex-center">
@@ -157,6 +169,16 @@ function DailogLeadForm({ trigger }: DailogLeadFormProps) {
                 placeholder="Email Address"
                 className="border-border focus:border-none"
               />
+
+              <CustomSelect
+                control={control}
+                name="services"
+                placeholder="Select a service"
+                options={servicesOptions}
+                className="border-border focus:border-none"
+              />
+
+
 
               <CustomTextarea
                 control={control}

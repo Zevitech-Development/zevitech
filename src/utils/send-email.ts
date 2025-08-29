@@ -1,4 +1,4 @@
-import { SendEmailInterface } from "@/interfaces/utils-interfaces";
+import { SendEmailInterface } from "../interfaces/utils-interfaces";
 
 export const SendEmail = async (
   params: SendEmailInterface

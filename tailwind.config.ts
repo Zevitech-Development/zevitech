@@ -5,15 +5,13 @@ import { PluginAPI } from "tailwindcss/types/config";
 import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
-  darkMode: ["class"],
   content: [
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/containers/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/sections/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/elements/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-
   theme: {
     extend: {
       colors: {
@@ -39,6 +37,11 @@ export default {
           DEFAULT: "var(--secondary)",
           foreground: "var(--secondary-foreground)",
           hover: "var(--secondary-hover)",
+        },
+        tertiary: {
+          DEFAULT: "var(--tertiary)",
+          foreground: "var(--tertiary-foreground)",
+          hover: "var(--tertiary-hover)",
         },
         muted: {
           DEFAULT: "var(--muted)",
@@ -67,7 +70,18 @@ export default {
         body: ["var(--font-inter)", "sans-serif"],
       },
       backgroundImage: {
-        pattern: `url('/images/pattern-img.webp')`,
+        pattern: "url('/images/pattern-img.webp')",
+        "home-hero": "url('/images/hero-bg.jpg')",
+        "editing-banner": "url('/images/video-editing-hero-img.jpg')",
+        "cta01-banner": "url('/images/video-editing-cta-banner.jpg')",
+        "video-cta-banner": "url('/images/video-software-cta-banner.webp')",
+        "process-vector": "url('/images/process-vector-img.webp')",
+        CTA: "url('/images/home-page-cta.png')",
+        CTA2: "url('/images/home-page-cta-02.png')",
+        "home-page-contact": "url('/images/home-page-contact-img.jpg')",
+        "home-cta": "url('/images/home-cta-banner.jpg')",
+        "campaign-cta": "url('/images/campaign-cta-img.jpg')",
+        "about-cta": "url('/images/about-us/about-cta-banner.jpg')",
       },
       screens: {
         xs: "400px",
@@ -77,6 +91,7 @@ export default {
         xl: "1440px",
         "2xl": "1536px",
       },
+
       keyframes: {
         "accordion-down": {
           from: {
@@ -94,19 +109,33 @@ export default {
             height: "0",
           },
         },
-        "glow-blue": {
-          "0%, 100%": {
-            boxShadow: "0 0 4px #007afc33, 0 0 8px #007afc22",
+        spotlight: {
+          "0%": {
+            opacity: "0",
+            transform: "translate(-50%, -40%) rotate(0deg)",
+          },
+          "20%": {
+            opacity: "1",
+            transform: "translate(-50%, -40%) rotate(0deg)",
           },
           "50%": {
-            boxShadow: "0 0 8px #007afc55, 0 0 16px #007afc33",
+            transform: "translate(-50%, -40%) rotate(3deg)",
+          },
+          "100%": {
+            transform: "translate(-50%, -40%) rotate(-3deg)",
+          },
+        },
+        spinY: {
+          "100%": {
+            transform: "rotateY(360deg)",
           },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "glow-blue": "glow-blue 5s ease-in-out infinite",
+        spotlight: "spotlight 5s ease-in-out infinite",
+        spinY: "spinY 2s ease-in-out infinite",
       },
     },
   },
@@ -122,13 +151,13 @@ export default {
         },
 
         ".page-layout-standard": {
-          maxWidth: "1536px",
-          width: "90%",
-          marginLeft: "auto",
-          marginRight: "auto",
           display: "flex",
           flexDirection: "column",
-          gap: "2rem",
+          gap: "4rem",
+        },
+
+        ".hero-section-layout-standard": {
+          paddingTop: "7rem",
         },
 
         ".section-padding-standard": {

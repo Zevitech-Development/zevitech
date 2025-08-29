@@ -15,3 +15,9 @@ export interface ReviewCardInterface {
   ReviewsQuote: string;
   className?: string;
 }
+
+
+export type SpotlightProps = {
+  className?: string;
+  fill?: string;
+};

@@ -1,6 +1,6 @@
+import { CustomSystemFieldInterface } from "@/interfaces/common-interfaces";
 import React from "react";
 
-import { CustomSystemFieldInterface } from "@/interfaces/common-interfaces";
 
 const CustomSystemField: React.FC<CustomSystemFieldInterface> = ({
   value,

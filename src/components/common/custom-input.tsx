@@ -1,12 +1,12 @@
 import React from "react";
 import { FieldValues } from "react-hook-form";
 
-import { CustomInputInterface } from "@/interfaces/common-interfaces";
 
 import { FormControl, FormField, FormItem, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 
 import { cn } from "@/lib/utils";
+import { CustomInputInterface } from "@/interfaces/common-interfaces";
 
 const CustomInput = <T extends FieldValues>({
   control,

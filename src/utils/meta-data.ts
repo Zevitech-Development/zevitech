@@ -6,7 +6,7 @@ export const defaultMetadata: Metadata = {
   title:
     "Zevitech - Custom Software, App Development & Digital Transformation Agency",
   description:
-    "Zevitech is a full-spectrum digital solutions agency delivering mobile apps, web platforms, custom software, SaaS products, UI/UX design, eCommerce (Shopify, WordPress), digital marketing, SEO, automation, and scalable branding strategies — all in one place.",
+    "Zevitech is a full-spectrum digital solutions agency delivering mobile apps, web platforms, custom software, SaaS products, UI/UX design, eCommerce (Custom, Shopify, WordPress), digital marketing, SEO, automation, and scalable branding strategies — all in one place.",
   creator: "Zevitech",
   applicationName: "Zevitech",
 
@@ -18,20 +18,25 @@ export const defaultMetadata: Metadata = {
         url: "/favicons/logo-512x512.png",
         sizes: "512x512",
       },
+
       {
         rel: "icon",
         type: "image/png",
         url: "/favicons/logo-192x192.png",
         sizes: "192x192",
       },
+
       {
         rel: "icon",
         type: "image/png",
         url: "/favicons/logo-96x96.png",
         sizes: "96x96",
       },
+
       { rel: "icon", type: "image/svg+xml", url: "/favicons/short-logo.svg" },
+
       { rel: "icon", type: "image/x-icon", url: "/favicons/favicon.ico" },
+
       {
         rel: "shortcut icon",
         type: "image/png",
@@ -92,6 +97,7 @@ export function GetPageMetadata(overrides: Partial<Metadata> = {}): Metadata {
       description:
         overrides.description || defaultMetadata.openGraph?.description,
     },
+
     twitter: {
       ...defaultMetadata.twitter,
       ...overrides.twitter,

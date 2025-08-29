@@ -1,16 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import Script from "next/script";
-
-import { Toaster } from "@/components/ui/sonner";
-
+import { Toaster } from "@/components/ui/sonner"
 import { GetPageMetadata } from "@/utils/meta-data";
 
 // STYLE SHEETS SOURCE
 import "../styles/globals.css";
 import "../styles/include.css";
-import "swiper/css";
-import "swiper/css/autoplay";
+import "../styles/animation.css";
+import Script from "next/script";
 
 // FONT CONFIGURATIONS
 const inter = Inter({
@@ -35,26 +32,29 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body suppressHydrationWarning className={`${inter.variable}`}>
-        {/* Google Tag (gtag.js) */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-4V3XW7Q5EG"
-          strategy="afterInteractive"
-        />
+    <html lang="en" suppressHydrationWarning>
 
-        <Script id="google-gtag" strategy="afterInteractive">
-          {`
+     
+
+
+      <body suppressHydrationWarning className={`${inter.variable}`}>
+
+         <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-4V3XW7Q5EG"
+        strategy="afterInteractive"
+      />
+
+      <Script id="google-gtag" strategy="afterInteractive">
+        {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-4V3XW7Q5EG');
           `}
-        </Script>
+      </Script>
 
-        {/* LiveChat Widget */}
-        <Script id="livechat-widget" strategy="afterInteractive">
-          {`
+      <Script id="livechat-widget" strategy="afterInteractive">
+        {`
     window.__lc = window.__lc || {};
     window.__lc.license = 19229942;
     window.__lc.integration_name = "manual_channels";
@@ -88,10 +88,9 @@ export default function RootLayout({
       n.LiveChatWidget = n.LiveChatWidget || e;
     })(window, document, [].slice);
   `}
-        </Script>
+      </Script>
 
-        {/* LiveChat Noscript Fallback */}
-        <noscript>
+       <noscript>
           <a href="https://www.livechat.com/chat-with/19229942/" rel="nofollow">
             Chat with us
           </a>
@@ -104,7 +103,6 @@ export default function RootLayout({
             LiveChat
           </a>
         </noscript>
-
         {children}
         <Toaster />
       </body>

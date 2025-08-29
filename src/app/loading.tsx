@@ -1,6 +1,6 @@
 import React from "react";
 
-import LoadingPage from "@/containers/extras/loading-page";
+import LoadingPage from "@/containers/extra/loading-page";
 
 function Loading() {
   return <LoadingPage />;

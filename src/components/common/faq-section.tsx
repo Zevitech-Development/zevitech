@@ -1,7 +1,4 @@
 import React from "react";
-import Image from "next/image";
-
-import { FaqSectionContent } from "@/contents/common-components-content";
 
 import {
   Accordion,
@@ -9,34 +6,58 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { FaqSectionProps } from "@/interfaces/common-interfaces";
 
-import FaqSectionImg from "../../../public/images/faq-section-img.png";
-
-function FaqSection() {
+const FaqSection = ({ faqs }: FaqSectionProps) => {
   return (
-    <section className="layout-standard pb-12 overflow-hidden grid grid-cols-1 md:grid-cols-2">
-      <div className="flex-center">
-        <Image className="w-[400px]" src={FaqSectionImg} alt="Our Faq" />
-      </div>
+    <>
+      <section className="layout-standard flex flex-col gap-8 sm:gap-12 section-padding-standard py-14 md:py-20">
+        <div className="text-center flex flex-col items-center gap-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold font-heading text-blue-heading tracking-wider">
+            <span className="text-primary">Frequently</span> Asked Questions
+          </h2>
+          <p className="text-base lg:text-lg text-paragraph font-inter font-medium max-w-3xl">
+            Explore our frequently asked questions to find quick solutions and
+            helpful information about our services, processes, and support.
+            Still need help? Don&apos;t hesitate to reach out — we&apos;re here
+            for you.
+          </p>
+        </div>
 
-      <div className="flex flex-col justify-center">
-        {FaqSectionContent.map((data, index) => (
-          <div key={index}>
-            <Accordion className="w-full" type="single" collapsible>
-              <AccordionItem className="group" value="item-1">
-                <AccordionTrigger className="md:text-lg text-base font-medium text-heading group-hover:no-underline">
-                  {data.faqHeader}
+        <div className="relative z-10">
+          {/* Wrap all items inside a single Accordion */}
+          <Accordion type="single" collapsible className="w-full">
+            {faqs?.map((faq, index) => (
+              <AccordionItem key={index} value={`item-${index}`}>
+                <AccordionTrigger className="text-base md:text-lg xl:text-xl text-heading font-inter font-bold hover:no-underline py-5">
+                  {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="md:text-base text-sm">
-                  {data.faqContent}
+                <AccordionContent className="text-paragraph flex flex-col gap-5">
+                  <p className="text-base font-inter font-medium">
+                    {faq.answer}
+                  </p>
+
+                  {faq.list && faq.list.length > 0 && (
+                    <div>
+                      {faq.list.map((data, listIndex) => (
+                        <div
+                          key={listIndex}
+                          className="flex items-center gap-3 mb-3"
+                        >
+                          <div className="w-[5px] h-[5px] rounded-full bg-black/70" />
+                          <p className="text-paragraph text-base">{data}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </AccordionContent>
               </AccordionItem>
-            </Accordion>
-          </div>
-        ))}
-      </div>
-    </section>
+            ))}
+          </Accordion>
+        </div>
+      </section>
+    </>
   );
-}
+};
 
 export default FaqSection;

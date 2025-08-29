@@ -21,16 +21,20 @@
     --primary-foreground: #ffffff;
     --primary-hover: #0063c7;
 
-    --secondary: #96bf48;
+    --secondary: #000000;
     --secondary-foreground: #ffffff;
-    --secondary-hover: #7ea13c;
+    --secondary-hover: #333333;
+
+    --tertiary: #96bf48;
+    --tertiary-foreground: #ffffff;
+    --tertiary-hover: #7ea13c;
 
     --muted: #eeeeee;
     --muted-foreground: #666666;
     --muted-hover: #dddddd;
 
-    --accent: #f4b400;
-    --accent-foreground: #1a1a1a;
+    --accent: #ff7a45;
+    --accent-foreground: #ffffff;
 
     --destructive: #e63946;
     --destructive-foreground: #ffffff;
@@ -66,4 +70,13 @@ body {
   font-family: var(--font-inter), sans-serif;
   text-rendering: optimizeLegibility;
   border: var(--border);
+}
+
+.swiper-wrapper {
+    transition-timing-function: linear !important;
+}
+
+.slider-wrapper {
+  position: relative;
+  z-index: 10;
 }

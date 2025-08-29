@@ -1,12 +1,12 @@
 import React from "react";
 import Image from "next/image";
 
-import { ReviewCardInterface } from "@/interfaces/partials-interface";
 
 import { Card, CardContent, CardHeader } from "../ui/card";
 
 import TrustpilotRatingIcon from "../../../public/icons/trustpilot-ratting-icon.svg";
 import { cn } from "@/lib/utils";
+import { ReviewCardInterface } from "@/interfaces/components.partials-interfaces";
 
 function ReviewsCard({
   ProfilePicture,
