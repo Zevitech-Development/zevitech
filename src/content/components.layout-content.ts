@@ -436,11 +436,6 @@ export const socialLinks = [
   { icon: Facebook, name: "Facebook", url: "https://facebook.com/zevitech" },
   { icon: Twitter, name: "Twitter", url: "https://twitter.com/zevitech" },
   { icon: Instagram, name: "Instagram", url: "https://instagram.com/zevitech" },
-  {
-    icon: Linkedin,
-    name: "LinkedIn",
-    url: "https://uk.linkedin.com/company/zevitech",
-  },
 ];
 
 export const Footerconfig = {
