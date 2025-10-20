@@ -11,8 +11,6 @@ import { FaArrowRightLong } from "react-icons/fa6";
 
 import { Button } from "../ui/button";
 
-import DailogLeadForm from "@/forms/dailog-lead-form";
-
 import { OpenLiveChat } from "@/utils/open-live-chat";
 
 import BrandingDesignBadgeIcon01 from "../../../public/icons/branding-design-badge-icon-01.webp";
@@ -22,19 +20,23 @@ import BrandingDesignBadgeIcon04 from "../../../public/icons/branding-design-bad
 import BrandingDesignBadgeIcon05 from "../../../public/icons/branding-design-badge-icon-05.jpg";
 import BrandingDesignBadgeIcon06 from "../../../public/icons/branding-design-badge-icon-06.jpg";
 
+import DailogLeadForm from "../forms/dailog-lead-form";
+
 const WhyChooseUsSection01 = ({
   img01,
   img02,
   img03,
   title,
+  badgeCotent,
   desc01,
   desc02,
+  sectionOrder,
 }: WhyChooseUsSection01Props) => {
   return (
     <>
-      <section className="layout-standard section-padding-standard flex flex-wrap items-center justify-between mt-4">
+      <section className="layout-standard section-padding-standard flex flex-wrap items-center justify-between pb-14">
         {/* LEFT SIDE */}
-        <div className="w-full px-4 lg:w-6/12">
+        <div className={`w-full px-4 lg:w-6/12 ${sectionOrder}`}>
           <div className="flex items-center -mx-3 sm:-mx-4">
             <div className="w-full px-1 sm:px-4 xl:w-1/2">
               <div className="py-2">
@@ -44,7 +46,7 @@ const WhyChooseUsSection01 = ({
                   className="w-full rounded-2xl h-[320px] object-cover"
                 />
               </div>
-              <div className="py-2">
+              <div className="hidden md:block py-2">
                 <Image
                   src={img02}
                   alt="why-choose-us-02"
@@ -52,7 +54,7 @@ const WhyChooseUsSection01 = ({
                 />
               </div>
             </div>
-            <div className="w-full px-1 md:w-1/2">
+            <div className="hidden md:block w-full px-1 md:w-1/2">
               <div className="relative z-10 my-4">
                 <Image
                   src={img03}
@@ -71,10 +73,10 @@ const WhyChooseUsSection01 = ({
         <div className="w-full px-4 lg:w-1/2 xl:w-5/12">
           <div className="mt-10 lg:mt-0">
             <span className="flex items-center gap-2 mb-4 font-semibold text-primary bg-[#007afc]/10 w-fit px-4 py-2 rounded-full border-primary border-2 text-xs">
-              <IoSparklesOutline /> Why Choose Us
+              <IoSparklesOutline /> {badgeCotent}
             </span>
 
-            <h2 className="mb-8 md:text-6xl font-medium text-heading font-heading text-3xl tracking-wider">
+            <h2 className="mb-8 md:text-6xl font-bold text-heading font-heading text-3xl tracking-tight">
               {title}
             </h2>
 

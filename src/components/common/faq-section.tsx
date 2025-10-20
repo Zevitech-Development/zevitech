@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import { useState } from "react";
 
 import {
   Accordion,
@@ -6,58 +7,76 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+
 import { FaqSectionProps } from "@/interfaces/common-interfaces";
 
-const FaqSection = ({ faqs }: FaqSectionProps) => {
+export default function FaqSection({
+  faqItems,
+  defaultOpenIndex = 0,
+}: FaqSectionProps) {
+  const [openItem, setOpenItem] = useState(
+    faqItems[defaultOpenIndex]?.question
+  );
+
   return (
-    <>
-      <section className="layout-standard flex flex-col gap-8 sm:gap-12 section-padding-standard py-14 md:py-20">
-        <div className="text-center flex flex-col items-center gap-4">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold font-heading text-blue-heading tracking-wider">
-            <span className="text-primary">Frequently</span> Asked Questions
-          </h2>
-          <p className="text-base lg:text-lg text-paragraph font-inter font-medium max-w-3xl">
-            Explore our frequently asked questions to find quick solutions and
-            helpful information about our services, processes, and support.
-            Still need help? Don&apos;t hesitate to reach out — we&apos;re here
-            for you.
-          </p>
+    <section className="bg-[#1a1a1a] flex items-center page-layout-standard">
+      <div className="grid lg:grid-cols-2 lg:gap-12 items-center">
+        {/* Left Column - Background Image (hidden on small screens) */}
+        <div className="hidden lg:block relative min-h-[600px] lg:h-full overflow-hidden w-full bg-faq-img bg-cover bg-no-repeat bg-center">
+          <div className="absolute inset-0 bg-black/80" />
         </div>
 
-        <div className="relative z-10">
-          {/* Wrap all items inside a single Accordion */}
-          <Accordion type="single" collapsible className="w-full">
-            {faqs?.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`}>
-                <AccordionTrigger className="text-base md:text-lg xl:text-xl text-heading font-inter font-bold hover:no-underline py-5">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-paragraph flex flex-col gap-5">
-                  <p className="text-base font-inter font-medium">
-                    {faq.answer}
-                  </p>
+        {/* Right Column - FAQ Content */}
+        <div className="w-[90%] lg:w-full space-y-8 py-14 md:py-16 lg:p-10 xl:p-14 mx-auto">
+          <div className="space-y-4">
+            <p className="text-primary text-sm font-medium tracking-wide uppercase">
+              HAVE A CONFUSION YOU WANT CLEARED UP?
+            </p>
+            <h2 className="text-white text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-balance">
+              Take A Look Through Our FAQs.
+            </h2>
+          </div>
 
-                  {faq.list && faq.list.length > 0 && (
-                    <div>
-                      {faq.list.map((data, listIndex) => (
-                        <div
-                          key={listIndex}
-                          className="flex items-center gap-3 mb-3"
-                        >
-                          <div className="w-[5px] h-[5px] rounded-full bg-black/70" />
-                          <p className="text-paragraph text-base">{data}</p>
-                        </div>
+          {/* FAQ Accordion */}
+          <Accordion
+            type="single"
+            value={openItem}
+            onValueChange={setOpenItem}
+            className="space-y-4"
+          >
+            {faqItems.map((item, index) => (
+              <AccordionItem
+                key={index}
+                value={item.question}
+                className="border-none"
+              >
+                <AccordionTrigger
+                  className={`px-6 py-4 rounded-lg text-left font-medium transition-all duration-300 hover:no-underline shadow-sm
+                    ${
+                      openItem === item.question
+                        ? "text-white"
+                        : "bg-black text-white hover:bg-gray-900"
+                    }
+                  `}
+                >
+                  <span className="text-base">{item.question}</span>
+                </AccordionTrigger>
+                <AccordionContent className="px-6 py-4 bg-paragraph text-white rounded-b-lg mt-1 animate-accordion-down shadow-sm space-y-3">
+                  <p className="text-sm leading-relaxed">{item.answer}</p>
+
+                  {item.list && (
+                    <ul className="list-disc pl-6 space-y-1 text-sm text-white/90">
+                      {item.list.map((point, i) => (
+                        <li key={i}>{point}</li>
                       ))}
-                    </div>
+                    </ul>
                   )}
                 </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
-};
-
-export default FaqSection;
+}

@@ -1,7 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 
-import Design3dServicePage from "@/containers/website/services/branding-design-services/logo-design/3d-design-service-page.tsx";
+import Design3dServicePage from "@/containers/website/services/branding-design-services/logo-design-services/3d-design-service-page";
 
 import { GetPageMetadata } from "@/utils/meta-data";
 

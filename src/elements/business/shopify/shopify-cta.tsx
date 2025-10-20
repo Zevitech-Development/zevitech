@@ -1,11 +1,10 @@
 import React from "react";
 import Image from "next/image";
 
-import DailogLeadForm from "@/forms/dailog-lead-form";
-
 import { Button } from "@/components/ui/button";
 
 import MoneyBackIcon from "../../../../public/icons/money-back-icon.webp";
+import DailogLeadForm from "@/components/forms/dailog-lead-form";
 
 function LandingCTASection() {
   return (

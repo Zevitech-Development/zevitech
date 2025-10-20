@@ -1,7 +1,6 @@
 import React from "react";
 import { Metadata } from "next";
 
-
 import { GetPageMetadata } from "@/utils/meta-data";
 import SocialMediaKitDesignServicePage from "@/containers/website/services/branding-design-services/social-media-kit-design-service-page";
 

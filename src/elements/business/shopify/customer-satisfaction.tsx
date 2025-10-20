@@ -86,7 +86,7 @@ function CustomerSatisfactionSection() {
             href="tel:+13022176872"
             className="hover:text-primary transition-colors"
           >
-            (302) 217-6211
+            (302) 217-6872
           </Link>
           <Link
             href="mailto:info@zevitech.com"

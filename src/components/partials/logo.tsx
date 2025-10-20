@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import LogoBlack from "../../../public/favicons/logo-white.png";
+import LogoBlack from "../../../public/favicon/logo-black.png";
 
 function Logo() {
   return (

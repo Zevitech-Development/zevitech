@@ -59,15 +59,6 @@ function ShopifyLandingHeroSection() {
           </div>
 
           <div className="flex items-center md:gap-4 gap-2 mt-4">
-            {/* <DailogLeadForm
-              trigger={
-                <Button className="cta-button h-[60px] md:px-6 group lg:hover:scale-105 rounded-full lg:hover:bg-primary-hover md:text-xl text-base lg:!animation-standard font-bold">
-                  Let&apos;s Get Started
-                  <FaArrowRightLong className="group-hover:translate-x-[2px] animation-standard" />
-                </Button>
-              }
-            /> */}
-
             <Button
               onClick={OpenLiveChat}
               className="cta-button-02 hover:bg-primary-hover"

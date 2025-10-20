@@ -1,27 +1,9 @@
 "use client";
+import * as React from "react";
 import Link from "next/link";
-import { useState } from "react";
 
 import { Menu } from "lucide-react";
 
-import Logo from "../partials/logo";
-
-import DailogLeadForm from "@/forms/dailog-lead-form";
-
-import { FaArrowRightLong } from "react-icons/fa6";
-
-import {
-  navigationItems,
-  HeaderServicesNavLinkContent,
-} from "@/content/components.layout-content";
-
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 import {
   Accordion,
   AccordionContent,
@@ -30,123 +12,106 @@ import {
 } from "@/components/ui/accordion";
 
 import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
-export function MobileHeader() {
-  const [isOpen, setIsOpen] = useState(false);
+import {
+  servicesConfig,
+  navigationItems,
+} from "@/content/components.layout-content";
 
+function MobileHeader() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   return (
-    <div>
-      <Sheet open={isOpen} onOpenChange={setIsOpen}>
+    <main>
+      <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
         <SheetTrigger asChild>
-          <Button
-            variant="default"
-            size="icon"
-            className="lg:hidden"
-            aria-label="Open menu"
-          >
+          <Button variant="default" className="lg:hidden">
             <Menu className="h-6 w-6" />
           </Button>
         </SheetTrigger>
-        <SheetContent side="right" className="w-[300px] sm:w-[350px] overflow-y-auto">
-          <SheetHeader className="text-left">
-            <SheetTitle className="">
-              <Logo />
-            </SheetTitle>
-          </SheetHeader>
+        <SheetContent side="right" className="w-[300px] sm:w-[400px] h-full overflow-y-auto max-h-screen">
+          <div className="flex flex-col space-y-4 mt-6">
+            <Link
+              href="/"
+              className="text-lg font-medium text-heading hover:text-primary transition-colors"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Home
+            </Link>
+            <Link
+              href="/about"
+              className="text-lg font-medium text-heading hover:text-primary transition-colors"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              About
+            </Link>
 
-          <div className="mt-8 flex flex-col space-y-3">
-            {/* Navigation Links */}
+            <div className="space-y-2">
+              <h3 className="text-xl font-semibold text-primary-hover">
+                Services
+              </h3>
+              <Accordion type="multiple" className="w-full">
+                {servicesConfig.items.map((service) => {
+                  const hasChildren = service.children.length > 0;
+
+                  if (!hasChildren) {
+                    return (
+                      <div key={service.id} className="pl-4">
+                        <Link
+                          href={service.href!}
+                          className="block text-sm text-paragraph hover:text-primary transition-colors py-2"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          {service.label}
+                        </Link>
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <AccordionItem
+                      key={service.id}
+                      value={service.id}
+                      className="border-none"
+                    >
+                      <AccordionTrigger className="pl-4 text-base font-medium hover:text-primary hover:no-underline py-2">
+                        {service.label}
+                      </AccordionTrigger>
+                      <AccordionContent className="pl-8 pb-2">
+                        <div className="space-y-1">
+                          {service.children.map((child) => (
+                            <Link
+                              key={child.label}
+                              href={child.href}
+                              className="block text-xs text-paragraph hover:text-primary transition-colors py-1"
+                              onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                              {child.label}
+                            </Link>
+                          ))}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  );
+                })}
+              </Accordion>
+            </div>
+
             {navigationItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="flex items-center px-3 py-2 font-semibold text-base transition-colors hover:text-primary"
-                onClick={() => setIsOpen(false)}
+                className="text-lg font-medium hover:text-primary transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
               >
                 {item.name}
               </Link>
             ))}
-
-            {/* Services Accordion */}
-            <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="services" className="border-none">
-                <AccordionTrigger className="rounded-lg px-3 py-2 text-xl text-primary font-bold hover:text-heading hover:no-underline">
-                  Our Services
-                </AccordionTrigger>
-                <AccordionContent className="pb-0">
-                  <div className="space-y-3 pl-3">
-                    {HeaderServicesNavLinkContent.map((service, serviceIndex) => (
-                      <Accordion key={serviceIndex} type="single" collapsible>
-                        <AccordionItem value={`service-${serviceIndex}`} className="border-none">
-                          <AccordionTrigger className="rounded-lg px-3 py-2 text-lg text-gray-700 font-semibold hover:text-primary hover:no-underline">
-                            {service.title}
-                          </AccordionTrigger>
-                          <AccordionContent className="pb-0">
-                            <div className="space-y-2 pl-3">
-                              {service.subMenu.map((subItem, subIndex) => (
-                                <div key={subIndex}>
-                                  {subItem.menu ? (
-                                    // If subItem has menu, create another accordion
-                                    <Accordion type="single" collapsible>
-                                      <AccordionItem
-                                        value={`submenu-${serviceIndex}-${subIndex}`}
-                                        className="border-none"
-                                      >
-                                        <AccordionTrigger className="rounded-lg px-3 py-1.5 text-lg text-paragraph font-medium hover:text-primary hover:no-underline">
-                                          {subItem.title}
-                                        </AccordionTrigger>
-                                        <AccordionContent className="pb-0">
-                                          <div className="space-y-1 pl-3">
-                                            {subItem.menu.map((menuItem, menuIndex) => (
-                                              <Link
-                                                key={menuIndex}
-                                                href={menuItem.href}
-                                                className="block rounded-md px-3 py-1.5 text-sm text-paragraph font-medium transition-colors hover:bg-muted hover:text-foreground"
-                                                onClick={() => setIsOpen(false)}
-                                              >
-                                                {menuItem.title}
-                                              </Link>
-                                            ))}
-                                          </div>
-                                        </AccordionContent>
-                                      </AccordionItem>
-                                    </Accordion>
-                                  ) : (
-                                    // If subItem doesn't have menu, render as direct link
-                                    <Link
-                                      href={subItem.href || "#"}
-                                      className="block rounded-md px-3 py-1.5 text-base text-paragraph transition-colors hover:bg-muted hover:text-foreground"
-                                      onClick={() => setIsOpen(false)}
-                                    >
-                                      {subItem.title}
-                                    </Link>
-                                  )}
-                                </div>
-                              ))}
-                            </div>
-                          </AccordionContent>
-                        </AccordionItem>
-                      </Accordion>
-                    ))}
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-
-            {/* CTA Button */}
-            <div className="pt-4 flex items-center justify-center flex-col gap-5">
-              <DailogLeadForm
-                trigger={
-                  <Button className="cta-button bg-primary !border-primary hover:bg-primary text-primary-foreground md:text-lg md:px-6 md:py-6">
-                    Let&apos;s Get Started
-                    <FaArrowRightLong className="group-hover:translate-x-[2px] animation-standard" />
-                  </Button>
-                }
-              ></DailogLeadForm>
-            </div>
           </div>
         </SheetContent>
       </Sheet>
-    </div>
+    </main>
   );
 }
+
+export default MobileHeader;

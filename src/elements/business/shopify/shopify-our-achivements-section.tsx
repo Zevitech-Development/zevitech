@@ -5,7 +5,6 @@ import React from "react";
 import { motion } from "framer-motion";
 import { PortfolioSectionContent } from "@/content/landing/shopify-landing-page-content";
 
-
 function OurAchievementSection() {
   return (
     <section className="layout-standard">

@@ -1,5 +1,4 @@
 "use client";
-
 import React from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -41,7 +40,7 @@ export function ServicesPorfolioSection01({
           <span className="flex items-center gap-2 font-semibold text-primary bg-[#007afc]/10 w-fit px-4 py-2 rounded-full border-primary border-2 text-xs">
             <IoSparklesOutline /> Crafted With Precision
           </span>
-          <h1 className="md:text-6xl font-medium text-heading font-heading text-3xl tracking-wider md:max-w-4xl">
+          <h1 className="md:text-6xl font-bold text-heading font-heading text-3xl tracking-wider md:max-w-4xl">
             {title}
           </h1>
 
@@ -148,13 +147,13 @@ export function ServicesPorfolioSection02({
   portfolioImages,
 }: ServicesPorfolioSection02Props) {
   return (
-    <section className="bg-secondary-background section-padding-standard">
+    <section className="bg-secondary-background pt-5">
       <div className="layout-standard section-padding-standard flex flex-col gap-12">
         <div className="flex flex-col gap-4 items-center text-center">
           <span className="flex items-center gap-2 font-semibold text-primary bg-[#007afc]/10 w-fit px-4 py-2 rounded-full border-primary border-2 text-xs">
             <IoSparklesOutline /> Crafted With Precision
           </span>
-          <h1 className="md:text-6xl font-medium text-heading font-heading text-3xl tracking-wider md:max-w-4xl">
+          <h1 className="md:text-6xl font-bold text-heading font-heading text-3xl tracking-wide md:max-w-4xl">
             {title}
           </h1>
 

@@ -1,8 +1,7 @@
 import React from "react";
 
-
 import { cn } from "@/lib/utils";
-import { SpotlightProps } from "@/interfaces/partials-interface";
+import { SpotlightProps } from "@/interfaces/partials-interfaces";
 
 export const Spotlight = ({ className, fill }: SpotlightProps) => {
   return (

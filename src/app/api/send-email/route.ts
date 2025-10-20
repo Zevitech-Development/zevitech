@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
 export async function POST(request: NextRequest) {
-
   console.log("Environment check:");
   console.log("EMAIL_USER:", process.env.EMAIL_USER);
   console.log("EMAIL_PASSWORD exists:", !!process.env.EMAIL_PASSWORD);

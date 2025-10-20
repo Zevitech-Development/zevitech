@@ -1,7 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 
-import MascotDesignServicePage from "@/containers/website/services/branding-design-services/logo-design/mascot-design-service-page";
+import MascotDesignServicePage from "@/containers/website/services/branding-design-services/logo-design-services/mascot-design-service-page";
 
 import { GetPageMetadata } from "@/utils/meta-data";
 

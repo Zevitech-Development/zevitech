@@ -6,8 +6,9 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import DailogLeadForm from "@/forms/dailog-lead-form";
+// import DailogLeadForm from "@/forms/dailog-lead-form";
 import { FaArrowRightLong } from "react-icons/fa6";
+import DailogLeadForm from "@/components/forms/dailog-lead-form";
 
 // Helper component to display feature status (check, cross, or text/number)
 function FeatureValueDisplay({ value }: { value: boolean | string | number }) {
@@ -21,7 +22,7 @@ function FeatureValueDisplay({ value }: { value: boolean | string | number }) {
   return <span className="text-sm text-paragraph">{value}</span>;
 }
 
-export interface Package {
+interface Package {
   id: string;
   name: string;
   price: string;
@@ -31,14 +32,15 @@ export interface Package {
 
 interface FeatureItem {
   name: string;
+  // Dynamic access like feature[pkg.id]
   [key: string]: boolean | string | number;
 }
 
-
-export interface FeatureCategory {
+interface FeatureCategory {
   category: string;
   items: FeatureItem[];
 }
+
 type Row =
   | {
       isCategory: true;

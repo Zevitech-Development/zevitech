@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 
-import DailogLeadForm from "@/forms/dailog-lead-form";
+import DailogLeadForm from "@/components/forms/dailog-lead-form";
 
 import { Button } from "@/components/ui/button";
 

@@ -6,7 +6,7 @@ import { PrivacyPolicySidebarProps } from "@/interfaces/common-interfaces";
 export function GlobalSidebar({
   activeSection,
   onSectionClick,
-  data
+  data,
 }: PrivacyPolicySidebarProps) {
   return (
     <div className="sticky top-28 bg-white rounded-lg shadow-sm border border-gray-100 p-6 max-h-[calc(100vh-4rem)] overflow-y-auto">

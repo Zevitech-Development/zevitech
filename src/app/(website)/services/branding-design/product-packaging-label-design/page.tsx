@@ -1,9 +1,9 @@
 import React from "react";
+
 import { Metadata } from "next";
-
-
 import { GetPageMetadata } from "@/utils/meta-data";
-import ProductPackagingLabelDesignServicePage from "@/containers/website/services/branding-design-services/product-packaging-label-design-service-page";
+
+import ProductPackagingLabelDesignServicePage from "@/containers/website/services/branding-design-services/product-packaging-label-design-servicePage";
 
 export const metadata: Metadata = GetPageMetadata({
   title: "Product Packaging & Label Design Services | Zevitech",

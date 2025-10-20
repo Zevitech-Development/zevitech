@@ -2,7 +2,6 @@ import React from "react";
 import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CountUp } from "../partials/count-up";
-import Image from "next/image";
 
 interface TrustedUsersProps {
   avatars: string[];
@@ -41,14 +40,12 @@ export const TrustedUsers: React.FC<TrustedUsersProps> = ({
               ringColors[i] || "ring-blue-900"
             }`}
           >
-            <Image
+            <img
               src={src}
               alt={`Avatar ${i + 1}`}
               className="w-full h-full object-cover"
               loading="lazy"
               decoding="async"
-              width={40}
-              height={40}
             />
           </div>
         ))}
@@ -60,7 +57,9 @@ export const TrustedUsers: React.FC<TrustedUsersProps> = ({
             <Star key={i} fill="currentColor" className="w-4 h-4" />
           ))}
         </div>
-        <span className={cn("text-xs md:text-md font-medium", captionClassName)}>
+        <span
+          className={cn("text-xs md:text-md font-medium", captionClassName)}
+        >
           {caption}
           <CountUp
             value={totalUsersText}

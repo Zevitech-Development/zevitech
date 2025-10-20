@@ -1,7 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 
-import WordmarkDesignServicePage from "@/containers/website/services/branding-design-services/logo-design/wordmark-design-service-page";
+import WordmarkDesignServicePage from "@/containers/website/services/branding-design-services/logo-design-services/wordmark-design-service-page";
 
 import { GetPageMetadata } from "@/utils/meta-data";
 

@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import { Toaster } from "@/components/ui/sonner"
+import { Toaster } from "sonner";
+
+// import { Toaster } from "@/components/ui/sonner";
+
 import { GetPageMetadata } from "@/utils/meta-data";
 
 // STYLE SHEETS SOURCE
@@ -8,6 +11,9 @@ import "../styles/globals.css";
 import "../styles/include.css";
 import "../styles/animation.css";
 import Script from "next/script";
+
+import { Header } from "@/components/layouts/header";
+import Footer from "@/components/layouts/footer";
 
 // FONT CONFIGURATIONS
 const inter = Inter({
@@ -17,7 +23,27 @@ const inter = Inter({
 });
 
 // WEBSITE METADATA AND VIEWPORT
-export const metadata: Metadata = GetPageMetadata();
+export const metadata: Metadata = {
+  ...GetPageMetadata(),
+  icons: {
+    icon: [
+      { url: "/favicon/logo-96x96.png", sizes: "96x96", type: "image/png" },
+      { url: "/favicon/logo-192x192.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: [
+      { url: "/favicon/logo-192x192.png", sizes: "192x192", type: "image/png" },
+    ],
+    other: [
+      {
+        rel: "icon",
+        url: "/favicon/logo-512x512.png",
+        sizes: "512x512",
+        type: "image/png",
+      },
+    ],
+  },
+  manifest: "/manifest.json",
+};
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -33,28 +59,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-
-     
-
-
       <body suppressHydrationWarning className={`${inter.variable}`}>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-4V3XW7Q5EG"
+          strategy="afterInteractive"
+        />
 
-         <Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-4V3XW7Q5EG"
-        strategy="afterInteractive"
-      />
-
-      <Script id="google-gtag" strategy="afterInteractive">
-        {`
+        <Script id="google-gtag" strategy="afterInteractive">
+          {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-4V3XW7Q5EG');
           `}
-      </Script>
+        </Script>
 
-      <Script id="livechat-widget" strategy="afterInteractive">
-        {`
+        <Script id="livechat-widget" strategy="afterInteractive">
+          {`
     window.__lc = window.__lc || {};
     window.__lc.license = 19229942;
     window.__lc.integration_name = "manual_channels";
@@ -88,9 +109,9 @@ export default function RootLayout({
       n.LiveChatWidget = n.LiveChatWidget || e;
     })(window, document, [].slice);
   `}
-      </Script>
+        </Script>
 
-       <noscript>
+        <noscript>
           <a href="https://www.livechat.com/chat-with/19229942/" rel="nofollow">
             Chat with us
           </a>
@@ -103,8 +124,10 @@ export default function RootLayout({
             LiveChat
           </a>
         </noscript>
+        <Header />
         {children}
-        <Toaster />
+        <Footer />
+        <Toaster richColors closeButton position="top-right" />
       </body>
     </html>
   );

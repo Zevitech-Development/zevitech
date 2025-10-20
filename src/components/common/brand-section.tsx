@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Star } from "lucide-react";
-import { HomePageBrandSectionProps } from "@/interfaces/common-interfaces";
+import { HomePageBrandSectionProps } from "@/interfaces/home-interfaces";
 import Image from "next/image";
 
 const BrandSection = ({

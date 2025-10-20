@@ -16,7 +16,10 @@ import {
 
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { NewsletterFormSchema, NewsletterFormType } from "@/schemas/newsletter-form-schema";
+import {
+  NewsletterFormSchema,
+  NewsletterFormType,
+} from "@/schemas/newsletter-form-schema";
 import { SendNewsletterSubscriptionEmail } from "@/services/email-service";
 
 import DmcaLogo01 from "../../../public/images/DMCA-Logo-01.png";
@@ -24,7 +27,7 @@ import DmcaLogo02 from "../../../public/images/DMCA-Logo-02.png";
 
 function Footer() {
   const [loading, setLoading] = useState(false);
-  
+
   const form = useForm<NewsletterFormType>({
     resolver: zodResolver(NewsletterFormSchema),
     defaultValues: {
@@ -132,7 +135,10 @@ function Footer() {
               </p>
             </div>
 
-            <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col gap-3">
+            <form
+              onSubmit={form.handleSubmit(handleSubmit)}
+              className="flex flex-col gap-3"
+            >
               <div className="flex flex-col sm:flex-row gap-3">
                 <div className="flex-1">
                   <Input
@@ -147,7 +153,7 @@ function Footer() {
                     </p>
                   )}
                 </div>
-                <Button 
+                <Button
                   type="submit"
                   disabled={loading}
                   className="bg-primary hover:bg-primary-hover text-white px-8 h-12 text-base font-semibold rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
@@ -226,7 +232,7 @@ function Footer() {
             </a>
             <span>|</span>
             <a
-              href="/terms-services"
+              href="/terms-service"
               className="hover:text-primary text-sm transition-colors"
             >
               Terms and Conditions

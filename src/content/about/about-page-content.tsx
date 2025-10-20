@@ -1,6 +1,6 @@
-import Location01UK from "../../../public/images/location-03-uk.jpg";
-import Location02USA from "../../../public/images/location-01-usa.jpg";
-import Location03UAE from "../../../public/images/location-02-uae.jpg";
+import Location01USA from "../../../public/images/location-01-us.jpg";
+import Location02UK from "../../../public/images/location-02-uk.jpg";
+import Location03UAE from "../../../public/images/location-03-uae.jpg";
 // CTA Section Imports
 import { MdContactMail } from "react-icons/md";
 import { FaPhoneSquareAlt } from "react-icons/fa";
@@ -13,14 +13,14 @@ export const locations = [
     title: "US Address",
     content:
       "Our office located at 651 N. Broad St, Suite 201, serving as a key operational base in the United States.",
-    image: Location01UK,
+    image: Location01USA,
   },
   {
     location: "London, England, UK",
     title: "UK Head Office",
     content:
       "Our head office situated at 30 Riverhead Close, London, leading strategic operations across the UK.",
-    image: Location02USA,
+    image: Location02UK,
   },
   {
     location: "Dubai, United Arab Emirates",
@@ -86,4 +86,26 @@ export const AboutUsCtaData = [
   { icon: FaPhoneSquareAlt, text: "866-561-4250" },
   { icon: BsFillChatSquareDotsFill, text: "Chat Now" },
   { icon: MdMarkEmailRead, text: "Drop Your Email" },
+];
+
+// Faq Data :
+export const AboutFaqData = [
+  {
+    id: "who-is-zeviTech",
+    question: "Who is ZeviTech?",
+    answer:
+      "ZeviTech is a creative and technology-driven agency offering a wide range of digital solutions to help businesses grow online and offline. We are a full-service web and design agency, experts in eCommerce and branding, where creativity meets technical expertise, trusted by clients worldwide.",
+  },
+  {
+    id: "services",
+    question: "What services does ZeviTech provide?",
+    answer:
+      "We offer a complete suite of services to meet your business needs — from web development to branding and marketing. Our services include Shopify & custom web development, logo & brand identity design, WordPress website solutions, Amazon store setup & optimization, and professional video editing.",
+  },
+  {
+    id: "why-choose",
+    question: "Why choose ZeviTech?",
+    answer:
+      "We combine creativity, strategy, and technology to deliver solutions that are visually appealing and business-focused. Our approach includes tailor-made strategies for every project, mobile-friendly and modern designs, scalable solutions to grow with your brand, and dedicated support with clear communication.",
+  },
 ];

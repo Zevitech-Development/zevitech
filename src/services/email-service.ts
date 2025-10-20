@@ -1,4 +1,5 @@
 import { DailogLeadFormType, HomeContactFormType, ContactFormType, NewsletterFormType } from "@/interfaces/forms-interface";
+
 import { SendEmail } from "@/utils/send-email";
 
 export const SendDailogLeadFormEmail = async (
@@ -184,7 +185,7 @@ export const SendContactFormEmail = async (data: ContactFormType): Promise<boole
     `;
 
     const success = await SendEmail({
-      to: "zevitech.official@gmail.com",
+      to: process.env.CONTACT_EMAIL || process.env.EMAIL_USER || "zevitech25@gmail.com",
       subject: `New Contact Form Submission from ${data.name}`,
       html: htmlContent,
     });
@@ -230,7 +231,7 @@ export const SendNewsletterSubscriptionEmail = async (data: NewsletterFormType) 
     `;
 
     await SendEmail({
-      to: process.env.CONTACT_EMAIL || "contact@zevitech.com",
+      to: process.env.CONTACT_EMAIL || "zevitech25@gmail.com",
       subject: "New Newsletter Subscription",
       html: htmlContent,
     });

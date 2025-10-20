@@ -13,8 +13,6 @@ import {
 import { cn } from "@/lib/utils";
 import { CustomSelectInterface } from "@/interfaces/common-interfaces";
 
-
-
 const CustomSelect = <T extends FieldValues>({
   control,
   name,
@@ -30,7 +28,11 @@ const CustomSelect = <T extends FieldValues>({
       render={({ field }) => (
         <FormItem>
           <FormControl>
-            <Select onValueChange={field.onChange} defaultValue={field.value} disabled={disabled}>
+            <Select
+              onValueChange={field.onChange}
+              defaultValue={field.value}
+              disabled={disabled}
+            >
               <SelectTrigger
                 className={cn(
                   "rounded-[5px] md:!text-base !text-sm h-[50px] border border-border",
@@ -41,7 +43,11 @@ const CustomSelect = <T extends FieldValues>({
               </SelectTrigger>
               <SelectContent>
                 {options.map((option) => (
-                  <SelectItem key={option.value} value={option.value} className=" focus:bg-primary focus:text-white">
+                  <SelectItem
+                    key={option.value}
+                    value={option.value}
+                    className=" focus:bg-primary focus:text-white"
+                  >
                     {option.label}
                   </SelectItem>
                 ))}

@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 
-
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { FaCircleCheck } from "react-icons/fa6";
 import { InformationSectionContent } from "@/content/landing/shopify-landing-page-content";

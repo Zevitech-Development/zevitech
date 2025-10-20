@@ -1,7 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 
-import MinimalDesignServicePage from "@/containers/website/services/branding-design-services/logo-design/minimal-design-service-page";
+import MinimalDesignServicePage from "@/containers/website/services/branding-design-services/logo-design-services/minimal-design-service-page";
 
 import { GetPageMetadata } from "@/utils/meta-data";
 

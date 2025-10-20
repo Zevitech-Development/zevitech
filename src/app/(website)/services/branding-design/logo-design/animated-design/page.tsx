@@ -1,7 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 
-import AnimatedDesignServicePage from "@/containers/website/services/branding-design-services/logo-design/animated-design-service-page";
+import AnimatedDesignServicePage from "@/containers/website/services/branding-design-services/logo-design-services/animated-design-service-page";
 
 import { GetPageMetadata } from "@/utils/meta-data";
 

@@ -14,7 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { FeatureCategory, FeatureComparisonTable, Package } from "@/elements/website/pricing/feature-comparison-table";
+import { FeatureComparisonTable } from "./feature-comparison-table";
 
 // ✅ Import all pricing data
 import {
@@ -62,19 +62,36 @@ const logoServices = [
 ];
 
 // ✅ Pricing Data Map
-
-const pricingData: Record<string, { packages: Package[]; features: FeatureCategory[] }> = {
+const pricingData: Record<string, { packages: any[]; features: any[] }> = {
   shopify: { packages: shopifyPackages, features: shopifyFeatures },
   logo2d: { packages: twoDLogoPackages, features: twoDLogoFeatures },
   logo3d: { packages: logo3DDesignPackages, features: logo3DDesignFeatures },
-  logoAnimated: { packages: animatedLogoPackages, features: animatedLogoFeatures },
-  logoCustom: { packages: customizedLogoPackages, features: customizedLogoFeatures },
+  logoAnimated: {
+    packages: animatedLogoPackages,
+    features: animatedLogoFeatures,
+  },
+  logoCustom: {
+    packages: customizedLogoPackages,
+    features: customizedLogoFeatures,
+  },
   logoMinimal: { packages: minimalLogoPackages, features: minimalLogoFeatures },
   logoMascot: { packages: mascotLogoPackages, features: mascotLogoFeatures },
-  logoWordmark: { packages: wordmarkLogoPackages, features: wordmarkLogoFeatures },
-  packaging: { packages: packagingDesignPackages, features: packagingDesignFeatures },
-  socialMedia: { packages: socialMediaKitPackages, features: socialMediaKitFeatures },
-  brandIdentity: { packages: brandIdentityPackages, features: brandIdentityFeatures },
+  logoWordmark: {
+    packages: wordmarkLogoPackages,
+    features: wordmarkLogoFeatures,
+  },
+  packaging: {
+    packages: packagingDesignPackages,
+    features: packagingDesignFeatures,
+  },
+  socialMedia: {
+    packages: socialMediaKitPackages,
+    features: socialMediaKitFeatures,
+  },
+  brandIdentity: {
+    packages: brandIdentityPackages,
+    features: brandIdentityFeatures,
+  },
 };
 
 // ✅ Motion Variants for Swipe Effect

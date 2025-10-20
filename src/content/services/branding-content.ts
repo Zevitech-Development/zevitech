@@ -348,7 +348,6 @@ import PortfolioBrandIdentityImg04 from "../../../public/images/services/brandin
 import PortfolioBrandIdentityImg05 from "../../../public/images/services/branding/brand-identity-portfolio-05.jpeg";
 import PortfolioBrandIdentityImg06 from "../../../public/images/services/branding/brand-identity-portfolio-06.jpg";
 
-
 // Icons will be dynamically imported in the component
 
 export const Portfolio2DLogoDesignContent = [
@@ -720,5 +719,3 @@ export const PortfolioBrandIdentityDesignContent = [
   { img: PortfolioBrandIdentityImg05, alt: "client-05" },
   { img: PortfolioBrandIdentityImg06, alt: "client-06" },
 ];
-
-

@@ -1,16 +1,17 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 
 import type { Config } from "tailwindcss";
 import { PluginAPI } from "tailwindcss/types/config";
 import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
+  darkMode: ["class"],
   content: [
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/containers/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/elements/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/sections/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -71,17 +72,9 @@ export default {
       },
       backgroundImage: {
         pattern: "url('/images/pattern-img.webp')",
-        "home-hero": "url('/images/hero-bg.jpg')",
-        "editing-banner": "url('/images/video-editing-hero-img.jpg')",
-        "cta01-banner": "url('/images/video-editing-cta-banner.jpg')",
-        "video-cta-banner": "url('/images/video-software-cta-banner.webp')",
-        "process-vector": "url('/images/process-vector-img.webp')",
-        CTA: "url('/images/home-page-cta.png')",
-        CTA2: "url('/images/home-page-cta-02.png')",
         "home-page-contact": "url('/images/home-page-contact-img.jpg')",
-        "home-cta": "url('/images/home-cta-banner.jpg')",
         "campaign-cta": "url('/images/campaign-cta-img.jpg')",
-        "about-cta": "url('/images/about-us/about-cta-banner.jpg')",
+        "faq-img": "url('/images/faq-img.webp')",
       },
       screens: {
         xs: "400px",
@@ -91,23 +84,14 @@ export default {
         xl: "1440px",
         "2xl": "1536px",
       },
-
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
         spotlight: {
           "0%": {
@@ -126,9 +110,27 @@ export default {
           },
         },
         spinY: {
-          "100%": {
-            transform: "rotateY(360deg)",
-          },
+          "100%": { transform: "rotateY(360deg)" },
+        },
+        "marquee-left": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-33.333%)" },
+        },
+        "marquee-right": {
+          "0%": { transform: "translateX(-33.333%)" },
+          "100%": { transform: "translateX(0)" },
+        },
+        "marquee-up": {
+          "0%": { transform: "translateY(0)" },
+          "100%": { transform: "translateY(-50%)" },
+        },
+        "marquee-down": {
+          "0%": { transform: "translateY(-50%)" },
+          "100%": { transform: "translateY(0)" },
+        },
+        "grid-move": {
+          "0%": { backgroundPosition: "0 0, 0 0" },
+          "100%": { backgroundPosition: "70px 70px, -70px -70px" },
         },
       },
       animation: {
@@ -136,6 +138,11 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
         spotlight: "spotlight 5s ease-in-out infinite",
         spinY: "spinY 2s ease-in-out infinite",
+        "marquee-left": "marquee-left linear infinite",
+        "marquee-right": "marquee-right linear infinite",
+        "marquee-up": "marquee-up linear infinite",
+        "marquee-down": "marquee-down linear infinite",
+        "grid-move": "grid-move 20s linear infinite",
       },
     },
   },

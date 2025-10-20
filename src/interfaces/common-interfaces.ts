@@ -1,6 +1,77 @@
 import { StaticImageData } from "next/image";
-import { ReactNode } from "react";
 import { Control, FieldValues, Path } from "react-hook-form";
+
+export interface TabContent {
+  id: string;
+  title: string;
+  heading: string;
+  subheading: string;
+  subtitle: string;
+  description: string;
+  image: StaticImageData | string;
+}
+
+export interface FaqItem {
+  question: string;
+  answer: string;
+  list?: string[];
+}
+
+export interface FaqSectionProps {
+  faqItems: FaqItem[];
+  defaultOpenIndex?: number; // open first FAQ by default or specific index
+}
+
+export interface SectionData {
+  id: string;
+  title: string;
+  content: string[];
+}
+
+export interface PrivacyData {
+  title: string;
+  companyName: string;
+  contactEmail: string;
+  sections: SectionData[];
+}
+
+// Component props interface
+export interface PrivacyPolicySidebarProps {
+  activeSection: string;
+  onSectionClick: (sectionId: string) => void;
+  data: PrivacyData;
+}
+
+export interface GlobalAccordianProps {
+  data: PrivacyData;
+}
+
+// common-interfaces.ts
+export interface LocationItem {
+  location: string;
+  title: string;
+  content: string;
+  image: StaticImageData;
+}
+
+export interface LocationStepsProps {
+  locations: LocationItem[];
+  className?: string;
+  title?: string;
+  autoPlayInterval?: number;
+  imageHeight?: string; // ✅ add this
+}
+
+export interface WhyChooseUsSection01Props {
+  img01: StaticImageData;
+  img03: StaticImageData;
+  img02: StaticImageData;
+  badgeCotent: string;
+  title: string;
+  desc01: string;
+  desc02: string;
+  sectionOrder?: string;
+}
 
 export interface CustomSystemFieldInterface {
   value: string;
@@ -29,66 +100,13 @@ export interface SelectOption {
   value: string;
   label: string;
 }
-
 export interface CustomSelectInterface<T extends FieldValues> {
-  control: Control<T>;
-  name: Path<T>;
+  control: any;
+  name: string;
   placeholder?: string;
   disabled?: boolean;
   className?: string;
   options: SelectOption[];
-}
-
-export interface WhyChooseUsSection01Props {
-  img01: StaticImageData;
-  img03: StaticImageData;
-  img02: StaticImageData;
-  title: string;
-  desc01: string;
-  desc02: string;
-}
-
-export interface HomePageBrandSectionProps {
-  heading: string;
-  ratingText: string;
-  logos: {
-    brandImg: StaticImageData;
-    alt: string;
-  }[];
-}
-
-export interface CTAProps {
-  backgroundImageClass: string;
-  heading: string;
-  highlightedText: string;
-  paragraph: string;
-}
-
-export interface CaseStudyProps {
-  title: string;
-  description: string;
-  tags: Array<{
-    label: string;
-    variant?: "default" | "secondary" | "destructive" | "outline";
-    className?: string;
-  }>;
-  features: string[];
-
-  ctaText: string;
-  ctaHref?: string;
-  onCtaClick?: () => void;
-  images: Array<{
-    src: string | StaticImageData;
-    alt: string;
-    className?: string;
-  }>;
-  layout?: "image-right" | "image-left";
-  className?: string;
-}
-
-export interface ServicesHeroSection01Props {
-  title: string;
-  desc: string;
 }
 
 export interface ServicesPorfolioSection01Props {
@@ -101,38 +119,6 @@ export interface ServicesPorfolioSection02Props {
   title: string;
   description: string;
   portfolioImages: { img: string | StaticImageData; alt: string }[];
-}
-
-export interface ServicesProcessSection01Props {
-  title: string;
-  description: string;
-
-  process01Icon: ReactNode;
-  process01Title: string;
-  process01Desc: string;
-
-  process02Icon: ReactNode;
-  process02Title: string;
-  process02Desc: string;
-
-  process03Icon: ReactNode;
-  process03Title: string;
-  process03Desc: string;
-}
-
-export interface Location {
-  location: string;
-  title?: string;
-  content: string;
-  image: string | StaticImageData;
-}
-
-export interface LocationStepsProps {
-  locations: Location[];
-  className?: string;
-  title?: string;
-  autoPlayInterval?: number;
-  imageHeight?: string;
 }
 
 export interface AboutSectionProps {
@@ -161,81 +147,70 @@ export interface AboutSectionProps {
   };
 }
 
-export interface CTA02Props {
-  backgroundClass: string;
-  heading: string;
-  text: string;
-}
-
-export interface Cta03Props {
+export interface CtaProps {
   image: StaticImageData;
   heading: string;
   text: string;
 }
 
-export interface FaqItem {
-  question: string;
-  answer: string;
-  list: string[];
-}
-
-export interface FaqSectionProps {
-  faqs: FaqItem[];
-}
-
-export interface PricingItem {
-  id: string;
-  name: string;
-  price: string;
-  originalPrice?: string;
-  discount?: string;
-  description: string;
-  features: string[];
-  badge?: "BEST SELLER" | "FREE $500 ADS CREDIT" | string | null;
-  buttonText?: string;
-}
-
-export interface PricingSectionProps {
-  // Header content
-  subtitle: string;
+export interface ServiceItem {
   title: string;
-  highlightedWord?: string;
   description: string;
+}
 
-  // Pricing data
-  pricingData: PricingItem[];
-
-  // Optional customizations
-  className?: string;
+export interface ServicesProps {
+  title: string;
+  highlightedText: string;
+  description: string;
+  servicesData: ServiceItem[];
+  primaryButtonText?: string;
+  secondaryButtonText?: string;
+  onPrimaryClick?: () => void;
+  onSecondaryClick?: () => void;
   showChatButton?: boolean;
-  ctaButtonText?: string;
-  chatButtonText?: string;
-
-  // Optional callbacks
-  onCtaClick?: (item: PricingItem) => void;
-  onChatClick?: () => void;
 }
 
-export interface SectionData {
-  id: string;
+export interface ApproachItem {
   title: string;
-  content: string[];
+  icon: React.ReactNode;
+  description: string;
 }
 
-export interface PrivacyData {
+export interface TestingApproachesSectionProps {
+  mainTitle: string;
+  highlightedWord: string;
+  subtitle: string;
+
+  leftCardTitle: string;
+  leftCardDescription: string;
+
+  approaches: ApproachItem[];
+}
+
+export interface DynamicHeroSection01Props {
+  badgeText: string;
+  badgeIcon: React.ReactNode;
   title: string;
-  companyName: string;
-  contactEmail: string;
-  sections: SectionData[];
+  desc: string;
 }
 
-// Component props interface
-export interface PrivacyPolicySidebarProps {
-  activeSection: string;
-  onSectionClick: (sectionId: string) => void;
-  data: PrivacyData;
+// Define props
+export interface DynamicHeroProps {
+  badgeIcon: React.ReactNode;
+  badgeText: string;
+  heading: string;
+  highlightText?: string;
+  subheading: string;
+  description: string;
+  heroImage: StaticImageData;
 }
-
-export interface GlobalAccordianProps {
-  data: PrivacyData;
+// Dynamic Website Dev Hero
+export interface DynamicWebsiteDevHeroProps {
+  badgeIcon: React.ReactNode;
+  badgeText: string;
+  heading: string;
+  highlightText: string;
+  subheading: string;
+  description: string;
+  heroImage: any;
 }

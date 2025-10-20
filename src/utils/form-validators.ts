@@ -21,3 +21,7 @@ export const EmailSchemaValidator = z
     message: "Invalid characters detected in email address.",
   })
   .transform((val) => val.trim());
+
+
+
+  

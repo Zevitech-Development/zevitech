@@ -1,13 +1,13 @@
 export const TermsServicesData = {
   title: "Terms & Conditions",
-  companyName: "Zevitech",
-  contactEmail: "support@zevitech.com",
+  companyName: "BrandGuard Legal Solutions",
+  contactEmail: "support@brandguardlegal.com",
   sections: [
     {
       id: "welcome",
       title: "Welcome",
       content: [
-        "Thank you for choosing Zevitech, your trusted partner for trademark registration and brand protection services. By using our platform and services, you agree to comply with these Terms & Conditions, along with our Privacy Policy, Subscription Terms, and any other guidelines referenced here or on our website.",
+        "Thank you for choosing BrandGuard Legal Solutions, your trusted partner for trademark registration and brand protection services. By using our platform and services, you agree to comply with these Terms & Conditions, along with our Privacy Policy, Subscription Terms, and any other guidelines referenced here or on our website.",
       ],
     },
     {
@@ -170,9 +170,9 @@ export const TermsServicesData = {
       content: [
         "Informal Resolution First:",
         "If you have concerns or complaints, please notify us at:",
-        "Legal Department - Zevitech",
+        "Legal Department - BrandGuard Legal Solutions",
         "1234 Business Ave, Suite 100, City, State ZIP",
-        "📧 support@zevitech.com",
+        "📧 support@brandguardlegal.com",
         "We will make a good faith effort to resolve issues informally within 60 days.",
         "",
         "Binding Arbitration:",
@@ -182,7 +182,7 @@ export const TermsServicesData = {
         "• Arbitration decisions are final and enforceable.",
         "",
         "Opting Out:",
-        "You may opt out of arbitration within 30 days of accepting these Terms by sending your full name, contact details, and opt-out statement to support@zevitech.com.",
+        "You may opt out of arbitration within 30 days of accepting these Terms by sending your full name, contact details, and opt-out statement to support@brandguardlegal.com.",
       ],
     },
     {

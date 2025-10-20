@@ -1,10 +1,11 @@
+"use client";
 import React from "react";
-
 
 import { Button } from "@/components/ui/button";
 
 import { FaArrowRightLong } from "react-icons/fa6";
 import { contactCardsData } from "@/content/contact/contact-us-content";
+import Link from "next/link";
 
 function ContactUsCardsSection() {
   return (
@@ -25,7 +26,7 @@ function ContactUsCardsSection() {
           {contactCardsData.map((data, index) => (
             <div
               key={index}
-              className='relative lg:h-[290px] border p-6 flex flex-col justify-between gap-4 rounded-xl shadow-[0_0_10px_rgba(0,0,0,0.15)] bg-white hover:bg-white/80 transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer"               '
+              className='relative lg:h-[290px] border p-6 flex flex-col justify-between gap-4 rounded-xl bg-white hover:bg-white/80 transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer"               '
             >
               <div className="flex justify-center">
                 <div className="absolute -top-7 lg:w-[70px] w-[60px] lg:h-[70px] h-[60px] flex-center rounded-full bg-muted">
@@ -44,10 +45,24 @@ function ContactUsCardsSection() {
                 </p>
               </div>
               <div className="flex-center">
-                <Button className="h-[50px] bg-primary hover:bg-primary-hover md:px-8 px-4 py-4 rounded-full font-bold md:text-base text-sm !animation-standard flex items-center gap-2 group md:hover:scale-105 cta-button">
-                  {data.cardButton}
-                  <FaArrowRightLong className="md:w-5 md:h-5 w-3 h-3 md:group-hover:translate-x-[3px] md:animation-standard" />
-                </Button>
+                {index == 1 ? (
+                  <Button
+                    className="h-[50px] bg-primary hover:bg-primary-hover md:px-8 px-4 py-4 rounded-full font-bold md:text-base text-sm !animation-standard flex items-center gap-2 group md:hover:scale-105 cta-button"
+                    onClick={() =>
+                      (window.location.href = "mailto:support@zevitech.com")
+                    }
+                  >
+                    {data.cardButton}
+                    <FaArrowRightLong className="md:w-5 md:h-5 w-3 h-3 md:group-hover:translate-x-[3px] md:animation-standard" />
+                  </Button>
+                ) : (
+                  <a href={data.href}>
+                    <Button className="h-[50px] bg-primary hover:bg-primary-hover md:px-8 px-4 py-4 rounded-full font-bold md:text-base text-sm !animation-standard flex items-center gap-2 group md:hover:scale-105 cta-button">
+                      {data.cardButton}
+                      <FaArrowRightLong className="md:w-5 md:h-5 w-3 h-3 md:group-hover:translate-x-[3px] md:animation-standard" />
+                    </Button>
+                  </a>
+                )}
               </div>
             </div>
           ))}

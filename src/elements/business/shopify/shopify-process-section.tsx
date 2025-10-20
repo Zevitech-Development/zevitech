@@ -2,15 +2,13 @@
 
 import React from "react";
 
-
-import DailogLeadForm from "@/forms/dailog-lead-form";
-
 import { Button } from "@/components/ui/button";
 
 import { OpenLiveChat } from "@/utils/open-live-chat";
 
 import { FaArrowRightLong } from "react-icons/fa6";
 import { ProcessSectionContent } from "@/content/landing/shopify-landing-page-content";
+import DailogLeadForm from "@/components/forms/dailog-lead-form";
 
 function ProcessSection() {
   return (

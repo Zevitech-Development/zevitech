@@ -1,207 +1,146 @@
-// Faq Data 2D Logo Design
 export const FaqData2DLogoDesign = [
   {
+    id: "2d-vs-3d-logo",
     question: "What is a 2D logo and how is it different from a 3D logo?",
     answer:
-      "A 2D logo is a flat, two-dimensional design that focuses on simplicity, clarity, and brand identity. Unlike 3D logos, 2D logos don't use shadows or depth, making them ideal for print, web, and mobile.",
-    list: [
-      "Clean and minimal look",
-      "Easy to reproduce across media",
-      "Versatile for branding materials",
-      "Quick recognition by audiences",
-    ],
+      "A 2D logo is a flat, two-dimensional design that focuses on simplicity, clarity, and brand identity. Unlike 3D logos, 2D logos don't use shadows or depth, making them ideal for print, web, and mobile. Key benefits include: clean and minimal look, easy to reproduce across media, versatile for branding materials, and quick recognition by audiences.",
   },
   {
+    id: "2d-logo-process",
     question: "What is your 2D logo design process?",
     answer:
-      "Our 2D logo design process ensures the creation of a memorable and unique brand identity. We follow:",
-    list: [
-      "Brand research and competitive analysis",
-      "Moodboard creation and concept sketching",
-      "Multiple logo concepts and revisions",
-      "Color palette and typography selection",
-      "Final delivery in multiple formats (AI, PNG, SVG, etc.)",
-    ],
+      "Our 2D logo design process ensures the creation of a memorable and unique brand identity. We follow: brand research and competitive analysis, moodboard creation and concept sketching, multiple logo concepts and revisions, color palette and typography selection, and final delivery in multiple formats (AI, PNG, SVG, etc.).",
   },
   {
+    id: "2d-logo-revisions",
     question: "How many revisions are included in a 2D logo project?",
     answer:
-      "We offer up to 3 free revisions to ensure your satisfaction with the final design. Additional revisions can be requested at an extra charge.",
-    list: [
-      "First draft with 2-3 initial concepts",
-      "Client feedback and revision cycle",
-      "Finalization and delivery of logo assets",
-    ],
+      "We offer up to 3 free revisions to ensure your satisfaction with the final design. Additional revisions can be requested at an extra charge. The process includes: first draft with 2-3 initial concepts, client feedback and revision cycle, and finalization with delivery of logo assets.",
   },
 ];
 
-// Faq Data 3D Logo Design
 export const FaqData3DLogoDesign = [
   {
+    id: "3d-vs-2d-logo",
     question: "What makes a 3D logo different from a 2D logo?",
     answer:
-      "A 3D logo adds depth, texture, and perspective, giving your brand a modern and realistic look that pops across digital platforms.",
-    list: [
-      "Visually engaging and impactful",
-      "Ideal for digital branding",
-      "Adds realism and dimension",
-      "Stands out in crowded markets",
-    ],
+      "A 3D logo uses depth, texture, and perspective to create a modern and realistic look that grabs attention. Unlike flat 2D logos, 3D logos feel visually engaging and impactful. Key advantages include: strong visual appeal, perfect for digital branding, adds realism and dimension, and helps your brand stand out in crowded markets.",
   },
   {
+    id: "3d-logo-service",
     question: "What's included in your 3D logo design service?",
     answer:
-      "We offer complete 3D logo design services including:",
-    list: [
-      "Custom 3D modeling",
-      "Lighting and shadow design",
-      "Color and texture application",
-      "High-resolution renders for web and video",
-    ],
+      "Our 3D logo design service delivers a complete package to bring your brand to life. This includes: custom 3D modeling tailored to your brand, professional lighting and shadow design, detailed color and texture application, and high-resolution renders optimized for both web and video use.",
   },
   {
+    id: "3d-and-2d-logo",
     question: "Can I get both 2D and 3D versions of my logo?",
     answer:
-      "Yes, we offer bundled packages for clients who want both 2D and 3D formats of their logo for versatile branding.",
-    list: [
-      "Consistent branding across platforms",
-      "Flat and dynamic versions",
-      "Save more with bundle pricing",
-    ],
+      "Yes, we provide bundled packages for clients who want both 2D and 3D formats for consistent branding. The bundle includes: flat and dynamic logo versions, unified brand identity across platforms, and cost savings with our combined pricing option.",
   },
 ];
 
-// Faq Data Animated Logo Design
 export const FaqDataAnimatedLogoDesign = [
   {
+    id: "animated-logo-uses",
     question: "What is an animated logo and where can I use it?",
     answer:
-      "Animated logos are moving versions of your logo, ideal for digital use such as intros, websites, videos, and social media.",
-    list: [
-      "Captivates audience attention",
-      "Enhances brand storytelling",
-      "Works great in video intros",
-      "Ideal for YouTube, Instagram, and apps",
-    ],
+      "An animated logo is a dynamic version of your logo that adds movement and creativity, making it ideal for digital platforms. You can use it in video intros, websites, apps, presentations, and social media content. Key benefits include: captivates audience attention, enhances brand storytelling, works seamlessly in video intros, and is highly effective for YouTube, Instagram, and other digital channels.",
   },
   {
+    id: "animated-logo-package",
     question: "What's included in an animated logo package?",
     answer:
-      "Our package includes:",
-    list: [
-      "Motion graphic animation",
-      "Sound effects (optional)",
-      "Multiple resolutions (MP4, GIF, Lottie)",
-      "Still logo design (if needed)",
-    ],
+      "Our animated logo package provides everything you need for a professional motion identity. This includes: custom motion graphic animation, optional sound effects to enhance impact, delivery in multiple resolutions (MP4, GIF, Lottie), and a still logo design if required for print or static use.",
   },
   {
+    id: "animated-logo-style",
     question: "Can I choose the animation style?",
     answer:
-      "Absolutely. We offer various styles such as minimal motion, morphing, bounce effects, or full cinematic logo reveals.",
-    list: [
-      "Minimal & clean",
-      "Energetic and bouncy",
-      "Professional morph transitions",
-    ],
+      "Yes, you have full flexibility to choose your preferred animation style to match your brand tone. Options include: minimal and clean transitions, energetic and bouncy movements, professional morph transitions, and cinematic logo reveal effects.",
   },
 ];
 
-// Faq Data Minimal Logo Design
 export const FaqDataMinimalLogoDesign = [
   {
+    id: "minimal-logo-definition",
     question: "What is a minimal logo design?",
     answer:
-      "Minimal logos use simple shapes and clean lines to create a sleek and timeless identity.",
-    list: [
-      "Reduces clutter",
-      "Works great in modern branding",
-      "Easy to recognize",
-      "Versatile across formats",
-    ],
+      "A minimal logo design uses simple shapes, clean lines, and subtle details to create a sleek and timeless identity. Its benefits include: reduced clutter for a sharper look, strong appeal in modern branding, easy recognition by audiences, and versatile use across digital and print formats.",
   },
   {
+    id: "minimal-logo-suitability",
     question: "Is minimal logo design suitable for all businesses?",
     answer:
-      "Yes, especially for startups, tech, fashion, and lifestyle brands. It's effective for businesses that want a clean, premium image.",
-    list: [
-      "Perfect for luxury and tech industries",
-      "Elegant and bold",
-      "Focus on typography and geometry",
-    ],
+      "Yes, minimal logo design works especially well for startups, tech, fashion, and lifestyle brands. It is perfect for businesses that want a premium and sophisticated image. Key strengths include: ideal for luxury and tech industries, elegant yet bold presentation, and strong focus on typography and geometry.",
+  },
+  {
+    id: "minimal-logo-advantages",
+    question: "What are the advantages of choosing a minimal logo?",
+    answer:
+      "Minimal logos are timeless and adaptable, ensuring long-term branding success. Advantages include: easier scalability across platforms, clear visibility in small sizes, cost-effective printing, and lasting relevance without looking outdated.",
   },
 ];
 
-// Faq Data Mascot Logo Design
 export const FaqDataMascotLogoDesign = [
   {
+    id: "mascot-logo-definition",
     question: "What is a mascot logo and when should I choose it?",
     answer:
-      "A mascot logo features an illustrated character or figure that represents your brand. It is ideal for businesses looking to build a fun, engaging, and recognizable brand identity.",
-    list: [
-      "Great for sports teams, tech brands, or kids' products",
-      "Highly memorable and emotional appeal",
-      "Builds long-term brand loyalty",
-    ],
+      "A mascot logo features an illustrated character or figure that represents your brand. It is ideal for businesses that want a fun, engaging, and recognizable identity. Key advantages include: great for sports teams, tech brands, or kids' products, highly memorable with strong emotional appeal, and effective for building long-term brand loyalty.",
   },
   {
+    id: "mascot-logo-package",
     question: "What does your mascot logo design package include?",
     answer:
-      "Our mascot logo design package includes full illustration work, branding elements, and more:",
-    list: [
-      "Custom mascot character design",
-      "Sketching and digitization",
-      "Color styling and expressions (if needed)",
-      "Logo in multiple formats (AI, EPS, PNG, etc.)",
-    ],
+      "Our mascot logo design package delivers complete illustration and branding solutions. This includes: custom mascot character design tailored to your brand, sketching and digitization for refinement, professional color styling and expressions, and final logo delivery in multiple formats (AI, EPS, PNG, etc.).",
+  },
+  {
+    id: "mascot-logo-benefits",
+    question: "What are the benefits of using a mascot logo?",
+    answer:
+      "Mascot logos are powerful branding tools that connect with audiences emotionally. Benefits include: increased brand recognition through unique characters, ability to tell stories around your brand, versatility for marketing campaigns, and strong appeal to younger audiences or community-driven brands.",
   },
 ];
 
-// Faq Data Wordmark Logo Design
 export const FaqDataWordmarkLogoDesign = [
   {
+    id: "wordmark-logo-definition",
     question: "What is a wordmark logo?",
     answer:
-      "A wordmark logo is a text-only logo that uses font styling to express your brand identity. Think Google, Coca-Cola, or Visa.",
-    list: [
-      "Typography-focused",
-      "Memorable and timeless",
-      "Perfect for modern brands",
-      "Easy to read and reproduce",
-    ],
+      "A wordmark logo is a text-based design that relies on typography to express your brand identity. Famous examples include Google, Coca-Cola, and Visa. Key advantages are: strong focus on typography, memorable and timeless appeal, perfect for modern and professional brands, and easy readability across formats.",
   },
   {
+    id: "wordmark-logo-revisions",
     question: "Do I get font options and styling revisions?",
     answer:
-      "Yes, we provide a variety of font choices and up to 3 revisions for you to find the perfect wordmark style.",
-    list: [
-      "Font pairings",
-      "Upper/lowercase versions",
-      "Kerning and spacing adjustments",
-    ],
+      "Yes, we offer a wide range of font options and up to 3 revisions to refine your wordmark logo. The process includes: custom font pairings, exploration of uppercase and lowercase versions, and kerning or spacing adjustments for balance and clarity.",
+  },
+  {
+    id: "wordmark-logo-benefits",
+    question: "What are the benefits of choosing a wordmark logo?",
+    answer:
+      "Wordmark logos are versatile and highly adaptable for businesses of all sizes. Benefits include: instant recognition through clean typography, cost-effective design with no complex graphics, easy reproduction across print and digital platforms, and long-lasting relevance without looking outdated.",
   },
 ];
 
-// Faq Data Customize Logo Design
-export const FaqDataCustomizeLogoDesign = [
+export const FaqDataCustomLogoDesign = [
   {
+    id: "custom-logo-from-scratch",
     question: "Can I customize my logo from scratch or provide an idea?",
     answer:
-      "Yes, we encourage your input. You can share sketches, ideas, or references and we’ll bring it to life.",
-    list: [
-      "Flexible process",
-      "Personalized branding",
-      "Designed to your preferences",
-    ],
+      "Yes, we encourage your input at every stage. You can share sketches, concepts, or references, and we’ll bring your vision to life. The process offers: flexible design steps, personalized branding tailored to your needs, and a final logo created to match your preferences.",
   },
   {
+    id: "custom-logo-redesign",
     question: "What if I want to redesign my existing logo?",
     answer:
-      "We can modernize, refresh, or completely redesign your current logo while preserving its identity.",
-    list: [
-      "Logo audit",
-      "Modern design elements",
-      "Color and typography updates",
-    ],
+      "We can refresh, modernize, or completely redesign your current logo while maintaining its core identity. Our approach includes: a logo audit to analyze strengths, updated design elements for a fresh look, and refined color and typography adjustments.",
+  },
+  {
+    id: "custom-logo-benefits",
+    question: "What are the benefits of choosing a custom logo design?",
+    answer:
+      "Custom logo design ensures your brand identity is unique and tailored to your goals. Key benefits include: originality that sets your brand apart, flexibility to adapt across platforms, alignment with your target audience, and long-term branding value.",
   },
 ];

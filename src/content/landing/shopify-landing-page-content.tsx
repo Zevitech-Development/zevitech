@@ -1,11 +1,10 @@
-import { ProcessStepInterface } from "@/interfaces/components.partials-interfaces";
+import { ProcessStepInterface } from "@/interfaces/components-partials-interface";
 import TrustbarClient01 from "../../../public/images/clients/trustbar-client-img-01.webp";
 import TrustbarClient02 from "../../../public/images/clients/trustbar-client-img-02.webp";
 import TrustbarClient03 from "../../../public/images/clients/trustbar-client-img-03.webp";
 import TrustbarClient04 from "../../../public/images/clients/trustbar-client-img-04.webp";
 import TrustbarClient05 from "../../../public/images/clients/trustbar-client-img-05.webp";
 import TrustbarClient06 from "../../../public/images/clients/trustbar-client-img-06.webp";
-
 
 import PortfolioImg01 from "../../../public/images/portfolio-01.webp";
 import PortfolioImg02 from "../../../public/images/portfolio-02.webp";
@@ -16,15 +15,12 @@ import PortfolioImg06 from "../../../public/images/portfolio-06.webp";
 import { FiLayers, FiShare2 } from "react-icons/fi";
 import { IoIosRocket } from "react-icons/io";
 
-
 import ResultImg01 from "../../../public/images/result-img-01.png";
 import ResultImg02 from "../../../public/images/result-img-02.png";
 import ResultImg03 from "../../../public/images/result-img-03.png";
 import ResultImg04 from "../../../public/images/result-img-04.png";
 import ResultImg05 from "../../../public/images/result-img-05.png";
 import ResultImg06 from "../../../public/images/result-img-06.png";
-
-
 
 import InfoSectionImg01 from "../../../public/images/information-section-01.webp";
 import InfoSectionImg02 from "../../../public/images/information-section-02.webp";
@@ -42,7 +38,6 @@ import InfoSectionImg13 from "../../../public/images/information-section-13.webp
 import InfoSectionImg14 from "../../../public/images/information-section-14.webp";
 import InfoSectionImg15 from "../../../public/images/information-section-15.webp";
 
-
 import ReviewClientImg01 from "../../../public/images/reviews/review-client-01.jpg";
 import ReviewClientImg02 from "../../../public/images/reviews/review-client-02.jpg";
 import ReviewClientImg03 from "../../../public/images/reviews/review-client-03.jpg";
@@ -59,12 +54,11 @@ import ReviewClientImg13 from "../../../public/images/reviews/review-client-13.j
 import ReviewClientImg14 from "../../../public/images/reviews/review-client-14.jpg";
 import ReviewClientImg15 from "../../../public/images/reviews/review-client-15.jpg";
 
-
 export const TrustbarSectionContent = [
   {
     clientNo: 1,
     img: TrustbarClient01,
-  },  
+  },
   {
     clientNo: 2,
     img: TrustbarClient02,
@@ -86,7 +80,6 @@ export const TrustbarSectionContent = [
     img: TrustbarClient06,
   },
 ];
-
 
 export const PortfolioSectionContent = [
   {
@@ -148,7 +141,6 @@ export const ProcessSectionContent: ProcessStepInterface[] = [
     icon: <IoIosRocket className="w-12 h-12 text-primary" />,
   },
 ];
-
 
 export const PricingSectionContent = [
   {
@@ -330,7 +322,6 @@ export const ResultSectionContent = [
     img: ResultImg06,
   },
 ];
-
 
 export const InformationSectionContent = [
   {
@@ -655,36 +646,30 @@ export const ReviewsSectionContent03 = [
   },
 ];
 
-
-export const FaqSectionContent = [
+export const FaqDataShopifyWebsite = [
   {
-    faqHeader: "How quickly can my Shopify website be built?",
-    faqContent:
-      "The time to build a Shopify site depends on factors like design complexity, product count, customization needs, and content availability. A basic site with few products can take days to weeks. A complex site with custom designs and many products may take weeks or months.",
+    id: "shopify-build-time",
+    question: "How quickly can my Shopify website be built?",
+    answer:
+      "The timeline for building a Shopify website depends on design complexity, product count, customization requirements, and content readiness. A basic store with a few products can be completed within days to weeks, while a more complex store with custom features and a large catalog may take several weeks or even months.",
   },
-
   {
-    faqHeader:
+    id: "shopify-integrations",
+    question:
       "Can you integrate my website with other systems, such as a CRM or email marketing platform?",
-    faqContent:
-      "Absolutely, we can integrate your website with other systems like CRM or email marketing platforms. Our team has expertise in various integrations and can recommend the best solutions tailored to your business requirements.",
+    answer:
+      "Yes, we specialize in seamless integrations to connect your Shopify store with third-party systems. This includes CRM platforms, email marketing tools, and other business applications. Our team ensures smooth functionality and recommends the best integration solutions for your business needs.",
   },
-
   {
-    faqHeader: "Can I customize the design and layout of my Shopify store?",
-    faqContent:
-      "Yes, our services are highly customizable. We work closely with clients to create a unique design that aligns with their brand identity and goals.",
+    id: "shopify-custom-design",
+    question: "Can I customize the design and layout of my Shopify store?",
+    answer:
+      "Absolutely. We offer fully customizable Shopify design services to align with your brand identity and business goals. The process includes collaborative design planning, unique layout development, and tailored user experience adjustments to create a store that stands out.",
   },
-
   {
-    faqHeader: "Will my Shopify store be mobile-friendly?",
-    faqContent:
-      "Yes, all our designs are responsive, ensuring optimal viewing and functionality across devices, including smartphones and tablets.",
-  },
-
-  {
-    faqHeader: "Can you create a custom checkout process for my Shopify store?",
-    faqContent:
-      "Yes, we can customize the checkout process to align with your business requirements and enhance the customer experience.",
+    id: "shopify-custom-checkout",
+    question: "Can you create a custom checkout process for my Shopify store?",
+    answer:
+      "Yes, we can design and implement a tailored checkout experience to suit your business needs. Options include optimized checkout flows, branded styling, multiple payment methods, and enhanced customer journey features to maximize conversions.",
   },
 ];
