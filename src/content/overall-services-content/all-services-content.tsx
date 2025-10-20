@@ -1,5 +1,5 @@
-import PortfolioOpenCart01 from "../../../public/images/services/e-commerce/portfolioOpenCart01.jpg";
-import PortfolioOpenCart02 from "../../../public/images/services/e-commerce/portfolioOpenCart02.jpg";
+import PortfolioOpenCart01 from "../../../public/images/services/e-commerce/PortfolioOpenCart01.jpg";
+import PortfolioOpenCart02 from "../../../public/images/services/e-commerce/PortfolioOpenCart02.jpg";
 import PortfolioOpenCart03 from "../../../public/images/services/e-commerce/why-choose-open-cart-03.jpg";
 import PortfolioOpenCart04 from "../../../public/images/services/e-commerce/PortfolioOpenCart03.jpg";
 import PortfolioOpenCart05 from "../../../public/images/services/e-commerce/why-choose-open-cart-06.jpg";
