@@ -13,6 +13,7 @@ import { tabsData } from "@/content/homepage/home-page-content";
 import { BotMessageSquare, CodeXml, Handshake } from "lucide-react";
 
 import AnimatedCloudBackground from "@/components/common/cloud-background-effect";
+import DailogLeadForm from "@/components/forms/dailog-lead-form";
 
 export function HeroSection() {
   const [activeTab, setActiveTab] = useState(0);
@@ -121,10 +122,13 @@ export function HeroSection() {
                   : "opacity-100 translate-y-0"
               }`}
             >
-              <Button className="cta-button bg-primary text-base font-semibold !border-primary hover:bg-primary text-primary-foreground py-6 px-6">
-                Let&apos;s Get Started
-                <FaArrowRightLong />
-              </Button>
+               <DailogLeadForm
+                trigger={
+                  <Button className="bg-primary w-full sm:w-auto font-extrabold !border-primary rounded-md px-5 py-[22px]">
+                    Let&apos;s get started! <FaArrowRightLong />
+                  </Button>
+                }
+              />
             </div>
           </div>
 

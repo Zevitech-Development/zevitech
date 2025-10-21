@@ -43,8 +43,8 @@ function HomeServicesSection() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {techStack.map((tech, index) => (
             <Link href={tech.link} key={index}>
-              <div className="bg-primary border-white/20 text-white hover:text-black rounded-lg hover:bg-white hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex flex-col lg:flex-row items-center justify-center gap-3 p-3 lg:p-4">
-                <tech.icon className="w-6 h-6" />
+              <div className="h-[80px] sm:h-auto bg-primary border-white/20 text-white hover:text-black rounded-lg hover:bg-white hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex flex-col lg:flex-row items-center justify-center gap-3 p-1 lg:p-4">
+                <tech.icon className="w-6 h-6 *:" />
                 <span className="text-sm font-medium text-center">
                   {tech.label}
                 </span>

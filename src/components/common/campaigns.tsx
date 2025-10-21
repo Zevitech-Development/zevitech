@@ -58,7 +58,7 @@ function CampaignsSection() {
               {/* Get Started Button (Dialog) */}
               <DailogLeadForm
                 trigger={
-                  <Button className="cta-button bg-gray-900 !border-primary hover:bg-primary text-primary-foreground md:text-lg md:px-6 md:py-6">
+                  <Button className="cta-button bg-gray-900 !border-primary hover:bg-primary text-primary-foreground py-6 md:text-lg md:px-6 md:py-6">
                     Let&apos;s Get Started
                     <FaArrowRightLong className="group-hover:translate-x-[2px] animation-standard" />
                   </Button>
@@ -71,7 +71,7 @@ function CampaignsSection() {
                 onClick={OpenLiveChat}
                 className="cta-button-02 hover:bg-primary-hover text-primary md:px-6 md:py-5"
               >
-                <IoChatbox /> Chat Now
+                <IoChatbox className="hidden sm:block" /> Chat Now
               </Button>
             </div>
 

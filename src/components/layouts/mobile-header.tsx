@@ -39,7 +39,7 @@ function MobileHeader() {
               Home
             </Link>
             <Link
-              href="/about"
+              href="/about-us"
               className="text-lg font-medium text-heading hover:text-primary transition-colors"
               onClick={() => setIsMobileMenuOpen(false)}
             >
