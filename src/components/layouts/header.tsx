@@ -69,9 +69,18 @@ export function Header() {
     return (
       <Popover open={open}>
         <div className="flex items-center gap-2 p-3 rounded-md hover:bg-white hover:text-primary transition-colors">
-          <span className="text-xl xl:text-2xl font-bold flex-1">
-            {service.label}
-          </span>
+          {service.id == "logo-design" ? (
+            <Link
+              href={`${service.href}`}
+              className="text-xl xl:text-2xl font-bold flex-1"
+            >
+              {service.label}
+            </Link>
+          ) : (
+            <span className="text-xl xl:text-2xl font-bold flex-1">
+              {service.label}
+            </span>
+          )}
           <PopoverTrigger asChild>
             <button
               onMouseEnter={openMenu}
@@ -116,7 +125,7 @@ export function Header() {
       {/* Blur Backdrop Overlay */}
       {isMenuOpen && (
         <div
-          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[45] transition-opacity duration-300"
+          className="fixed inset-0 top-24 bg-black/20 backdrop-blur-sm z-[45] transition-opacity duration-300"
           aria-hidden="true"
         />
       )}
@@ -172,7 +181,7 @@ export function Header() {
                           "[&[data-radix-navigation-menu-viewport]]:!left-auto [&[data-radix-navigation-menu-viewport]]:!origin-top-left"
                         )}
                       >
-                        <div className="w-[900px] xl:w-[1100px] p-6 bg-neutral-50">
+                        <div className="w-[1000px] xl:w-[1100px] p-6 bg-neutral-50">
                           <div className="grid grid-cols-6 gap-8">
                             {/* Left column - Description */}
                             <div className="col-span-2 space-y-3">
@@ -224,7 +233,7 @@ export function Header() {
             <DailogLeadForm
               trigger={
                 <Button className="hidden lg:flex px-6 py-6 bg-primary text-white hover:bg-primary-hover text-base font-semibold">
-                  Let&apos;s Get Started
+                  Let's Get Started
                 </Button>
               }
             />

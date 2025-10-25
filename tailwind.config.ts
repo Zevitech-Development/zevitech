@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 import { PluginAPI } from "tailwindcss/types/config";
 import tailwindcssAnimate from "tailwindcss-animate";
@@ -75,6 +74,7 @@ export default {
         "home-page-contact": "url('/images/home-page-contact-img.jpg')",
         "campaign-cta": "url('/images/campaign-cta-img.jpg')",
         "faq-img": "url('/images/faq-img.webp')",
+        "logo-hero": "url('/images/logo-landing-hero.jpg')",
       },
       screens: {
         xs: "400px",

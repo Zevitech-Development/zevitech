@@ -14,6 +14,7 @@ import Script from "next/script";
 
 import { Header } from "@/components/layouts/header";
 import Footer from "@/components/layouts/footer";
+import RootHeaderFooterGuard from "@/components/layouts/RootHeaderFooterGuard";
 
 // FONT CONFIGURATIONS
 const inter = Inter({
@@ -124,9 +125,12 @@ export default function RootLayout({
             LiveChat
           </a>
         </noscript>
-        <Header />
-        {children}
-        <Footer />
+          {/* <Header /> */}
+        <RootHeaderFooterGuard>
+          {children}
+          {/* <Footer /> */}
+        </RootHeaderFooterGuard>
+
         <Toaster richColors closeButton position="top-right" />
       </body>
     </html>

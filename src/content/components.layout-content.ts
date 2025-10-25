@@ -21,7 +21,7 @@ export const Footerconfig = {
 export const serviceLinks = [
   {
     name: "Logo Design",
-    href: "/services/branding-design/logo-design/3d-design",
+    href: "/landing-pages/logo-design",
   },
   {
     name: "Product Packaging & Label Design",
@@ -31,7 +31,7 @@ export const serviceLinks = [
     name: "Social Media Kit Design",
     href: "/services/branding-design/social-media-kit-design",
   },
-  { name: "E-Commerce Website", href: "/landing/shopify-development" },
+  { name: "E-Commerce Website", href: "/landing-pages/shopify-development" },
 ];
 
 export const socialLinks = [
@@ -43,45 +43,38 @@ export const servicesConfig = {
   heading: "Our Services",
   text: "We blend audience insight with digital innovation to align your brand vision with real-world results. From design to strategy, our tailored services drive impact, growth, and consistency across all digital channels.",
   items: [
-    // {
-    //   id: "logo-design",
-    //   label: "Logo Design",
-    //   href: "/services/branding-design/logo-design",
-    //   children: [],
-    // },
-
     {
       id: "logo-design",
       label: "Logo Design",
-      href: "/services/branding-design/logo-design",
+      href: "/landing-pages/logo-design",
       children: [
         {
           label: "2D Logo Design",
-          href: "/services/branding-design/logo-design/2d-design",
+          href: "/landing-pages/logo-design/2d-design",
         },
         {
           label: "3D Logo Design",
-          href: "/services/branding-design/logo-design/3d-design",
+          href: "/landing-pages/logo-design/3d-design",
         },
         {
           label: "Animated Logo Design",
-          href: "/services/branding-design/logo-design/animated-design",
+          href: "/landing-pages/logo-design/animated-design",
         },
         {
           label: "Minimal Logo Design",
-          href: "/services/branding-design/logo-design/minimal-design",
+          href: "/landing-pages/logo-design/minimal-design",
         },
         {
           label: "Mascot Logo Design",
-          href: "/services/branding-design/logo-design/mascot-design",
+          href: "/landing-pages/logo-design/mascot-design",
         },
         {
           label: "Wordmark Logo Design",
-          href: "/services/branding-design/logo-design/wordmark-design",
+          href: "/landing-pages/logo-design/wordmark-design",
         },
         {
           label: "Customize Logo Design",
-          href: "/services/branding-design/logo-design/customize-design",
+          href: "/landing-pages/logo-design/customize-design",
         },
       ],
     },
@@ -113,7 +106,7 @@ export const servicesConfig = {
         },
         {
           label: "Shopify Website Development",
-          href: "/services/ecommerce/shopify-development",
+          href: "/landing-pages/shopify-development",
         },
         {
           label: "WooCommerce Website Development",
