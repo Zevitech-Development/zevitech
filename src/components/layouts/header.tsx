@@ -233,7 +233,7 @@ export function Header() {
             <DailogLeadForm
               trigger={
                 <Button className="hidden lg:flex px-6 py-6 bg-primary text-white hover:bg-primary-hover text-base font-semibold">
-                  Let's Get Started
+                  Let&apos;s Get Started
                 </Button>
               }
             />

@@ -1,6 +1,10 @@
 import React from "react";
+import Image from "next/image";
+
 import { Star } from "lucide-react";
+
 import { cn } from "@/lib/utils";
+
 import { CountUp } from "../partials/count-up";
 
 interface TrustedUsersProps {
@@ -40,7 +44,7 @@ export const TrustedUsers: React.FC<TrustedUsersProps> = ({
               ringColors[i] || "ring-blue-900"
             }`}
           >
-            <img
+            <Image
               src={src}
               alt={`Avatar ${i + 1}`}
               className="w-full h-full object-cover"

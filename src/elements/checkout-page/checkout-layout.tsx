@@ -65,7 +65,7 @@ export function CheckoutLayout() {
             <CardHeader>
               <CardTitle className="text-xl">Contact Information</CardTitle>
               <CardDescription>
-                We'll use these details to keep you updated
+                We&apos;ll use these details to keep you updated
               </CardDescription>
             </CardHeader>
             <CardContent>

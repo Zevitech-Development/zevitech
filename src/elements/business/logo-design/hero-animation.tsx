@@ -145,7 +145,7 @@ export default function LogoOrbitCarousel() {
               </button>
               <Link href={logoDesignServices[activeIndex].href}>
                 <button className="px-4 py-1 text-sm rounded-full bg-indigo-600 text-white hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 transition-colors">
-                  Let's Start
+                  Let&apos;s Start
                 </button>
               </Link>
               <button
