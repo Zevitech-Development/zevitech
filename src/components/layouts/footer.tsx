@@ -24,6 +24,7 @@ import { SendNewsletterSubscriptionEmail } from "@/services/email-service";
 
 import DmcaLogo01 from "../../../public/images/DMCA-Logo-01.png";
 import DmcaLogo02 from "../../../public/images/DMCA-Logo-02.png";
+import { OpenLiveChat } from "@/utils/open-live-chat";
 
 function Footer() {
   const [loading, setLoading] = useState(false);
@@ -50,7 +51,7 @@ function Footer() {
   };
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-[#1E293B] text-white">
       {/* Main footer content */}
       <div className="layout-standard section-padding-standard flex flex-col gap-16 px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 border-b-2 border-b-gray-400 pb-6 lg:pb-10">
@@ -112,7 +113,10 @@ function Footer() {
             </div>
 
             <div className="flex flex-col gap-4">
-              <h2 className="text-6xl md:text-7xl lg:text-8xl font-bold text-white hover:underline decoration-[4px] underline-offset-8 decoration-primary leading-relaxed">
+              <h2
+                onClick={OpenLiveChat}
+                className="text-6xl md:text-7xl lg:text-8xl font-bold hover:cursor-pointer text-white hover:underline decoration-[4px] underline-offset-8 decoration-primary leading-relaxed"
+              >
                 Let&apos;s Chat
               </h2>
               <a

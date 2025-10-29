@@ -18,6 +18,8 @@ import { PenTool } from "lucide-react";
 import DailogLeadForm from "@/components/forms/dailog-lead-form";
 
 import LogoOrbitCarousel from "./hero-animation";
+import { OpenLiveChat } from "@/utils/open-live-chat";
+import { IoChatbox } from "react-icons/io5";
 
 const rattingStars = Array(5)
   .fill(0)
@@ -25,7 +27,7 @@ const rattingStars = Array(5)
 
 export function LogoHero({}) {
   return (
-    <section className="relative bg-logo-hero bg-center bg-cover bg-no-repeat section-padding-standard py-14 md:py-20 overflow-hidden">
+    <section className="relative bg-logo-hero bg-center bg-cover bg-no-repeat md:pt-[12rem] pt-[10rem] lg:pb-[8rem] md:pb-16 overflow-hidden">
       {/* Background Overlay */}
       <div className="absolute inset-0 z-10 bg-black/60" />
 
@@ -63,10 +65,16 @@ export function LogoHero({}) {
             </div>
 
             {/* CTA Button */}
-            <div className="flex items-center mt-4">
+            <div className="flex items-center md:gap-4 gap-2 mt-4">
+              <Button
+                onClick={OpenLiveChat}
+                className="cta-button-02 hidden sm:flex hover:bg-primary-hover"
+              >
+                <IoChatbox /> Chat Now
+              </Button>
               <DailogLeadForm
                 trigger={
-                  <Button className="bg-primary w-full sm:w-auto font-extrabold !border-primary rounded-md px-5 py-[22px]">
+                  <Button className="cta-button-02 w-full sm:w-auto bg-transparent !border-primary">
                     Let&apos;s get started! <FaArrowRightLong />
                   </Button>
                 }

@@ -4,13 +4,13 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-// import DailogLeadForm from "@/forms/dailog-lead-form";
-
 import { Button } from "@/components/ui/button";
 
 import { OpenLiveChat } from "@/utils/open-live-chat";
+import DailogLeadForm from "@/components/forms/dailog-lead-form";
 
 import ShopifyLandingHeroImg from "../../../../public/images/landing/shopify-landing-hero-img.png";
+
 import { FaCheck, FaArrowRightLong } from "react-icons/fa6";
 import ClutchIOIcon from "../../../../public/icons/clutch-io-icon.png";
 import TrustpilotIcon from "../../../../public/icons/trustpilot-icon-01.svg";
@@ -61,14 +61,17 @@ function ShopifyLandingHeroSection() {
           <div className="flex items-center md:gap-4 gap-2 mt-4">
             <Button
               onClick={OpenLiveChat}
-              className="cta-button-02 hover:bg-primary-hover"
+              className="cta-button-02 hidden sm:flex hover:bg-primary-hover"
             >
               <IoChatbox /> Chat Now
             </Button>
-
-            <Button className="cta-button-02 bg-transparent !border-primary">
-              Let&apos;s get started! <FaArrowRightLong />
-            </Button>
+            <DailogLeadForm
+              trigger={
+                <Button className="cta-button-02 bg-transparent !border-primary">
+                  Let&apos;s get started! <FaArrowRightLong />
+                </Button>
+              }
+            />
           </div>
 
           <div className="flex items-center gap-8 mt-6">

@@ -7,7 +7,7 @@ import logoImg02 from "../../../../public/images/services/branding/2d-logo-portf
 import logoImg03 from "../../../../public/images/services/branding/2d-logo-portfolio-15.jpg";
 import logoImg06 from "../../../../public/images/services/branding/why-choose-us-wordmark-04.webp";
 import logoImg09 from "../../../../public/images/services/branding/2d-logo-portfolio-04.webp";
-import logoImg10 from "../../../../public/images/services/branding/2d-logo-portfolio-41.png";
+import logoImg10 from "../../../../public/images/services/branding/2d-logo-portfolio-16.jpg";
 
 const logos = [
   { id: 1, logoImg: logoImg01 },

@@ -39,49 +39,49 @@ export const logoDesignServices: LogoDesignService[] = [
     name: "2D Logo Design",
     category: "Creative Branding",
     profile: logo2dImg,
-    href: "/services/branding-design/logo-design/2d-design",
+    href: "/landing-pages/logo-design/2d-design",
   },
   {
     id: 2,
     name: "3D Logo Design",
     category: "Visual Identity",
     profile: logo3dImg,
-    href: "/services/branding-design/logo-design/3d-design",
+    href: "/landing-pages/logo-design/3d-design",
   },
   {
     id: 3,
     name: "Animated Logo Design",
     category: "Motion Branding",
     profile: AnimatedImg,
-    href: "/services/branding-design/logo-design/animated-design",
+    href: "/landing-pages/logo-design/animated-design",
   },
   {
     id: 4,
     name: "Minimal Logo Design",
     category: "Elegant Simplicity",
     profile: MinimalLogoImg,
-    href: "/services/branding-design/logo-design/minimal-design",
+    href: "/landing-pages/logo-design/minimal-design",
   },
   {
     id: 5,
     name: "Mascot Logo Design",
     category: "Character Branding",
     profile: MascotImg,
-    href: "/services/branding-design/logo-design/mascot-design",
+    href: "/landing-pages/logo-design/mascot-design",
   },
   {
     id: 6,
     name: "Wordmark Logo Design",
     category: "Typography Branding",
     profile: WordmarkImg,
-    href: "/services/branding-design/logo-design/wordmark-design",
+    href: "/landing-pages/logo-design/wordmark-design",
   },
   {
     id: 7,
     name: "Custom Logo Design",
     category: "Tailored Identity",
     profile: CustomizeImg,
-    href: "/services/branding-design/logo-design/customize-design",
+    href: "/landing-pages/logo-design/customize-design",
   },
 ];
 
@@ -183,6 +183,18 @@ export const FaqDataLogoDesign = [
     question: "What types of logos do you create?",
     answer:
       "We craft a diverse range of logo styles — including 2D, 3D, animated, wordmark, mascot, custom, and minimal designs — each thoughtfully tailored to reflect your brand’s personality, vision, and industry.",
+  },
+  {
+    id: "logo-design-industry",
+    question: "Do you design logos for specific industries?",
+    answer:
+      "Yes, we design logos across various industries such as technology, fashion, real estate, food, healthcare, and entertainment — ensuring each design fits the target audience and market trends.",
+  },
+  {
+    id: "logo-design-branding",
+    question: "Can you help with complete branding along with my logo?",
+    answer:
+      "Absolutely. Along with logo design, we offer complete brand identity solutions including color palettes, typography, and brand guidelines to create a cohesive and memorable visual identity.",
   },
 ];
 

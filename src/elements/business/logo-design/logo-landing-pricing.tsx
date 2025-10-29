@@ -8,6 +8,7 @@ import { CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import { logoPricingData } from "@/content/services/logo-landing-content/logo-landing-content";
+import Link from "next/link";
 
 // Logo categories
 const logoCategories = [
@@ -83,6 +84,19 @@ export default function LogoPricing() {
     setActiveCategory(newCategory);
   };
 
+  const createCheckoutUrl = (categoryId: string, plan: any) => {
+    const params = new URLSearchParams({
+      category: categoryId, // ✅ Pass the ID directly
+      plan: plan.plan,
+      price: plan.price.toString(),
+      description: plan.description,
+      features: JSON.stringify(plan.features),
+      badge: plan.badge || "",
+    });
+
+    return `/checkout-page?${params.toString()}`;
+  };
+
   return (
     <>
       <style>{`
@@ -133,7 +147,7 @@ export default function LogoPricing() {
                       key={index}
                       className={`relative p-6 md:p-8 rounded-2xl transition-all duration-300 ease-in-out transform hover:-translate-y-2 ${
                         plan.isFeatured
-                          ? "bg-gradient-to-r from-[#3B82F6] to-[#0F172A] text-white shadow-2xl lg:scale-105"
+                          ? "bg-gradient-to-r from-[#3B82F6] to-[#1E40AF] text-white shadow-2xl lg:scale-105"
                           : "bg-[#F1F5F9] text-heading shadow-lg"
                       }`}
                     >
@@ -196,16 +210,18 @@ export default function LogoPricing() {
 
                       {/* Button */}
                       <div className="mb-8">
-                        <button
-                          type="button"
-                          className={`w-full text-center py-3.5 rounded-lg font-semibold text-md transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
-                            plan.isFeatured
-                              ? "bg-white text-blue-700 hover:text-blue-800 ring-orange-500 ring-offset-orange-500/20"
-                              : "bg-gray-200 text-gray-800 hover:bg-gray-300 ring-gray-300 ring-offset-white"
-                          }`}
-                        >
-                          Get Started
-                        </button>
+                        <Link href={createCheckoutUrl(activeCategory, plan)}>
+                          <button
+                            type="button"
+                            className={`w-full text-center py-3.5 rounded-lg font-semibold text-md transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
+                              plan.isFeatured
+                                ? "bg-white text-blue-700 hover:text-blue-800 ring-orange-500 ring-offset-orange-500/20"
+                                : "bg-gray-200 text-gray-800 hover:bg-gray-300 ring-gray-300 ring-offset-white"
+                            }`}
+                          >
+                            Get Started
+                          </button>
+                        </Link>
                       </div>
 
                       {/* Features */}

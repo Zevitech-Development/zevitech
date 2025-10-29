@@ -1,27 +1,3 @@
-// import React from "react";
-
-// function BusinessFooter() {
-//   return (
-//     <footer className="py-8 bg-secondary-background">
-//       <div className="layout-standard flex flex-col gap-2">
-//         <h1 className="text-center text-sm text-muted-foreground font-semibold">
-//           Copyright © 2025 Zevitech All Rights Reserved.
-//         </h1>
-//         <p className="text-center md:text-sm text-xs text-muted-foreground">
-//           Zevitech is an independent company that provides design and
-//           development services for e-commerce solutions. We are not affiliated,
-//           associated, authorized, endorsed by, or in any way officially
-//           connected with Shopify Inc., or any of its subsidiaries or affiliates.
-//           The name &quot;Shopify&quot; as well as related names, marks, emblems, and
-//           images are registered trademarks of their respective owners.
-//         </p>
-//       </div>
-//     </footer>
-//   );
-// }
-
-// export default BusinessFooter;
-
 "use client";
 import React from "react";
 import {
@@ -33,7 +9,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-function BusinessFooter() {
+import { BusinessFooterProps } from "@/interfaces/logo-landing-interface";
+
+function BusinessFooter({ description }: BusinessFooterProps) {
   const privacyPolicyContent = `Zevitech - Non-Refundable Policy
 
 At Zevitech, we are committed to delivering quality digital services and ensuring client satisfaction. However, to maintain fairness and operational efficiency, we operate under the following Non-Refundable Policy:
@@ -62,12 +40,7 @@ Your Digital Growth Partner`;
           Copyright © 2025 Zevitech All Rights Reserved.
         </h1>
         <p className="text-center md:text-sm text-xs text-muted-foreground">
-          Zevitech is an independent company that provides design and
-          development services for e-commerce solutions. We are not affiliated,
-          associated, authorized, endorsed by, or in any way officially
-          connected with Shopify Inc., or any of its subsidiaries or affiliates.
-          The name &quot;Shopify&quot; as well as related names, marks, emblems,
-          and images are registered trademarks of their respective owners.
+          {description}
         </p>
         <div className="text-center mt-2">
           <Dialog>

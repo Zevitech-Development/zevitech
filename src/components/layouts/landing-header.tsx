@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 
 import { OpenLiveChat } from "@/utils/open-live-chat";
+import DailogLeadForm from "../forms/dailog-lead-form";
 
 import Logo from "../../../public/favicon/logo-white.png";
 
@@ -14,7 +15,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 
 function LandingHeader() {
   return (
-    <header className="sticky top-0 z-50 bg-neutral-100 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="absolute top-0 z-50 bg-transparent w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="layout-standard h-[110px] flex justify-between items-center border-b border-white/20">
         <Link href={"/"} passHref className="group flex items-center">
           <Image
@@ -34,10 +35,13 @@ function LandingHeader() {
           >
             <IoChatbox /> Chat Now
           </Button>
-
-          <Button className="cta-button-02 bg-transparent !border-primary text-primary-foreground hover:bg-primary">
-            Let&apos;s get started! <FaArrowRightLong />
-          </Button>
+          <DailogLeadForm
+            trigger={
+              <Button className="cta-button-02 bg-transparent !border-primary text-primary-foreground hover:bg-primary">
+                Let&apos;s get started! <FaArrowRightLong />
+              </Button>
+            }
+          />
         </div>
 
         {/* MOBILE HEADER */}

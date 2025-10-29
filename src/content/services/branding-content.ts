@@ -38,7 +38,7 @@ import Portfolio2DLogoImg37 from "../../../public/images/services/branding/2d-lo
 import Portfolio2DLogoImg38 from "../../../public/images/services/branding/2d-logo-portfolio-38.jpg";
 import Portfolio2DLogoImg39 from "../../../public/images/services/branding/2d-logo-portfolio-39.webp";
 import Portfolio2DLogoImg40 from "../../../public/images/services/branding/2d-logo-portfolio-40.webp";
-import Portfolio2DLogoImg41 from "../../../public/images/services/branding/2d-logo-portfolio-41.png";
+import Portfolio2DLogoImg41 from "../../../public/images/services/branding/2d-logo-portfolio-45.png";
 import Portfolio2DLogoImg42 from "../../../public/images/services/branding/2d-logo-portfolio-42.jpeg";
 import Portfolio2DLogoImg43 from "../../../public/images/services/branding/2d-logo-portfolio-43.jpg";
 import Portfolio2DLogoImg44 from "../../../public/images/services/branding/2d-logo-portfolio-44.webp";

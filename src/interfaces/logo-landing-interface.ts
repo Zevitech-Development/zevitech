@@ -1,3 +1,4 @@
+import { LogoCategory } from "@/content/checkout-page/checkout-page-content";
 import { StaticImageData } from "next/image";
 
 export interface LogoDesignService {
@@ -16,4 +17,15 @@ export interface LogoProcessItem {
 
 export interface LogoProcessProps {
   approaches: LogoProcessItem[];
+}
+
+export interface BusinessFooterProps {
+  description: string;
+}
+
+export interface OrderSummaryProps {
+  selectedCategory: LogoCategory;
+  selectedTier: number;
+  onCategoryChange: (value: LogoCategory) => void;
+  onTierChange: (index: number) => void;
 }

@@ -1,7 +1,7 @@
 "use client";
-
 import { ReactNode } from "react";
 import { usePathname } from "next/navigation";
+
 import { Header } from "./header";
 import Footer from "./footer";
 
@@ -12,15 +12,19 @@ export default function RootHeaderFooterGuard({
 }) {
   const pathname = usePathname() || "";
 
-  // ✅ Hide header/footer ONLY for landing pages
-  const isLandingRoute =
-    pathname.startsWith("/landing-pages/logo-design")
+  // Hide global header/footer only on specific landing roots
+  const landingRoots = [
+    "/landing-pages/logo-design",
+    "/landing-pages/shopify-development",
+    // Add other landing roots here if they have their own layout
+  ];
+  const isLandingRoot = landingRoots.includes(pathname);
 
   return (
     <>
-      {!isLandingRoute && <Header />}
+      {!isLandingRoot && <Header />}
       {children}
-      {!isLandingRoute && <Footer />}
+      {!isLandingRoot && <Footer />}
     </>
   );
 }
