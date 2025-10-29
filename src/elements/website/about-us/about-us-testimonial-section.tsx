@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 
 export function Testimonial() {
   const containerVariants = {
@@ -123,6 +123,8 @@ export function Testimonial() {
               <Image
                 src="https://i.pinimg.com/736x/6f/a3/6a/6fa36aa2c367da06b2a4c8ae1cf9ee02.jpg"
                 alt="Shekinah Tshikulila"
+                width={300}
+                height={300}
                 className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover mr-3 sm:mr-4 border-2 border-blue-300"
                 onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
                   (e.target as HTMLImageElement).onerror = null;
@@ -176,6 +178,8 @@ export function Testimonial() {
                 <Image
                   src="https://i.pinimg.com/736x/89/4e/16/894e16749bb2800527958cf7813b998e.jpg"
                   alt="Jonathan Yombo"
+                  width={300}
+                  height={300}
                   className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover mr-3 sm:mr-4 border-2 border-blue-300"
                   onError={(
                     e: React.SyntheticEvent<HTMLImageElement, Event>
@@ -230,6 +234,8 @@ export function Testimonial() {
                   <Image
                     src="https://i.pinimg.com/736x/5a/ac/66/5aac6619a8b81993b10be58fbded3951.jpg"
                     alt="Yucel Farukşahan"
+                    width={300}
+                    height={300}
                     className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover mr-2 sm:mr-3 border-2 border-blue-400 dark:border-blue-300"
                     onError={(
                       e: React.SyntheticEvent<HTMLImageElement, Event>
@@ -281,6 +287,8 @@ export function Testimonial() {
                   <Image
                     src="https://i.pinimg.com/736x/d9/7f/aa/d97faa4ca82603ea39b68b534f63b89a.jpg"
                     alt="Rodrigo Aguilar"
+                    width={300}
+                    height={300}
                     className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover mr-2 sm:mr-3 border-2 border-blue-300"
                     onError={(
                       e: React.SyntheticEvent<HTMLImageElement, Event>
@@ -294,9 +302,7 @@ export function Testimonial() {
                     <p className="font-bold text-gray-100 text-sm sm:text-base">
                       Rodrigo Aguilar
                     </p>
-                    <p className="text-xs text-gray-400">
-                      Creator, <br /> TailwindAwesome
-                    </p>
+                    <p className="text-xs text-gray-400">Creator</p>
                   </div>
                 </div>
               </motion.div>
