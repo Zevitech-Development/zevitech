@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 
 import { motion, AnimatePresence } from "framer-motion";
@@ -48,6 +49,7 @@ const swipeVariants = {
 export default function LogoDesignShowcase() {
   const [activeCategory, setActiveCategory] = useState("logo2d");
   const [direction, setDirection] = useState(1);
+  const [visibleCount, setVisibleCount] = useState(15);
 
   const currentCategory = logoCategories.find(
     (cat) => cat.id === activeCategory
@@ -113,117 +115,142 @@ export default function LogoDesignShowcase() {
               <>
                 {/* Mobile Layout */}
                 <div className="lg:hidden flex flex-col gap-4">
-                  {mobileGridLayouts.map((layout, rowIndex) => {
-                    let imageIndex =
-                      rowIndex === 0
-                        ? 0
-                        : mobileGridLayouts
-                            .slice(0, rowIndex)
-                            .reduce((sum, l) => sum + l.count, 0);
+                  {mobileGridLayouts
+                    .slice(0, Math.ceil(visibleCount / 3))
+                    .map((layout, rowIndex) => {
+                      let imageIndex =
+                        rowIndex === 0
+                          ? 0
+                          : mobileGridLayouts
+                              .slice(0, rowIndex)
+                              .reduce((sum, l) => sum + l.count, 0);
 
-                    return (
-                      <div
-                        key={rowIndex}
-                        className={`grid ${layout.gridCols} gap-4 justify-center`}
-                      >
-                        {Array.from({ length: layout.count }).map((_, i) => {
-                          const image =
-                            currentCategory.portfolioImages[
-                              imageIndex %
-                                currentCategory.portfolioImages.length
-                            ];
-                          imageIndex++;
+                      return (
+                        <div
+                          key={rowIndex}
+                          className={`grid ${layout.gridCols} gap-4 justify-center`}
+                        >
+                          {Array.from({ length: layout.count }).map((_, i) => {
+                            const image =
+                              currentCategory.portfolioImages[
+                                imageIndex %
+                                  currentCategory.portfolioImages.length
+                              ];
+                            imageIndex++;
 
-                          return (
-                            <motion.div
-                              key={i}
-                              initial={{ opacity: 0, scale: 0.8 }}
-                              animate={{ opacity: 1, scale: 1 }}
-                              exit={{
-                                opacity: 0,
-                                scale: 0.5,
-                                transition: { duration: 1, ease: "easeInOut" },
-                              }}
-                              whileHover={{
-                                scale: 2,
-                                y: -20,
-                                zIndex: 10,
-                                transition: { type: "spring", stiffness: 30 },
-                              }}
-                              className="w-full rounded-xl bg-card overflow-hidden shadow-md cursor-pointer"
-                              style={{ height: `${layout.height}px` }}
-                            >
-                              <Image
-                                src={image.img}
-                                alt={image.alt}
-                                width={200}
-                                height={layout.height}
-                                className="object-cover object-center w-full h-full"
-                              />
-                            </motion.div>
-                          );
-                        })}
-                      </div>
-                    );
-                  })}
+                            return (
+                              <motion.div
+                                key={i}
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{
+                                  opacity: 0,
+                                  scale: 0.5,
+                                  transition: {
+                                    duration: 1,
+                                    ease: "easeInOut",
+                                  },
+                                }}
+                                whileHover={{
+                                  scale: 2,
+                                  y: -20,
+                                  zIndex: 10,
+                                  transition: { type: "spring", stiffness: 30 },
+                                }}
+                                className="w-full rounded-xl bg-card overflow-hidden shadow-md cursor-pointer"
+                                style={{ height: `${layout.height}px` }}
+                              >
+                                <Image
+                                  src={image.img}
+                                  alt={image.alt}
+                                  width={200}
+                                  height={layout.height}
+                                  className="object-cover object-center w-full h-full"
+                                  unoptimized={true}
+                                  loading="lazy"
+                    
+                                />
+                              </motion.div>
+                            );
+                          })}
+                        </div>
+                      );
+                    })}
                 </div>
 
                 {/* Desktop Layout */}
                 <div className="hidden lg:flex flex-col gap-4">
-                  {gridLayouts.map((layout, rowIndex) => {
-                    let imageIndex =
-                      rowIndex === 0
-                        ? 0
-                        : gridLayouts
-                            .slice(0, rowIndex)
-                            .reduce((sum, l) => sum + l.count, 0);
+                  {gridLayouts
+                    .slice(0, Math.ceil(visibleCount / 10))
+                    .map((layout, rowIndex) => {
+                      let imageIndex =
+                        rowIndex === 0
+                          ? 0
+                          : gridLayouts
+                              .slice(0, rowIndex)
+                              .reduce((sum, l) => sum + l.count, 0);
 
-                    return (
-                      <div
-                        key={rowIndex}
-                        className={`grid ${layout.gridCols} gap-4 justify-center`}
-                      >
-                        {Array.from({ length: layout.count }).map((_, i) => {
-                          const image =
-                            currentCategory.portfolioImages[
-                              imageIndex %
-                                currentCategory.portfolioImages.length
-                            ];
-                          imageIndex++;
+                      return (
+                        <div
+                          key={rowIndex}
+                          className={`grid ${layout.gridCols} gap-4 justify-center`}
+                        >
+                          {Array.from({ length: layout.count }).map((_, i) => {
+                            const image =
+                              currentCategory.portfolioImages[
+                                imageIndex %
+                                  currentCategory.portfolioImages.length
+                              ];
+                            imageIndex++;
 
-                          return (
-                            <motion.div
-                              key={i}
-                              initial={{ opacity: 0, scale: 0.8 }}
-                              animate={{ opacity: 1, scale: 1 }}
-                              exit={{
-                                opacity: 0,
-                                scale: 0.5,
-                                transition: { duration: 1, ease: "easeInOut" },
-                              }}
-                              whileHover={{
-                                scale: 2,
-                                y: -20,
-                                zIndex: 10,
-                                transition: { type: "spring", stiffness: 30 },
-                              }}
-                              className="w-full rounded-xl bg-card overflow-hidden shadow-md cursor-pointer"
-                              style={{ height: `${layout.height}px` }}
-                            >
-                              <Image
-                                src={image.img}
-                                alt={image.alt}
-                                width={200}
-                                height={layout.height}
-                                className="object-cover w-full h-full"
-                              />
-                            </motion.div>
-                          );
-                        })}
-                      </div>
-                    );
-                  })}
+                            return (
+                              <motion.div
+                                key={i}
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{
+                                  opacity: 0,
+                                  scale: 0.5,
+                                  transition: {
+                                    duration: 1,
+                                    ease: "easeInOut",
+                                  },
+                                }}
+                                whileHover={{
+                                  scale: 2,
+                                  y: -20,
+                                  zIndex: 10,
+                                  transition: { type: "spring", stiffness: 30 },
+                                }}
+                                className="w-full rounded-xl bg-card overflow-hidden shadow-md cursor-pointer"
+                                style={{ height: `${layout.height}px` }}
+                              >
+                                <Image
+                                  src={image.img}
+                                  alt={image.alt}
+                                  width={200}
+                                  height={layout.height}
+                                  className="object-cover w-full h-full"
+                                  unoptimized={true}
+                                  loading="lazy"
+                                />
+                              </motion.div>
+                            );
+                          })}
+                        </div>
+                      );
+                    })}
                 </div>
+                {currentCategory.portfolioImages.length > visibleCount && (
+                  <div className="flex items-center justify-center">
+                    <Button
+                    onClick={() => setVisibleCount((prev) => prev + 15)}
+                    className="mt-8"
+                  >
+                    Load More
+                  </Button>
+                  </div>
+                )}
               </>
             )}
           </motion.div>

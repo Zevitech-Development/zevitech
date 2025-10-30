@@ -40,7 +40,6 @@ const fadeVariants = {
   },
 };
 
-// HEADER SECTION
 const Header = () => (
   <header className="relative text-center mb-12 md:mb-16 px-4 z-10">
     <div
@@ -86,7 +85,7 @@ export default function LogoPricing() {
 
   const createCheckoutUrl = (categoryId: string, plan: any) => {
     const params = new URLSearchParams({
-      category: categoryId, // ✅ Pass the ID directly
+      category: categoryId,
       plan: plan.plan,
       price: plan.price.toString(),
       description: plan.description,

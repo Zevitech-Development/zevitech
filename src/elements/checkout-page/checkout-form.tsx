@@ -2,10 +2,17 @@
 
 import type React from "react";
 import { useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+
+import {
+  categoryLabels,
+  LogoCategory,
+} from "@/content/checkout-page/checkout-page-content";
+import { logoPricingData } from "@/content/services/logo-landing-content/logo-landing-content";
 
 export function CheckoutForm() {
   const [formData, setFormData] = useState({
@@ -13,11 +20,44 @@ export function CheckoutForm() {
     email: "",
     phone: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    // Handle payment processing here
+    setIsSubmitting(true);
+
+    // Get order data from current URL params
+    const category = (searchParams.get("category") || "twoDLogoDesign") as LogoCategory;
+    const planName = searchParams.get("plan") || "Gold";
+    
+    const currentPackages = logoPricingData[category];
+    const selectedPackage = currentPackages?.find((pkg) => pkg.plan === planName);
+    const categoryName = categoryLabels[category];
+
+    if (!selectedPackage || !formData.fullName || !formData.email || !formData.phone) {
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Create payment URL with all necessary data
+    const paymentParams = new URLSearchParams({
+      category,
+      categoryName,
+      plan: selectedPackage.plan,
+      price: selectedPackage.price.toString(),
+      description: selectedPackage.description,
+      features: JSON.stringify(selectedPackage.features),
+      badge: selectedPackage.badge || "",
+      fullName: formData.fullName,
+      email: formData.email,
+      phone: formData.phone,
+    });
+
+    // Redirect to payment page
+    router.push(`/payment?${paymentParams.toString()}`);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,8 +120,9 @@ export function CheckoutForm() {
       <Button
         type="submit"
         className="w-full h-11 text-base font-semibold rounded-lg shadow-md hover:shadow-lg transition-all"
+        disabled={isSubmitting}
       >
-        Proceed to Payment
+        {isSubmitting ? "Processing..." : "Proceed to Payment"}
       </Button>
     </form>
   );
