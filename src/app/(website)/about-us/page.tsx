@@ -11,6 +11,7 @@ export const metadata: Metadata = GetPageMetadata({
     "Learn about Zevitech's mission, values, and team behind cutting-edge software, app development, branding, and digital solutions. We're passionate about empowering businesses through strategy, technology, and design.",
 });
 
+
 function AboutUs() {
   return <AboutUsPage />;
 }
