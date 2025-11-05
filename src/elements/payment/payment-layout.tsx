@@ -79,7 +79,7 @@ export function PaymentLayout() {
     try {
       setIsProcessingPayment(true);
       // console.log("PayPal payment details:", details);
-      
+
       const paymentData = {
         orderID: details.id || details.orderID,
         payerID: details.payer?.payer_id || details.payerID,
@@ -213,7 +213,8 @@ export function PaymentLayout() {
     );
   }
 
-  const displayPrice = typeof orderData.price === "number" ? orderData.price : 0;
+  const displayPrice =
+    typeof orderData.price === "number" ? orderData.price : 0;
   const isCustomQuote = typeof orderData.price === "string";
 
   // Loading Overlay Component
@@ -221,14 +222,23 @@ export function PaymentLayout() {
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center">
       <div className="bg-white rounded-lg p-8 max-w-md mx-4 text-center shadow-2xl">
         <div className="animate-spin rounded-full h-16 w-16 border-4 border-primary border-t-transparent mx-auto mb-4"></div>
-        <h3 className="text-xl font-semibold text-gray-900 mb-2">Processing Payment</h3>
+        <h3 className="text-xl font-semibold text-gray-900 mb-2">
+          Processing Payment
+        </h3>
         <p className="text-gray-600 mb-4">
-          Please wait while we process your payment securely. This may take a few moments.
+          Please wait while we process your payment securely. This may take a
+          few moments.
         </p>
         <div className="flex items-center justify-center space-x-1">
           <div className="w-2 h-2 bg-primary rounded-full animate-bounce"></div>
-          <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-          <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+          <div
+            className="w-2 h-2 bg-primary rounded-full animate-bounce"
+            style={{ animationDelay: "0.1s" }}
+          ></div>
+          <div
+            className="w-2 h-2 bg-primary rounded-full animate-bounce"
+            style={{ animationDelay: "0.2s" }}
+          ></div>
         </div>
         <p className="text-sm text-gray-500 mt-4">
           Do not close this window or refresh the page.
@@ -246,7 +256,8 @@ export function PaymentLayout() {
             Complete Your Payment
           </h1>
           <p className="mt-3 text-base text-paragraph max-w-3xl">
-            Review your order details and complete your payment securely with PayPal.
+            Review your order details and complete your payment securely with
+            PayPal.
           </p>
         </div>
 
@@ -254,7 +265,9 @@ export function PaymentLayout() {
           {/* Order Summary */}
           <Card className="shadow-lg border-border/50">
             <CardHeader>
-              <CardTitle className="text-xl font-semibold">Order Summary</CardTitle>
+              <CardTitle className="text-xl font-semibold">
+                Order Summary
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-5">
               <div className="rounded-lg bg-secondary/30 p-4 space-y-3">
@@ -302,11 +315,22 @@ export function PaymentLayout() {
               <Separator />
 
               <div className="space-y-3">
-                <h4 className="font-semibold text-foreground">Customer Information</h4>
+                <h4 className="font-semibold text-foreground">
+                  Customer Information
+                </h4>
                 <div className="space-y-2 text-sm">
-                  <p><span className="font-medium">Name:</span> {orderData.customerInfo.fullName}</p>
-                  <p><span className="font-medium">Email:</span> {orderData.customerInfo.email}</p>
-                  <p><span className="font-medium">Phone:</span> {orderData.customerInfo.phone}</p>
+                  <p>
+                    <span className="font-medium">Name:</span>{" "}
+                    {orderData.customerInfo.fullName}
+                  </p>
+                  <p>
+                    <span className="font-medium">Email:</span>{" "}
+                    {orderData.customerInfo.email}
+                  </p>
+                  <p>
+                    <span className="font-medium">Phone:</span>{" "}
+                    {orderData.customerInfo.phone}
+                  </p>
                 </div>
               </div>
 
@@ -335,10 +359,11 @@ export function PaymentLayout() {
               {isCustomQuote ? (
                 <div className="text-center space-y-4">
                   <p className="text-muted-foreground">
-                    This is a custom quote package. Please contact us to discuss pricing and payment options.
+                    This is a custom quote package. Please contact us to discuss
+                    pricing and payment options.
                   </p>
                   <Button asChild className="w-full">
-                    <Link href="/contact">Contact Us</Link>
+                    <Link href="/contact-us">Contact Us</Link>
                   </Button>
                 </div>
               ) : (

@@ -21,7 +21,7 @@ export function CheckoutForm() {
     phone: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -30,14 +30,22 @@ export function CheckoutForm() {
     setIsSubmitting(true);
 
     // Get order data from current URL params
-    const category = (searchParams.get("category") || "twoDLogoDesign") as LogoCategory;
+    const category = (searchParams.get("category") ||
+      "twoDLogoDesign") as LogoCategory;
     const planName = searchParams.get("plan") || "Gold";
-    
+
     const currentPackages = logoPricingData[category];
-    const selectedPackage = currentPackages?.find((pkg) => pkg.plan === planName);
+    const selectedPackage = currentPackages?.find(
+      (pkg) => pkg.plan === planName
+    );
     const categoryName = categoryLabels[category];
 
-    if (!selectedPackage || !formData.fullName || !formData.email || !formData.phone) {
+    if (
+      !selectedPackage ||
+      !formData.fullName ||
+      !formData.email ||
+      !formData.phone
+    ) {
       setIsSubmitting(false);
       return;
     }
