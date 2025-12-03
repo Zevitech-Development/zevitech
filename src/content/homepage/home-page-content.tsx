@@ -210,22 +210,22 @@ export const techStack = [
   {
     icon: Film,
     label: "Animated Logo Design",
-    link: "/services/branding-design/logo-design/animated-design",
+    link: "/landing-pages/logo-design/animated-design",
   },
   {
     icon: Smile,
     label: "Mascot Logo Design",
-    link: "/services/branding-design/logo-design/mascot-design",
+    link: "/landing-pages/logo-design/mascot-design",
   },
   {
     icon: Type,
     label: "Wordmark Logo Design",
-    link: "/services/branding-design/logo-design/wordmark-design",
+    link: "/landing-pages/logo-design/wordmark-design",
   },
   {
     icon: Palette,
     label: "Customize Logo Design",
-    link: "/services/branding-design/logo-design/customize-design",
+    link: "/landing-pages/logo-design/customize-design",
   },
 ];
 
