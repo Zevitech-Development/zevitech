@@ -4,6 +4,7 @@ import { services as defaultServices, techStack as defaultTech } from "@/content
 
 import { Sparkles } from "lucide-react";
 import Link from "next/link";
+import DailogLeadForm from "@/components/forms/dailog-lead-form";
 import React from "react";
 
 type IconType = React.ComponentType<{ className?: string }>;
@@ -43,13 +44,13 @@ function HomeServicesSection({ showButtons = true, services, techStack }: HomeSe
           </span>
         </div>
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
           {servicesList.map((service, index) => (
             <Card
               key={index}
-              className="p-7 bg-white hover:bg-primary-hover group transition-all duration-300 cursor-pointer border-none"
+              className="p-7 bg-white hover:bg-primary-hover group transition-all duration-300 cursor-pointer border-none h-full"
             >
-              <div className="text-center flex flex-col items-center gap-5">
+              <div className="text-center flex flex-col items-center gap-5 h-full">
                 {service.icon && (
                   <div className="w-12 h-12 text-primary group-hover:text-white transition-colors">
                     <service.icon className="w-full h-full" />
@@ -62,13 +63,17 @@ function HomeServicesSection({ showButtons = true, services, techStack }: HomeSe
                   {service.description}
                 </p>
                 {(service.ctaHref || service.ctaText) && (
-                  <div className="w-full border-t border-gray-200 mt-4 pt-4">
-                    <Link
-                      href={service.ctaHref ?? "/contact-us"}
-                      className="inline-flex items-center gap-2 text-sm font-semibold text-primary group-hover:text-white"
-                    >
-                      {service.ctaText ?? "Enquire Now"} <span>→</span>
-                    </Link>
+                  <div className="mt-auto w-full border-t border-gray-200 pt-4">
+                    <DailogLeadForm
+                      trigger={
+                        <button
+                          type="button"
+                          className="inline-flex items-center gap-2 text-sm font-semibold text-primary group-hover:text-white"
+                        >
+                          {service.ctaText ?? "Enquire Now"} <span>→</span>
+                        </button>
+                      }
+                    />
                   </div>
                 )}
               </div>

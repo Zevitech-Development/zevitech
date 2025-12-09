@@ -17,56 +17,48 @@ function WebsiteDesignPage() {
       description:
         "Discover UI/UX solutions with best practices and leading expertise to elevate your digital presence and user experience.",
       ctaText: "Enquire Now",
-      ctaHref: "/contact-us",
     },
     {
       title: "Responsive Design",
       description:
         "Responsive Design expert delivering great user experiences, best-in-class functionality, and optimal performance.",
       ctaText: "Enquire Now",
-      ctaHref: "/contact-us",
     },
     {
       title: "Mobile-First Web Design",
       description:
         "Mobile-first web design that is fast, responsive, and user-friendly for modern audiences.",
       ctaText: "Enquire Now",
-      ctaHref: "/contact-us",
     },
     {
       title: "E-commerce Web Design",
       description:
         "Responsive, user-friendly online stores with secure, fast-loading pages and seamless checkout to boost sales.",
       ctaText: "Enquire Now",
-      ctaHref: "/contact-us",
     },
     {
       title: "Landing Page Design",
       description:
         "High-converting, responsive landing pages tailored to your marketing goals to capture leads and boost conversions.",
       ctaText: "Enquire Now",
-      ctaHref: "/contact-us",
     },
     {
       title: "Portfolio & Personal Website Design",
       description:
         "Stunning, responsive personal sites and portfolios to showcase your work, enhance your online presence, and attract clients.",
       ctaText: "Enquire Now",
-      ctaHref: "/contact-us",
     },
     {
       title: "Website Redesign & Optimization",
       description:
         "Revamp your existing website with modern UI, improved UX, faster load times, and SEO-friendly performance that drives measurable results.",
       ctaText: "Enquire Now",
-      ctaHref: "/contact-us",
     },
     {
       title: "Custom Web Applications",
       description:
         "Build tailored web applications integrated with your workflows—secure, scalable, and aligned to your business goals.",
       ctaText: "Enquire Now",
-      ctaHref: "/contact-us",
     },
   ];
   return (
