@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import { SendContactFormEmail } from "@/services/email-service";
 
 import DailogLeadForm from "@/components/forms/dailog-lead-form";
 import HeroMarquee from "@/components/common/hero-marquee";
@@ -31,6 +33,7 @@ export function WebDesignHero() {
     phone: "",
     message: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -42,10 +45,27 @@ export function WebDesignHero() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log("Form submitted:", formData);
+    try {
+      setLoading(true);
+      const success = await SendContactFormEmail({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+      });
+      if (success) {
+        toast.success("Message sent successfully! We'll contact you soon.");
+        setFormData({ name: "", email: "", phone: "", message: "" });
+      } else {
+        toast.error("Failed to send message. Please try again.");
+      }
+    } catch (err) {
+      toast.error("An error occurred. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -225,9 +245,10 @@ export function WebDesignHero() {
 
                 <button
                   type="submit"
-                  className="w-full bg-primary text-white font-bold py-4 rounded-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300 uppercase text-sm tracking-wide hover:bg-primary/90"
+                  disabled={loading}
+                  className="w-full bg-primary text-white font-bold py-4 rounded-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300 uppercase text-sm tracking-wide hover:bg-primary/90 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  GET FREE CONSULTANCY
+                  {loading ? "SENDING..." : "GET FREE CONSULTANCY"}
                 </button>
               </form>
             </div>

@@ -1,4 +1,9 @@
-import { DailogLeadFormType, HomeContactFormType, ContactFormType, NewsletterFormType } from "@/interfaces/forms-interface";
+import {
+  DailogLeadFormType,
+  HomeContactFormType,
+  ContactFormType,
+  NewsletterFormType,
+} from "@/interfaces/forms-interface";
 
 import { SendEmail } from "@/utils/send-email";
 
@@ -156,7 +161,9 @@ export const SendDailogLeadFormEmail = async (
   });
 };
 
-export const SendContactFormEmail = async (data: ContactFormType): Promise<boolean> => {
+export const SendContactFormEmail = async (
+  data: ContactFormType
+): Promise<boolean> => {
   try {
     const htmlContent = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
@@ -185,7 +192,10 @@ export const SendContactFormEmail = async (data: ContactFormType): Promise<boole
     `;
 
     const success = await SendEmail({
-      to: process.env.CONTACT_EMAIL || process.env.EMAIL_USER || "zevitech25@gmail.com",
+      to:
+        process.env.CONTACT_EMAIL ||
+        process.env.EMAIL_USER ||
+        "zevitech25@gmail.com",
       subject: `New Contact Form Submission from ${data.name}`,
       html: htmlContent,
     });
@@ -197,7 +207,9 @@ export const SendContactFormEmail = async (data: ContactFormType): Promise<boole
   }
 };
 
-export const SendNewsletterSubscriptionEmail = async (data: NewsletterFormType) => {
+export const SendNewsletterSubscriptionEmail = async (
+  data: NewsletterFormType
+) => {
   try {
     const htmlContent = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
@@ -209,7 +221,9 @@ export const SendNewsletterSubscriptionEmail = async (data: NewsletterFormType) 
             
             <div style="margin-bottom: 10px;">
               <strong style="color: #495057;">Email Address:</strong>
-              <span style="color: #6c757d; margin-left: 10px;">${data.email}</span>
+              <span style="color: #6c757d; margin-left: 10px;">${
+                data.email
+              }</span>
             </div>
             
             <div style="margin-bottom: 10px;">
@@ -236,10 +250,10 @@ export const SendNewsletterSubscriptionEmail = async (data: NewsletterFormType) 
       html: htmlContent,
     });
   } catch (error) {
-     console.error("Error sending newsletter subscription email:", error);
-     throw error;
-   }
- };
+    console.error("Error sending newsletter subscription email:", error);
+    throw error;
+  }
+};
 
 export const SendHomeContactFormEmail = async (
   data: HomeContactFormType
@@ -361,16 +375,13 @@ export const SendHomeContactFormEmail = async (
           <div class="section-title">Submission Details</div>
           <div class="detail-row">
             <div class="detail-label">Submission Date:</div>
-            <div class="detail-value">${new Date().toLocaleDateString(
-              "en-US",
-              {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-              }
-            )}</div>
+            <div class="detail-value">${new Date().toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            })}</div>
           </div>
           <div class="detail-row">
             <div class="detail-label">Submission Source:</div>
@@ -397,7 +408,9 @@ export const SendHomeContactFormEmail = async (
         <div class="section">
           <div class="section-title">Services of Interest</div>
           <div class="services-list">
-            ${data.services.map(service => `<span class="service-tag">${service}</span>`).join('')}
+            ${data.services
+              .map((service) => `<span class="service-tag">${service}</span>`)
+              .join("")}
           </div>
         </div>
 
