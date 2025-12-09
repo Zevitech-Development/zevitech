@@ -82,14 +82,14 @@ export function WebDesignHero() {
               <span>Rated 5 on Clutch</span>
             </div>
 
-            <AnimatedBadge text="Ecommerce Solutions" icon={<FaGlobe />} />
+            <AnimatedBadge text="Web Solutions" icon={<FaGlobe />} />
 
             <div className="space-y-4">
               <div className="transition-all duration-500">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading text-heading leading-tight max-w-2xl">
-                  Create a powerful online store with <br />
+                  Leading Web Design Agency <br />
                   <span className="text-primary">
-                    custom eCommerce development
+                    Delivering the Best Results
                   </span>
                 </h1>
               </div>
@@ -99,10 +99,9 @@ export function WebDesignHero() {
                   Tailored, scalable, and revenue-driven
                 </p>
                 <p className="text-paragraph mt-2 font-medium md:text-lg max-w-2xl">
-                  Zevitech builds fully customized eCommerce platforms that
-                  align with your business vision. From design to functionality,
-                  we craft solutions that offer seamless shopping experiences
-                  and drive sustainable growth.
+                  Dubai’s leading web design agency, delivering expert,
+                  reliable, and top-quality web designing services for impactful
+                  online results.
                 </p>
               </div>
             </div>
@@ -245,10 +244,9 @@ export function WebDesignHero() {
 
                 <button
                   type="submit"
-                  disabled={loading}
-                  className="w-full bg-primary text-white font-bold py-4 rounded-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300 uppercase text-sm tracking-wide hover:bg-primary/90 disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="cta-button-02 w-full flex-center gap-2 bg-primary text-white font-bold rounded-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300 uppercase text-sm tracking-wide hover:bg-primary/90"
                 >
-                  {loading ? "SENDING..." : "GET FREE CONSULTANCY"}
+                  Get Started <FaArrowRightLong />
                 </button>
               </form>
             </div>

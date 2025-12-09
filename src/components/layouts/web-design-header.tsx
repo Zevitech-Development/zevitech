@@ -7,7 +7,7 @@ import { Button } from "../ui/button";
 import { OpenLiveChat } from "@/utils/open-live-chat";
 import DailogLeadForm from "../forms/dailog-lead-form";
 
-import Logo from "../../../public/favicon/logo-white.png";
+import Logo from "../../../public/favicon/logo-black.png";
 
 import { IoChatbox } from "react-icons/io5";
 import { FaArrowRightLong } from "react-icons/fa6";

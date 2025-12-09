@@ -25,6 +25,7 @@ import { SendNewsletterSubscriptionEmail } from "@/services/email-service";
 import DmcaLogo01 from "../../../public/images/DMCA-Logo-01.png";
 import DmcaLogo02 from "../../../public/images/DMCA-Logo-02.png";
 import { OpenLiveChat } from "@/utils/open-live-chat";
+import NonRefundablePolicies from "../partials/non-refundable-policies";
 
 function WebDesignFooter() {
   const [loading, setLoading] = useState(false);
@@ -247,6 +248,8 @@ function WebDesignFooter() {
             >
               Terms and Conditions
             </a>
+            <span>|</span>
+            <NonRefundablePolicies />
           </div>
         </div>
       </div>

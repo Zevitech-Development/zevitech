@@ -1,3 +1,10 @@
+import PortfolioWebDesignImg01 from "../../../public/images/services/design-and-development/portfolio-wordpress-img01.png";
+import PortfolioWebDesignImg02 from "../../../public/images/services/design-and-development/portfolio-php-website-img06.png";
+import PortfolioWebDesignImg03 from "../../../public/images/services/design-and-development/portfolio-wordpress-img04.png";
+import PortfolioWebDesignImg04 from "../../../public/images/services/e-commerce/portfolio-magento-website-img04.png";
+import PortfolioWebDesignImg05 from "../../../public/images/services/e-commerce/portfolio-custom-ecommerce02.png";
+import PortfolioWebDesignImg06 from "../../../public/images/services/e-commerce/why-choose-open-cart-06.jpg";
+
 import {
   Crown,
   Zap,
@@ -21,7 +28,7 @@ export const websitePricingData = {
         "SEO-Friendly Structure",
         "SSL Setup",
         "Speed Optimization",
-        "2 Revisions", 
+        "2 Revisions",
       ],
       logoDesign: ["Basic Logo (1 Concept + 1 Revision)"],
       isFeatured: false,
@@ -143,3 +150,73 @@ export const websitePricingData = {
     },
   ],
 };
+
+export const landingWebDesignServices = [
+  {
+    title: "UI / UX",
+    description:
+      "Discover UI/UX solutions with best practices and leading expertise to elevate your digital presence and user experience.",
+    ctaText: "Enquire Now",
+    ctaHref: "/contact-us",
+  },
+  {
+    title: "Responsive Design",
+    description:
+      "Responsive Design expert delivering great user experiences, best-in-class functionality, and optimal performance.",
+    ctaText: "Enquire Now",
+    ctaHref: "/contact-us",
+  },
+  {
+    title: "Mobile-First Web Design",
+    description:
+      "Mobile-first web design that is fast, responsive, and user-friendly for modern audiences.",
+    ctaText: "Enquire Now",
+    ctaHref: "/contact-us",
+  },
+  {
+    title: "E-commerce Web Design",
+    description:
+      "Responsive, user-friendly online stores with secure, fast-loading pages and seamless checkout to boost sales.",
+    ctaText: "Enquire Now",
+    ctaHref: "/contact-us",
+  },
+  {
+    title: "Landing Page Design",
+    description:
+      "High-converting, responsive landing pages tailored to your marketing goals to capture leads and boost conversions.",
+    ctaText: "Enquire Now",
+    ctaHref: "/contact-us",
+  },
+  {
+    title: "Portfolio & Personal Website Design",
+    description:
+      "Stunning, responsive personal sites and portfolios to showcase your work, enhance your online presence, and attract clients.",
+    ctaText: "Enquire Now",
+    ctaHref: "/contact-us",
+  },
+  {
+    title: "Website Redesign & Optimization",
+    description:
+      "Revamp your existing website with modern UI, improved UX, faster load times, and SEO-friendly performance that drives measurable results.",
+    ctaText: "Enquire Now",
+    ctaHref: "/contact-us",
+  },
+  {
+    title: "Custom Web Applications",
+    description:
+      "Build tailored web applications integrated with your workflows—secure, scalable, and aligned to your business goals.",
+    ctaText: "Enquire Now",
+    ctaHref: "/contact-us",
+  },
+];
+
+// Web Design Portfolio
+
+export const WebDesignPortfolioData = [
+  { img: PortfolioWebDesignImg01, alt: "client-01" },
+  { img: PortfolioWebDesignImg02, alt: "client-02" },
+  { img: PortfolioWebDesignImg03, alt: "client-03" },
+  { img: PortfolioWebDesignImg04, alt: "client-04" },
+  { img: PortfolioWebDesignImg05, alt: "client-05" },
+  { img: PortfolioWebDesignImg06, alt: "client-06" },
+];
