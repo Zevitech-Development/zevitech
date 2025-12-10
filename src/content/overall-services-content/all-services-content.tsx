@@ -89,6 +89,20 @@ import PortfolioSocailMediaMarketingImg04 from "../../../public/images/services/
 import PortfolioSocailMediaMarketingImg05 from "../../../public/images/services/digital-marketing/portfolio-socail-media-marketing-img05.jpg";
 import PortfolioSocailMediaMarketingImg06 from "../../../public/images/services/digital-marketing/portfolio-socail-media-marketing-img06.jpg";
 
+import PpcResultImg01 from "../../../public/images/services/digital-marketing/ppc-result-section-img01.webp";
+import PpcResultImg02 from "../../../public/images/services/digital-marketing/ppc-result-section-img02.webp";
+import PpcResultImg03 from "../../../public/images/services/digital-marketing/ppc-result-section-img03.webp";
+import PpcResultImg04 from "../../../public/images/services/digital-marketing/ppc-result-section-img04.jpg";
+import PpcResultImg05 from "../../../public/images/services/digital-marketing/ppc-result-section-img05.jpg";
+import PpcResultImg06 from "../../../public/images/services/digital-marketing/ppc-result-section-img06.jpg";
+
+import AmazonResultImg01 from "../../../public/images/services/digital-marketing/amazon-result-section-img01.webp";
+import AmazonResultImg02 from "../../../public/images/services/digital-marketing/amazon-result-section-img02.webp";
+import AmazonResultImg03 from "../../../public/images/services/digital-marketing/amazon-result-section-img03.webp";
+import AmazonResultImg04 from "../../../public/images/services/digital-marketing/amazon-result-section-img04.webp";
+import AmazonResultImg05 from "../../../public/images/services/digital-marketing/amazon-result-section-img05.webp";
+import AmazonResultImg06 from "../../../public/images/services/digital-marketing/amazon-result-section-img05.webp";
+
 import { FaClipboardList, FaStore } from "react-icons/fa";
 import {
   MdOutlinePlaylistAddCheck,
@@ -907,5 +921,69 @@ export const FaqDataAmazonMarketing = [
     question: "Can you help improve my product listings for better ranking?",
     answer:
       "Absolutely. We optimize product titles, descriptions, bullet points, and images with high-performing keywords to enhance organic ranking and conversion rates on Amazon.",
+  },
+];
+
+export const PpcResultSectionContent = [
+  {
+    resultNo: 1,
+    img: PpcResultImg01,
+  },
+
+  {
+    resultNo: 2,
+    img: PpcResultImg02,
+  },
+
+  {
+    resultNo: 3,
+    img: PpcResultImg03,
+  },
+
+  {
+    resultNo: 4,
+    img: PpcResultImg04,
+  },
+
+  {
+    resultNo: 5,
+    img: PpcResultImg05,
+  },
+
+  {
+    resultNo: 6,
+    img: PpcResultImg06,
+  },
+];
+
+export const AmazonMarketingResultContent = [
+  {
+    resultNo: 1,
+    img: AmazonResultImg01,
+  },
+
+  {
+    resultNo: 2,
+    img: AmazonResultImg02,
+  },
+
+  {
+    resultNo: 3,
+    img: AmazonResultImg03,
+  },
+
+  {
+    resultNo: 4,
+    img: AmazonResultImg04,
+  },
+
+  {
+    resultNo: 5,
+    img: AmazonResultImg05,
+  },
+
+  {
+    resultNo: 6,
+    img: AmazonResultImg06,
   },
 ];

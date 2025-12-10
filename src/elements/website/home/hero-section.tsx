@@ -122,7 +122,7 @@ export function HeroSection() {
                   : "opacity-100 translate-y-0"
               }`}
             >
-               <DailogLeadForm
+              <DailogLeadForm
                 trigger={
                   <Button className="bg-primary w-full sm:w-auto font-extrabold !border-primary rounded-md px-5 py-[22px]">
                     Let&apos;s get started! <FaArrowRightLong />

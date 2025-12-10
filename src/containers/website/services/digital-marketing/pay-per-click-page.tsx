@@ -8,6 +8,7 @@ import Cta from "@/components/common/cta";
 import ScrollingApproachesSection from "@/components/common/scrolling-approach-section";
 import DynamicServicesSection from "@/components/common/services-section";
 import { DynamicHero } from "@/components/common/dynamic-hero";
+import CommonResultSection from "@/components/common/common-result-section";
 
 import WhyChooseUsPayPerClickImg01 from "../../../../../public/images/services/digital-marketing/why-choose-us-ppc-img01.jpg";
 import WhyChooseUsPayPerClickImg02 from "../../../../../public/images/services/digital-marketing/why-choose-us-ppc-img02.jpg";
@@ -23,6 +24,7 @@ import {
   FaqDataPayPerClick,
   payPerClickAdvantagesData,
   payPerClickApproachesData,
+  PpcResultSectionContent,
 } from "@/content/overall-services-content/all-services-content";
 
 import { MousePointerClick } from "lucide-react";
@@ -80,6 +82,14 @@ function PayPerClickPage() {
       />
 
       <ContactSection />
+
+      <CommonResultSection
+        subtitle="Proven Ad Success"
+        title="Campaigns That Deliver"
+        titleHighlight="Real Conversions!"
+        description="We don’t just run ads — we craft data-driven PPC campaigns that maximize ROI and attract high-quality leads. Take a look at real campaign outcomes, ad performance insights, and testimonials from our satisfied clients."
+        results={PpcResultSectionContent}
+      />
 
       <Cta
         image={CtaImg}

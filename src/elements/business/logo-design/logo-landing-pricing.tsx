@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 
 import { motion, AnimatePresence } from "framer-motion";
@@ -8,7 +9,6 @@ import { CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import { logoPricingData } from "@/content/services/logo-landing-content/logo-landing-content";
-import Link from "next/link";
 
 // Logo categories
 const logoCategories = [

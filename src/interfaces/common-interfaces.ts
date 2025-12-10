@@ -214,3 +214,17 @@ export interface DynamicWebsiteDevHeroProps {
   description: string;
   heroImage: any;
 }
+
+interface ResultItem {
+  resultNo: number;
+  img: string | StaticImageData;
+}
+
+export interface ResultSectionProps {
+  subtitle: string;
+  title: string;
+  titleHighlight?: string;
+  titleAfterHighlight?: string;
+  description: string;
+  results: ResultItem[];
+}

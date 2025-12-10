@@ -99,7 +99,7 @@ export function DynamicHero({
                 />
               </Link>
 
-              <Link
+              <Link 
                 href="https://www.trustpilot.com/review/zevitech.com"
                 target="_blank"
                 passHref

@@ -7,6 +7,8 @@ import FaqSection from "@/components/common/faq-section";
 import Cta from "@/components/common/cta";
 import ScrollingApproachesSection from "@/components/common/scrolling-approach-section";
 import DynamicServicesSection from "@/components/common/services-section";
+import { DynamicHero } from "@/components/common/dynamic-hero";
+import CommonResultSection from "@/components/common/common-result-section";
 
 import WhyChooseUsAmazonMarketingImg01 from "../../../../../public/images/services/digital-marketing/why-choose-us-amazon-marketing-img01.jpg";
 import WhyChooseUsAmazonMarketingImg02 from "../../../../../public/images/services/digital-marketing/why-choose-us-amazon-marketing-img02.jpg";
@@ -21,9 +23,10 @@ import AmazonMarketingHeroImg from "../../../.././../public/images/hero-images/a
 import {
   amazonMarketingAdvantagesData,
   amazonMarketingApproachesData,
+  AmazonMarketingResultContent,
   FaqDataAmazonMarketing,
 } from "@/content/overall-services-content/all-services-content";
-import { DynamicHero } from "@/components/common/dynamic-hero";
+
 import { ShoppingCart } from "lucide-react";
 
 function AmazonMarketingPage() {
@@ -79,6 +82,14 @@ function AmazonMarketingPage() {
       />
 
       <ContactSection />
+
+      <CommonResultSection
+        subtitle="Marketplace Success Stories"
+        title="Amazon Campaigns That Drive"
+        titleHighlight="Sales & Visibility!"
+        description="We help brands stand out and sell more on Amazon through strategic advertising, optimized listings, and performance-focused campaigns. Explore real sales growth, traffic improvements, and feedback from our Amazon marketing clients."
+        results={AmazonMarketingResultContent}
+      />
 
       <Cta
         image={CtaImg}
