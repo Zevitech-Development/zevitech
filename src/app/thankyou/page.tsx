@@ -15,19 +15,28 @@ export const metadata: Metadata = GetPageMetadata({
 function Thankyou() {
   return (
     <>
-      {/* Google Tag (gtag.js) */}
+      {/* Google Ads Tag (gtag.js) */}
       <Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-4V3XW7Q5EG"
+        src="https://www.googletagmanager.com/gtag/js?id=AW-17789624484"
         strategy="afterInteractive"
       />
-
-      <Script id="google-gtag" strategy="afterInteractive">
+      <Script id="google-ads-gtag" strategy="afterInteractive">
         {`
             window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
+            function gtag(){dataLayer.push(arguments);} 
             gtag('js', new Date());
-            gtag('config', 'G-4V3XW7Q5EG');
+            gtag('config', 'AW-17789624484');
           `}
+      </Script>
+      {/* Conversion event for Submit lead form */}
+      <Script id="aw-submit-lead-conversion" strategy="afterInteractive">
+        {`
+          gtag('event', 'conversion', {
+            'send_to': 'AW-17789624484/Cu82CPTzlc4bEKTB4KJC',
+            'value': 1.0, 
+            'currency': 'USD'
+          });
+        `}
       </Script>
 
       <ThankyouPage />

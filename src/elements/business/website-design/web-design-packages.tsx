@@ -9,6 +9,7 @@ import { websitePricingData } from "@/content/landing/web-design-page-content";
 import DirhamLogo from "../../../../public/images/landing/dirham-symbol.png";
 
 import { OpenLiveChat } from "@/utils/open-live-chat";
+import DailogLeadForm from "@/components/forms/dailog-lead-form";
 
 // Dirham Symbol Component using the uploaded image
 const DirhamIcon = ({ className = "" }: { className?: string }) => (
@@ -229,23 +230,25 @@ export default function WebsitePricing() {
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="flex gap-3 mt-auto pt-4">
-                      <Link href={createCheckoutUrl(plan)} className="flex-1">
-                        <button
-                          type="button"
-                          className={`w-full text-center py-3 rounded-lg font-semibold text-sm transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
-                            plan.isFeatured
-                              ? "bg-white text-blue-700 hover:bg-gray-50 ring-white ring-offset-blue-600"
-                              : "bg-blue-600 text-white hover:bg-blue-700 ring-blue-500 ring-offset-gray-100"
-                          }`}
-                        >
-                          Let's Get Started →
-                        </button>
-                      </Link>
+                    <div className="flex items-center gap-3 mt-auto pt-4">
+                      <DailogLeadForm
+                        trigger={
+                          <button
+                            type="button"
+                            className={`w-full text-center py-3 rounded-lg font-semibold text-sm transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
+                              plan.isFeatured
+                                ? "bg-white text-blue-700 hover:bg-gray-50 ring-white ring-offset-blue-600"
+                                : "bg-blue-600 text-white hover:bg-blue-700 ring-blue-500 ring-offset-gray-100"
+                            }`}
+                          >
+                            Let&apos;s Get Started →
+                          </button>
+                        }
+                      />
                       <button
                         onClick={OpenLiveChat}
                         type="button"
-                        className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
+                        className={`min-w-[120px] px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 whitespace-nowrap inline-flex items-center justify-center ${
                           plan.isFeatured
                             ? "bg-white/10 text-white hover:bg-white/20 border-2 border-white/30 ring-white ring-offset-blue-600"
                             : "bg-transparent text-blue-600 hover:bg-blue-50 border-2 border-blue-600 ring-blue-500 ring-offset-gray-100"

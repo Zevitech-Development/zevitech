@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import { SendContactFormEmail } from "@/services/email-service";
 
 import DailogLeadForm from "@/components/forms/dailog-lead-form";
 import HeroMarquee from "@/components/common/hero-marquee";
@@ -31,6 +33,7 @@ export function WebDesignHero() {
     phone: "",
     message: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -42,10 +45,27 @@ export function WebDesignHero() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log("Form submitted:", formData);
+    try {
+      setLoading(true);
+      const success = await SendContactFormEmail({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+      });
+      if (success) {
+        toast.success("Message sent successfully! We'll contact you soon.");
+        setFormData({ name: "", email: "", phone: "", message: "" });
+      } else {
+        toast.error("Failed to send message. Please try again.");
+      }
+    } catch (err) {
+      toast.error("An error occurred. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -62,14 +82,14 @@ export function WebDesignHero() {
               <span>Rated 5 on Clutch</span>
             </div>
 
-            <AnimatedBadge text="Ecommerce Solutions" icon={<FaGlobe />} />
+            <AnimatedBadge text="Web Solutions" icon={<FaGlobe />} />
 
             <div className="space-y-4">
               <div className="transition-all duration-500">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading text-heading leading-tight max-w-2xl">
-                  Create a powerful online store with <br />
+                  Leading Web Design Agency <br />
                   <span className="text-primary">
-                    custom eCommerce development
+                    Delivering the Best Results
                   </span>
                 </h1>
               </div>
@@ -79,10 +99,9 @@ export function WebDesignHero() {
                   Tailored, scalable, and revenue-driven
                 </p>
                 <p className="text-paragraph mt-2 font-medium md:text-lg max-w-2xl">
-                  Zevitech builds fully customized eCommerce platforms that
-                  align with your business vision. From design to functionality,
-                  we craft solutions that offer seamless shopping experiences
-                  and drive sustainable growth.
+                  Dubai’s leading web design agency, delivering expert,
+                  reliable, and top-quality web designing services for impactful
+                  online results.
                 </p>
               </div>
             </div>

@@ -1,20 +1,22 @@
 import React from "react";
 
 import { WebDesignHero } from "@/elements/business/website-design/web-design-hero";
-import WebDesignServices from "@/elements/business/website-design/web-design-services";
-import CampaignsSection from "@/components/common/campaigns";
 import WebDesignPricing from "@/elements/business/website-design/web-design-packages";
 import WebDesignContactSection from "@/elements/business/website-design/web-design-contact-section";
 import LandingReviewsSection from "@/components/common/reviews-section";
 import TechStackExpertise from "@/elements/website/home/tech-stack-experties";
 import { ServicesPorfolioSection02 } from "@/components/common/services-porfolio-sections";
+import WhyChooseUsSection01 from "@/components/common/why-choose-us-section-01";
+import HomeServicesSection from "@/elements/website/home/home-services-section";
 
 import WhyChooseUsWebDesignImg01 from "../../../public/images/services/design-and-development/why-choose-us-joomla-website-img01.png";
 import WhyChooseUsWebDesignImg02 from "../../../public/images/services/design-and-development/why-choose-us-wordpress-web-img04.png";
 import WhyChooseUsWebDesignImg03 from "../../../public/images/services/design-and-development/why-choose-us-joomla-website-img03.png";
 
-import { WebDesignPortfolioData } from "@/content/landing/web-design-page-content";
-import WhyChooseUsSection01 from "@/components/common/why-choose-us-section-01";
+import {
+  landingWebDesignServices,
+  WebDesignPortfolioData,
+} from "@/content/landing/web-design-page-content";
 
 function WebsiteDesignPage() {
   return (
@@ -33,7 +35,10 @@ function WebsiteDesignPage() {
 
       <TechStackExpertise />
 
-      <WebDesignServices />
+      <HomeServicesSection
+        showButtons={false}
+        services={landingWebDesignServices}
+      />
 
       <ServicesPorfolioSection02
         title="Modern Web Design Built for Speed and Conversion"
@@ -47,7 +52,7 @@ function WebsiteDesignPage() {
 
       <LandingReviewsSection />
 
-      <CampaignsSection />
+      {/* <CampaignsSection /> */}
     </div>
   );
 }

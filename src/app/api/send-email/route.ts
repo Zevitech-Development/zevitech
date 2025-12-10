@@ -2,11 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
 export async function POST(request: NextRequest) {
-  console.log("Environment check:");
-  console.log("EMAIL_USER:", process.env.EMAIL_USER);
-  console.log("EMAIL_PASSWORD exists:", !!process.env.EMAIL_PASSWORD);
-  console.log("EMAIL_HOST:", process.env.EMAIL_HOST);
-  console.log("EMAIL_PORT:", process.env.EMAIL_PORT);
   try {
     const body = await request.json();
     const { to, subject, html, attachments } = body;
@@ -27,7 +22,7 @@ export async function POST(request: NextRequest) {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASSWORD,
       },
-      debug: true,
+      debug: false,
     });
 
     // HOSTINGER SMTP CONFIGURATIONS
@@ -49,8 +44,6 @@ export async function POST(request: NextRequest) {
       html,
       attachments,
     });
-
-    console.log("Email sent successfully:", info.messageId);
     return NextResponse.json({ success: true, messageId: info.messageId });
   } catch (error) {
     console.error("Error sending email:", error);

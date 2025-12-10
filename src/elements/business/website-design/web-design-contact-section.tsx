@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import type React from "react";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,6 +12,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
+import DirhamLogo from "../../../../public/images/landing/dirham-symbol-white.png";
+
 import { User, Mail, Edit3, DollarSign, LoaderCircle } from "lucide-react";
 
 import { HomeContactFormSchema } from "@/schemas/home-contact-form-schema";
@@ -20,9 +23,20 @@ import { SendHomeContactFormEmail } from "@/services/email-service";
 const services = [
   "Custom Web Development",
   "Application Development",
-  "Ecommerce Web Development",
+  "Ecommerce Development",
   "Wordpress Development",
 ];
+
+// Dirham Symbol Component using the uploaded image
+const DirhamIcon = ({ className = "" }: { className?: string }) => (
+  <Image
+    src={DirhamLogo}
+    alt="AED"
+    width={24}
+    height={24}
+    className={className}
+  />
+);
 
 export default function WebDesignContactSection() {
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
@@ -196,7 +210,8 @@ export default function WebDesignContactSection() {
                     form.formState.errors.budget && "border-red-500"
                   )}
                 />
-                <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white h-5 w-5" />
+                {/* <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white h-5 w-5" /> */}
+                <DirhamIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white h-5 w-5" />
                 {form.formState.errors.budget && (
                   <p className="text-red-400 text-sm mt-1">
                     {form.formState.errors.budget.message}
