@@ -169,12 +169,12 @@ export function WebDesignHero() {
           <div className="relative flex justify-center">
             <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8 relative overflow-hidden">
               {/* Discount Badge */}
-              <div className="absolute -top-3 -right-3 z-10">
+              <div className="absolute -top-1 md:-top-3 -right-2 md:-right-3 z-10">
                 <div className="relative">
-                  <div className="bg-primary rounded-full p-4 shadow-lg">
+                  <div className="bg-primary rounded-full p-3 md:p-4 shadow-lg">
                     <div className="text-white text-center">
                       <div className="text-xs font-bold uppercase">GET</div>
-                      <div className="text-3xl font-black leading-none">
+                      <div className="md:text-3xl font-black leading-none">
                         50%
                       </div>
                       <div className="text-xs font-bold uppercase">OFF NOW</div>
