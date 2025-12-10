@@ -14,7 +14,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 import DirhamLogo from "../../../../public/images/landing/dirham-symbol-white.png";
 
-import { User, Mail, Edit3, DollarSign, LoaderCircle } from "lucide-react";
+import { User, Mail, Edit3, LoaderCircle } from "lucide-react";
 
 import { HomeContactFormSchema } from "@/schemas/home-contact-form-schema";
 import { HomeContactFormType } from "@/interfaces/forms-interface";
