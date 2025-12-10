@@ -49,15 +49,39 @@ export function WebDesignHero() {
     e.preventDefault();
     try {
       setLoading(true);
+
+      // Store form data before resetting
+      const submittedData = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+      };
+
       const success = await SendContactFormEmail({
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
         message: formData.message,
       });
+
       if (success) {
         toast.success("Message sent successfully! We'll contact you soon.");
+
+        // Reset form
         setFormData({ name: "", email: "", phone: "", message: "" });
+
+        // Wait 1.5 seconds before redirecting to WhatsApp
+        setTimeout(() => {
+          const whatsappNumber = "971588669020";
+          const whatsappMessage = encodeURIComponent(
+            `Hi, I just submitted a form on your website. My name is ${submittedData.name}.`
+          );
+          const whatsappURL = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+
+          // Open WhatsApp in a new tab
+          window.open(whatsappURL, "_blank");
+        }, 1500); // 1500ms = 1.5 seconds
       } else {
         toast.error("Failed to send message. Please try again.");
       }
@@ -67,7 +91,6 @@ export function WebDesignHero() {
       setLoading(false);
     }
   };
-
   return (
     <section className="relative md:pt-[12rem] pt-[10rem] lg:pb-[8rem] overflow-hidden">
       {/* Animated cloud background */}

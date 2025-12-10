@@ -1,6 +1,9 @@
 import { Card } from "@/components/ui/card";
 
-import { services as defaultServices, techStack as defaultTech } from "@/content/homepage/home-page-content";
+import {
+  services as defaultServices,
+  techStack as defaultTech,
+} from "@/content/homepage/home-page-content";
 
 import { Sparkles } from "lucide-react";
 import Link from "next/link";
@@ -29,7 +32,11 @@ type HomeServicesSectionProps = {
   techStack?: TechItem[];
 };
 
-function HomeServicesSection({ showButtons = true, services, techStack }: HomeServicesSectionProps) {
+function HomeServicesSection({
+  showButtons = true,
+  services,
+  techStack,
+}: HomeServicesSectionProps) {
   const servicesList = (services ?? defaultServices) as ServiceItem[];
   const techList = (techStack ?? defaultTech) as TechItem[];
   return (
