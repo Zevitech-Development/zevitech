@@ -86,7 +86,7 @@ export default function WebsitePricing() {
                     key={index}
                     className={`relative p-6 md:p-8 rounded-2xl transition-all duration-300 ease-in-out transform hover:-translate-y-2 flex flex-col ${
                       plan.isFeatured
-                        ? "bg-gradient-to-r from-[#3B82F6] to-[#1E40AF] text-white shadow-2xl lg:scale-105"
+                        ? "bg-gradient-to-r from-[#3B82F6] to-[#4F7FF3] text-white shadow-2xl lg:scale-105"
                         : "bg-[#F1F5F9] text-heading shadow-lg"
                     }`}
                   >
