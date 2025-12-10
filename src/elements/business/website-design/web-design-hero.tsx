@@ -225,9 +225,9 @@ export function WebDesignHero() {
 
                 <button
                   type="submit"
-                  className="w-full bg-primary text-white font-bold py-4 rounded-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300 uppercase text-sm tracking-wide hover:bg-primary/90"
+                  className="cta-button-02 w-full flex-center gap-2 bg-primary text-white font-bold rounded-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300 uppercase text-sm tracking-wide hover:bg-primary/90"
                 >
-                  GET FREE CONSULTANCY
+                  Get Started <FaArrowRightLong />
                 </button>
               </form>
             </div>
