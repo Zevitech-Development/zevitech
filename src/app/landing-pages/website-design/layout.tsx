@@ -28,6 +28,7 @@ export default function BusinessLayout({
       } catch {}
     };
   }, []);
+  
   return (
     <>
       <Script
