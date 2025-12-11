@@ -250,7 +250,7 @@ export default function WebsitePricing() {
                         type="button"
                         className={`min-w-[120px] px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 whitespace-nowrap inline-flex items-center justify-center ${
                           plan.isFeatured
-                            ? "bg-white/10 text-white hover:bg-white/20 border-2 border-white/30 ring-white ring-offset-blue-600"
+                            ? "bg-white/10 text-white hover:bg-white/20 border-2 border-z ring-white ring-offset-blue-600"
                             : "bg-transparent text-blue-600 hover:bg-blue-50 border-2 border-blue-600 ring-blue-500 ring-offset-gray-100"
                         }`}
                       >

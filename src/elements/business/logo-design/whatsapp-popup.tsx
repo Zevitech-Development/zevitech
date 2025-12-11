@@ -17,7 +17,7 @@ export default function WhatsAppPopup() {
   }, []);
 
   const handleWhatsAppClick = () => {
-    const phoneNumber = "13022190703";
+    const phoneNumber = "971588669020";
     const message = encodeURIComponent(
       "Hi! I'm interested in your Logo Design services."
     );
