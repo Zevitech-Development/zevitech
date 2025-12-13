@@ -69,9 +69,44 @@ export default function RootLayout({
         <Script id="google-gtag" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
+            function gtag(){dataLayer.push(arguments);} 
             gtag('js', new Date());
             gtag('config', 'G-4V3XW7Q5EG');
+          `}
+        </Script>
+
+        {/* Google Ads global tag */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17789624484"
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-aw" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);} 
+            gtag('js', new Date());
+            gtag('config', 'AW-17789624484');
+          `}
+        </Script>
+        <Script id="aw-conversion-helper" strategy="afterInteractive">
+          {`
+            // Define a reusable conversion helper; call only on real conversions
+            window.gtag_report_conversion = window.gtag_report_conversion || function(url) {
+              var callback = function () {
+                if (typeof(url) != 'undefined') {
+                  window.location = url;
+                }
+              };
+              if (typeof gtag === 'function') {
+                gtag('event', 'conversion', {
+                    'send_to': 'AW-17789624484/Cu82CPTzlc4bEKTB4KJC',
+                    'value': 1.0,
+                    'currency': 'USD',
+                    'event_callback': callback
+                });
+              }
+              return false;
+            };
           `}
         </Script>
 
