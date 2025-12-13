@@ -68,6 +68,22 @@ export function WebDesignHero() {
       if (success) {
         toast.success("Message sent successfully! We'll contact you soon.");
 
+        // Fire Google Ads conversion only after successful validation & submission
+        try {
+          if (typeof window !== "undefined") {
+            const w = window as any;
+            if (typeof w.gtag_report_conversion === "function") {
+              w.gtag_report_conversion();
+            } else if (typeof w.gtag === "function") {
+              w.gtag("event", "conversion", {
+                send_to: "AW-17789624484/Cu82CPTzlc4bEKTB4KJC",
+                value: 1.0,
+                currency: "USD",
+              });
+            }
+          }
+        } catch {}
+
         // Reset form
         setFormData({ name: "", email: "", phone: "", message: "" });
 
