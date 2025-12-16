@@ -38,9 +38,30 @@ export default function BusinessLayout({
       <Script id="gtag-aw" strategy="afterInteractive">
         {`
           window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
+          function gtag(){dataLayer.push(arguments);} 
           gtag('js', new Date());
           gtag('config', 'AW-17789624484');
+        `}
+      </Script>
+      <Script id="aw-conversion-helper" strategy="afterInteractive">
+        {`
+          // Google Ads conversion helper; call only after successful validation
+          function gtag_report_conversion(url) {
+            var callback = function () {
+              if (typeof(url) != 'undefined') {
+                window.location = url;
+              }
+            };
+            if (typeof gtag === 'function') {
+              gtag('event', 'conversion', {
+                  'send_to': 'AW-17789624484/Cu82CPTzlc4bEKTB4KJC',
+                  'value': 1.0,
+                  'currency': 'USD',
+                  'event_callback': callback
+              });
+            }
+            return false;
+          }
         `}
       </Script>
       <Script id="tawk-to" strategy="afterInteractive">
