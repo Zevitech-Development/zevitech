@@ -113,14 +113,6 @@ import { FiFileText } from "react-icons/fi";
 import { FaTools, FaServer, FaShieldAlt } from "react-icons/fa";
 import { MdOutlineBackup, MdOutlineUpdate, MdInsights } from "react-icons/md";
 
-import {
-  FaBullhorn,
-  FaSearchDollar,
-  FaRegChartBar,
-  FaChartLine,
-} from "react-icons/fa";
-import { MdOutlineSettingsSuggest } from "react-icons/md";
-import { GiTargetArrows } from "react-icons/gi";
 import { LucideBarChart3 } from "lucide-react";
 
 export const FaqDataPackagingLabelDesign = [
@@ -736,99 +728,6 @@ export const PortfolioSocialMediaMarketingContent = [
   { img: PortfolioSocailMediaMarketingImg04, alt: "client-04" },
   { img: PortfolioSocailMediaMarketingImg05, alt: "client-05" },
   { img: PortfolioSocailMediaMarketingImg06, alt: "client-06" },
-];
-
-export const payPerClickApproachesData = [
-  {
-    title: "Understanding Business Goals",
-    icon: <GiTargetArrows />,
-    description:
-      "Every PPC campaign begins with a deep understanding of your brand objectives, audience, and market position. This helps us craft strategies that align with your goals and maximize ad impact.",
-  },
-  {
-    title: "Keyword Research & Targeting",
-    icon: <FaSearchDollar />,
-    description:
-      "We perform extensive keyword research to identify high-performing, cost-effective search terms. Our focus is on driving qualified leads and reducing wasted ad spend.",
-  },
-  {
-    title: "Strategic Campaign Setup",
-    icon: <FaBullhorn />,
-    description:
-      "Our team structures campaigns with precision — segmenting ad groups, selecting the right platforms, and designing compelling ad creatives that capture audience attention.",
-  },
-  {
-    title: "Ad Optimization & A/B Testing",
-    icon: <MdOutlineSettingsSuggest />,
-    description:
-      "We continually optimize your ads through A/B testing, analyzing performance data to refine messaging, visuals, and targeting for better engagement and higher conversions.",
-  },
-  {
-    title: "Performance Tracking & Reporting",
-    icon: <FaRegChartBar />,
-    description:
-      "Using advanced analytics tools, we monitor campaign performance in real-time. Transparent reports give you full visibility into spend, clicks, conversions, and ROI.",
-  },
-  {
-    title: "Continuous Improvement & Scaling",
-    icon: <FaChartLine />,
-    description:
-      "PPC success is ongoing. We fine-tune targeting, budgets, and creative strategies to ensure sustained growth and maximize return on every advertising dollar.",
-  },
-];
-
-export const payPerClickAdvantagesData = [
-  {
-    title: "Instant Visibility and Traffic",
-    description:
-      "Unlike organic SEO, PPC ads deliver immediate exposure on search engines and social platforms — helping you reach potential customers right when they’re looking for your services.",
-  },
-  {
-    title: "Highly Targeted Audience Reach",
-    description:
-      "With advanced targeting options, PPC allows you to focus your ads on specific demographics, interests, and locations, ensuring your budget is spent only on qualified leads.",
-  },
-  {
-    title: "Cost Control and Flexibility",
-    description:
-      "You have full control over your daily and monthly ad spend, enabling you to scale campaigns up or down based on performance, seasonality, or budget constraints.",
-  },
-  {
-    title: "Measurable and Transparent Results",
-    description:
-      "Every click, impression, and conversion is tracked — providing detailed insights into campaign performance and allowing you to make data-driven marketing decisions.",
-  },
-  {
-    title: "Improved Brand Recognition",
-    description:
-      "Even when users don’t click your ad, consistent exposure on top of search results increases brand awareness and trust over time.",
-  },
-  {
-    title: "Remarketing Opportunities",
-    description:
-      "PPC enables you to re-engage visitors who previously interacted with your website, keeping your brand top-of-mind and encouraging conversions from warm leads.",
-  },
-];
-
-export const FaqDataPayPerClick = [
-  {
-    id: "ppc-overview",
-    question: "What does your Pay-Per-Click advertising service include?",
-    answer:
-      "Our PPC service includes keyword research, ad creation, campaign setup, audience targeting, bid management, and performance tracking to ensure optimal conversions and ROI.",
-  },
-  {
-    id: "ppc-results-time",
-    question: "How quickly can I see results from a PPC campaign?",
-    answer:
-      "PPC delivers fast results. You can start seeing traffic and conversions within days of launching your campaign, depending on your ad budget, targeting, and competition level.",
-  },
-  {
-    id: "ppc-platforms",
-    question: "Which platforms do you manage PPC campaigns on?",
-    answer:
-      "We manage PPC campaigns on Google Ads, Bing Ads, Facebook, Instagram, and LinkedIn, ensuring your business reaches the right audience across multiple digital channels.",
-  },
 ];
 
 export const amazonMarketingApproachesData = [

@@ -28,12 +28,14 @@ export const metadata: Metadata = {
   ...GetPageMetadata(),
   icons: {
     icon: [
+      { url: "/favicon.ico", sizes: "32x32" }, // Standard fallback
       { url: "/favicon/logo-96x96.png", sizes: "96x96", type: "image/png" },
       { url: "/favicon/logo-192x192.png", sizes: "192x192", type: "image/png" },
     ],
     apple: [
       { url: "/favicon/logo-192x192.png", sizes: "192x192", type: "image/png" },
     ],
+    shortcut: [{ url: "/favicon.ico" }], // Explicit shortcut icon
     other: [
       {
         rel: "icon",

@@ -19,7 +19,7 @@ export default function WhatsAppPopup() {
   const handleWhatsAppClick = () => {
     const phoneNumber = "971588669020";
     const message = encodeURIComponent(
-      "Hi! I'm interested in your Logo Design services."
+      "Hi! I'm interested in learning more about what you offer."
     );
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
   };
