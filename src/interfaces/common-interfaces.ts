@@ -228,3 +228,14 @@ export interface ResultSectionProps {
   description: string;
   results: ResultItem[];
 }
+
+export interface LandingDynamicHeroProps {
+  badgeIcon: React.ReactNode;
+  badgeText: string;
+
+  normalText: string;
+  highlightText: string;
+
+  subheading: string;
+  description: string;
+}

@@ -249,7 +249,9 @@ function WebDesignFooter() {
               Terms and Conditions
             </a>
             <span>|</span>
-            <NonRefundablePolicies />
+            <span className="hover:cursor-pointer">
+              <NonRefundablePolicies />
+            </span>
           </div>
         </div>
       </div>

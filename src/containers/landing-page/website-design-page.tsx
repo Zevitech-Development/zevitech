@@ -1,6 +1,6 @@
 import React from "react";
 
-import { WebDesignHero } from "@/elements/business/website-design/web-design-hero";
+import { LandingDynamicHero } from "@/components/common/landing-dynamic-hero";
 import WebDesignPricing from "@/elements/business/website-design/web-design-packages";
 import WebDesignContactSection from "@/elements/business/website-design/web-design-contact-section";
 import LandingReviewsSection from "@/components/common/reviews-section";
@@ -17,6 +17,7 @@ import {
   landingWebDesignServices,
   WebDesignPortfolioData,
 } from "@/content/landing/web-design-page-content";
+import { FaGlobe } from "react-icons/fa";
 
 function WebsiteDesignPage() {
   const webDesignServices = [
@@ -71,7 +72,14 @@ function WebsiteDesignPage() {
   ];
   return (
     <div>
-      <WebDesignHero />
+      <LandingDynamicHero
+        badgeIcon={<FaGlobe />}
+        badgeText="Web Solutions"
+        normalText="Leading Web Design Agency"
+        highlightText="Delivering the Best Results"
+        subheading="Tailored, scalable, and revenue-driven"
+        description="Dubai’s leading web design agency, delivering expert, reliable, and top-quality web designing services for impactful online results."
+      />
 
       <WhyChooseUsSection01
         img01={WhyChooseUsWebDesignImg01}

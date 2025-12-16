@@ -17,6 +17,7 @@ export default function RootHeaderFooterGuard({
     "/landing-pages/logo-design",
     "/landing-pages/shopify-development",
     "/landing-pages/website-design",
+    "/services/digital-marketing/google-ads",
     // Add other landing roots here if they have their own layout
   ];
   const isLandingRoot = landingRoots.includes(pathname);

@@ -190,8 +190,8 @@ export const servicesConfig = {
           href: "/services/digital-marketing/social-media-marketing",
         },
         {
-          label: "Pay Per Click",
-          href: "/services/digital-marketing/pay-per-click",
+          label: "Google Ads",
+          href: "/services/digital-marketing/google-ads",
         },
         {
           label: "Amazon Marketing",
