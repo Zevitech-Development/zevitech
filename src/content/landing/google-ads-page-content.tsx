@@ -1,10 +1,9 @@
-import GoogleAdsResultImg01 from "../../../public/images/landing/google-ads-result-section-img01.png"
-import GoogleAdsResultImg02 from "../../../public/images/landing/google-ads-result-section-img02.png"
-import GoogleAdsResultImg03 from "../../../public/images/landing/google-ads-result-section-img03.png"
-import GoogleAdsResultImg04 from "../../../public/images/landing/google-ads-result-section-img04.png"
-import GoogleAdsResultImg05 from "../../../public/images/landing/google-ads-result-section-img05.png"
-import GoogleAdsResultImg06 from "../../../public/images/landing/google-ads-result-section-img06.png"
-
+import GoogleAdsResultImg01 from "../../../public/images/landing/google-ads-result-section-img01.png";
+import GoogleAdsResultImg02 from "../../../public/images/landing/google-ads-result-section-img02.png";
+import GoogleAdsResultImg03 from "../../../public/images/landing/google-ads-result-section-img03.png";
+import GoogleAdsResultImg04 from "../../../public/images/landing/google-ads-result-section-img04.png";
+import GoogleAdsResultImg05 from "../../../public/images/landing/google-ads-result-section-img05.png";
+import GoogleAdsResultImg06 from "../../../public/images/landing/google-ads-result-section-img06.png";
 
 import { GiTargetArrows } from "react-icons/gi";
 import {
@@ -86,6 +85,7 @@ export const googleAdsApproachesData = [
       "Google Ads campaigns are dynamic. We regularly optimize targeting, budgets, and creative strategies to sustain growth, maximize conversions, and ensure every advertising dollar works efficiently.",
   },
 ];
+
 
 export const GoogleAdsResultSectionContent = [
   {

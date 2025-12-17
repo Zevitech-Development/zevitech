@@ -113,14 +113,6 @@ import { FiFileText } from "react-icons/fi";
 import { FaTools, FaServer, FaShieldAlt } from "react-icons/fa";
 import { MdOutlineBackup, MdOutlineUpdate, MdInsights } from "react-icons/md";
 
-import {
-  FaBullhorn,
-  FaSearchDollar,
-  FaRegChartBar,
-  FaChartLine,
-} from "react-icons/fa";
-import { MdOutlineSettingsSuggest } from "react-icons/md";
-import { GiTargetArrows } from "react-icons/gi";
 import { LucideBarChart3 } from "lucide-react";
 
 export const FaqDataPackagingLabelDesign = [
