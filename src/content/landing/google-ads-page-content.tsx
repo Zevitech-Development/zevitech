@@ -86,7 +86,6 @@ export const googleAdsApproachesData = [
   },
 ];
 
-
 export const GoogleAdsResultSectionContent = [
   {
     resultNo: 1,
