@@ -58,7 +58,7 @@ function LandingReviewsSection() {
                       ClientName={rew.ClientName}
                       ReviewDate={rew.ReviewDate}
                       ReviewsQuote={rew.ReviewsQuote}
-                      className="lg:h-[240px] bg-[#b8ceb9] md:h-[280px] h-[250px]"
+                      className="lg:h-[300px] bg-[#b8ceb9] h-[300px] text-xs md:text-sm"
                     />
                   </div>
                 </SwiperSlide>
@@ -91,7 +91,7 @@ function LandingReviewsSection() {
                       ClientName={rew.ClientName}
                       ReviewDate={rew.ReviewDate}
                       ReviewsQuote={rew.ReviewsQuote}
-                      className="lg:h-[240px] bg-[#92aa94] md:h-[180px] h-[250px]"
+                      className="lg:h-[240px] bg-[#92aa94] md:h-[180px] h-[250px] text-xs md:text-base"
                     />
                   </div>
                 </SwiperSlide>
@@ -124,7 +124,7 @@ function LandingReviewsSection() {
                       ClientName={rew.ClientName}
                       ReviewDate={rew.ReviewDate}
                       ReviewsQuote={rew.ReviewsQuote}
-                      className="bg-[#b8ceb9] lg:h-[240px] md:h-[280px] h-[250px]"
+                      className="bg-[#b8ceb9] lg:h-[240px] md:h-[280px] h-[250px] text-xs md:text-sm"
                     />
                   </div>
                 </SwiperSlide>

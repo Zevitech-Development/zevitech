@@ -1,14 +1,11 @@
-import Img01 from "../../../public/images/crypto-payment-plugin-dark-interface.jpg";
-import Img02 from "../../../public/images/fitness-app-interface.png";
-import Img03 from "../../../public/images/modern-dashboard-interface-dark-theme.jpg";
-import Img04 from "../../../public/images/project-management-web-application.jpg";
-
 import EcommerceImg01 from "./../../../public/images/portfolio/ecommerce-img01.jpg";
 import EcommerceImg02 from "./../../../public/images/portfolio/ecommerce-img02.jpg";
 import EcommerceImg03 from "./../../../public/images/portfolio/ecommerce-img03.jpg";
 import EcommerceImg04 from "./../../../public/images/portfolio/ecommerce-img04.jpg";
 import EcommerceImg05 from "./../../../public/images/portfolio/ecommerce-img05.jpg";
 import EcommerceImg06 from "./../../../public/images/portfolio/ecommerce-img06.jpg";
+import EcommerceImg07 from "./../../../public/images/portfolio/ecommerce-img07.jpg";
+import EcommerceImg08 from "./../../../public/images/portfolio/ecommerce-img08.jpg";
 
 import UxUiImg01 from "./../../../public/images/portfolio/ui-ux-img01.jpg";
 import UxUiImg02 from "./../../../public/images/portfolio/ui-ux-img02.jpg";
@@ -19,8 +16,9 @@ import UxUiImg05 from "./../../../public/images/portfolio/ui-ux-img05.jpg";
 import WebsiteImg01 from "./../../../public/images/portfolio/website-img01.png";
 import WebsiteImg02 from "./../../../public/images/portfolio/website-img02.png";
 import WebsiteImg03 from "./../../../public/images/portfolio/website-img03.png";
-
-
+import WebsiteImg04 from "./../../../public/images/portfolio/website-img04.png";
+import WebsiteImg05 from "./../../../public/images/portfolio/website-img05.png";
+import WebsiteImg06 from "./../../../public/images/portfolio/website-img06.png";
 
 import {
   FaCss3Alt,
@@ -33,6 +31,7 @@ import { MdDesignServices, MdDevices } from "react-icons/md";
 import {
   SiAndroid,
   SiApple,
+  SiFramer,
   SiJson,
   SiMagento,
   SiMysql,
@@ -42,15 +41,38 @@ import {
   SiSketch,
   SiSquarespace,
   SiStrapi,
+  SiTailwindcss,
+  SiTypescript,
 } from "react-icons/si";
 import { SiPhp, SiJavascript, SiWordpress, SiWebflow } from "react-icons/si";
-import { FolderKanban, Palette, ShoppingCart, Globe, Smartphone } from "lucide-react";
+import {
+  FolderKanban,
+  Palette,
+  ShoppingCart,
+  Globe,
+  Smartphone,
+} from "lucide-react";
 
 import { PortfolioItem } from "@/interfaces/components-partials-interface";
 
 // Updated portfolio data with unique IDs
 export const portfolioData: PortfolioItem[] = [
-  // ECOMMERCE CATEGORY
+  {
+    id: "helixpep",
+    title: "HelixPEP",
+    description:
+      "At HelixPEP, we deliver premium, research-grade peptides with rigorous testing, ensuring top purity and precision. Our products empower researchers and innovators for groundbreaking scientific discoveries.",
+    image: EcommerceImg02,
+    technologies: [
+      { name: "Next.js", icon: SiNextdotjs },
+      { name: "Typescript", icon: SiTypescript },
+      { name: "Tailwind CSS", icon: SiTailwindcss },
+      { name: "Framer Motion", icon: SiFramer },
+    ],
+    category: "ecommerce",
+    bgColor: "bg-[#111827]",
+  },
+
   {
     id: "manga-store",
     title: "The Manga Store",
@@ -69,26 +91,6 @@ export const portfolioData: PortfolioItem[] = [
     bgColor: "bg-white",
   },
   {
-    id: "cetrix",
-    title: "Cetrix",
-    description:
-      "At CETRIX we deliver the actionable intelligence and expert guidance to our clients to ensure their success.",
-    image: EcommerceImg02,
-    technologies: [{ name: "WordPress", icon: FaWordpress }],
-    category: "ecommerce",
-    bgColor: "bg-green-700/80",
-  },
-  {
-    id: "prokyt",
-    title: "Prokyt",
-    description:
-      "The PROKYT website is designed specifically for dealers and retailers who specialise in the supply of Police,",
-    image: EcommerceImg03,
-    technologies: [{ name: "Magento", icon: SiMagento }],
-    category: "ecommerce",
-    bgColor: "bg-white",
-  },
-  {
     id: "chiltern-global",
     title: "Chiltern Global",
     description:
@@ -103,6 +105,53 @@ export const portfolioData: PortfolioItem[] = [
     category: "ecommerce",
     bgColor: "bg-[#091D24]",
   },
+
+  {
+    id: "purelashbloom",
+    title: "Pure Lash Bloom",
+    description:
+      "Pure Lash Bloom Lash Shampoo is a gentle, oil-free cleanser that promotes lash health, longer retention, and a fresh, rose-scented feel.",
+    image: EcommerceImg07,
+    technologies: [
+      { name: "CSS3", icon: FaCss3Alt },
+      { name: "HTML5", icon: FaHtml5 },
+      { name: "JavaScript", icon: FaJs },
+      { name: "Responsive", icon: MdDevices },
+      { name: "WordPress", icon: FaWordpress },
+      { name: "Bootstrap", icon: FaBootstrap },
+    ],
+    category: "ecommerce",
+    bgColor: "bg-black/90",
+  },
+  {
+    id: "prokyt",
+    title: "Prokyt",
+    description:
+      "The PROKYT website is designed specifically for dealers and retailers who specialise in the supply of Police,",
+    image: EcommerceImg03,
+    technologies: [{ name: "Magento", icon: SiMagento }],
+    category: "ecommerce",
+    bgColor: "bg-white",
+  },
+
+  {
+    id: "selfawarenessbook",
+    title: "Self-Awareness: A Journey to Authentic Living",
+    description:
+      "Self-Awareness is a carefully crafted guide that helps readers connect with their inner world, fostering balance, self-acceptance, and authentic living, while offering lasting quality in both content and design.",
+    image: EcommerceImg08,
+    technologies: [
+      { name: "CSS3", icon: FaCss3Alt },
+      { name: "HTML5", icon: FaHtml5 },
+      { name: "JavaScript", icon: FaJs },
+      { name: "Responsive", icon: MdDevices },
+      { name: "WordPress", icon: FaWordpress },
+      { name: "Bootstrap", icon: FaBootstrap },
+    ],
+    category: "ecommerce",
+    bgColor: "bg-[#72A1B6]",
+  },
+
   {
     id: "gas-files",
     title: "GAS Files",
@@ -185,7 +234,7 @@ export const portfolioData: PortfolioItem[] = [
     bgColor: "bg-white",
   },
   {
-    id: "knowledge-park-uiux", // Changed from "knowledge-park"
+    id: "knowledge-park-uiux",
     title: "jb knowledge park",
     description:
       "JB Knowledge Park, located in Delhi NCR, Faridabad, is an AICTE-approved college affiliated with MDU, a NAAC A+ State Government University. The college specializes in BBA, BCA, and BTech programs, wi",
@@ -217,6 +266,24 @@ export const portfolioData: PortfolioItem[] = [
     category: "websites",
     bgColor: "bg-[#01212D]",
   },
+
+  {
+    id: "patrickkercher",
+    title: "Patrick Kercher",
+    description:
+      "Patrick Kercher is an artist and game designer with a Master’s in Game Design, blending illustration and web design.",
+    image: WebsiteImg05,
+    technologies: [
+      { name: "CSS3", icon: FaCss3Alt },
+      { name: "HTML5", icon: FaHtml5 },
+      { name: "JavaScript", icon: FaJs },
+      { name: "Responsive", icon: MdDevices },
+      { name: "WordPress", icon: SiWordpress },
+    ],
+    category: "websites",
+    bgColor: "bg-[#352D60]",
+  },
+
   {
     id: "college-apply-website",
     title: "College Apply",
@@ -228,8 +295,40 @@ export const portfolioData: PortfolioItem[] = [
       { name: "NextJS", icon: SiNextdotjs },
     ],
     category: "websites",
-    bgColor: "bg-red-600",
+    bgColor: "bg-white",
   },
+
+  {
+    id: "andyhughes",
+    title: "Andy Hughes - Author",
+    description:
+      "Andy Hughes, a resilient individual who overcame polio, shares his journey in 'I’m Only Human.' This book celebrates strength, healing, and hope, offering a powerful message of perseverance.",
+    image: WebsiteImg04,
+    technologies: [
+      { name: "CSS3", icon: FaCss3Alt },
+      { name: "HTML5", icon: FaHtml5 },
+      { name: "JavaScript", icon: FaJs },
+      { name: "Responsive", icon: MdDevices },
+      { name: "WordPress", icon: SiWordpress },
+    ],
+    category: "websites",
+    bgColor: "bg-[#3E5760]",
+  },
+
+  {
+    id: "luxury-med-spa-website",
+    title: "ID Luxury Med Spa",
+    description:
+      "ID Luxury Med Spa was founded with a vision to meet the growing demand for both invasive and non-invasive cosmetic treatments, all within a serene and sophisticated setting.",
+    image: UxUiImg02,
+    technologies: [
+      { name: "Responsive", icon: MdDevices },
+      { name: "WordPress", icon: SiWordpress },
+    ],
+    category: "websites",
+    bgColor: "bg-white",
+  },
+
   {
     id: "be-bigseller",
     title: "bebigseller",
@@ -247,17 +346,20 @@ export const portfolioData: PortfolioItem[] = [
     bgColor: "bg-[#061321]",
   },
   {
-    id: "luxury-med-spa-website",
-    title: "ID Luxury Med Spa",
+    id: "melvintarry",
+    title: "Melvin Tarry - Wellness Advocate",
     description:
-      "ID Luxury Med Spa was founded with a vision to meet the growing demand for both invasive and non-invasive cosmetic treatments, all within a serene and sophisticated setting.",
-    image: UxUiImg02,
+      "Melvin Tarry’s extraordinary journey began when his wife Kathy was diagnosed with lupus in 1996. Through their search for hope, Melvin discovered the power of natural healing and wellness, dedicating himself to studying and sharing life-changing knowledge to help others achieve balance and health.",
+    image: WebsiteImg06,
     technologies: [
+      { name: "CSS3", icon: FaCss3Alt },
+      { name: "HTML5", icon: FaHtml5 },
+      { name: "JavaScript", icon: FaJs },
       { name: "Responsive", icon: MdDevices },
       { name: "WordPress", icon: SiWordpress },
     ],
     category: "websites",
-    bgColor: "bg-white",
+    bgColor: "bg-[#5F2F00]/85",
   },
   {
     id: "livigno-ski-school-website",

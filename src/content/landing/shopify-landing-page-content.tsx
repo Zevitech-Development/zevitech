@@ -53,6 +53,7 @@ import ReviewClientImg12 from "../../../public/images/reviews/review-client-12.j
 import ReviewClientImg13 from "../../../public/images/reviews/review-client-13.jpg";
 import ReviewClientImg14 from "../../../public/images/reviews/review-client-14.jpg";
 import ReviewClientImg15 from "../../../public/images/reviews/review-client-15.jpg";
+import ReviewClientImg16 from "../../../public/images/reviews/review-client-16.png";
 
 export const TrustbarSectionContent = [
   {
@@ -521,6 +522,13 @@ export const InformationSectionContent = [
 ];
 
 export const ReviewsSectionContent01 = [
+  {
+    ProfilePicture: ReviewClientImg16,
+    ClientName: "Corey.",
+    ReviewDate: "2025-12-09",
+    ReviewsQuote:
+      "This company is amazing. They new I was haveing trouble with my previous developers , and they jumped in and got a broken down website up and going so I could sell my product, and while I was selling my product I gave them free reign to design me a new website from the ground up . Website is super nice . I can’t wait to see what the future has in store for HelixPep with zevitechs help and guidance . I recommend if you’re needing a website come check out zevitech.",
+  },
   {
     ProfilePicture: ReviewClientImg01,
     ClientName: "Sarah T.",
