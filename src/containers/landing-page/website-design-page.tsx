@@ -19,6 +19,7 @@ import {
 } from "@/content/landing/web-design-page-content";
 import { FaGlobe } from "react-icons/fa";
 
+
 function WebsiteDesignPage() {
 
   return (
