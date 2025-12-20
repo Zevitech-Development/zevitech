@@ -33,12 +33,12 @@ import PortfolioCustomEcommerce04 from "../../../public/images/services/e-commer
 import PortfolioCustomEcommerce05 from "../../../public/images/services/e-commerce/portfolio-custom-ecommerce05.png";
 import PortfolioCustomEcommerce06 from "../../../public/images/services/e-commerce/portfolio-custom-ecommerce06.png";
 
-import PortfolioWordpressImg01 from "../../../public/images/services/design-and-development/portfolio-wordpress-img01.png";
-import PortfolioWordpressImg02 from "../../../public/images/services/design-and-development/portfolio-wordpress-img02.png";
-import PortfolioWordpressImg03 from "../../../public/images/services/design-and-development/portfolio-wordpress-img03.png";
+import PortfolioWordpressImg01 from "../../../public/images/services/design-and-development/portfolio-wordpress-img07.png";
+import PortfolioWordpressImg02 from "../../../public/images/services/design-and-development/portfolio-wordpress-img08.png";
+import PortfolioWordpressImg03 from "../../../public/images/services/design-and-development/portfolio-wordpress-img09.png";
 import PortfolioWordpressImg04 from "../../../public/images/services/design-and-development/portfolio-wordpress-img04.png";
-import PortfolioWordpressImg05 from "../../../public/images/services/design-and-development/portfolio-wordpress-img05.png";
-import PortfolioWordpressImg06 from "../../../public/images/services/design-and-development/portfolio-wordpress-img06.png";
+import PortfolioWordpressImg05 from "../../../public/images/services/design-and-development/portfolio-wordpress-img10.png";
+import PortfolioWordpressImg06 from "../../../public/images/services/design-and-development/portfolio-wordpress-img03.png";
 
 import PortfolioCustomWebsiteDesignImg01 from "../../../public/images/services/design-and-development/portfolio-custom-website-img01.png";
 import PortfolioCustomWebsiteDesignImg02 from "../../../public/images/services/design-and-development/portfolio-custom-website-img02.png";

@@ -1,9 +1,9 @@
-import PortfolioWebDesignImg01 from "../../../public/images/services/design-and-development/portfolio-wordpress-img01.png";
-import PortfolioWebDesignImg02 from "../../../public/images/services/design-and-development/portfolio-php-website-img06.png";
+import PortfolioWebDesignImg01 from "../../../public/images/services/e-commerce/portfolio-custom-ecommerce01.png";
+import PortfolioWebDesignImg02 from "../../../public/images/services/design-and-development/portfolio-wordpress-img09.png";
 import PortfolioWebDesignImg03 from "../../../public/images/services/design-and-development/portfolio-wordpress-img04.png";
-import PortfolioWebDesignImg04 from "../../../public/images/services/e-commerce/portfolio-magento-website-img04.png";
+import PortfolioWebDesignImg04 from "../../../public/images/services/design-and-development/portfolio-php-website-img06.png";
 import PortfolioWebDesignImg05 from "../../../public/images/services/e-commerce/portfolio-custom-ecommerce02.png";
-import PortfolioWebDesignImg06 from "../../../public/images/services/e-commerce/why-choose-open-cart-06.jpg";
+import PortfolioWebDesignImg06 from "../../../public/images/services/design-and-development/portfolio-wordpress-img01.png";
 
 import {
   Crown,
