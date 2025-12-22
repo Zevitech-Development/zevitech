@@ -182,8 +182,8 @@ export const techStack = [
   },
   {
     icon: MousePointerClick,
-    label: "Pay Per Click",
-    link: "/services/digital-marketing/pay-per-click",
+    label: "Google Ads",
+    link: "/services/digital-marketing/google-ads",
   },
   {
     icon: ShoppingBag,

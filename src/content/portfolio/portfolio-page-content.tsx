@@ -2,10 +2,11 @@ import EcommerceImg01 from "./../../../public/images/portfolio/ecommerce-img01.j
 import EcommerceImg02 from "./../../../public/images/portfolio/ecommerce-img02.jpg";
 import EcommerceImg03 from "./../../../public/images/portfolio/ecommerce-img03.jpg";
 import EcommerceImg04 from "./../../../public/images/portfolio/ecommerce-img04.jpg";
-import EcommerceImg05 from "./../../../public/images/portfolio/ecommerce-img05.jpg";
-import EcommerceImg06 from "./../../../public/images/portfolio/ecommerce-img06.jpg";
 import EcommerceImg07 from "./../../../public/images/portfolio/ecommerce-img07.jpg";
 import EcommerceImg08 from "./../../../public/images/portfolio/ecommerce-img08.jpg";
+import EcommerceImg09 from "./../../../public/images/portfolio/ecommerce-img09.png";
+import EcommerceImg10 from "./../../../public/images/portfolio/ecommerce-img10.png";
+import EcommerceImg11 from "./../../../public/images/portfolio/EcommerceImg11.png";
 
 import UxUiImg01 from "./../../../public/images/portfolio/ui-ux-img01.jpg";
 import UxUiImg02 from "./../../../public/images/portfolio/ui-ux-img02.jpg";
@@ -38,6 +39,7 @@ import {
   SiNextdotjs,
   SiNodedotjs,
   SiOpenai,
+  SiShopify,
   SiSketch,
   SiSquarespace,
   SiStrapi,
@@ -107,6 +109,16 @@ export const portfolioData: PortfolioItem[] = [
   },
 
   {
+    id: "prokyt",
+    title: "Prokyt",
+    description:
+      "The PROKYT website is designed specifically for dealers and retailers who specialise in the supply of Police,",
+    image: EcommerceImg03,
+    technologies: [{ name: "Magento", icon: SiMagento }],
+    category: "ecommerce",
+    bgColor: "bg-white",
+  },
+  {
     id: "purelashbloom",
     title: "Pure Lash Bloom",
     description:
@@ -122,16 +134,6 @@ export const portfolioData: PortfolioItem[] = [
     ],
     category: "ecommerce",
     bgColor: "bg-black/90",
-  },
-  {
-    id: "prokyt",
-    title: "Prokyt",
-    description:
-      "The PROKYT website is designed specifically for dealers and retailers who specialise in the supply of Police,",
-    image: EcommerceImg03,
-    technologies: [{ name: "Magento", icon: SiMagento }],
-    category: "ecommerce",
-    bgColor: "bg-white",
   },
 
   {
@@ -153,28 +155,50 @@ export const portfolioData: PortfolioItem[] = [
   },
 
   {
-    id: "gas-files",
-    title: "GAS Files",
+    id: "forever-demure",
+    title: "Forever Demure",
     description:
-      "Gas Files has set out to tackle the problems associated with digital file storage head on. With it's new blockchain technology, Gas Files enables anyone around the world to store any number of files o",
-    image: EcommerceImg05,
-    technologies: [{ name: "Responsive", icon: MdDevices }],
-    category: "ecommerce",
-    bgColor: "bg-[#212121]",
-  },
-  {
-    id: "my-friends",
-    title: "My Friends",
-    description: "comming soon",
-    image: EcommerceImg06,
+      "Forever Demure is a beauty brand centered on effortless, accessible cosmetics that inspire confidence and personal style.",
+    image: EcommerceImg09,
     technologies: [
-      { name: "PHP", icon: SiPhp },
+      { name: "Shopify", icon: SiShopify },
+      { name: "CSS3", icon: FaCss3Alt },
+      { name: "HTML5", icon: FaHtml5 },
       { name: "JavaScript", icon: SiJavascript },
     ],
     category: "ecommerce",
-    bgColor: "bg-blue-500",
+    bgColor: "bg-white",
   },
-
+  {
+    id: "jh-corner",
+    title: "JH Corner",
+    description:
+      "JH Corner is an outdoor brand built by hikers, for hikers—offering reliable, high-quality gear designed to keep adventurers comfortable, safe, and ready for every journey.",
+    image: EcommerceImg10,
+    technologies: [
+      { name: "Shopify", icon: SiShopify },
+      { name: "CSS3", icon: FaCss3Alt },
+      { name: "HTML5", icon: FaHtml5 },
+      { name: "JavaScript", icon: SiJavascript },
+    ],
+    category: "ecommerce",
+    bgColor: "bg-[#0075C2]",
+  },
+  {
+    id: "dakinstore",
+    title: "Dakinstore",
+    description:
+      "Dakinstore is a one-stop online marketplace offering home décor, electronics, fashion, and everyday essentials—bringing quality, affordability, and convenience together in a seamless shopping experience.",
+    image: EcommerceImg11,
+    technologies: [
+      { name: "Shopify", icon: SiShopify },
+      { name: "CSS3", icon: FaCss3Alt },
+      { name: "HTML5", icon: FaHtml5 },
+      { name: "JavaScript", icon: SiJavascript },
+    ],
+    category: "ecommerce",
+    bgColor: "bg-[#1A1C2D]",
+  },
   // UI/UX CATEGORY
   {
     id: "college-apply-uiux",
