@@ -142,7 +142,7 @@ export function HeroSection() {
                 <Image
                   src={currentTab.image || "/placeholder.svg"}
                   alt={currentTab.title}
-                  className="w-full rounded-2xl"
+                  className="w-full rounded-2xl h-auto sm:h-[400px] object-cover"
                 />
               </div>
             </div>
