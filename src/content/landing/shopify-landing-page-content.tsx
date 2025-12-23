@@ -6,12 +6,12 @@ import TrustbarClient04 from "../../../public/images/clients/trustbar-client-img
 import TrustbarClient05 from "../../../public/images/clients/trustbar-client-img-05.webp";
 import TrustbarClient06 from "../../../public/images/clients/trustbar-client-img-06.webp";
 
-import PortfolioImg01 from "../../../public/images/portfolio-01.webp";
-import PortfolioImg02 from "../../../public/images/portfolio-02.webp";
-import PortfolioImg03 from "../../../public/images/portfolio-03.webp";
+import PortfolioImg01 from "../../../public/images/shopify-portfolio-img01.png";
+import PortfolioImg02 from "../../../public/images/shopify-portfolio-img02.png";
+import PortfolioImg03 from "../../../public/images/portfolio-01.webp";
 import PortfolioImg04 from "../../../public/images/portfolio-04.webp";
 import PortfolioImg05 from "../../../public/images/portfolio-05.webp";
-import PortfolioImg06 from "../../../public/images/portfolio-06.webp";
+import PortfolioImg06 from "../../../public/images/portfolio-03.webp";
 import { FiLayers, FiShare2 } from "react-icons/fi";
 import { IoIosRocket } from "react-icons/io";
 
