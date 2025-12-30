@@ -92,20 +92,66 @@ export default function RootLayout({
         </Script>
         <Script id="aw-conversion-helper" strategy="afterInteractive">
           {`
-            // Define a reusable conversion helper; call only on real conversions
-            window.gtag_report_conversion = window.gtag_report_conversion || function(url) {
+            // Helper function to hash user data with SHA-256
+            async function hashUserData(value) {
+              if (!value) return '';
+              const normalized = String(value).toLowerCase().trim();
+              const encoder = new TextEncoder();
+              const data = encoder.encode(normalized);
+              const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+              const hashArray = Array.from(new Uint8Array(hashBuffer));
+              return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            }
+
+            // Enhanced conversion helper with user data support
+            window.gtag_report_conversion = window.gtag_report_conversion || async function(url, userData) {
               var callback = function () {
                 if (typeof(url) != 'undefined') {
                   window.location = url;
                 }
               };
+
               if (typeof gtag === 'function') {
-                gtag('event', 'conversion', {
-                    'send_to': 'AW-17789624484/Cu82CPTzlc4bEKTB4KJC',
-                    'value': 1.0,
-                    'currency': 'USD',
-                    'event_callback': callback
-                });
+                const conversionData = {
+                  'send_to': 'AW-17789624484/Cu82CPTzlc4bEKTB4KJC',
+                  'value': 1.0,
+                  'currency': 'USD',
+                  'event_callback': callback
+                };
+
+                // Add enhanced conversion data if provided
+                if (userData) {
+                  const enhancedUserData = {};
+
+                  // Hash email
+                  if (userData.email) {
+                    enhancedUserData.email = await hashUserData(userData.email);
+                  }
+
+                  // Hash phone (normalize: remove spaces, dashes, parentheses)
+                  if (userData.phone) {
+                    const normalizedPhone = String(userData.phone).replace(/[\s\-\(\)]/g, '');
+                    enhancedUserData.phone_number = await hashUserData(normalizedPhone);
+                  }
+
+                  // Hash name (split into first and last)
+                  if (userData.firstName || userData.lastName) {
+                    enhancedUserData.address = {};
+                    if (userData.firstName) {
+                      enhancedUserData.address.first_name = await hashUserData(userData.firstName);
+                    }
+                    if (userData.lastName) {
+                      enhancedUserData.address.last_name = await hashUserData(userData.lastName);
+                    }
+                  }
+
+                  // Add enhanced user data to conversion
+                  if (Object.keys(enhancedUserData).length > 0) {
+                    conversionData.user_data = enhancedUserData;
+                  }
+                }
+
+                gtag('event', 'conversion', conversionData);
               }
               return false;
             };

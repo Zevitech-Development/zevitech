@@ -71,6 +71,20 @@ function DailogLeadForm({ trigger }: DailogLeadFormProps) {
       const emailSent = await SendDailogLeadFormEmail(data);
 
       if (emailSent) {
+        // Send enhanced conversion with user data
+        if (window.gtag_report_conversion) {
+          const nameParts = data.name.trim().split(" ");
+          const firstName = nameParts[0] || "";
+          const lastName = nameParts.slice(1).join(" ") || "";
+
+          await window.gtag_report_conversion(undefined, {
+            email: data.emailAddress,
+            phone: data.phoneNumber,
+            firstName: firstName,
+            lastName: lastName,
+          });
+        }
+
         sessionStorage.setItem("form_submitted", "true");
         sessionStorage.setItem("submission_timestamp", Date.now().toString());
 

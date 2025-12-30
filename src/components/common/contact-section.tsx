@@ -58,6 +58,20 @@ export default function ContactSection() {
       });
 
       if (success) {
+        // Send enhanced conversion with user data
+        if (window.gtag_report_conversion) {
+          const nameParts = data.name.trim().split(" ");
+          const firstName = nameParts[0] || "";
+          const lastName = nameParts.slice(1).join(" ") || "";
+
+          await window.gtag_report_conversion(undefined, {
+            email: data.email,
+            phone: undefined, // No phone field in this form
+            firstName: firstName,
+            lastName: lastName,
+          });
+        }
+
         toast.success("Message sent successfully! We'll get back to you soon.");
         form.reset();
         setSelectedServices([]);

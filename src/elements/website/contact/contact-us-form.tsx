@@ -58,8 +58,18 @@ function ContactUsForm() {
       });
 
       if (success) {
-        toast.success("Thanks! We’ll be in touch soon.", { id: toastId, duration: 4000 });
-        setFeedback({ type: "success", message: "Thanks! We’ll be in touch soon." });
+        // Send enhanced conversion with user data
+        if (window.gtag_report_conversion) {
+          await window.gtag_report_conversion(undefined, {
+            email: formData.email,
+            phone: formData.phone,
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+          });
+        }
+
+        toast.success("Thanks! We'll be in touch soon.", { id: toastId, duration: 4000 });
+        setFeedback({ type: "success", message: "Thanks! We'll be in touch soon." });
         setFormData({
           firstName: "",
           lastName: "",

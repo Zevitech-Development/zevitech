@@ -68,21 +68,24 @@ export function WebDesignHero() {
       if (success) {
         toast.success("Message sent successfully! We'll contact you soon.");
 
-        // Fire Google Ads conversion only after successful validation & submission
+        // Fire Google Ads conversion with enhanced user data
         try {
-          if (typeof window !== "undefined") {
-            const w = window as any;
-            if (typeof w.gtag_report_conversion === "function") {
-              w.gtag_report_conversion();
-            } else if (typeof w.gtag === "function") {
-              w.gtag("event", "conversion", {
-                send_to: "AW-17789624484/Cu82CPTzlc4bEKTB4KJC",
-                value: 1.0,
-                currency: "USD",
-              });
-            }
+          if (typeof window !== "undefined" && window.gtag_report_conversion) {
+            // Split name into first and last name
+            const nameParts = submittedData.name.trim().split(" ");
+            const firstName = nameParts[0] || "";
+            const lastName = nameParts.slice(1).join(" ") || "";
+
+            await window.gtag_report_conversion(undefined, {
+              email: submittedData.email,
+              phone: submittedData.phone,
+              firstName: firstName,
+              lastName: lastName,
+            });
           }
-        } catch {}
+        } catch (conversionError) {
+          console.error("Conversion tracking error:", conversionError);
+        }
 
         // Reset form
         setFormData({ name: "", email: "", phone: "", message: "" });
