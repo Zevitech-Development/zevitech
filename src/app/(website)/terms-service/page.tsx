@@ -8,7 +8,7 @@ import { GetPageMetadata } from "@/utils/meta-data";
 export const metadata: Metadata = GetPageMetadata({
   title: "Terms of Service | Zevitech",
   description:
-    "Read the terms and conditions for using Zevitech’s design and branding services. Understand your rights, responsibilities, and the legal framework that governs our platform.",
+    "Read Zevitech’s terms and conditions for design and branding services. Understand your rights, responsibilities, and the legal framework.",
 });
 
 function TermsServices() {

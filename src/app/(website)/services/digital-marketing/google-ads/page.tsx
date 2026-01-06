@@ -6,10 +6,9 @@ import GoogleAdsPage from "@/containers/website/services/digital-marketing/googl
 import { GetPageMetadata } from "@/utils/meta-data";
 
 export const metadata: Metadata = GetPageMetadata({
-  title:
-    "Google Ads Management Services | Zevitech Certified Advertising Experts",
+  title: "Google Ads Management | Certified Experts | Zevitech",
   description:
-    "Boost your visibility and conversions with Zevitech’s expert Google Ads management services. We create and optimize high-performing search, display, and video ad campaigns to help you reach the right audience and maximize ROI.",
+    "Drive traffic and conversions with Zevitech’s expert Google Ads services, including search, display, and video ad campaign optimization.",
 });
 
 function PayPerClick() {

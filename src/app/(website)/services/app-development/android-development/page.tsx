@@ -6,9 +6,9 @@ import AndroidDevelopmentPage from "@/containers/website/services/app-developmen
 import { GetPageMetadata } from "@/utils/meta-data";
 
 export const metadata: Metadata = GetPageMetadata({
-  title: "Android App Development Services | Zevitech Mobile App Experts",
+  title: "Android App Development Services | Zevitech ",
   description:
-    "Build powerful and scalable Android applications with Zevitech’s Android app development services. From custom features to seamless integrations and Google Play Store optimization, we create apps that drive growth.",
+    "Build scalable Android apps with Zevitech. We deliver custom features, seamless integrations, and Google Play Store optimization to drive growth.",
 });
 
 function AndroidDevelopment() {

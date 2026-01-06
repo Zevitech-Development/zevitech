@@ -8,7 +8,7 @@ import { GetPageMetadata } from "@/utils/meta-data";
 export const metadata: Metadata = GetPageMetadata({
   title: "Game Development Services | Zevitech 2D & 3D Game Studio",
   description:
-    "Bring your gaming vision to life with Zevitech’s professional game development services. We design and develop immersive 2D and 3D games with stunning graphics, engaging gameplay, and cross-platform compatibility.",
+    "Bring your gaming vision to life with Zevitech’s game development services. We create immersive 2D & 3D games with stunning graphics and engaging gameplay.",
 });
 
 function GameDevelopment() {

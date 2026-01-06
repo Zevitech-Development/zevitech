@@ -4,9 +4,9 @@ const BASE_URL = process.env.NEXT_PUBLIC_FRONTEND_URL;
 
 export const defaultMetadata: Metadata = {
   title:
-    "Zevitech - Custom Software, App Development & Digital Transformation Agency",
+    "Zevitech | Software, Apps & Digital Transformation",
   description:
-    "Zevitech is a full-spectrum digital solutions agency delivering mobile apps, web platforms, custom software, SaaS products, UI/UX design, eCommerce (Custom, Shopify, WordPress), digital marketing, SEO, automation, and scalable branding strategies — all in one place.",
+    "Zevitech is a full-spectrum digital solutions agency offering mobile apps, web platforms, SaaS, UI/UX design, eCommerce, SEO, automation, and branding.",
   creator: "Zevitech",
   applicationName: "Zevitech",
 

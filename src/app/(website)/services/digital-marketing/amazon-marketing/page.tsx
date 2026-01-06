@@ -6,9 +6,9 @@ import AmazonMarketingPage from "@/containers/website/services/digital-marketing
 import { GetPageMetadata } from "@/utils/meta-data";
 
 export const metadata: Metadata = GetPageMetadata({
-  title: "Amazon Marketing Services | Zevitech eCommerce Advertising Experts",
+  title: "Amazon Marketing & eCommerce Ads Experts | Zevitech",
   description:
-    "Boost your Amazon sales with Zevitech’s Amazon marketing services. We offer expert PPC management, product optimization, A+ content, and data-driven strategies to improve rankings, visibility, and conversions.",
+    "Boost Amazon sales with Zevitech’s Amazon marketing services, including PPC management, product optimization, A+ content, and data-driven strategies.",
 });
 
 function AmazonMarketing() {

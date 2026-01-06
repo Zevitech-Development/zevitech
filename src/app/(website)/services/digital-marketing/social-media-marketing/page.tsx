@@ -6,9 +6,9 @@ import SocialMediaMarketingPage from "@/containers/website/services/digital-mark
 import { GetPageMetadata } from "@/utils/meta-data";
 
 export const metadata: Metadata = GetPageMetadata({
-  title: "Social Media Marketing Services | Zevitech Digital Growth Experts",
+  title: "Social Media Marketing Services | Zevitech Experts",
   description:
-    "Grow your brand presence and engagement with Zevitech’s social media marketing services. We craft result-driven strategies for Facebook, Instagram, LinkedIn, and more to boost visibility, followers, and conversions.",
+    "Grow your brand with Zevitech’s social media marketing services. We create result-driven strategies for Facebook, Instagram, LinkedIn, and more.",
 });
 
 function SocialMediaMarketing() {

@@ -16,7 +16,7 @@ function Logo() {
     >
       <Image
         src={LogoBlack}
-        alt="Zevitech - Custom Software, App Development & Digital Transformation Agency"
+        alt="Custom Software & App Development Agency | Zevitech"
         priority
         className="group-hover:scale-105 animation-standard"
         width={120}

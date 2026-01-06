@@ -8,7 +8,7 @@ import { GetPageMetadata } from "@/utils/meta-data";
 export const metadata: Metadata = GetPageMetadata({
   title: "Privacy Policy | Zevitech",
   description:
-    "Learn how Zevitech collects, uses, and protects your personal information. Review our privacy practices to understand your rights and how we handle your data securely.",
+    "Learn how Zevitech collects, uses, and protects your personal information. Review our privacy practices and understand your data rights.",
 });
 
 function PrivacyPolicy() {

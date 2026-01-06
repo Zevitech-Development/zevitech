@@ -8,7 +8,7 @@ import { GetPageMetadata } from "@/utils/meta-data";
 export const metadata: Metadata = GetPageMetadata({
   title: "iOS App Development Services | Zevitech Mobile App Experts",
   description:
-    "Turn your app idea into reality with Zevitech’s iOS app development services. We build secure, high-performing, and user-friendly iOS applications with custom features, seamless integration, and App Store optimization.",
+    "Turn your app idea into reality with Zevitech’s iOS app development services. We build secure, high-performing, user-friendly apps with custom features",
 });
 
 function IOSDevelopment() {

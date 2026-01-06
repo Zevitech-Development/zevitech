@@ -6,10 +6,9 @@ import ShopifyDevelopmentPage from "@/containers/website/services/e-commerce/sho
 import { GetPageMetadata } from "@/utils/meta-data";
 
 export const metadata: Metadata = GetPageMetadata({
-  title:
-    "Looking to Launch or Scale Your Shopify Store? | Zevitech Shopify Experts",
+  title: "Launch & Scale Your Shopify Store | Zevitech Experts",
   description:
-    "Want to grow your eCommerce business with a high-converting Shopify store? Zevitech offers custom Shopify development, theme design, app integration, and store optimization. Let's build your success.",
+    "Grow your eCommerce business with Zevitech’s Shopify development. Custom stores, theme design, app integration, and optimization for higher conversions.",
 });
 
 function ShopifyDevelopment() {
