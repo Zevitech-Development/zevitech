@@ -39,7 +39,7 @@ function Thankyou() {
           });
         `}
       </Script>
-      <Script id="aw-submit-lead-conversion-secondary" strategy="afterInteractive">
+      {/* <Script id="aw-submit-lead-conversion-secondary" strategy="afterInteractive">
         {`
           gtag('event', 'conversion', {
             'send_to': 'AW-16979187198/cYc6CMq_-90bEP6rp6A_',
@@ -48,7 +48,7 @@ function Thankyou() {
             'transaction_id': ''
           });
         `}
-      </Script>
+      </Script> */}
 
       <ThankyouPage />
     </>
