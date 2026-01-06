@@ -28,6 +28,7 @@ function Thankyou() {
             gtag('config', 'AW-17789624484');
           `}
       </Script>
+      
       {/* Conversion event for Submit lead form */}
       <Script id="aw-submit-lead-conversion" strategy="afterInteractive">
         {`
@@ -35,6 +36,16 @@ function Thankyou() {
             'send_to': 'AW-17789624484/Cu82CPTzlc4bEKTB4KJC',
             'value': 1.0, 
             'currency': 'USD'
+          });
+        `}
+      </Script>
+      <Script id="aw-submit-lead-conversion-secondary" strategy="afterInteractive">
+        {`
+          gtag('event', 'conversion', {
+            'send_to': 'AW-16979187198/cYc6CMq_-90bEP6rp6A_',
+            'value': 35.0,
+            'currency': 'USD',
+            'transaction_id': ''
           });
         `}
       </Script>
