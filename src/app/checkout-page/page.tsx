@@ -8,7 +8,7 @@ import { GetPageMetadata } from "@/utils/meta-data";
 export const metadata: Metadata = GetPageMetadata({
   title: "Secure Checkout | Zevitech Design & Branding Services",
   description:
-    "Complete your order securely with Zevitech's encrypted checkout process. Review your selected package, enter your details, and finalize your payment with full confidence and transparency.",
+    "Complete your Zevitech order securely with our encrypted checkout. Review custom software, app development, and branding packages with confidence.",
 });
 
 function CheckoutLoading() {
