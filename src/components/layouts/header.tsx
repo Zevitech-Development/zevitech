@@ -1,6 +1,7 @@
 "use client";
 import * as React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import { ArrowRight } from "lucide-react";
 
@@ -36,6 +37,12 @@ import DailogLeadForm from "../forms/dailog-lead-form";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const pathname = usePathname();
+
+  React.useEffect(() => {
+    // Close any open menu and remove blur overlay on route change
+    setIsMenuOpen(false);
+  }, [pathname]);
 
   const DesktopServiceItem = ({ service }: { service: ServiceLink }) => {
     const hasChildren = service.children.length > 0;
@@ -127,6 +134,7 @@ export function Header() {
         <div
           className="fixed inset-0 top-24 bg-black/20 backdrop-blur-sm z-[45] transition-opacity duration-300"
           aria-hidden="true"
+          onClick={() => setIsMenuOpen(false)}
         />
       )}
 

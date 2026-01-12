@@ -2,6 +2,7 @@
 import Image from "next/image";
 import type React from "react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -41,6 +42,7 @@ const DirhamIcon = ({ className = "" }: { className?: string }) => (
 export default function WebDesignContactSection() {
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const form = useForm<HomeContactFormType>({
     resolver: zodResolver(HomeContactFormSchema),
@@ -75,6 +77,13 @@ export default function WebDesignContactSection() {
         toast.success("Message sent successfully! We'll get back to you soon.");
         form.reset();
         setSelectedServices([]);
+        try {
+          sessionStorage.setItem("form_submitted", "true");
+          sessionStorage.setItem("submission_timestamp", Date.now().toString());
+          router.push("/thankyou");
+        } catch (error) {
+          console.error("Error setting session storage:", error);
+        }
       } else {
         toast.error("Failed to send message. Please try again.");
       }
