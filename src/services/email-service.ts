@@ -7,6 +7,15 @@ import {
 
 import { SendEmail } from "@/utils/send-email";
 
+export interface MultiStepLeadFormData {
+  service: string;
+  budget: string;
+  timeline: string;
+  name: string;
+  email: string;
+  phone: string;
+}
+
 export const SendDailogLeadFormEmail = async (
   data: DailogLeadFormType
 ): Promise<boolean> => {
@@ -423,6 +432,211 @@ export const SendHomeContactFormEmail = async (
 
         <div class="footer">
           <p>This email was generated automatically by the Zevitech contact form.</p>
+          <p>© ${new Date().getFullYear()} Zevitech. All rights reserved.</p>
+        </div>
+      </div>
+    </body>
+  </html>
+  `;
+
+  return await SendEmail({
+    to: process.env.EMAIL_USER || "zevitech25@gmail.com",
+    subject,
+    html,
+  });
+};
+
+const serviceLabels: { [key: string]: string } = {
+  "business-website": "Business Website",
+  "ecommerce": "eCommerce / Online Store",
+  "landing-page": "Landing Page",
+  "web-application": "Web Application",
+  "redesign": "Redesign Existing Site",
+  "other": "Other",
+};
+
+const budgetLabels: { [key: string]: string } = {
+  "under-2000": "Less than 2,000 AED",
+  "2000-5000": "2,000 - 5,000 AED",
+  "5000-15000": "5,000 - 15,000 AED",
+  "15000-35000": "15,000 - 35,000 AED",
+  "above-35000": "35,000+ AED",
+  "not-sure": "Not sure yet",
+};
+
+const timelineLabels: { [key: string]: string } = {
+  "asap": "ASAP (Within 2 weeks)",
+  "1-month": "Within 1 month",
+  "2-3-months": "Within 2-3 months",
+  "no-rush": "No rush, just exploring",
+};
+
+export const SendMultiStepLeadFormEmail = async (
+  data: MultiStepLeadFormData
+): Promise<boolean> => {
+  const subject = `PPC Lead - Multi-Step Form: ${data.name}`;
+
+  const html = `
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Multi-Step Lead Form Submission</title>
+      <style>
+        body {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          background-color: #f8f9fa;
+          margin: 0;
+          padding: 0;
+          color: #212529;
+        }
+
+        .container {
+          max-width: 620px;
+          margin: 40px auto;
+          background: #ffffff;
+          border-radius: 12px;
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+          padding: 32px;
+        }
+
+        .header {
+          text-align: center;
+          margin-bottom: 30px;
+        }
+
+        .logo {
+          max-width: 200px;
+          margin-bottom: 10px;
+        }
+
+        h1 {
+          font-size: 24px;
+          color: #007afc;
+          margin: 0;
+        }
+
+        .badge {
+          display: inline-block;
+          background-color: #28a745;
+          color: white;
+          padding: 4px 12px;
+          border-radius: 20px;
+          font-size: 12px;
+          font-weight: 600;
+          margin-top: 10px;
+        }
+
+        .section {
+          margin-bottom: 24px;
+        }
+
+        .section-title {
+          font-size: 18px;
+          font-weight: 600;
+          color: #000000;
+          border-bottom: 1px solid #e9ecef;
+          margin-bottom: 12px;
+          padding-bottom: 4px;
+        }
+
+        .detail-row {
+          display: flex;
+          flex-wrap: wrap;
+          margin-bottom: 10px;
+        }
+
+        .detail-label {
+          flex: 0 0 150px;
+          font-weight: 700;
+          color: #495057;
+        }
+
+        .detail-value {
+          flex: 1;
+          color: #212529;
+        }
+
+        .highlight-box {
+          background-color: #e7f3ff;
+          border-left: 4px solid #007afc;
+          padding: 16px;
+          border-radius: 8px;
+          margin: 16px 0;
+        }
+
+        .footer {
+          text-align: center;
+          font-size: 13px;
+          color: #6c757d;
+          border-top: 1px solid #e9ecef;
+          padding-top: 20px;
+          margin-top: 30px;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <img class="logo" src="https://res.cloudinary.com/dptujgmbz/image/upload/v1752157999/kynkimdiy5jozaxl4jfe.png" alt="Zevitech" />
+          <h1>New PPC Lead - Multi-Step Form</h1>
+          <span class="badge">HIGH INTENT LEAD</span>
+        </div>
+
+        <div class="section">
+          <div class="section-title">Submission Details</div>
+          <div class="detail-row">
+            <div class="detail-label">Submission Date:</div>
+            <div class="detail-value">${new Date().toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            })}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Source:</div>
+            <div class="detail-value">PPC Landing Page - Multi-Step Form</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">Contact Information</div>
+          <div class="detail-row">
+            <div class="detail-label">Name:</div>
+            <div class="detail-value">${data.name}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Email:</div>
+            <div class="detail-value">${data.email}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Phone:</div>
+            <div class="detail-value">${data.phone}</div>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          <div class="section-title" style="border: none; margin-bottom: 8px;">Project Requirements</div>
+          <div class="detail-row">
+            <div class="detail-label">Service Needed:</div>
+            <div class="detail-value"><strong>${serviceLabels[data.service] || data.service}</strong></div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Budget Range:</div>
+            <div class="detail-value"><strong>${budgetLabels[data.budget] || data.budget}</strong></div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Timeline:</div>
+            <div class="detail-value"><strong>${timelineLabels[data.timeline] || data.timeline}</strong></div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <p>This is a high-intent lead from the PPC Multi-Step Form.</p>
+          <p>Respond quickly for best conversion!</p>
           <p>© ${new Date().getFullYear()} Zevitech. All rights reserved.</p>
         </div>
       </div>

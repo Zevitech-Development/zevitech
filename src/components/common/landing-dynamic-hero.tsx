@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import { OpenLiveChat } from "@/utils/open-live-chat";
 import { SendContactFormEmail } from "@/services/email-service";
 
-import DailogLeadForm from "@/components/forms/dailog-lead-form";
+import MultiStepLeadForm from "@/components/forms/multi-step-lead-form";
 import HeroMarquee from "@/components/common/hero-marquee";
 import AnimatedCloudBackground from "@/components/common/cloud-background-effect";
 import { AnimatedBadge } from "@/components/common/animatedbadge";
@@ -120,7 +120,7 @@ export function LandingDynamicHero({
                 Chat Now
               </Button>
 
-              <DailogLeadForm
+              <MultiStepLeadForm
                 trigger={
                   <Button className="cta-button-02 text-black w-full sm:w-auto bg-transparent !border-primary">
                     Let&apos;s get started! <FaArrowRightLong />

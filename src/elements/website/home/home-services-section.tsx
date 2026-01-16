@@ -9,6 +9,9 @@ import { Sparkles } from "lucide-react";
 import Link from "next/link";
 import DailogLeadForm from "@/components/forms/dailog-lead-form";
 import React from "react";
+import MultiStepLeadForm from "@/components/forms/multi-step-lead-form";
+import { Button } from "@/components/ui/button";
+import { FaArrowRightLong } from "react-icons/fa6";
 
 type IconType = React.ComponentType<{ className?: string }>;
 
@@ -71,12 +74,20 @@ function HomeServicesSection({
                 </p>
                 {(service.ctaHref || service.ctaText) && (
                   <div className="mt-auto w-full border-t border-gray-200 pt-4">
-                    <DailogLeadForm
+                    {/* <DailogLeadForm
                       trigger={
                         <button
                           type="button"
                           className="inline-flex items-center gap-2 text-sm font-semibold text-primary group-hover:text-white"
                         >
+                          {service.ctaText ?? "Enquire Now"} <span>→</span>
+                        </button>
+                      }
+                    /> */}
+
+                    <MultiStepLeadForm
+                      trigger={
+                        <button className="inline-flex items-center gap-2 text-sm font-semibold text-primary group-hover:text-white">
                           {service.ctaText ?? "Enquire Now"} <span>→</span>
                         </button>
                       }

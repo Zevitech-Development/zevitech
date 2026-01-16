@@ -2,6 +2,7 @@
 import WebDesignHeader from "@/components/layouts/web-design-header";
 import WebDesignFooter from "@/components/layouts/web-design-footer";
 import WhatsAppPopup from "@/elements/business/logo-design/whatsapp-popup";
+import FloatingCtaButton from "@/components/common/floating-cta-button";
 import Script from "next/script";
 import { useEffect } from "react";
 
@@ -80,6 +81,7 @@ export default function BusinessLayout({
       <WebDesignHeader />
       {children}
       <WhatsAppPopup />
+      <FloatingCtaButton />
       <WebDesignFooter />
     </>
   );
