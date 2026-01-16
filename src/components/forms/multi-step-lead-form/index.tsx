@@ -12,7 +12,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogClose,
 } from "@/components/ui/dialog";
+import { X } from "lucide-react";
 
 import Logo from "../../../../public/favicon/logo-black.png";
 
@@ -195,12 +197,18 @@ export default function MultiStepLeadForm({ trigger }: MultiStepLeadFormProps) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent className="bg-white w-[95vw] max-w-[600px] md:max-w-[700px] lg:max-w-[750px] max-h-[90vh] overflow-y-auto overflow-x-hidden !rounded-2xl border-2 p-0">
+        {/* Close Button - Left Side */}
+        <DialogClose className="absolute left-3 top-3 md:left-4 md:top-4 z-50 rounded-full bg-gray-100 hover:bg-gray-200 p-2 transition-colors">
+          <X className="h-4 w-4 md:h-5 md:w-5 text-gray-600" />
+          <span className="sr-only">Close</span>
+        </DialogClose>
+
         {/* Discount Badge */}
         <div className="absolute -top-3 -right-3 md:-top-4 md:-right-4 z-50">
           <div className="bg-primary rounded-full p-3 md:p-4 shadow-lg">
             <div className="text-white text-center">
               <div className="text-[10px] md:text-xs font-bold uppercase">GET</div>
-              <div className="text-xl md:text-2xl font-black leading-none">50%</div>
+              <div className="text-xl md:text-2xl font-black leading-none">20%</div>
               <div className="text-[10px] md:text-xs font-bold uppercase">OFF</div>
             </div>
           </div>

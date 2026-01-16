@@ -190,7 +190,7 @@ export function LandingDynamicHero({
                   Chat With Us to
                 </h2>
                 <h3 className="text-xl md:text-2xl font-bold text-heading">
-                  Avail 50% Discount
+                  Avail 20% Discount
                 </h3>
               </div>
 
