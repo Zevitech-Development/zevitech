@@ -30,7 +30,7 @@ export default function WhatsAppPopup() {
     return (
       <button
         onClick={() => setIsMinimized(false)}
-        className="fixed bottom-24 right-2 z-[9998] bg-[#25D366] hover:bg-[#20BA5A] text-white rounded-full p-4 shadow-lg transition-all duration-300 hover:scale-110"
+        className="fixed bottom-8 right-2 z-[9998] bg-[#25D366] hover:bg-[#20BA5A] text-white rounded-full p-4 shadow-lg transition-all duration-300 hover:scale-110"
         aria-label="Open WhatsApp Chat"
       >
         <svg
