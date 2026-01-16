@@ -217,7 +217,7 @@ export function WebDesignHero() {
                     <div className="text-white text-center">
                       <div className="text-xs font-bold uppercase">GET</div>
                       <div className="md:text-3xl font-black leading-none">
-                        50%
+                        20%
                       </div>
                       <div className="text-xs font-bold uppercase">OFF NOW</div>
                     </div>
