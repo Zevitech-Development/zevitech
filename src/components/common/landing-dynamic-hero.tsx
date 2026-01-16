@@ -179,7 +179,7 @@ export function LandingDynamicHero({
               <div className="absolute -top-1 md:-top-3 -right-2 md:-right-3 z-10">
                 <div className="bg-primary rounded-full p-3 md:p-4 shadow-lg text-white text-center">
                   <div className="text-xs font-bold uppercase">GET</div>
-                  <div className="md:text-3xl font-black leading-none">50%</div>
+                  <div className="md:text-3xl font-black leading-none">20%</div>
                   <div className="text-xs font-bold uppercase">OFF NOW</div>
                 </div>
               </div>
