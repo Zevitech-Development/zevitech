@@ -41,6 +41,7 @@ export function LandingDynamicHero({
     email: "",
     phone: "",
     message: "",
+    budget: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -62,11 +63,17 @@ export function LandingDynamicHero({
       if (success) {
         toast.success("Message sent successfully!");
 
-        setFormData({ name: "", email: "", phone: "", message: "" });
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          message: "",
+          budget: "",
+        });
 
         setTimeout(() => {
           const whatsappURL = `https://wa.me/971588669020?text=${encodeURIComponent(
-            `Hi, I just submitted a form. My name is ${submitted.name}.`
+            `Hi, I just submitted a form. My name is ${submitted.name}.`,
           )}`;
           window.open(whatsappURL, "_blank");
         }, 1500);
@@ -226,6 +233,16 @@ export function LandingDynamicHero({
                   className="w-full px-4 py-3 border-b-2 border-primary outline-none bg-transparent"
                 />
 
+                <input
+                  type="number"
+                  name="budget"
+                  placeholder="Budget (in AED) *"
+                  required
+                  value={formData.budget}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border-b-2 border-primary outline-none bg-transparent"
+                />
+
                 <textarea
                   name="message"
                   rows={3}
@@ -237,9 +254,21 @@ export function LandingDynamicHero({
 
                 <button
                   type="submit"
-                  className="cta-button-02 w-full flex-center gap-2 bg-primary text-white font-bold rounded-lg hover:shadow-lg transition-all"
+                  disabled={loading}
+                  className={`cta-button-02 w-full flex items-center justify-center gap-2 
+    bg-primary text-white font-bold rounded-lg 
+    transition-all ${loading ? "opacity-70 cursor-not-allowed" : "hover:shadow-lg"}`}
                 >
-                  Get Started <FaArrowRightLong />
+                  {loading ? (
+                    <>
+                      <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      Get Started <FaArrowRightLong />
+                    </>
+                  )}
                 </button>
               </form>
             </div>

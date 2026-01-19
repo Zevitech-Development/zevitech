@@ -17,7 +17,7 @@ export interface MultiStepLeadFormData {
 }
 
 export const SendDailogLeadFormEmail = async (
-  data: DailogLeadFormType
+  data: DailogLeadFormType,
 ): Promise<boolean> => {
   const subject = `Zevitech Dailog Lead: ${data.name}`;
 
@@ -121,7 +121,7 @@ export const SendDailogLeadFormEmail = async (
                 day: "numeric",
                 hour: "2-digit",
                 minute: "2-digit",
-              }
+              },
             )}</div>
           </div>
           <div class="detail-row">
@@ -171,7 +171,7 @@ export const SendDailogLeadFormEmail = async (
 };
 
 export const SendContactFormEmail = async (
-  data: ContactFormType
+  data: ContactFormType,
 ): Promise<boolean> => {
   try {
     const htmlContent = `
@@ -184,6 +184,8 @@ export const SendContactFormEmail = async (
             <p style="margin: 5px 0;"><strong>Name:</strong> ${data.name}</p>
             <p style="margin: 5px 0;"><strong>Email:</strong> ${data.email}</p>
             <p style="margin: 5px 0;"><strong>Phone:</strong> ${data.phone}</p>
+             <p style="margin: 5px 0;"><strong>Budget:</strong> ${data.budget}</p>
+
           </div>
           
           <div style="margin-bottom: 20px;">
@@ -217,7 +219,7 @@ export const SendContactFormEmail = async (
 };
 
 export const SendNewsletterSubscriptionEmail = async (
-  data: NewsletterFormType
+  data: NewsletterFormType,
 ) => {
   try {
     const htmlContent = `
@@ -265,7 +267,7 @@ export const SendNewsletterSubscriptionEmail = async (
 };
 
 export const SendHomeContactFormEmail = async (
-  data: HomeContactFormType
+  data: HomeContactFormType,
 ): Promise<boolean> => {
   const subject = `Zevitech Contact Form: ${data.name}`;
 
@@ -409,6 +411,10 @@ export const SendHomeContactFormEmail = async (
             <div class="detail-value">${data.email}</div>
           </div>
           <div class="detail-row">
+            <div class="detail-label">Phone:</div>
+            <div class="detail-value">${data.phone}</div>
+          </div>
+          <div class="detail-row">
             <div class="detail-label">Budget:</div>
             <div class="detail-value">${data.budget}</div>
           </div>
@@ -448,11 +454,11 @@ export const SendHomeContactFormEmail = async (
 
 const serviceLabels: { [key: string]: string } = {
   "business-website": "Business Website",
-  "ecommerce": "eCommerce / Online Store",
+  ecommerce: "eCommerce / Online Store",
   "landing-page": "Landing Page",
   "web-application": "Web Application",
-  "redesign": "Redesign Existing Site",
-  "other": "Other",
+  redesign: "Redesign Existing Site",
+  other: "Other",
 };
 
 const budgetLabels: { [key: string]: string } = {
@@ -465,14 +471,14 @@ const budgetLabels: { [key: string]: string } = {
 };
 
 const timelineLabels: { [key: string]: string } = {
-  "asap": "ASAP (Within 2 weeks)",
+  asap: "ASAP (Within 2 weeks)",
   "1-month": "Within 1 month",
   "2-3-months": "Within 2-3 months",
   "no-rush": "No rush, just exploring",
 };
 
 export const SendMultiStepLeadFormEmail = async (
-  data: MultiStepLeadFormData
+  data: MultiStepLeadFormData,
 ): Promise<boolean> => {
   const subject = `PPC Lead - Multi-Step Form: ${data.name}`;
 

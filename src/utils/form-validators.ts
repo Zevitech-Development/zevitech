@@ -1,4 +1,8 @@
-import { EmailRegex, HiddenCharacterRegex, StringRegex } from "@/constants/regex-formats";
+import {
+  EmailRegex,
+  HiddenCharacterRegex,
+  StringRegex,
+} from "@/constants/regex-formats";
 import { z } from "zod";
 
 export const StrictStringValidator = (field: string) =>
@@ -14,6 +18,7 @@ export const StrictStringValidator = (field: string) =>
 
 export const EmailSchemaValidator = z
   .string()
+  .min(1, { message: "Please provide your email address." })
   .regex(EmailRegex, {
     message: "Enter a valid email address (e.g., example@email.com).",
   })
@@ -21,7 +26,3 @@ export const EmailSchemaValidator = z
     message: "Invalid characters detected in email address.",
   })
   .transform((val) => val.trim());
-
-
-
-  

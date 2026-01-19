@@ -55,6 +55,7 @@ function ContactUsForm() {
         email: formData.email,
         phone: formData.phone,
         message: formData.message,
+        budget: "", // No budget field in this form
       });
 
       if (success) {

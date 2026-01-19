@@ -15,7 +15,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 import DirhamLogo from "../../../../public/images/landing/dirham-symbol-white.png";
 
-import { User, Mail, Edit3, LoaderCircle } from "lucide-react";
+import { User, Mail, Phone, Edit3, LoaderCircle } from "lucide-react";
 
 import { HomeContactFormSchema } from "@/schemas/home-contact-form-schema";
 import { HomeContactFormType } from "@/interfaces/forms-interface";
@@ -49,6 +49,7 @@ export default function WebDesignContactSection() {
     defaultValues: {
       name: "",
       email: "",
+      phone: "",
       project: "",
       services: [],
       budget: "",
@@ -120,7 +121,7 @@ export default function WebDesignContactSection() {
                   className={cn(
                     "pl-10 py-6 text-lg text-white placeholder:text-base shadow-none placeholder:text-gray-500 font-medium font-inter border-0 border-b-2 border-gray-400 rounded-none bg-transparent",
                     "focus:outline-none focus:ring-0 focus-visible:ring-0 focus-visible:outline-none",
-                    form.formState.errors.name && "border-red-500"
+                    form.formState.errors.name && "border-red-500",
                   )}
                 />
                 <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white h-5 w-5 mr-2" />
@@ -140,13 +141,32 @@ export default function WebDesignContactSection() {
                   className={cn(
                     "pl-10 py-6 text-lg text-white placeholder:text-base shadow-none placeholder:text-gray-500 font-medium font-inter border-0 border-b-2 border-gray-400 rounded-none bg-transparent",
                     "focus:outline-none focus:ring-0 focus-visible:ring-0 focus-visible:outline-none",
-                    form.formState.errors.email && "border-red-500"
+                    form.formState.errors.email && "border-red-500",
                   )}
                 />
                 <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white h-5 w-5 mr-2" />
                 {form.formState.errors.email && (
                   <p className="text-red-400 text-sm mt-1">
                     {form.formState.errors.email.message}
+                  </p>
+                )}
+              </div>
+
+              <div className="relative">
+                <Input
+                  type="tel"
+                  placeholder="Phone Number"
+                  {...form.register("phone")}
+                  className={cn(
+                    "pl-10 py-6 text-lg text-white placeholder:text-base shadow-none placeholder:text-gray-500 font-medium font-inter border-0 border-b-2 border-gray-400 rounded-none bg-transparent",
+                    "focus:outline-none focus:ring-0 focus-visible:ring-0 focus-visible:outline-none",
+                    form.formState.errors.phone && "border-red-500",
+                  )}
+                />
+                <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white h-5 w-5 mr-2" />
+                {form.formState.errors.phone && (
+                  <p className="text-red-400 text-sm mt-1">
+                    {form.formState.errors.phone.message}
                   </p>
                 )}
               </div>
@@ -159,7 +179,7 @@ export default function WebDesignContactSection() {
                   className={cn(
                     "pl-10 py-6 text-lg text-white placeholder:text-base shadow-none placeholder:text-gray-500 font-medium font-inter border-0 border-b-2 border-gray-400 rounded-none bg-transparent min-h-[120px] resize-none",
                     "focus:outline-none focus:ring-0 focus-visible:ring-0 focus-visible:outline-none",
-                    form.formState.errors.project && "border-red-500"
+                    form.formState.errors.project && "border-red-500",
                   )}
                 />
                 <Edit3 className="absolute left-3 top-6 text-white h-5 w-5 mr-2" />
@@ -193,7 +213,7 @@ export default function WebDesignContactSection() {
                         "text-xs lg:text-sm py-2 px-4 rounded-full transition-all duration-200 border-none",
                         selectedServices.includes(service)
                           ? "bg-primary text-white"
-                          : "bg-white text-paragraph border-gray-300 hover:bg-primary-hover"
+                          : "bg-white text-paragraph border-gray-300 hover:bg-primary-hover",
                       )}
                     >
                       {service}
@@ -216,7 +236,7 @@ export default function WebDesignContactSection() {
                   className={cn(
                     "pl-10 py-6 text-lg text-white placeholder:text-base shadow-none placeholder:text-gray-500 font-medium font-inter border-0 border-b-2 border-gray-400 rounded-none bg-transparent",
                     "focus:outline-none focus:ring-0 focus-visible:ring-0 focus-visible:outline-none",
-                    form.formState.errors.budget && "border-red-500"
+                    form.formState.errors.budget && "border-red-500",
                   )}
                 />
                 {/* <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white h-5 w-5" /> */}

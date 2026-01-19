@@ -32,11 +32,12 @@ export function WebDesignHero() {
     email: "",
     phone: "",
     message: "",
+    budget: "",
   });
   const [loading, setLoading] = useState(false);
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -63,6 +64,7 @@ export function WebDesignHero() {
         email: formData.email,
         phone: formData.phone,
         message: formData.message,
+        budget: formData.budget,
       });
 
       if (success) {
@@ -88,13 +90,19 @@ export function WebDesignHero() {
         }
 
         // Reset form
-        setFormData({ name: "", email: "", phone: "", message: "" });
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          message: "",
+          budget: "",
+        });
 
         // Wait 1.5 seconds before redirecting to WhatsApp
         setTimeout(() => {
           const whatsappNumber = "971588669020";
           const whatsappMessage = encodeURIComponent(
-            `Hi, I just submitted a form on your website. My name is ${submittedData.name}.`
+            `Hi, I just submitted a form on your website. My name is ${submittedData.name}.`,
           );
           const whatsappURL = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
