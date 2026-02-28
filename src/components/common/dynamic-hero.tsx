@@ -140,7 +140,7 @@ export function DynamicHero({
         </div>
 
         {/* Static Marquee */}
-        <HeroMarquee />
+        {/* <HeroMarquee /> */}
       </div>
     </section>
   );

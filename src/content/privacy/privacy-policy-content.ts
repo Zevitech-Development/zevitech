@@ -50,6 +50,18 @@ export const privacyData = {
       ],
     },
     {
+      id: "consultancy-data",
+      title: "Business Formation & Consultancy Services Data",
+      content: [
+        "When using our Business Formation or Intellectual Property Consultancy services, the following data practices apply:",
+        "• We collect only the information necessary for documentation preparation and coordination — such as name, contact details, and business information you voluntarily provide.",
+        "• Payment processing for consultancy services is conducted through secure, authorized merchant systems in accordance with applicable service agreements.",
+        "• We do not request banking passwords, one-time passwords (OTPs), or any unrelated financial authentication credentials at any stage.",
+        "• Documentation you provide may be shared with registered agents or authorized filing services solely for the purpose of completing your requested service.",
+        "For a full description of our consultancy model, please see our Business Formation & IP Consultancy page.",
+      ],
+    },
+    {
       id: "data-security",
       title: "Data Security",
       content: [

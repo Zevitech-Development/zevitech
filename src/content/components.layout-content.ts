@@ -10,6 +10,10 @@ export const companyLinks = [
   { name: "Portfolio", href: "/portfolio" },
   { name: "Contact Us", href: "/contact-us" },
   { name: "Pricing", href: "/pricing" },
+  {
+    name: "Business Formation & IP",
+    href: "/business-formation-ip-consultancy",
+  },
 ];
 
 export const Footerconfig = {

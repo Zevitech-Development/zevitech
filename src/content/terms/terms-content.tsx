@@ -45,6 +45,19 @@ export const TermsServicesData = {
       ],
     },
     {
+      id: "zevitech-consultancy",
+      title: "Zevitech Administrative Consultancy Services",
+      content: [
+        "Zevitech Information Technology LLC offers independent administrative consultancy and documentation coordination services for business formation and intellectual property filings. These services are separate from any legal representation and are governed by the following:",
+        "• Zevitech is not affiliated with the USPTO, any state filing authority, or any government body.",
+        "• Zevitech does not guarantee approval outcomes for any filing, application, or registration.",
+        "• Zevitech does not provide legal representation unless a client is formally engaged through a licensed legal professional.",
+        "• All consultancy services are initiated only after voluntary client engagement and written confirmation of scope.",
+        "• Official submissions are processed through authorized channels only upon explicit client approval.",
+        "For full details, see our Business Formation & IP Consultancy page.",
+      ],
+    },
+    {
       id: "no-promises",
       title: "No Promises of Outcome",
       content: [
