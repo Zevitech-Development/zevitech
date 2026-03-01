@@ -106,17 +106,8 @@ function WebDesignFooter() {
           <div className="flex flex-col gap-7">
             <div className="">
               <h3 className="text-xl font-bold text-white mb-2">
-                Our Locations
+                Serving Globally
               </h3>
-              <Link
-                href={"https://share.google/PITN8KNsedXjkIAli"}
-                target="_blank"
-              >
-                <p className="text-gray-300 max-w-sm">
-                  BIN FARES 2 – Office 101 Al Baraha, Plot No. 478-0 Dubai,
-                  United Arab Emirates
-                </p>
-              </Link>
             </div>
 
             <div className="flex flex-col gap-4">

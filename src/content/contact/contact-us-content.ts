@@ -1,4 +1,4 @@
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail, HelpCircle } from "lucide-react";
 
 export const contactCardsData = [
   {
@@ -17,10 +17,10 @@ export const contactCardsData = [
     cardButton: "Email Now",
   },
   {
-    title: "London E17 5PY",
+    title: "We're Here to Help!",
     description:
-      "Reach out to us anytime with your inquiries, ideas, or feedback — we'll respond promptly.",
-    icon: MapPin,
-    cardButton: "Get Direction",
+      "Have questions or need guidance? Reach out to our support team for expert assistance, we're happy to help.",
+    icon: HelpCircle, // Assuming a Help or Assistance icon
+    cardButton: "Contact Support",
   },
 ];

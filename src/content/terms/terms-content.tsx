@@ -1,13 +1,13 @@
 export const TermsServicesData = {
   title: "Terms & Conditions",
-  companyName: "BrandGuard Legal Solutions",
-  contactEmail: "support@brandguardlegal.com",
+  companyName: "Zevitech",
+  contactEmail: "support@zevitech.com",
   sections: [
     {
       id: "welcome",
       title: "Welcome",
       content: [
-        "Thank you for choosing BrandGuard Legal Solutions, your trusted partner for trademark registration and brand protection services. By using our platform and services, you agree to comply with these Terms & Conditions, along with our Privacy Policy, Subscription Terms, and any other guidelines referenced here or on our website.",
+        "Thank you for choosing Zevitech, your trusted partner for trademark registration and brand protection services. By using our platform and services, you agree to comply with these Terms & Conditions, along with our Privacy Policy, Subscription Terms, and any other guidelines referenced here or on our website.",
       ],
     },
     {
@@ -48,7 +48,7 @@ export const TermsServicesData = {
       id: "zevitech-consultancy",
       title: "Zevitech Administrative Consultancy Services",
       content: [
-        "Zevitech Information Technology LLC offers independent administrative consultancy and documentation coordination services for business formation and intellectual property filings. These services are separate from any legal representation and are governed by the following:",
+        "Zevitech offers independent administrative consultancy and documentation coordination services for business formation and intellectual property filings. These services are separate from any legal representation and are governed by the following:",
         "• Zevitech is not affiliated with the USPTO, any state filing authority, or any government body.",
         "• Zevitech does not guarantee approval outcomes for any filing, application, or registration.",
         "• Zevitech does not provide legal representation unless a client is formally engaged through a licensed legal professional.",
@@ -146,7 +146,7 @@ export const TermsServicesData = {
       id: "confidentiality",
       title: "Confidentiality & Conflict Checks",
       content: [
-        "You consent to having your information shared confidentially among BrandGuard Legal's affiliated entities for conflict-check purposes and service delivery.",
+        "You consent to having your information shared confidentially among Zevitech affiliated entities for conflict-check purposes and service delivery.",
       ],
     },
     {
@@ -183,9 +183,7 @@ export const TermsServicesData = {
       content: [
         "Informal Resolution First:",
         "If you have concerns or complaints, please notify us at:",
-        "Legal Department - BrandGuard Legal Solutions",
-        "1234 Business Ave, Suite 100, City, State ZIP",
-        "📧 support@brandguardlegal.com",
+        "📧 support@zevitech.com",
         "We will make a good faith effort to resolve issues informally within 60 days.",
         "",
         "Binding Arbitration:",
@@ -195,7 +193,7 @@ export const TermsServicesData = {
         "• Arbitration decisions are final and enforceable.",
         "",
         "Opting Out:",
-        "You may opt out of arbitration within 30 days of accepting these Terms by sending your full name, contact details, and opt-out statement to support@brandguardlegal.com.",
+        "You may opt out of arbitration within 30 days of accepting these Terms by sending your full name, contact details, and opt-out statement to support@zevitech.com.",
       ],
     },
     {

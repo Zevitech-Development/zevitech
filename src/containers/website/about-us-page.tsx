@@ -8,16 +8,18 @@ import WhyChooseUsSection01 from "@/components/common/why-choose-us-section-01";
 import Testimonial from "@/elements/website/about-us/about-us-testimonial-section";
 import ContactSection from "@/components/common/contact-section";
 import { DynamicHero } from "@/components/common/dynamic-hero";
-import { GlobalLocationSection } from "@/components/common/global-location-section";
+// import { GlobalLocationSection } from "@/components/common/global-location-section";
 import BrandSection from "@/components/common/brand-section";
 import FaqSection from "@/components/common/faq-section";
 
 import AboutHeroImg from "../../../public/images/hero-images/about-hero-img.jpg";
+import CtaImg from "../../../public/images/cta-image.webp";
 
 import { AboutFaqData, locations } from "@/content/about/about-page-content";
 import { AwardsData, BrandData } from "@/content/homepage/home-page-content";
 
 import { UsersRound } from "lucide-react";
+import Cta from "@/components/common/cta";
 
 function AboutUsPage() {
   return (
@@ -58,11 +60,17 @@ function AboutUsPage() {
 
       <ContactSection />
 
-      <GlobalLocationSection
+      {/* <GlobalLocationSection
         locations={locations}
         title="Our Global Locations"
         autoPlayInterval={4000}
         imageHeight="h-[500px]"
+      /> */}
+
+      <Cta
+        image={CtaImg}
+        heading="About Zevitech"
+        text="Zevitech is a creative agency specializing in brand development, design, and digital experiences. Our team works passionately to deliver innovative solutions that elevate brands and engage customers. With a focus on quality, creativity, and strategy, we strive to help businesses grow and succeed in the ever-evolving market."
       />
 
       <FaqSection faqItems={AboutFaqData} defaultOpenIndex={0} />

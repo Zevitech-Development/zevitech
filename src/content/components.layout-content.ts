@@ -19,7 +19,7 @@ export const companyLinks = [
 export const Footerconfig = {
   companyName: "ZeviTech",
   year: "2025",
-  location: "Florida & Georgia",
+  // location: "Florida & Georgia",
   contactEmail: "support@zevitech.com",
 };
 export const serviceLinks = [
@@ -202,6 +202,12 @@ export const servicesConfig = {
           href: "/services/digital-marketing/amazon-marketing",
         },
       ],
+    },
+    {
+      id: "business-formation-ip-consultancy",
+      label: "Business Formation IP Consultancy",
+      href: "/business-formation-ip-consultancy",
+      children: [],
     },
     {
       id: "amazon",

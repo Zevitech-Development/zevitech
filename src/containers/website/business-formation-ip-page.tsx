@@ -16,6 +16,7 @@ import CtaImg from "../../../public/images/cta-img.jpg";
 
 import { Building2, ShieldCheck } from "lucide-react";
 import { FaArrowRightLong } from "react-icons/fa6";
+import Link from "next/link";
 
 function BusinessFormationIPPage() {
   return (
@@ -38,16 +39,16 @@ function BusinessFormationIPPage() {
             Overview
           </h2>
           <p className="text-base md:text-lg text-paragraph font-medium leading-relaxed">
-            Zevitech Information Technology LLC provides independent consultancy
-            and administrative coordination services for clients seeking business
-            formation and intellectual property registration in the United States
-            and other jurisdictions.
+            Zevitech provides independent consultancy and administrative
+            coordination services for clients seeking business formation and
+            intellectual property registration in the United States and other
+            jurisdictions.
           </p>
           <p className="text-base md:text-lg text-paragraph font-medium leading-relaxed">
-            Our role is limited to documentation preparation support, application
-            coordination, and communication management. All official filings are
-            processed through authorized channels based on client instruction and
-            approval.
+            Our role is limited to documentation preparation support,
+            application coordination, and communication management. All official
+            filings are processed through authorized channels based on client
+            instruction and approval.
           </p>
           <p className="text-base md:text-lg text-paragraph font-medium leading-relaxed">
             Zevitech operates as a technology and administrative support company
@@ -197,8 +198,8 @@ function BusinessFormationIPPage() {
           </div>
           <div className="space-y-4">
             <p className="text-base md:text-lg text-paragraph font-medium leading-relaxed">
-              Zevitech may provide backend administrative and operational support
-              to other brands or companies offering similar services.
+              Zevitech may provide backend administrative and operational
+              support to other brands or companies offering similar services.
             </p>
             <p className="text-base md:text-lg text-paragraph font-medium leading-relaxed">
               In such arrangements, Zevitech performs documentation coordination
@@ -211,7 +212,7 @@ function BusinessFormationIPPage() {
       </section>
 
       {/* ── INFORMATION HANDLING ──────────────────────────────────────────── */}
-      <section className="section-padding-standard">
+      <section className="section-padding-standard flex flex-col items-center gap-4 lg:gap-6">
         <div className="layout-standard grid lg:grid-cols-2 gap-10 items-start">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold font-heading text-heading mb-4">
@@ -239,6 +240,13 @@ function BusinessFormationIPPage() {
             </ul>
           </div>
         </div>
+
+        <Link href={"/privacy-policy"}>
+          <Button className="cta-button h-[60px] md:px-6 group lg:hover:scale-105 rounded-full lg:hover:bg-primary-hover lg:text-xl text-base lg:!animation-standard font-bold">
+            Our Privacy Policies
+            <FaArrowRightLong className="group-hover:translate-x-[2px] animation-standard" />
+          </Button>
+        </Link>
       </section>
 
       {/* ── FINAL CTA ─────────────────────────────────────────────────────── */}
