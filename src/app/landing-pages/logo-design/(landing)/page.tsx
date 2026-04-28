@@ -14,5 +14,5 @@ export const metadata: Metadata = GetPageMetadata({
 function LogoDesign() {
   return <LogoDesignPage />;
 }
-
+  
 export default LogoDesign;

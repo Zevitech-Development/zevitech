@@ -2,12 +2,12 @@ import { Phone, Mail, MapPin } from "lucide-react";
 
 export const contactCardsData = [
   {
-    title: "(302) 217-6211",
+    title: "(302) 219-0703",
     description:
       "Have a question or need immediate assistance? Our team is just a call away.",
     icon: Phone,
     cardButton: "Call Now",
-    href: "tel:(302) 217-6211",
+    href: "tel:(302) 219-0703",
   },
   {
     title: "support@zevitech.com",
