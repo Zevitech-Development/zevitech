@@ -437,7 +437,7 @@ export const HomeFaqData = [
     id: "location",
     question: "Where can you find us?",
     answer:
-      "We are located in Farmington Hills, Michigan, USA. You can find our pin location on Google maps, or just give us a call and our representative would guide you in detail.",
+      "You can find our pin location on Google maps, or just give us a call and our representative would guide you in detail.",
   },
   {
     id: "prices",
