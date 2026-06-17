@@ -2,7 +2,7 @@
 import React from "react";
 
 import ContactUsCardsSection from "@/elements/website/contact/contact-cards-section";
-import { GlobalLocationSection } from "@/components/common/global-location-section";
+// import { GlobalLocationSection } from "@/components/common/global-location-section";
 import ContactUsForm from "@/elements/website/contact/contact-us-form";
 import { locations } from "@/content/about/about-page-content";
 import { DynamicHero } from "@/components/common/dynamic-hero";
@@ -27,12 +27,12 @@ function ContactUsPage() {
 
       <ContactUsForm />
 
-      <GlobalLocationSection
+      {/* <GlobalLocationSection
         locations={locations}
         title="Our Global Locations"
         autoPlayInterval={4000}
         imageHeight="h-[500px]"
-      />
+      /> */}
     </>
   );
 }

@@ -20,6 +20,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { Button } from "@/components/ui/button";
+
 import {
   Popover,
   PopoverContent,
@@ -100,7 +101,7 @@ export function Header() {
                 className={cn(
                   "h-5 xl:h-6 w-5 xl:w-6 text-primary-hover opacity-60 font-bold group-hover:opacity-100",
                   "transform transition-transform duration-300 ease-in-out delay-130",
-                  open ? "rotate-90" : "rotate-0"
+                  open ? "rotate-90" : "rotate-0",
                 )}
               />
             </button>
@@ -148,7 +149,7 @@ export function Header() {
             className={cn(
               "hidden lg:flex",
               // Navigation menu root override with pointer-events fix
-              "[&>div:last-child]:!left-auto [&>div:last-child]:!justify-start [&>div:last-child]:pointer-events-none [&>div:last-child>*]:pointer-events-auto"
+              "[&>div:last-child]:!left-auto [&>div:last-child]:!justify-start [&>div:last-child]:pointer-events-none [&>div:last-child>*]:pointer-events-auto",
             )}
           >
             <NavigationMenuList className="flex items-center gap-6">
@@ -159,7 +160,7 @@ export function Header() {
                     <NavigationMenuLink
                       href={item.href}
                       className={cn(
-                        "group inline-flex w-max items-center justify-center rounded-md text-lg text-paragraph font-semibold hover:font-bold transition-colors hover:text-primary focus:text-primary-hover focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
+                        "group inline-flex w-max items-center justify-center rounded-md text-lg text-paragraph font-semibold hover:font-bold transition-colors hover:text-primary focus:text-primary-hover focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50",
                       )}
                     >
                       {item.name}
@@ -177,7 +178,7 @@ export function Header() {
                           // Override default Shadcn styles
                           "!bg-transparent hover:!bg-transparent focus:!bg-transparent",
                           "data-[state=open]:!bg-transparent data-[state=open]:hover:!bg-transparent data-[state=open]:focus:!bg-transparent",
-                          "data-[state=open]:text-primary-hover focus:text-paragraph"
+                          "data-[state=open]:text-primary-hover focus:text-paragraph",
                         )}
                       >
                         Services
@@ -186,7 +187,7 @@ export function Header() {
                         onPointerEnter={() => setIsMenuOpen(true)}
                         onPointerLeave={() => setIsMenuOpen(false)}
                         className={cn(
-                          "[&[data-radix-navigation-menu-viewport]]:!left-auto [&[data-radix-navigation-menu-viewport]]:!origin-top-left"
+                          "[&[data-radix-navigation-menu-viewport]]:!left-auto [&[data-radix-navigation-menu-viewport]]:!origin-top-left",
                         )}
                       >
                         <div className="w-[1000px] xl:w-[1100px] p-6 bg-neutral-50">
@@ -207,14 +208,14 @@ export function Header() {
                                 {/* Create containers dynamically - each container holds max 5 services */}
                                 {Array.from({
                                   length: Math.ceil(
-                                    servicesConfig.items.length / 5
+                                    servicesConfig.items.length / 5,
                                   ),
                                 }).map((_, containerIndex) => (
                                   <div key={containerIndex} className="">
                                     {servicesConfig.items
                                       .slice(
                                         containerIndex * 5,
-                                        (containerIndex + 1) * 5
+                                        (containerIndex + 1) * 5,
                                       )
                                       .map((service) => (
                                         <DesktopServiceItem

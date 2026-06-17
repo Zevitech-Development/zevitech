@@ -28,12 +28,13 @@ function ContactUsForm() {
   });
 
   const [loading, setLoading] = useState(false);
-  const [feedback, setFeedback] = useState<
-    { type: "success" | "error"; message: string } | null
-  >(null);
+  const [feedback, setFeedback] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -69,8 +70,14 @@ function ContactUsForm() {
           });
         }
 
-        toast.success("Thanks! We'll be in touch soon.", { id: toastId, duration: 4000 });
-        setFeedback({ type: "success", message: "Thanks! We'll be in touch soon." });
+        toast.success("Thanks! We'll be in touch soon.", {
+          id: toastId,
+          duration: 4000,
+        });
+        setFeedback({
+          type: "success",
+          message: "Thanks! We'll be in touch soon.",
+        });
         setFormData({
           firstName: "",
           lastName: "",
@@ -81,12 +88,18 @@ function ContactUsForm() {
         });
       } else {
         toast.error("Failed to send. Please try again.", { id: toastId });
-        setFeedback({ type: "error", message: "Failed to send. Please try again." });
+        setFeedback({
+          type: "error",
+          message: "Failed to send. Please try again.",
+        });
       }
     } catch (error) {
       console.error("Form submit error:", error);
       toast.error("Unexpected error. Please try later.", { id: toastId });
-      setFeedback({ type: "error", message: "Unexpected error. Please try later." });
+      setFeedback({
+        type: "error",
+        message: "Unexpected error. Please try later.",
+      });
     } finally {
       setLoading(false);
     }
@@ -130,7 +143,7 @@ function ContactUsForm() {
                       onChange={handleInputChange}
                       className={cn(
                         "w-full h-12 border-gray-200 rounded-lg",
-                        "focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
+                        "focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0",
                       )}
                       required
                     />
@@ -151,7 +164,7 @@ function ContactUsForm() {
                       onChange={handleInputChange}
                       className={cn(
                         "w-full h-12 border-gray-200 rounded-lg",
-                        "focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
+                        "focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0",
                       )}
                       required
                     />
@@ -174,7 +187,7 @@ function ContactUsForm() {
                     onChange={handleInputChange}
                     className={cn(
                       "w-full h-12 border-gray-200 rounded-lg",
-                      "focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
+                      "focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0",
                     )}
                     required
                   />
@@ -196,7 +209,7 @@ function ContactUsForm() {
                     onChange={handleInputChange}
                     className={cn(
                       "w-full h-12 border-gray-200 rounded-lg",
-                      "focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
+                      "focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0",
                     )}
                     required
                   />
@@ -217,7 +230,7 @@ function ContactUsForm() {
                     onChange={handleInputChange}
                     className={cn(
                       "w-full min-h-[100px] border-gray-200 rounded-lg resize-none",
-                      "focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
+                      "focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0",
                     )}
                     required
                   />
@@ -242,7 +255,9 @@ function ContactUsForm() {
                   <p
                     className={cn(
                       "text-sm",
-                      feedback.type === "success" ? "text-green-600" : "text-red-600"
+                      feedback.type === "success"
+                        ? "text-green-600"
+                        : "text-red-600",
                     )}
                   >
                     {feedback.message}
@@ -289,7 +304,7 @@ function ContactUsForm() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-heading text-lg">Phone</h3>
-                  <p className="text-paragraph">(302) 217-6211</p>
+                  <p className="text-paragraph">(302) 219-0703</p>
                 </div>
               </div>
             </div>

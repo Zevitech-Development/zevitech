@@ -107,9 +107,6 @@ function Footer() {
               <h3 className="text-xl font-bold text-white mb-2">
                 SERVING GLOBALLY
               </h3>
-              <p className="text-gray-300 text-lg">
-                Based in {Footerconfig.location}!
-              </p>
             </div>
 
             <div className="flex flex-col gap-4">
