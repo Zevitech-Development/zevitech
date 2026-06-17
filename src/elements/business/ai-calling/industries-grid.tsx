@@ -70,11 +70,8 @@ function IndustryCard({
     >
       <div
         ref={cardRef}
-        className="relative border border-[var(--ai-line)] rounded-[18px] px-[22px] pt-[26px] pb-[22px] shadow-[var(--ai-shadow-sm)] overflow-hidden transition-all duration-200 hover:-translate-y-[6px] hover:shadow-[var(--ai-shadow)] cursor-default"
-        style={{
-          background: "linear-gradient(180deg,var(--ai-panel),var(--ai-bg))",
-          transformStyle: "preserve-3d",
-        }}
+        className="ai-industry-card relative border border-[var(--ai-line)] rounded-[18px] px-[22px] pt-[26px] pb-[22px] shadow-[var(--ai-shadow-sm)] overflow-hidden transition-all duration-200 hover:-translate-y-[6px] hover:shadow-[var(--ai-shadow)] cursor-default"
+        style={{ transformStyle: "preserve-3d" }}
       >
         {/* Accent stripe */}
         <div

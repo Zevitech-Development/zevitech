@@ -6,7 +6,7 @@ export default function AiFinalCta({ onOpenModal }: AiFinalCtaProps) {
   return (
     <section className="py-[72px] md:py-[84px] lg:py-[120px] relative z-[2] max-w-[1200px] mx-auto px-6" id="cta">
       <div className="ai-cta-panel text-center border border-[var(--ai-line)] rounded-[28px] py-[74px] px-[30px] relative overflow-hidden shadow-[var(--ai-shadow)]">
-        <span className="font-mono text-[12px] tracking-[0.22em] uppercase text-[var(--ai-blue)]">
+        <span className="ai-eyebrow font-mono text-[12px] tracking-[0.22em] uppercase text-[var(--ai-blue)]">
           Let&apos;s build it
         </span>
         <h2

@@ -11,3 +11,4 @@ export const metadata: Metadata = GetPageMetadata({
 export default function AiCallingLandingPage() {
   return <AiCallingPage />;
 }
+  
