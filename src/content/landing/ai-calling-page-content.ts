@@ -324,67 +324,100 @@ export const aiResults: AiResultItem[] = [
 ];
 
 /* ── Pricing ── */
-export const aiPricingPlans: AiPricingPlan[] = [
+export const aiPricingPlansTop: AiPricingPlan[] = [
   {
     name: "Starter",
-    price: "$499",
-    period: "/mo",
-    description: "Small businesses getting started.",
+    price: "$1,500",
+    period: "one-time setup",
+    description: "Small teams replacing missed calls & slow follow-up.",
     features: [
-      "Up to 2,000 contacts/mo",
-      "~1,500 call minutes",
-      "AI web chat included",
-      "1–2 AI agents",
-      "Calendar + CRM",
+      "1 custom AI voice agent (your script & voice)",
+      "AI web chat agent included",
+      "Up to **~3,000** calls/month",
+      "Up to **10 calls at once** (10× a human rep)",
+      "Calendar booking + lead capture + CRM",
+      "24/7 — never misses a lead",
     ],
     dimFeatures: ["Email support"],
     ctaLabel: "Start with Starter",
   },
   {
     name: "Growth",
-    price: "$1,499",
-    period: "/mo",
-    description: "Growing businesses scaling outreach.",
+    price: "$2,500",
+    period: "one-time setup",
+    description: "Businesses that want to dominate their leads.",
     features: [
-      "Up to 10,000 contacts/mo",
-      "~5,000 call minutes",
-      "AI web chat + SMS",
-      "Up to 5 AI agents",
-      "Full CRM + ROI dashboard",
-      "Managed onboarding + priority",
+      "Everything in Starter, plus:",
+      "Up to **~10,000** calls/month",
+      "Up to **30 simultaneous calls** (a whole team)",
+      "Multi-step follow-up (call + chat + SMS)",
+      "CRM + Zapier / Make integrations",
+      "No-show & reminder automation",
+      "Monthly optimization + reporting",
+      "Priority support",
     ],
     popular: true,
     ctaLabel: "Get Growth",
   },
   {
     name: "Scale",
-    price: "$4,999",
-    period: "/mo",
-    description: "High-volume & multi-location teams.",
+    price: "$5,000",
+    period: "one-time setup",
+    description: "High-volume operations & lead-gen at full throttle.",
     features: [
-      "Up to 50,000 contacts/mo",
-      "~15,000+ call minutes",
-      "Multichannel + white-label",
-      "Unlimited AI agents",
-      "Custom integrations + strategy",
-      "Dedicated manager + SLA",
+      "Everything in Growth, plus:",
+      "**30,000+** calls/month",
+      "**100+ simultaneous calls** — your list in minutes",
+      "Multiple AI agents (sales + support + booking)",
+      "Advanced routing + warm transfer",
+      "Dedicated number pool + integrations",
+      "Bi-weekly optimization + dedicated manager",
+      "Priority + Slack support",
     ],
-    ctaLabel: "Choose Scale",
+    ctaLabel: "Scale up",
+  },
+];
+
+export const aiPricingPlansBottom: AiPricingPlan[] = [
+  {
+    name: "Custom",
+    price: "Tailored to you",
+    description:
+      "Don't fit a box? We build a plan around your exact workflow, volume & industry.",
+    features: [
+      "Choose your call volume & concurrency",
+      "Any CRM, calendar, dialer or custom API",
+      "Industry-specific agents (Solar, Real Estate, Law, Medical…)",
+      "HIPAA-compliant option (healthcare / Medicare)",
+      "Multi-language agents",
+      "Add SMS, email or WhatsApp follow-up",
+    ],
+    amber: true,
+    ctaLabel: "Build my custom plan",
   },
   {
-    name: "Corporate",
-    price: "Custom",
-    description: "Enterprises & corporates.",
+    name: "Enterprise / Agency",
+    price: "From $7,500",
+    period: "one-time setup",
+    description:
+      "Unlimited scale, or resell under your own brand (white-label).",
     features: [
-      "Unlimited contacts",
-      "Custom call volume",
-      "On-prem / dedicated",
-      "Custom integrations",
+      "**Unlimited** calls & concurrency",
+      "White-label dashboard & full branding",
+      "HIPAA-compliant setup",
+      "Volume credit rates + revenue-share",
       "Dedicated team + SLA",
-      "Compliance review",
     ],
-    ctaLabel: "Talk to sales",
+    ctaLabel: "Book a partnership call",
   },
+];
+
+export const aiPricingStats = [
+  { value: "∞", label: "Unlimited reach" },
+  { value: "100+", label: "Calls at once" },
+  { value: "24/7", label: "Always on" },
+  { value: "30s", label: "Response time" },
+  { value: "0", label: "Missed leads" },
 ];
 
 /* ── FAQ ── */

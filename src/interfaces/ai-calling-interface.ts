@@ -27,6 +27,7 @@ export interface AiPricingPlan {
   features: string[];
   dimFeatures?: string[];
   popular?: boolean;
+  amber?: boolean;
   ctaLabel: string;
 }
 
