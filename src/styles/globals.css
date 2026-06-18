@@ -68,6 +68,11 @@
   --ai-grad-g: linear-gradient(135deg, #10b981, #2ba8ff);
 }
 
+/* Pre-hydration dark background — fired by blocking script before React adds .ai-dark class */
+[data-ai-dark='1'] #ai-lp-root {
+  background: radial-gradient(125% 80% at 50% -8%, #16203a 0%, #080b14 55%) !important;
+}
+
 /* ── AI Calling dark theme (scoped) ── */
 .ai-lp.ai-dark {
   --ai-bg: #080b14;

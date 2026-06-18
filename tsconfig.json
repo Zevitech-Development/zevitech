@@ -32,7 +32,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "src/components/ZevitechLanding.jsx"  ],
   "exclude": [
     "node_modules"
   ]

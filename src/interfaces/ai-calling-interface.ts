@@ -67,6 +67,7 @@ export interface AiMarqueeItem {
 export interface AiChipItem {
   text: string;
   bold?: string;
+  suffix?: string;
 }
 
 export interface AiTrustBadge {

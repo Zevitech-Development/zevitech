@@ -1,37 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import {
-  aiDashboardIndustries,
-  aiDashboardNames,
-  aiDashboardTrust,
-} from "@/content/landing/ai-calling-page-content";
+import { aiDashboardTrust } from "@/content/landing/ai-calling-page-content";
 import AiTaskIcon from "./ai-task-icon";
 
-type RowStatus = "calling" | "qualifying" | "booked";
-
-interface LeadRow {
-  id: number;
-  initials: string;
-  name: string;
-  industry: string;
-  slot: string;
-  status: RowStatus;
-  bookedSlot?: string;
-}
-
-function rnd<T>(arr: T[]): T {
-  return arr[Math.floor(Math.random() * arr.length)];
-}
-function initials(name: string) {
-  return name
-    .split(" ")
-    .map((p) => p[0])
-    .join("");
-}
-
 export default function LiveOutreachDashboard() {
-  const [rows, setRows] = useState<LeadRow[]>([]);
   const [nowIndustry, setNowIndustry] = useState("Solar");
   const [bookedCount, setBookedCount] = useState(1284);
   const [callingCount, setCallingCount] = useState(412);
@@ -39,113 +12,35 @@ export default function LiveOutreachDashboard() {
   const bookedRef = useRef(1284);
   const indRef = useRef(0);
 
+  const industries = [
+    "Solar", "Real Estate", "Dental", "Roofing",
+    "Insurance", "Law Firm", "HVAC", "Mortgage",
+  ];
+
   useEffect(() => {
-    // Build initial rows
-    const initial: LeadRow[] = Array.from({ length: 4 }, (_, i) => {
-      const [industry, slot] = rnd(aiDashboardIndustries);
-      const name = rnd(aiDashboardNames);
-      return {
-        id: i,
-        initials: initials(name),
-        name,
-        industry,
-        slot,
-        status: "calling",
-      };
-    });
-    setRows(initial);
-
-    // Cycle each row through calling → qualifying → booked
-    const timers: ReturnType<typeof setTimeout>[] = [];
-    const cycleRow = (id: number) => {
-      timers.push(
-        setTimeout(() => {
-          setRows((prev) =>
-            prev.map((r) => (r.id === id ? { ...r, status: "qualifying" } : r)),
-          );
-        }, 1300),
-      );
-      timers.push(
-        setTimeout(() => {
-          const [industry, slot] = rnd(aiDashboardIndustries);
-          const name = rnd(aiDashboardNames);
-          bookedRef.current += 1;
-          setBookedCount(bookedRef.current);
-          setRows((prev) =>
-            prev.map((r) =>
-              r.id === id ? { ...r, status: "booked", bookedSlot: slot } : r,
-            ),
-          );
-          // reset after a further delay
-          timers.push(
-            setTimeout(
-              () => {
-                setRows((prev) =>
-                  prev.map((r) =>
-                    r.id === id
-                      ? {
-                          ...r,
-                          initials: initials(name),
-                          name,
-                          industry,
-                          slot,
-                          status: "calling",
-                        }
-                      : r,
-                  ),
-                );
-                cycleRow(id);
-              },
-              1600 + Math.random() * 1600,
-            ),
-          );
-        }, 2800),
-      );
-    };
-    initial.forEach((row) => {
-      timers.push(setTimeout(() => cycleRow(row.id), row.id * 850));
-    });
-
-    // Rotate industry label
     const indInterval = setInterval(() => {
-      indRef.current = (indRef.current + 1) % aiDashboardIndustries.length;
-      setNowIndustry(aiDashboardIndustries[indRef.current][0]);
+      indRef.current = (indRef.current + 1) % industries.length;
+      setNowIndustry(industries[indRef.current]);
     }, 2400);
 
-    // Randomise calling/qualified stats
     const statsInterval = setInterval(() => {
+      bookedRef.current += 1;
+      setBookedCount(bookedRef.current);
       setCallingCount(380 + Math.floor(Math.random() * 95));
       setQualPct(92 + Math.floor(Math.random() * 5));
     }, 2200);
 
     return () => {
-      timers.forEach(clearTimeout);
       clearInterval(indInterval);
       clearInterval(statsInterval);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const statusLabel = (row: LeadRow) => {
-    if (row.status === "calling")
-      return {
-        text: "📞 Calling…",
-        cls: "bg-[rgba(45,107,255,.12)] text-[var(--ai-blue)]",
-      };
-    if (row.status === "qualifying")
-      return {
-        text: "Qualifying…",
-        cls: "bg-[rgba(109,91,245,.12)] text-[var(--ai-indigo)]",
-      };
-    return {
-      text: `✓ Booked ${row.bookedSlot}`,
-      cls: "bg-[rgba(15,182,126,.15)] text-[var(--ai-emerald)] font-bold",
-    };
-  };
-
   return (
-    <div className="relative flex items-center justify-center min-h-[500px]">
+    <div className="relative flex items-center justify-center py-12 overflow-visible">
       {/* Float badge top-left */}
-      <div className="hidden sm:flex absolute top-0 -left-[18px] z-[4] items-center gap-2 bg-[var(--ai-panel)] border border-[var(--ai-line)] rounded-[13px] px-[14px] py-[11px] shadow-[var(--ai-shadow)] text-[13px] font-semibold text-[var(--ai-ink)] animate-ai-float">
+      <div className="hidden sm:flex absolute top-2 -left-[18px] z-[4] items-center gap-2 bg-[var(--ai-panel)] border border-[var(--ai-line)] rounded-[13px] px-[14px] py-[11px] shadow-[var(--ai-shadow)] text-[13px] font-semibold text-[var(--ai-ink)] animate-ai-float">
         <span className="w-2 h-2 rounded-full bg-[var(--ai-emerald)] shadow-[0_0_8px_var(--ai-emerald)]" />
         Lead reached in 28s
       </div>
@@ -158,10 +53,7 @@ export default function LiveOutreachDashboard() {
             className="w-[46px] h-[46px] rounded-[14px] flex items-center justify-center relative flex-shrink-0"
             style={{ background: "var(--ai-grad)" }}
           >
-            <svg
-              viewBox="0 0 24 24"
-              className="w-6 h-6 stroke-white fill-none stroke-2 stroke-round"
-            >
+            <svg viewBox="0 0 24 24" className="w-6 h-6 stroke-white fill-none stroke-2 stroke-round">
               <path d="M3 14v-2a9 9 0 0 1 18 0v2" />
               <path d="M18 19a2 2 0 0 0 2-2v-1h-2.5a1.5 1.5 0 0 0-1.5 1.5A1.5 1.5 0 0 0 17.5 19zM6 19a2 2 0 0 1-2-2v-1h2.5A1.5 1.5 0 0 1 8 17.5A1.5 1.5 0 0 1 6.5 19z" />
               <path d="M12 19v2M9 21h6" />
@@ -178,10 +70,7 @@ export default function LiveOutreachDashboard() {
             </span>
           </div>
           <div className="font-mono text-[10.5px] text-[var(--ai-emerald)] flex items-center gap-[5px] border border-[rgba(15,182,126,.3)] bg-[rgba(15,182,126,.08)] px-[9px] py-[6px] rounded-[8px]">
-            <svg
-              viewBox="0 0 24 24"
-              className="w-3 h-3 stroke-[var(--ai-emerald)] fill-none stroke-2"
-            >
+            <svg viewBox="0 0 24 24" className="w-3 h-3 stroke-[var(--ai-emerald)] fill-none stroke-2">
               <rect x="5" y="11" width="14" height="10" rx="2" />
               <path d="M8 11V7a4 4 0 0 1 8 0v4" />
             </svg>
@@ -202,12 +91,7 @@ export default function LiveOutreachDashboard() {
           <div className="flex-1 px-2 py-3 text-center border-r border-[var(--ai-line)]">
             <b
               className="font-sora text-[20px] font-extrabold block"
-              style={{
-                background: "var(--ai-grad)",
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                color: "transparent",
-              }}
+              style={{ background: "var(--ai-grad)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}
             >
               {qualPct}%
             </b>
@@ -218,12 +102,7 @@ export default function LiveOutreachDashboard() {
           <div className="flex-1 px-2 py-3 text-center">
             <b
               className="font-sora text-[20px] font-extrabold block"
-              style={{
-                background: "var(--ai-grad-g)",
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                color: "transparent",
-              }}
+              style={{ background: "var(--ai-grad-g)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}
             >
               {bookedCount.toLocaleString()}
             </b>
@@ -231,39 +110,6 @@ export default function LiveOutreachDashboard() {
               BOOKED TODAY
             </span>
           </div>
-        </div>
-
-        {/* Lead rows */}
-        <div className="flex flex-col gap-[9px] mb-[15px]">
-          {rows.map((row) => {
-            const st = statusLabel(row);
-            return (
-              <div
-                key={row.id}
-                className="flex items-center gap-[11px] bg-[var(--ai-bg)] border border-[var(--ai-line)] rounded-[12px] px-3 py-[10px]"
-              >
-                <div
-                  className="w-[34px] h-[34px] rounded-[10px] flex-shrink-0 flex items-center justify-center text-white font-sora font-bold text-[13px]"
-                  style={{ background: "var(--ai-grad)" }}
-                >
-                  {row.initials}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <b className="text-[13.5px] text-[var(--ai-ink)] block">
-                    {row.name}
-                  </b>
-                  <span className="text-[11.5px] text-[var(--ai-muted)]">
-                    {row.industry} lead
-                  </span>
-                </div>
-                <span
-                  className={`font-mono text-[10.5px] px-[9px] py-[5px] rounded-[8px] whitespace-nowrap transition-all duration-300 ${st.cls}`}
-                >
-                  {st.text}
-                </span>
-              </div>
-            );
-          })}
         </div>
 
         {/* Trust badges */}
