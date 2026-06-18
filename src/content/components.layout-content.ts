@@ -215,6 +215,12 @@ export const servicesConfig = {
       href: "https://zevitechautomation.com",
       children: [],
     },
+    {
+      id: "ai-calling",
+      label: "AI Calling System",
+      href: "/landing-pages/ai-calling",
+      children: [],
+    },
   ],
 };
 
