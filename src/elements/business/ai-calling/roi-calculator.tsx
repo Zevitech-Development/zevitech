@@ -100,7 +100,7 @@ export default function AiRoiCalculator() {
               { val: leads.toLocaleString(), label: "leads called" },
               { val: `${roi}×`, label: "vs one SDR" },
             ].map(({ val, label }) => (
-              <div key={label} className="bg-[var(--ai-panel)] border border-[var(--ai-line)] rounded-[13px] py-[15px] px-2">
+              <div key={label} className="ai-roi-stat border rounded-[13px] py-[15px] px-2">
                 <b className="font-sora text-[21px] font-extrabold text-[var(--ai-ink)] block">{val}</b>
                 <span className="font-mono text-[10px] text-[var(--ai-muted)] tracking-[0.03em]">{label}</span>
               </div>

@@ -76,14 +76,14 @@ export default function AiCallingPage() {
       {/* Ambient 3D particle field — fixed behind everything */}
       <AiParticlesField />
 
-      {/* Background color blobs — fixed decorative overlays */}
+      {/* Background color blobs — fixed decorative overlays; colors swap in dark mode via .ai-blob-* classes */}
       <div
         aria-hidden
         className="fixed inset-0 z-0 pointer-events-none overflow-hidden"
       >
-        <div className="absolute w-[560px] h-[560px] rounded-full blur-[110px] opacity-55 bg-[#BFD4FF] top-[-160px] left-[-120px]" />
-        <div className="absolute w-[520px] h-[520px] rounded-full blur-[110px] opacity-55 bg-[#C2EEF3] top-[42%] right-[-160px]" />
-        <div className="absolute w-[440px] h-[440px] rounded-full blur-[110px] opacity-50 bg-[#C7F3E2] bottom-[-160px] left-[26%]" />
+        <div className="ai-blob-b absolute w-[560px] h-[560px] rounded-full blur-[110px] top-[-160px] left-[-120px]" />
+        <div className="ai-blob-c absolute w-[520px] h-[520px] rounded-full blur-[110px] top-[42%] right-[-160px]" />
+        <div className="ai-blob-g absolute w-[440px] h-[440px] rounded-full blur-[110px] bottom-[-160px] left-[26%]" />
       </div>
 
       {/* Sections — order mirrors original HTML exactly */}

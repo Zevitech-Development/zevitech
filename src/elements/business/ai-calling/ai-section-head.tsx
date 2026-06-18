@@ -15,7 +15,7 @@ export default function AiSectionHead({
 }: AiSectionHeadProps) {
   return (
     <div className={cn("max-w-[760px] mb-14", center && "mx-auto text-center")}>
-      <span className="font-mono text-[12px] tracking-[0.22em] uppercase text-[var(--ai-blue)]">
+      <span className="ai-eyebrow font-mono text-[12px] tracking-[0.22em] uppercase text-[var(--ai-blue)]">
         {eyebrow}
       </span>
       <h2 className="font-sora font-extrabold text-[var(--ai-ink)] text-[clamp(30px,4vw,50px)] mt-[14px] leading-[1.05] tracking-[-0.02em]">

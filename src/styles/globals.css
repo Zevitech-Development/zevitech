@@ -81,6 +81,11 @@
   --ai-shadow-sm: 0 10px 30px rgba(0, 0, 0, 0.45);
 }
 
+/* ── AI Calling dark — body background radial gradient ── */
+.ai-lp.ai-dark {
+  background: radial-gradient(125% 80% at 50% -8%, #16203a 0%, #080b14 55%) !important;
+}
+
 /* ── AI Calling — logo swap for dark/light ── */
 .ai-lp .ai-logo-light { opacity: 1; }
 .ai-lp .ai-logo-dark  { opacity: 0; }
@@ -93,6 +98,37 @@
 }
 .ai-lp.ai-dark .ai-cta-panel {
   background: linear-gradient(135deg, #0d1730, #0a1f1a);
+}
+
+/* ── AI Calling — background blobs dark mode ── */
+.ai-blob-b { background: #BFD4FF; opacity: 0.55; }
+.ai-blob-c { background: #C2EEF3; opacity: 0.55; }
+.ai-blob-g { background: #C7F3E2; opacity: 0.50; }
+.ai-lp.ai-dark .ai-blob-b { background: #2a3d7a; opacity: 0.30; }
+.ai-lp.ai-dark .ai-blob-c { background: #184a55; opacity: 0.26; }
+.ai-lp.ai-dark .ai-blob-g { background: #16513d; opacity: 0.22; }
+
+/* ── AI Calling — industry cards dark gradient ── */
+.ai-industry-card {
+  background: linear-gradient(180deg, var(--ai-panel), var(--ai-bg));
+}
+.ai-lp.ai-dark .ai-industry-card {
+  background: linear-gradient(180deg, var(--ai-panel), #0e1525);
+}
+
+/* ── AI Calling — ROI output stats sub-items dark ── */
+.ai-roi-stat {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: var(--ai-line);
+}
+.ai-lp.ai-dark .ai-roi-stat {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.10);
+}
+
+/* ── AI Calling — eyebrow text color in dark ── */
+.ai-lp.ai-dark .ai-eyebrow {
+  color: var(--ai-cyan);
 }
 
 /* ── AI Calling — range input thumb styling ── */

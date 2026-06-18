@@ -21,7 +21,7 @@ export default function AiSkyrocketSection() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <span className="font-mono text-[12px] tracking-[0.22em] uppercase text-[var(--ai-blue)]">
+          <span className="ai-eyebrow font-mono text-[12px] tracking-[0.22em] uppercase text-[var(--ai-blue)]">
             The takeoff
           </span>
           <h2

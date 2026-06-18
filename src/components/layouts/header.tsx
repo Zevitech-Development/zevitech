@@ -45,7 +45,6 @@ export function Header() {
     setIsMenuOpen(false);
   }, [pathname]);
 
-  
   const DesktopServiceItem = ({ service }: { service: ServiceLink }) => {
     const hasChildren = service.children.length > 0;
     const [open, setOpen] = React.useState(false);
