@@ -452,6 +452,113 @@ export const SendHomeContactFormEmail = async (
   });
 };
 
+export interface AiDemoLeadData {
+  name: string;
+  email: string;
+  phone: string;
+  business: string;
+  industry: string;
+  message: string;
+}
+
+export const SendAiDemoLeadEmail = async (
+  data: AiDemoLeadData,
+): Promise<boolean> => {
+  const subject = `AI Demo Lead: ${data.name} — ${data.business}`;
+
+  const html = `
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>AI Demo Lead</title>
+      <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa; margin: 0; padding: 0; color: #212529; }
+        .container { max-width: 620px; margin: 40px auto; background: #ffffff; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.05); padding: 32px; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .logo { max-width: 200px; margin-bottom: 10px; }
+        h1 { font-size: 24px; color: #2670ff; margin: 0; }
+        .badge { display: inline-block; background: linear-gradient(135deg,#2670ff,#6d5bf5); color: white; padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-top: 10px; }
+        .section { margin-bottom: 24px; }
+        .section-title { font-size: 16px; font-weight: 700; color: #0e1424; border-bottom: 2px solid #2670ff; margin-bottom: 12px; padding-bottom: 6px; }
+        .detail-row { display: flex; flex-wrap: wrap; margin-bottom: 10px; }
+        .detail-label { flex: 0 0 150px; font-weight: 700; color: #495057; }
+        .detail-value { flex: 1; color: #212529; }
+        .message-box { background: #f0f4ff; border-left: 4px solid #2670ff; padding: 14px 16px; border-radius: 8px; color: #2b3450; line-height: 1.6; }
+        .footer { text-align: center; font-size: 13px; color: #6c757d; border-top: 1px solid #e9ecef; padding-top: 20px; margin-top: 30px; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <img class="logo" src="https://res.cloudinary.com/dptujgmbz/image/upload/v1752157999/kynkimdiy5jozaxl4jfe.png" alt="Zevitech" />
+          <h1>New AI Demo Request</h1>
+          <span class="badge">AI CALLING LEAD</span>
+        </div>
+
+        <div class="section">
+          <div class="section-title">Submission Details</div>
+          <div class="detail-row">
+            <div class="detail-label">Date:</div>
+            <div class="detail-value">${new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" })}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Source:</div>
+            <div class="detail-value">AI Calling Landing Page — Demo Modal</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">Contact Information</div>
+          <div class="detail-row">
+            <div class="detail-label">Name:</div>
+            <div class="detail-value">${data.name}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Email:</div>
+            <div class="detail-value">${data.email}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Phone:</div>
+            <div class="detail-value">${data.phone}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Business:</div>
+            <div class="detail-value">${data.business}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Industry:</div>
+            <div class="detail-value">${data.industry || "Not specified"}</div>
+          </div>
+        </div>
+
+        ${
+          data.message.trim()
+            ? `
+        <div class="section">
+          <div class="section-title">Additional Notes</div>
+          <div class="message-box">${data.message}</div>
+        </div>`
+            : ""
+        }
+
+        <div class="footer">
+          <p>High-intent lead — respond within 10 minutes for best conversion.</p>
+          <p>© ${new Date().getFullYear()} Zevitech. All rights reserved.</p>
+        </div>
+      </div>
+    </body>
+  </html>
+  `;
+
+  return await SendEmail({
+    to: process.env.EMAIL_USER || "zevitech25@gmail.com",
+    subject,
+    html,
+  });
+};
+
 const serviceLabels: { [key: string]: string } = {
   "business-website": "Business Website",
   ecommerce: "eCommerce / Online Store",

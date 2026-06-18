@@ -15,6 +15,18 @@ export default {
   theme: {
     extend: {
       colors: {
+        /* AI Calling page brand tokens */
+        "ai-blue": "var(--ai-blue)",
+        "ai-indigo": "var(--ai-indigo)",
+        "ai-cyan": "var(--ai-cyan)",
+        "ai-emerald": "var(--ai-emerald)",
+        "ai-bg": "var(--ai-bg)",
+        "ai-bg2": "var(--ai-bg2)",
+        "ai-ink": "var(--ai-ink)",
+        "ai-text": "var(--ai-text)",
+        "ai-muted": "var(--ai-muted)",
+        "ai-line": "var(--ai-line)",
+        "ai-panel": "var(--ai-panel)",
         background: "var(--background)",
         "secondary-background": "var(--secondary-background)",
         foreground: "var(--foreground)",
@@ -68,6 +80,8 @@ export default {
       fontFamily: {
         heading: ["var(--font-coolvetica)", "sans-serif"],
         body: ["var(--font-inter)", "sans-serif"],
+        sora: ["var(--font-sora)", "sans-serif"],
+        mono: ["var(--font-space-mono)", "monospace"],
       },
       backgroundImage: {
         pattern: "url('/images/pattern-img.webp')",
@@ -132,6 +146,32 @@ export default {
           "0%": { backgroundPosition: "0 0, 0 0" },
           "100%": { backgroundPosition: "70px 70px, -70px -70px" },
         },
+        /* AI Calling page keyframes */
+        "ai-blink": {
+          "50%": { opacity: "0.3" },
+        },
+        "ai-ring": {
+          "0%": { transform: "scale(0.9)", opacity: "0.5" },
+          "100%": { transform: "scale(1.25)", opacity: "0" },
+        },
+        "ai-float": {
+          "50%": { transform: "translateY(-8px)" },
+        },
+        "ai-scroll": {
+          to: { transform: "translateX(-50%)" },
+        },
+        "ai-typing": {
+          "0%, 100%": { opacity: "0.3", transform: "translateY(0)" },
+          "50%": { opacity: "1", transform: "translateY(-3px)" },
+        },
+        "ai-wave": {
+          "0%, 100%": { transform: "scaleY(0.4)" },
+          "50%": { transform: "scaleY(1)" },
+        },
+        "ai-bar-grow": {
+          from: { transform: "scaleY(0)" },
+          to: { transform: "scaleY(1)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -143,6 +183,12 @@ export default {
         "marquee-up": "marquee-up linear infinite",
         "marquee-down": "marquee-down linear infinite",
         "grid-move": "grid-move 20s linear infinite",
+        "ai-blink": "ai-blink 1.4s infinite",
+        "ai-ring": "ai-ring 2s infinite",
+        "ai-float": "ai-float 5s ease-in-out infinite",
+        "ai-scroll": "ai-scroll 28s linear infinite",
+        "ai-typing": "ai-typing 1s infinite",
+        "ai-wave": "ai-wave 0.85s infinite ease-in-out",
       },
     },
   },

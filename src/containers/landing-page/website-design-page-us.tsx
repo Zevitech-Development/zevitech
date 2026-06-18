@@ -2,12 +2,12 @@ import React from "react";
 
 import { LandingDynamicHero } from "@/components/common/landing-dynamic-hero";
 import WebDesignPricing from "@/elements/business/website-design/web-design-packages";
-import WebDesignContactSection from "@/elements/business/website-design/web-design-contact-section";
 import LandingReviewsSection from "@/components/common/reviews-section";
 import TechStackExpertise from "@/elements/website/home/tech-stack-experties";
 import { ServicesPorfolioSection02 } from "@/components/common/services-porfolio-sections";
 import WhyChooseUsSection01 from "@/components/common/why-choose-us-section-01";
 import HomeServicesSection from "@/elements/website/home/home-services-section";
+import ContactSection from "@/components/common/contact-section";
 
 import WhyChooseUsWebDesignImg01 from "../../../public/images/services/design-and-development/why-choose-us-joomla-website-img01.png";
 import WhyChooseUsWebDesignImg02 from "../../../public/images/services/design-and-development/why-choose-us-wordpress-web-img04.png";
@@ -19,7 +19,6 @@ import {
 } from "@/content/landing/web-design-page-content";
 
 import { FaGlobe } from "react-icons/fa";
-import ContactSection from "@/components/common/contact-section";
 
 function WebsiteDesignPageUs() {
   return (

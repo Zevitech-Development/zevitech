@@ -28,8 +28,8 @@ import PortfolioWixImg06 from "../../../public/images/services/e-commerce/portfo
 
 import PortfolioCustomEcommerce01 from "../../../public/images/services/e-commerce/portfolio-custom-ecommerce01.png";
 import PortfolioCustomEcommerce02 from "../../../public/images/services/e-commerce/portfolio-custom-ecommerce02.png";
-import PortfolioCustomEcommerce03 from "../../../public/images/services/e-commerce/portfolio-custom-ecommerce03.png";
-import PortfolioCustomEcommerce04 from "../../../public/images/services/e-commerce/portfolio-custom-ecommerce04.png";
+import PortfolioCustomEcommerce03 from "../../../public/images/services/e-commerce/portfolio-custom-ecommerce07.png";
+import PortfolioCustomEcommerce04 from "../../../public/images/services/e-commerce/portfolio-custom-ecommerce03.png";
 import PortfolioCustomEcommerce05 from "../../../public/images/services/e-commerce/portfolio-custom-ecommerce05.png";
 import PortfolioCustomEcommerce06 from "../../../public/images/services/e-commerce/portfolio-custom-ecommerce06.png";
 

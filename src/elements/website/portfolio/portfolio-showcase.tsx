@@ -51,7 +51,7 @@ export default function PortfolioShowcase() {
                   "hover:bg-primary/10 hover:text-primary",
                   activeCategory === category.id
                     ? "bg-primary text-primary-foreground hover:text-black/70 shadow-lg"
-                    : "bg-card text-card-foreground border border-border"
+                    : "bg-card text-card-foreground border border-border",
                 )}
               >
                 {category.label}
@@ -74,7 +74,7 @@ export default function PortfolioShowcase() {
               <div
                 className={cn(
                   "flex items-center py-16 md:py-24 lg:py-28",
-                  item.bgColor
+                  item.bgColor,
                 )}
               >
                 <div className="layout-standard grid lg:grid-cols-2 gap-12 items-center">
@@ -110,7 +110,7 @@ export default function PortfolioShowcase() {
                           "text-3xl md:text-4xl lg:text-5xl font-bold font-heading leading-tight",
                           item.bgColor.includes("white")
                             ? "text-black"
-                            : "text-white"
+                            : "text-white",
                         )}
                       >
                         {item.title}
@@ -120,7 +120,7 @@ export default function PortfolioShowcase() {
                           "text-lg leading-relaxed",
                           item.bgColor.includes("white")
                             ? "text-paragraph"
-                            : "text-gray-300"
+                            : "text-gray-300",
                         )}
                       >
                         {item.description}
@@ -136,7 +136,7 @@ export default function PortfolioShowcase() {
                           "border-2 transition-all duration-300 font-medium",
                           item.bgColor.includes("white")
                             ? "border-black text-black hover:bg-black hover:text-white"
-                            : "border-white text-black hover:bg-gray-300 hover:text-black"
+                            : "border-white text-black hover:bg-gray-300 hover:text-black",
                         )}
                       >
                         Chat Now
@@ -146,7 +146,7 @@ export default function PortfolioShowcase() {
                           <Button
                             size="lg"
                             className={cn(
-                              "flex items-center transition-all font-medium duration-300 bg-primary hover:bg-primary-hover text-white"
+                              "flex items-center transition-all font-medium duration-300 bg-primary hover:bg-primary-hover text-white",
                             )}
                           >
                             Let&apos;s Get Started
@@ -163,7 +163,7 @@ export default function PortfolioShowcase() {
                           "text-sm font-semibold uppercase tracking-wider",
                           item.bgColor.includes("white")
                             ? "text-paragraph"
-                            : "text-gray-400"
+                            : "text-gray-400",
                         )}
                       >
                         TECHNOLOGIES & TOOLS USED
@@ -179,7 +179,7 @@ export default function PortfolioShowcase() {
                                 "flex-center w-16 h-16 rounded-full transition-all duration-300 hover:scale-110",
                                 item.bgColor.includes("white")
                                   ? "bg-gray-100 border-2 border-gray-400"
-                                  : "bg-gray-800 border-2 border-gray-600 hover:border-gray-400"
+                                  : "bg-gray-800 border-2 border-gray-600 hover:border-gray-400",
                               )}
                             >
                               <span className="text-2xl">
@@ -195,7 +195,7 @@ export default function PortfolioShowcase() {
                                 "text-xs font-medium text-center",
                                 item.bgColor.includes("white")
                                   ? "text-gray-600"
-                                  : "text-gray-300"
+                                  : "text-gray-300",
                               )}
                             >
                               {tech.name}

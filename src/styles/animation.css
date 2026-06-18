@@ -87,3 +87,34 @@
 .animate-bounce-slow {
   animation: bounce-slow 2s ease-in-out infinite;
 }
+
+/* ── AI Calling page keyframes ── */
+@keyframes ai-blink {
+  50% { opacity: 0.3; }
+}
+@keyframes ai-ring {
+  0%   { transform: scale(0.9); opacity: 0.5; }
+  100% { transform: scale(1.25); opacity: 0; }
+}
+@keyframes ai-float {
+  50% { transform: translateY(-8px); }
+}
+@keyframes ai-scroll {
+  to { transform: translateX(-50%); }
+}
+@keyframes ai-typing {
+  0%, 100% { opacity: 0.3; transform: translateY(0); }
+  50%       { opacity: 1;   transform: translateY(-3px); }
+}
+@keyframes ai-wave {
+  0%, 100% { transform: scaleY(0.4); }
+  50%       { transform: scaleY(1); }
+}
+@keyframes ai-bar-grow {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+@keyframes ai-pl-fill {
+  from { width: 0; }
+  to   { width: var(--pl-target, 100%); }
+}

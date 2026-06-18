@@ -1,7 +1,7 @@
 import { SendEmailInterface } from "../interfaces/utils-interfaces";
 
 export const SendEmail = async (
-  params: SendEmailInterface
+  params: SendEmailInterface,
 ): Promise<boolean> => {
   try {
     const response = await fetch("/api/send-email", {

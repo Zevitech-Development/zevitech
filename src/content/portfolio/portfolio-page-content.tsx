@@ -7,6 +7,7 @@ import EcommerceImg08 from "./../../../public/images/portfolio/ecommerce-img08.j
 import EcommerceImg09 from "./../../../public/images/portfolio/ecommerce-img09.png";
 import EcommerceImg10 from "./../../../public/images/portfolio/ecommerce-img10.png";
 import EcommerceImg11 from "./../../../public/images/portfolio/EcommerceImg11.png";
+import EcommerceImg12 from "./../../../public/images/portfolio/ecommerce-img12.png";
 
 import UxUiImg01 from "./../../../public/images/portfolio/ui-ux-img01.jpg";
 import UxUiImg02 from "./../../../public/images/portfolio/ui-ux-img02.jpg";
@@ -76,6 +77,40 @@ export const portfolioData: PortfolioItem[] = [
   },
 
   {
+    id: "stanleymarketllc",
+    title: "Stanley Market LLC",
+    description:
+      "Stanley Market LLC is a professional wholesale and general trading company specializing in sourcing, distribution, and reliable supply chain solutions. The website is designed to establish trust, showcase services, and support business-to-business partnerships with a clean and responsive layout.",
+    image: EcommerceImg12,
+    technologies: [
+      { name: "Next.js", icon: SiNextdotjs },
+      { name: "Typescript", icon: SiTypescript },
+      { name: "Tailwind CSS", icon: SiTailwindcss },
+      { name: "Framer Motion", icon: SiFramer },
+    ],
+    category: "ecommerce",
+    bgColor: "bg-white",
+  },
+
+  {
+    id: "selfawarenessbook",
+    title: "Self-Awareness: A Journey to Authentic Living",
+    description:
+      "Self-Awareness is a carefully crafted guide that helps readers connect with their inner world, fostering balance, self-acceptance, and authentic living, while offering lasting quality in both content and design.",
+    image: EcommerceImg08,
+    technologies: [
+      { name: "CSS3", icon: FaCss3Alt },
+      { name: "HTML5", icon: FaHtml5 },
+      { name: "JavaScript", icon: FaJs },
+      { name: "Responsive", icon: MdDevices },
+      { name: "WordPress", icon: FaWordpress },
+      { name: "Bootstrap", icon: FaBootstrap },
+    ],
+    category: "ecommerce",
+    bgColor: "bg-[#72A1B6]",
+  },
+
+  {
     id: "manga-store",
     title: "The Manga Store",
     description:
@@ -118,6 +153,7 @@ export const portfolioData: PortfolioItem[] = [
     category: "ecommerce",
     bgColor: "bg-white",
   },
+
   {
     id: "purelashbloom",
     title: "Pure Lash Bloom",
@@ -134,24 +170,6 @@ export const portfolioData: PortfolioItem[] = [
     ],
     category: "ecommerce",
     bgColor: "bg-black/90",
-  },
-
-  {
-    id: "selfawarenessbook",
-    title: "Self-Awareness: A Journey to Authentic Living",
-    description:
-      "Self-Awareness is a carefully crafted guide that helps readers connect with their inner world, fostering balance, self-acceptance, and authentic living, while offering lasting quality in both content and design.",
-    image: EcommerceImg08,
-    technologies: [
-      { name: "CSS3", icon: FaCss3Alt },
-      { name: "HTML5", icon: FaHtml5 },
-      { name: "JavaScript", icon: FaJs },
-      { name: "Responsive", icon: MdDevices },
-      { name: "WordPress", icon: FaWordpress },
-      { name: "Bootstrap", icon: FaBootstrap },
-    ],
-    category: "ecommerce",
-    bgColor: "bg-[#72A1B6]",
   },
 
   {
