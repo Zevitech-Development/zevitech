@@ -82,6 +82,38 @@ export const aiTickerStats = [
 export const aiMarqueeText =
   "AI VOICE  •  24/7 OUTREACH  •  SPEED-TO-LEAD  •  AI WEB CHAT  •  BOOKS APPOINTMENTS  •  LEGAL INTAKE  •  CRM SYNC  •  NO MISSED LEADS  • ";
 
+/* ── Outbound method explainer ── */
+export const aiOutboundMethod = {
+  eyebrow: "Outbound-first · our method",
+  title: "Most AI waits for the phone to ring.",
+  titleGrad: "Ours goes out and brings you customers.",
+  description:
+    "We don't just answer your calls — your AI agent calls your cold leads, warms them up, qualifies them, and books sales-ready appointments straight to your calendar. You just show up and close.",
+  stages: [
+    {
+      step: "1.",
+      label: "Your leads",
+      sub: "Cold list, old CRM, new opt-ins",
+    },
+    {
+      step: "2.",
+      label: "AI calls & qualifies",
+      sub: "Hundreds of calls at once, 24/7",
+    },
+    {
+      step: "3.",
+      label: "Booked appointments",
+      sub: "Synced to your calendar",
+    },
+  ],
+  pills: [
+    "📞 Outbound, not inbound",
+    "🔥 Warms your cold leads",
+    "🤖 Replaces your SDR — not your receptionist",
+  ],
+  ctaLabel: "Put it to work on my leads →",
+};
+
 /* ── Voice demo industry map ── */
 export const aiDemoIndustries: Record<string, AiIndustryDemoEntry> = {
   Solar: {

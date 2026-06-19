@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Script from "next/script";
 import { Sora, Space_Mono } from "next/font/google";
 
 const sora = Sora({
@@ -16,6 +17,18 @@ const spaceMono = Space_Mono({
   display: "swap",
   weight: ["400", "700"],
 });
+
+// Injected before first paint — reads localStorage and stamps ai-dark on the
+// wrapper so there is zero flash when the user has dark mode saved.
+const DARK_INIT_SCRIPT = `
+(function(){
+  try {
+    if(localStorage.getItem('ai-calling-dark')==='1'){
+      document.getElementById('ai-lp-root')?.classList.add('ai-dark');
+    }
+  } catch(e){}
+})();
+`;
 
 export default function AiCallingLayout({
   children,
@@ -38,6 +51,14 @@ export default function AiCallingLayout({
   }, []);
 
   return (
-    <div className={`${sora.variable} ${spaceMono.variable}`}>{children}</div>
+    <div className={`${sora.variable} ${spaceMono.variable}`}>
+      {/* Blocking script — must run before paint to avoid dark-mode flash */}
+      <Script
+        id="ai-dark-init"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: DARK_INIT_SCRIPT }}
+      />
+      {children}
+    </div>
   );
 }

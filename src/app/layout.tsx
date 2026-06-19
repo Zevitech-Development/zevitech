@@ -62,7 +62,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body suppressHydrationWarning className={`${inter.variable}`}>
+      <head>
+        {/* Runs synchronously before first paint — stamps data-ai-dark on <html> so CSS can suppress flash */}
+        <script dangerouslySetInnerHTML={{ __html: `(function(){try{if(localStorage.getItem('ai-calling-dark')==='1'){document.documentElement.setAttribute('data-ai-dark','1');}}catch(e){}})();` }} />
+      </head>
+      <body suppressHydrationWarning className={`${inter.variable} overflow-x-hidden`}>
         {/* Google Analytics 4 + Google Ads - Single gtag instance */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-4V3XW7Q5EG"

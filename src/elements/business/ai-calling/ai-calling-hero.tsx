@@ -15,7 +15,7 @@ export default function AiCallingHero({ onOpenModal }: AiCallingHeroProps) {
   return (
     <section className="pt-[114px] md:pt-[160px] pb-[72px] md:pb-[80px] relative z-[2] max-w-[1200px] mx-auto px-[18px] md:px-6">
       {/* Two-column grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-11 items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-11 lg:items-center items-start">
         {/* Left — copy */}
         <div>
           {/* Badge row */}
@@ -73,13 +73,13 @@ export default function AiCallingHero({ onOpenModal }: AiCallingHeroProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
           >
-            <button
-              onClick={onOpenModal}
+            <a
+              href="#livedemo"
               className="inline-flex items-center gap-2 font-semibold text-[15px] px-6 py-[14px] rounded-full text-white transition-all duration-200 hover:shadow-[0_18px_44px_rgba(45,107,255,.45)] active:scale-95"
               style={{ background: "var(--ai-grad)", boxShadow: "0 12px 30px rgba(45,107,255,.32)" }}
             >
               {c.ctaPrimary}
-            </button>
+            </a>
             <a
               href="#pricing"
               className="inline-flex items-center gap-2 font-semibold text-[15px] px-6 py-[14px] rounded-full border border-[var(--ai-line)] bg-[var(--ai-panel)] text-[var(--ai-ink)] hover:border-[var(--ai-blue)] transition-colors duration-200"
@@ -99,7 +99,7 @@ export default function AiCallingHero({ onOpenModal }: AiCallingHeroProps) {
               >
                 {chip.text}
                 {chip.bold && <b className="text-[var(--ai-emerald)]">{chip.bold}</b>}
-                {"suffix" in chip && (chip as any).suffix}
+                {chip.suffix}
               </span>
             ))}
           </div>
@@ -107,6 +107,7 @@ export default function AiCallingHero({ onOpenModal }: AiCallingHeroProps) {
 
         {/* Right — live outreach dashboard */}
         <motion.div
+          className="w-full overflow-visible"
           initial={{ opacity: 0, y: 40, scale: 0.96 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}

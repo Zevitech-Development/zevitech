@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useInView } from "framer-motion";
 import AiSectionHead from "./ai-section-head";
 
 const PIPELINE_STEPS = [
@@ -26,13 +26,13 @@ function ramp(target: number, duration: number, onUpdate: (v: number) => void) {
 export default function AiOutreachEngine() {
   const total = 2000;
   const [uploaded, setUploaded] = useState(false);
-  const [ran, setRan] = useState(false);
   const [progress, setProgress] = useState(0);
   const [counts, setCounts] = useState([0, 0, 0, 0, 0]);
   const [activeStep, setActiveStep] = useState(-1);
   const [flowPct, setFlowPct] = useState(0);
   const [btnText, setBtnText] = useState("▶ Start AI outreach");
   const pipelineRef = useRef<HTMLDivElement>(null);
+  const ranRef = useRef(false);
   const inView = useInView(pipelineRef, { once: true, margin: "-10% 0px" });
 
   function showFile() {
@@ -41,9 +41,9 @@ export default function AiOutreachEngine() {
   }
 
   function runPipeline() {
-    if (ran) return;
-    setRan(true);
-    if (!uploaded) showFile();
+    if (ranRef.current) return;
+    ranRef.current = true;
+    showFile();
     setBtnText("● Running outreach…");
 
     const targets = [total, total, Math.round(total * 0.62), Math.round(total * 0.18), Math.round(total * 0.18)];
@@ -69,8 +69,7 @@ export default function AiOutreachEngine() {
   }
 
   useEffect(() => {
-    if (inView && !ran) {
-      if (!uploaded) showFile();
+    if (inView) {
       setTimeout(runPipeline, 1200);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -133,7 +132,7 @@ export default function AiOutreachEngine() {
               <button
                 onClick={runPipeline}
                 className="w-full flex items-center justify-center font-semibold text-[15px] px-6 py-[14px] rounded-full text-white transition-all duration-200"
-                style={{ background: "var(--ai-grad)", opacity: ran ? 0.85 : 1 }}
+                style={{ background: "var(--ai-grad)", opacity: btnText !== "▶ Start AI outreach" ? 0.85 : 1 }}
               >
                 {btnText}
               </button>
@@ -145,9 +144,14 @@ export default function AiOutreachEngine() {
         </div>
 
         {/* Pipeline */}
-        <div ref={pipelineRef} className="flex items-start justify-between gap-[10px] relative border border-[var(--ai-line)] bg-[var(--ai-panel)] rounded-[22px] px-[26px] py-9 shadow-[var(--ai-shadow-sm)] flex-wrap md:flex-nowrap">
-          {/* Progress line */}
-          <div className="hidden md:block absolute top-[62px] left-[11%] right-[11%] h-[3px] bg-[var(--ai-line)] rounded-[3px] overflow-hidden">
+        <div
+          ref={pipelineRef}
+          className="relative border border-[var(--ai-line)] bg-[var(--ai-panel)] rounded-[22px] shadow-[var(--ai-shadow-sm)]
+            flex flex-col sm:flex-row items-stretch sm:items-start justify-between gap-0 sm:gap-[10px]
+            px-[26px] py-9 sm:py-9"
+        >
+          {/* Progress line — desktop only */}
+          <div className="hidden sm:block absolute top-[62px] left-[11%] right-[11%] h-[3px] bg-[var(--ai-line)] rounded-[3px] overflow-hidden">
             <div
               className="absolute inset-0 rounded-[3px] transition-all duration-[0.9s] ease-out"
               style={{ width: `${flowPct}%`, background: "var(--ai-grad)" }}
@@ -156,13 +160,21 @@ export default function AiOutreachEngine() {
 
           {PIPELINE_STEPS.map((step, i) => {
             const active = i <= activeStep;
+            const isLast = i === PIPELINE_STEPS.length - 1;
             return (
               <div
                 key={step.label}
-                className={`flex-1 text-center relative z-[1] transition-all duration-300 ${active ? "opacity-100 -translate-y-[2px]" : "opacity-40"}`}
+                className={`
+                  relative z-[1] transition-all duration-300
+                  flex sm:flex-col sm:flex-1 sm:text-center
+                  flex-row items-center text-left gap-[14px]
+                  py-[13px] sm:py-0
+                  ${!isLast ? "border-b border-[var(--ai-line)] sm:border-b-0" : ""}
+                  ${active ? "opacity-100 sm:-translate-y-[2px]" : "opacity-40"}
+                `}
               >
                 <div
-                  className={`w-12 h-12 rounded-[13px] mx-auto mb-3 flex items-center justify-center border transition-all duration-300 ${
+                  className={`w-12 h-12 rounded-[13px] sm:mx-auto mb-0 sm:mb-3 flex-shrink-0 flex items-center justify-center border transition-all duration-300 ${
                     active
                       ? "border-transparent shadow-[0_0_0_5px_rgba(38,112,255,.12)]"
                       : "bg-[var(--ai-bg)] border-[var(--ai-line)]"
@@ -175,10 +187,12 @@ export default function AiOutreachEngine() {
                     ))}
                   </svg>
                 </div>
-                <b className="font-sora text-[24px] font-extrabold text-[var(--ai-ink)] block">
-                  {counts[i].toLocaleString()}
-                </b>
-                <span className="font-mono text-[11px] text-[var(--ai-muted)] tracking-[0.04em]">{step.label}</span>
+                <div>
+                  <b className="font-sora text-[20px] sm:text-[24px] font-extrabold text-[var(--ai-ink)] block">
+                    {counts[i].toLocaleString()}
+                  </b>
+                  <span className="font-mono text-[11px] text-[var(--ai-muted)] tracking-[0.04em] sm:ml-0 ml-0">{step.label}</span>
+                </div>
               </div>
             );
           })}

@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 interface AiSectionHeadProps {
   eyebrow: string;
   title: string;
+  titleGrad?: string;
   description?: string;
   center?: boolean;
 }
@@ -10,6 +11,7 @@ interface AiSectionHeadProps {
 export default function AiSectionHead({
   eyebrow,
   title,
+  titleGrad,
   description,
   center,
 }: AiSectionHeadProps) {
@@ -20,6 +22,21 @@ export default function AiSectionHead({
       </span>
       <h2 className="font-sora font-extrabold text-[var(--ai-ink)] text-[clamp(30px,4vw,50px)] mt-[14px] leading-[1.05] tracking-[-0.02em]">
         {title}
+        {titleGrad && (
+          <>
+            {" "}
+            <span
+              style={{
+                background: "var(--ai-grad)",
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+                color: "transparent",
+              }}
+            >
+              {titleGrad}
+            </span>
+          </>
+        )}
       </h2>
       {description && (
         <p className="text-[var(--ai-muted)] text-[17px] mt-4">{description}</p>

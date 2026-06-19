@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import dynamic from "next/dynamic";
 
 import AiCallingHeader from "@/components/layouts/ai-calling-header";
@@ -8,6 +8,7 @@ import AiCallingHeader from "@/components/layouts/ai-calling-header";
 /* Static sections */
 import AiCallingHero from "@/elements/business/ai-calling/ai-calling-hero";
 import AiMarqueeStrip from "@/elements/business/ai-calling/ai-marquee-strip";
+import AiOutboundMethod from "@/elements/business/ai-calling/outbound-method";
 import AiOutreachEngine from "@/elements/business/ai-calling/outreach-engine";
 import AiProductShowcase from "@/elements/business/ai-calling/product-showcase";
 import AiTasksGrid from "@/elements/business/ai-calling/tasks-grid";
@@ -38,16 +39,16 @@ const AiParticlesField = dynamic(
 const DARK_KEY = "ai-calling-dark";
 
 export default function AiCallingPage() {
-  const [isDark, setIsDark] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  /* Persist dark mode preference */
-  useEffect(() => {
+  const [isDark, setIsDark] = useState(() => {
+    // Read synchronously on first render (client only) to match the blocking script
+    if (typeof window === "undefined") return false;
     try {
-      const stored = localStorage.getItem(DARK_KEY);
-      if (stored === "1") setIsDark(true);
-    } catch {}
-  }, []);
+      return localStorage.getItem(DARK_KEY) === "1";
+    } catch {
+      return false;
+    }
+  });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleDark = useCallback(() => {
     setIsDark((d) => {
@@ -64,7 +65,8 @@ export default function AiCallingPage() {
 
   return (
     <div
-      className={`ai-lp${isDark ? " ai-dark" : ""} relative min-h-screen bg-[var(--ai-bg)] overflow-x-hidden`}
+      id="ai-lp-root"
+      className={`ai-lp${isDark ? " ai-dark" : ""} relative min-h-screen bg-[var(--ai-bg)]`}
     >
       {/* Header — rendered here so it has access to dark/modal state */}
       <AiCallingHeader
@@ -89,6 +91,7 @@ export default function AiCallingPage() {
       {/* Sections — order mirrors original HTML exactly */}
       <AiCallingHero onOpenModal={openModal} />
       <AiMarqueeStrip />
+      <AiOutboundMethod />
 
       <AiOutreachEngine />
       <AiLiveVoiceDemo />
