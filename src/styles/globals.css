@@ -73,6 +73,12 @@
   background: radial-gradient(125% 80% at 50% -8%, #16203a 0%, #080b14 55%) !important;
 }
 
+/* Light root background — must win against any stale !important dark rule when
+   the user toggles back to light (data-ai-dark is cleared, .ai-dark removed) */
+.ai-lp:not(.ai-dark) {
+  background: var(--ai-bg) !important;
+}
+
 /* ── AI Calling dark theme (scoped) ── */
 .ai-lp.ai-dark {
   --ai-bg: #080b14;

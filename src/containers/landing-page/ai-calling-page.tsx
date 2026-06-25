@@ -55,6 +55,13 @@ export default function AiCallingPage() {
       const next = !d;
       try {
         localStorage.setItem(DARK_KEY, next ? "1" : "0");
+        // Keep the pre-hydration <html data-ai-dark> attribute in sync — its
+        // !important background rule otherwise stays painted in light mode.
+        if (next) {
+          document.documentElement.setAttribute("data-ai-dark", "1");
+        } else {
+          document.documentElement.removeAttribute("data-ai-dark");
+        }
       } catch {}
       return next;
     });
