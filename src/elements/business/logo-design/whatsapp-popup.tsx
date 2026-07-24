@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { X } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 type WhatsAppPopupProps = {
   bodyMessage?: string;
@@ -9,6 +10,11 @@ type WhatsAppPopupProps = {
   prefilledMessage?: string;
   ctaLabel?: string;
   startMinimized?: boolean;
+  /** Position of the minimized bubble. Raise it on pages where the LiveChat
+   *  launcher also occupies the bottom-right corner (e.g. Google Ads page). */
+  bubblePositionClassName?: string;
+  /** Position of the expanded panel, kept in sync with the bubble offset. */
+  panelPositionClassName?: string;
 };
 
 export default function WhatsAppPopup({
@@ -17,6 +23,8 @@ export default function WhatsAppPopup({
   prefilledMessage = "Hi! I'm interested in learning more about what you offer.",
   ctaLabel = "Start Chat on WhatsApp",
   startMinimized = false,
+  bubblePositionClassName = "bottom-8 right-2",
+  panelPositionClassName = "bottom-24 right-2",
 }: WhatsAppPopupProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [isMinimized, setIsMinimized] = useState(startMinimized);
@@ -42,7 +50,10 @@ export default function WhatsAppPopup({
     return (
       <button
         onClick={() => setIsMinimized(false)}
-        className="fixed bottom-8 right-2 z-[9998] bg-[#25D366] hover:bg-[#20BA5A] text-white rounded-full p-4 shadow-lg transition-all duration-300 hover:scale-110"
+        className={cn(
+          "fixed z-[9998] bg-[#25D366] hover:bg-[#20BA5A] text-white rounded-full p-4 shadow-lg transition-all duration-300 hover:scale-110",
+          bubblePositionClassName,
+        )}
         aria-label="Open WhatsApp Chat"
       >
         <svg
@@ -58,7 +69,12 @@ export default function WhatsAppPopup({
   }
 
   return (
-    <div className="hidden lg:block fixed bottom-24 right-2 z-[9999] animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div
+      className={cn(
+        "hidden lg:block fixed z-[9999] animate-in fade-in slide-in-from-bottom-4 duration-500",
+        panelPositionClassName,
+      )}
+    >
       <div className="bg-white rounded-lg shadow-2xl w-80 overflow-hidden">
         {/* Header */}
         <div className="bg-[#25D366] p-4 flex items-center justify-between">

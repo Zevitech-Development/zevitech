@@ -48,6 +48,9 @@ export default function BusinessLayout({
         supportMessage="Tell us what you sell and where growth is getting stuck."
         prefilledMessage="Hi! I’d like to discuss growing leads and sales with Google Ads."
         ctaLabel="Chat About Google Ads"
+        startMinimized
+        bubblePositionClassName="bottom-24 right-2"
+        panelPositionClassName="bottom-40 right-2"
       />
       <WebDesignFooter />
     </>
