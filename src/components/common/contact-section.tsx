@@ -126,7 +126,7 @@ export default function ContactSection() {
               <div className="relative">
                 <Input
                   type="email"
-                  placeholder="Business Email"
+                  placeholder="Email"
                   {...form.register("email")}
                   className={cn(
                     "pl-10 py-6 text-lg text-white placeholder:text-base shadow-none placeholder:text-gray-500 font-medium font-inter border-0 border-b-2 border-gray-400 rounded-none bg-transparent",

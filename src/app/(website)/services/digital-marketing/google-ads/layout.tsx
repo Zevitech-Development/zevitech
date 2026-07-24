@@ -10,35 +10,32 @@ export default function BusinessLayout({
   children: React.ReactNode;
 }) {
   useEffect(() => {
+    // LiveChat is loaded globally in the root layout but may have been hidden by
+    // another route's layout, so re-show it here (retrying until the widget loads).
     let attempts = 0;
-    let widget: any;
-    document.body.classList.add("google-ads-livechat-hidden");
 
-    const hideWidget = () => {
+    const showWidget = () => {
       try {
-        widget = (window as any).LiveChatWidget;
+        const widget = (window as any).LiveChatWidget;
         if (!widget) return false;
-        widget.call("hide");
+        widget.call("show");
         return true;
       } catch {
         return false;
       }
     };
 
+    document.body.classList.remove("google-ads-livechat-hidden");
+
     const interval = window.setInterval(() => {
       attempts += 1;
-      if (hideWidget() || attempts >= 20) window.clearInterval(interval);
+      if (showWidget() || attempts >= 20) window.clearInterval(interval);
     }, 250);
 
-    hideWidget();
+    showWidget();
 
     return () => {
       window.clearInterval(interval);
-      document.body.classList.remove("google-ads-livechat-hidden");
-      try {
-        widget = (window as any).LiveChatWidget;
-        if (widget) widget.call("show");
-      } catch {}
     };
   }, []);
 
@@ -51,7 +48,6 @@ export default function BusinessLayout({
         supportMessage="Tell us what you sell and where growth is getting stuck."
         prefilledMessage="Hi! I’d like to discuss growing leads and sales with Google Ads."
         ctaLabel="Chat About Google Ads"
-        startMinimized
       />
       <WebDesignFooter />
     </>

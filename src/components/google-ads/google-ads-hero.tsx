@@ -465,7 +465,7 @@ export default function GoogleAdsHero() {
                           <input name="name" value={formData.name} onChange={handleInputChange} autoComplete="name" placeholder="Your name" required />
                         </label>
                         <label className="ga-field">
-                          <span>Business email</span>
+                          <span>email</span>
                           <input type="email" name="email" value={formData.email} onChange={handleInputChange} autoComplete="email" placeholder="you@company.com" required />
                         </label>
                       </div>

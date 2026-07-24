@@ -88,7 +88,7 @@ function buildGoogleAdsLeadEmail(lead: z.infer<typeof GoogleAdsLeadSchema>) {
         <div style="padding:28px">
           <table style="width:100%;border-collapse:collapse;font-size:15px;line-height:1.55">
             <tr><td style="width:150px;padding:9px 0;color:#65758b;font-weight:700">Name</td><td style="padding:9px 0">${escapeHtml(lead.name)}</td></tr>
-            <tr><td style="padding:9px 0;color:#65758b;font-weight:700">Business email</td><td style="padding:9px 0"><a href="mailto:${escapeHtml(lead.email)}">${escapeHtml(lead.email)}</a></td></tr>
+            <tr><td style="padding:9px 0;color:#65758b;font-weight:700">email</td><td style="padding:9px 0"><a href="mailto:${escapeHtml(lead.email)}">${escapeHtml(lead.email)}</a></td></tr>
             <tr><td style="padding:9px 0;color:#65758b;font-weight:700">Phone</td><td style="padding:9px 0">${escapeHtml(lead.phone)}</td></tr>
             <tr><td style="padding:9px 0;color:#65758b;font-weight:700">Growth goal</td><td style="padding:9px 0">${escapeHtml(lead.growthGoal)}</td></tr>
             <tr><td style="padding:9px 0;color:#65758b;font-weight:700">${servicesLabel}</td><td style="padding:9px 0">${services}</td></tr>

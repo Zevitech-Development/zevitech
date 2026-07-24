@@ -201,7 +201,7 @@ export default function AiLeadModal({ isOpen, onClose }: AiLeadModalProps) {
                       <input type="text" value={fields.name} onChange={set("name")} placeholder="Your name" className={inputCls} />
                     </div>
                     <div>
-                      <label className={labelCls}>Business email *</label>
+                      <label className={labelCls}>email *</label>
                       <input type="email" value={fields.email} onChange={set("email")} placeholder="you@company.com" className={inputCls} />
                     </div>
                     <div>
