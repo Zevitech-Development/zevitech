@@ -1,4 +1,6 @@
 "use client";
+import Script from "next/script";
+
 import WebDesignHeader from "@/components/layouts/web-design-header";
 import WebDesignFooter from "@/components/layouts/web-design-footer";
 import WhatsAppPopup from "@/elements/business/logo-design/whatsapp-popup";
@@ -41,6 +43,21 @@ export default function BusinessLayout({
 
   return (
     <>
+      {/*
+        PPC Google Ads account for this page only. The gtag.js library and the
+        window.gtag shim are already loaded site-wide in the root layout, so we
+        only register the extra Ads destination here. The conversion event itself
+        fires from the lead form via trackGoogleAdsPpcConversion().
+      */}
+      <Script id="ga-ppc-ads-config" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'AW-18263994803');
+        `}
+      </Script>
+
       <WebDesignHeader ctaHref="#google-ads-growth-form" ctaLabel="Request Free Growth Audit" />
       {children}
       <WhatsAppPopup
