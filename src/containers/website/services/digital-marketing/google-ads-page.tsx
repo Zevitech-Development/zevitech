@@ -1,97 +1,89 @@
 import React from "react";
 
-import { LandingDynamicHero } from "@/components/common/landing-dynamic-hero";
-import WhyChooseUsSection01 from "@/components/common/why-choose-us-section-01";
-import CampaignsSection from "@/components/common/campaigns";
-import ScrollingApproachesSection from "@/components/common/scrolling-approach-section";
 import DynamicServicesSection from "@/components/common/services-section";
-import CommonResultSection from "@/components/common/common-result-section";
-import WebDesignContactSection from "@/elements/business/website-design/web-design-contact-section";
 import LandingReviewsSection from "@/components/common/reviews-section";
-
-import WhyChooseUsGoogleAdsImg01 from "../../../../../public/images/landing/why-choose-us-google-ads-img01.png";
-import WhyChooseUsGoogleAdsImg02 from "../../../../../public/images/landing/why-choose-us-google-ads-img02.png";
-import WhyChooseUsGoogleAdsImg03 from "../../../../../public/images/landing/why-choose-us-google-ads-img03.png";
-import WhyChooseUsGoogleAdsImg04 from "../../../../../public/images/landing/why-choose-us-google-ads-img04.png";
-import WhyChooseUsGoogleAdsImg05 from "../../../../../public/images/landing/why-choose-us-google-ads-img05.png";
-import WhyChooseUsGoogleAdsImg06 from "../../../../../public/images/landing/why-choose-us-google-ads-img06.jpg";
-
-import { FaGlobe } from "react-icons/fa";
+import GoogleAdsHero from "@/components/google-ads/google-ads-hero";
+import GoogleAdsResultsSection from "@/components/google-ads/google-ads-results-section";
+import { GoogleAdsCampaignCta, GoogleAdsStickyCta } from "@/components/google-ads/google-ads-cta";
+import GoogleAdsGrowthStory from "@/components/google-ads/google-ads-growth-story";
+import GoogleAdsShowcase from "@/components/google-ads/google-ads-showcase";
+import GoogleAdsPositioning from "@/components/google-ads/google-ads-positioning";
+import GoogleAdsReveal from "@/components/google-ads/google-ads-reveal";
+import GoogleAdsFaq from "@/components/google-ads/google-ads-faq";
+import GoogleAdsDifference from "@/components/google-ads/google-ads-difference";
 
 import {
   googleAdsAdvantagesData,
-  googleAdsApproachesData,
   GoogleAdsResultSectionContent,
 } from "@/content/landing/google-ads-page-content";
 
 function GoogleAdsPage() {
   return (
-    <main className="">
-      <LandingDynamicHero
-        badgeIcon={<FaGlobe />}
-        badgeText="Web Solutions"
-        normalText="Drive instant traffic with"
-        highlightText="targeted google ads advertising"
-        subheading="Strategic, measurable, and ROI-focused"
-        description="Zevitech delivers high-performing google ads campaigns that maximize ROI by reaching the right audience with precise targeting and optimized ads."
-      />
+    <main className="google-ads-page ga-perspective-root pb-20 lg:pb-0">
+      <GoogleAdsHero />
 
-      <WhyChooseUsSection01
-        img01={WhyChooseUsGoogleAdsImg01}
-        img02={WhyChooseUsGoogleAdsImg02}
-        img03={WhyChooseUsGoogleAdsImg03}
-        badgeCotent="Why Choose Us"
-        title="Why Choose Zevitech for Google Ads Management?"
-        desc01="At Zevitech, we build high-performing Google Ads campaigns that boost visibility, attract qualified traffic, and maximize your conversions with precise targeting strategies."
-        desc02="Our certified Google Ads specialists optimize every keyword, ad group, and landing page to ensure your budget delivers measurable results and long-term business growth."
-      />
+      <GoogleAdsReveal className="ga-why-block ga-why-block-one" direction="left">
+        <GoogleAdsShowcase
+          variant="audit"
+          badge="Why Choose Us"
+          title="Google Ads Built Around Business Results"
+          desc01="Zevitech builds campaigns for the outcome that matters to your business—qualified service inquiries, booked conversations, ecommerce purchases, or product sales."
+          desc02="We connect targeting, ad creative, landing-page experience, checkout behavior, and conversion tracking so optimization can move beyond clicks and toward measurable growth signals."
+        />
+      </GoogleAdsReveal>
 
-      <DynamicServicesSection
-        title="Google Ads"
-        highlightedText="Advantages"
-        description="Our Google Ads solutions help businesses reach the right audience, drive high-quality traffic, and generate measurable results. Discover how Google Ads can accelerate your growth and deliver a stronger return on investment."
-        servicesData={googleAdsAdvantagesData}
-      />
+      <GoogleAdsReveal className="ga-services-block">
+        <DynamicServicesSection
+          title="Beyond Clicks:"
+          highlightedText="Business Outcomes"
+          description="Whether your conversion is a phone call, form, booked appointment, add-to-cart, checkout, or completed purchase, we build the campaign around the result—not vanity traffic."
+          servicesData={googleAdsAdvantagesData}
+          ctaHref="#google-ads-growth-form"
+          primaryButtonText="Request My Free Growth Audit"
+        />
+      </GoogleAdsReveal>
 
-      <CampaignsSection />
+      <GoogleAdsReveal className="ga-positioning-block">
+        <GoogleAdsPositioning />
+      </GoogleAdsReveal>
 
-      <ScrollingApproachesSection
-        mainTitle="Google Ads"
-        highlightedWord="Approaches We Use"
-        subtitle="Our Google Ads approach focuses on strategic targeting, creative optimization, and real-time data analysis to maximize ROI and deliver measurable business growth."
-        leftCardTitle="Our Proven Google Ads Methodology"
-        leftCardDescription="We follow a systematic and results-oriented Google Ads methodology to drive quality traffic and maximize conversions. From campaign strategy and keyword targeting to ad testing and performance tracking, our approach ensures every click adds real value to your business."
-        approaches={googleAdsApproachesData}
-      />
+      <GoogleAdsReveal>
+        <GoogleAdsCampaignCta />
+      </GoogleAdsReveal>
 
-      <WhyChooseUsSection01
-        img01={WhyChooseUsGoogleAdsImg04}
-        img02={WhyChooseUsGoogleAdsImg05}
-        img03={WhyChooseUsGoogleAdsImg06}
-        badgeCotent="About Google Ads"
-        sectionOrder="order-2"
-        title="High-Performing Google Ads Campaigns"
-        desc01="We create and manage targeted Google Ads campaigns with real-time tracking, audience segmentation, and continuous optimization for maximum results."
-        desc02="Ideal for businesses looking to increase visibility, generate qualified leads, and achieve scalable growth through paid search advertising."
-      />
+      <GoogleAdsReveal className="ga-difference-block" parallax={0}>
+        <GoogleAdsDifference />
+      </GoogleAdsReveal>
 
-      <WebDesignContactSection />
+      <GoogleAdsGrowthStory />
 
-      <CommonResultSection
-        subtitle="Proven Ad Success"
-        title="Campaigns That Deliver"
-        titleHighlight="Real Conversions!"
-        description="We don’t just manage Google Ads — we build data-driven campaigns that maximize ROI and attract high-intent customers. Explore real Google Ads results, performance insights, and success stories from our satisfied clients."
-        results={GoogleAdsResultSectionContent}
-      />
+      <GoogleAdsReveal className="ga-why-block ga-why-block-two" direction="right">
+        <GoogleAdsShowcase
+          variant="system"
+          reverse
+          badge="The Growth System"
+          title="From Search Intent to Leads, Checkouts, and Sales"
+          desc01="For service businesses, we optimize toward calls, forms, bookings, and lead quality. For ecommerce and product brands, we connect product discovery to cart, checkout, and purchase events."
+          desc02="Your campaigns keep learning through audience signals, search behavior, conversion data, and continuous testing—creating a clearer path for confident scaling."
+        />
+      </GoogleAdsReveal>
 
-      {/* <Cta
-        image={CtaImg}
-        heading="Drive Instant Traffic with Pay Per Click Advertising"
-        text="At Zevitech, we create targeted PPC campaigns that deliver measurable results. From keyword research and ad creation to performance tracking, our experts ensure every click counts—helping you maximize ROI and reach the right audience instantly."
-      /> */}
+      <GoogleAdsResultsSection results={GoogleAdsResultSectionContent} />
 
-      <LandingReviewsSection />
+      <GoogleAdsReveal className="ga-faq-block">
+        <GoogleAdsFaq />
+      </GoogleAdsReveal>
+
+      <GoogleAdsReveal className="ga-reviews-experience">
+        <LandingReviewsSection
+          eyebrow="The People Behind The Growth"
+          title="Businesses Choose Zevitech To Move Forward"
+          description="Hear from clients who trusted Zevitech to strengthen their digital experience, remove growth friction, and help their business reach its next stage."
+          autoPlay={false}
+        />
+      </GoogleAdsReveal>
+
+      <GoogleAdsStickyCta />
     </main>
   );
 }

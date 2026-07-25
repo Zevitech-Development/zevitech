@@ -2,7 +2,6 @@
 import WebDesignHeader from "@/components/layouts/web-design-header";
 import WebDesignFooter from "@/components/layouts/web-design-footer";
 import WhatsAppPopup from "@/elements/business/logo-design/whatsapp-popup";
-import Script from "next/script";
 import { useEffect } from "react";
 
 export default function BusinessLayout({
@@ -11,54 +10,49 @@ export default function BusinessLayout({
   children: React.ReactNode;
 }) {
   useEffect(() => {
-    try {
-      if (typeof window !== "undefined" && (window as any).LiveChatWidget) {
-        (window as any).LiveChatWidget.call("hide");
-      }
-    } catch {}
-    return () => {
+    let attempts = 0;
+    let widget: any;
+    document.body.classList.add("google-ads-livechat-hidden");
+
+    const hideWidget = () => {
       try {
-        if (typeof window !== "undefined" && (window as any).LiveChatWidget) {
-          (window as any).LiveChatWidget.call("show");
-        }
-        if (typeof window !== "undefined" && (window as any).Tawk_API) {
-          const api = (window as any).Tawk_API;
-          if (typeof api.hideWidget === "function") api.hideWidget();
-        }
+        widget = (window as any).LiveChatWidget;
+        if (!widget) return false;
+        widget.call("hide");
+        return true;
+      } catch {
+        return false;
+      }
+    };
+
+    const interval = window.setInterval(() => {
+      attempts += 1;
+      if (hideWidget() || attempts >= 20) window.clearInterval(interval);
+    }, 250);
+
+    hideWidget();
+
+    return () => {
+      window.clearInterval(interval);
+      document.body.classList.remove("google-ads-livechat-hidden");
+      try {
+        widget = (window as any).LiveChatWidget;
+        if (widget) widget.call("show");
       } catch {}
     };
   }, []);
 
   return (
     <>
-      <Script
-        src="https://www.googletagmanager.com/gtag/js?id=AW-17789624484"
-        strategy="afterInteractive"
-      />
-      <Script id="gtag-aw" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'AW-17789624484');
-        `}
-      </Script>
-      <Script id="tawk-to" strategy="afterInteractive">
-        {`
-        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-        (function(){
-        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-        s1.async=true;
-        s1.src='https://embed.tawk.to/660354441ec1082f04dbb073/1hpug2bip';
-        s1.charset='UTF-8';
-        s1.setAttribute('crossorigin','*');
-        s0.parentNode.insertBefore(s1,s0);
-        })();
-        `}
-      </Script>
-      <WebDesignHeader />
+      <WebDesignHeader ctaHref="#google-ads-growth-form" ctaLabel="Request Free Growth Audit" />
       {children}
-      <WhatsAppPopup />
+      <WhatsAppPopup
+        bodyMessage="👋 Want more qualified leads and online sales from Google Ads?"
+        supportMessage="Tell us what you sell and where growth is getting stuck."
+        prefilledMessage="Hi! I’d like to discuss growing leads and sales with Google Ads."
+        ctaLabel="Chat About Google Ads"
+        startMinimized
+      />
       <WebDesignFooter />
     </>
   );

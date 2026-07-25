@@ -14,21 +14,31 @@ import ReviewsCard from "@/components/partials/reviews-card";
 
 import "swiper/css";
 
-function LandingReviewsSection() {
+type LandingReviewsSectionProps = {
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+  autoPlay?: boolean;
+};
+
+function LandingReviewsSection({
+  eyebrow = "What Clients Say",
+  title = "Our Trusted Customers",
+  description = "Hear directly from the entrepreneurs and store owners who scaled faster, sold more, and built better experiences — with us behind the scenes.",
+  autoPlay = true,
+}: LandingReviewsSectionProps) {
   return (
     <section className=" section-padding-standard ">
       <div className="layout-standard md:mb-12">
         <div className="flex flex-col gap-4 items-center text-center lg:mb-16 md:mb-12 mb-8">
           <h2 className="md:text-lg text-base font-semibold uppercase text-center text-primary">
-            What Clients Say
+            {eyebrow}
           </h2>
           <h1 className="text-heading font-heading md:text-6xl text-4xl font-bold text-center lg:max-w-5xl tracking-widest">
-            Our Trusted Customers
+            {title}
           </h1>
           <p className="md:text-2xl text-base lg:max-w-3xl text-center font-medium text-paragraph">
-            Hear directly from the entrepreneurs and store owners who scaled
-            faster, sold more, and built better experiences — with us behind the
-            scenes.
+            {description}
           </p>
         </div>
 
@@ -38,12 +48,16 @@ function LandingReviewsSection() {
               modules={[Autoplay]}
               direction="horizontal"
               spaceBetween={15}
-              loop={true}
-              autoplay={{
-                delay: 4000,
-                disableOnInteraction: false,
-                reverseDirection: false,
-              }}
+              loop={autoPlay}
+              autoplay={
+                autoPlay
+                  ? {
+                      delay: 4000,
+                      disableOnInteraction: false,
+                      reverseDirection: false,
+                    }
+                  : false
+              }
               slidesPerView={1}
               breakpoints={{
                 640: { slidesPerView: 2 },
@@ -71,12 +85,16 @@ function LandingReviewsSection() {
               modules={[Autoplay]}
               direction="horizontal"
               spaceBetween={15}
-              loop={true}
-              autoplay={{
-                delay: 4000,
-                disableOnInteraction: false,
-                reverseDirection: true,
-              }}
+              loop={autoPlay}
+              autoplay={
+                autoPlay
+                  ? {
+                      delay: 4000,
+                      disableOnInteraction: false,
+                      reverseDirection: true,
+                    }
+                  : false
+              }
               slidesPerView={1}
               breakpoints={{
                 640: { slidesPerView: 1 },
@@ -104,12 +122,16 @@ function LandingReviewsSection() {
               modules={[Autoplay]}
               direction="horizontal"
               spaceBetween={15}
-              loop={true}
-              autoplay={{
-                delay: 4000,
-                disableOnInteraction: false,
-                reverseDirection: false,
-              }}
+              loop={autoPlay}
+              autoplay={
+                autoPlay
+                  ? {
+                      delay: 4000,
+                      disableOnInteraction: false,
+                      reverseDirection: false,
+                    }
+                  : false
+              }
               slidesPerView={1}
               breakpoints={{
                 640: { slidesPerView: 2 },

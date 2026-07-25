@@ -16,34 +16,34 @@ import { MdOutlineSettingsSuggest } from "react-icons/md";
 
 export const googleAdsAdvantagesData = [
   {
-    title: "Immediate Visibility and Traffic",
+    title: "Capture High-Intent Demand",
     description:
-      "Google Ads delivers instant exposure at the top of search results and across partner networks — helping you reach potential customers precisely when they’re searching for your products or services.",
+      "Reach prospects when they are actively searching for a service, comparing a solution, or looking for a product they are ready to purchase.",
   },
   {
-    title: "Advanced Audience Targeting",
+    title: "Generate Leads and Sales",
     description:
-      "With Google Ads’ precise targeting options, you can focus your campaigns on specific keywords, demographics, locations, and interests, ensuring your budget reaches high-intent prospects.",
+      "Build campaigns around the conversion that matters—from calls, forms, and bookings to add-to-cart events, online checkouts, and completed purchases.",
   },
   {
-    title: "Budget Control and Flexibility",
+    title: "Search, Shopping, and Remarketing",
     description:
-      "Google Ads gives you complete control over daily and monthly spend, allowing you to adjust campaigns based on performance, seasonality, or strategic priorities.",
+      "Use the right Google Ads formats for the journey, including Search, Shopping, Performance Max, display, video, and remarketing campaigns.",
   },
   {
-    title: "Transparent and Measurable Results",
+    title: "Track the Full Conversion Journey",
     description:
-      "Every click, impression, and conversion is tracked, providing detailed insights into campaign performance and enabling you to make informed, data-driven decisions.",
+      "Connect ads to meaningful actions across your website, sales funnel, product pages, cart, checkout, and purchase confirmation experience.",
   },
   {
-    title: "Enhanced Brand Visibility",
+    title: "Reduce Wasted Ad Spend",
     description:
-      "Even when users don’t click your ads, consistent placement at the top of search results strengthens brand awareness and builds trust over time.",
+      "Refine search terms, locations, audiences, devices, products, and schedules so more of your budget is concentrated around valuable intent.",
   },
   {
-    title: "Remarketing and Retargeting",
+    title: "Scale What Produces Results",
     description:
-      "Google Ads allows you to re-engage visitors who previously interacted with your website, keeping your brand top-of-mind and driving conversions from warm leads.",
+      "Use trustworthy lead and purchase signals to test intelligently, invest in winning campaigns, and build a more repeatable growth system.",
   },
 ];
 

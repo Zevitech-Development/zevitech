@@ -13,6 +13,8 @@ export default function DynamicServicesSection({
   highlightedText,
   description,
   servicesData,
+  primaryButtonText = "Get Started",
+  ctaHref,
 }: ServicesProps) {
   return (
     <section className="layout-standard section-padding-standard grid lg:grid-cols-5 gap-4">
@@ -26,13 +28,24 @@ export default function DynamicServicesSection({
           </p>
 
           <div className="flex justify-center lg:justify-normal gap-4">
-            <DailogLeadForm
-              trigger={
-                <Button className="cta-button hover:bg-primary-hover !border-none py-6 px-6">
-                  Get Started <FaArrowRightLong />
-                </Button>
-              }
-            ></DailogLeadForm>
+            {ctaHref ? (
+              <Button
+                asChild
+                className="cta-button hover:bg-primary-hover !border-none py-6 px-6"
+              >
+                <a href={ctaHref}>
+                  {primaryButtonText} <FaArrowRightLong />
+                </a>
+              </Button>
+            ) : (
+              <DailogLeadForm
+                trigger={
+                  <Button className="cta-button hover:bg-primary-hover !border-none py-6 px-6">
+                    {primaryButtonText} <FaArrowRightLong />
+                  </Button>
+                }
+              />
+            )}
 
             <Button
               variant={"outline"}

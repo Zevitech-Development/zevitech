@@ -71,6 +71,8 @@ export interface WhyChooseUsSection01Props {
   desc01: string;
   desc02: string;
   sectionOrder?: string;
+  ctaHref?: string;
+  primaryButtonText?: string;
 }
 
 export interface CustomSystemFieldInterface {
@@ -168,6 +170,7 @@ export interface ServicesProps {
   onPrimaryClick?: () => void;
   onSecondaryClick?: () => void;
   showChatButton?: boolean;
+  ctaHref?: string;
 }
 
 export interface ApproachItem {

@@ -12,7 +12,15 @@ import Logo from "../../../public/favicon/logo-black.png";
 import { IoChatbox } from "react-icons/io5";
 import { FaArrowRightLong } from "react-icons/fa6";
 
-function WebDesignHeader() {
+type WebDesignHeaderProps = {
+  ctaHref?: string;
+  ctaLabel?: string;
+};
+
+function WebDesignHeader({
+  ctaHref,
+  ctaLabel = "Let's get started!",
+}: WebDesignHeaderProps) {
   return (
     <header className="absolute top-0 z-50 bg-transparent w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="layout-standard h-[110px] flex justify-between items-center border-b border-white/20">
@@ -34,13 +42,24 @@ function WebDesignHeader() {
           >
             <IoChatbox /> Chat Now
           </Button>
-          <DailogLeadForm
-            trigger={
-              <Button className="cta-button-02 bg-transparent !border-primary text-black hover:bg-primary">
-                Let&apos;s get started! <FaArrowRightLong />
-              </Button>
-            }
-          />
+          {ctaHref ? (
+            <Button
+              asChild
+              className="cta-button-02 bg-transparent !border-primary text-black hover:bg-primary"
+            >
+              <a href={ctaHref}>
+                {ctaLabel} <FaArrowRightLong />
+              </a>
+            </Button>
+          ) : (
+            <DailogLeadForm
+              trigger={
+                <Button className="cta-button-02 bg-transparent !border-primary text-black hover:bg-primary">
+                  {ctaLabel} <FaArrowRightLong />
+                </Button>
+              }
+            />
+          )}
         </div>
 
         {/* MOBILE HEADER */}

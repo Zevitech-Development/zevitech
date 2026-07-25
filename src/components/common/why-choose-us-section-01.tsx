@@ -31,6 +31,8 @@ const WhyChooseUsSection01 = ({
   desc01,
   desc02,
   sectionOrder,
+  ctaHref,
+  primaryButtonText = "Get Started",
 }: WhyChooseUsSection01Props) => {
   return (
     <>
@@ -84,13 +86,24 @@ const WhyChooseUsSection01 = ({
             <p className="mb-8 text-base">{desc02}</p>
 
             <div className="flex items-center gap-4">
-              <DailogLeadForm
-                trigger={
-                  <Button className="cta-button hover:bg-primary-hover !border-none py-6 px-6">
-                    Get Started <FaArrowRightLong />
-                  </Button>
-                }
-              ></DailogLeadForm>
+              {ctaHref ? (
+                <Button
+                  asChild
+                  className="cta-button hover:bg-primary-hover !border-none py-6 px-6"
+                >
+                  <a href={ctaHref}>
+                    {primaryButtonText} <FaArrowRightLong />
+                  </a>
+                </Button>
+              ) : (
+                <DailogLeadForm
+                  trigger={
+                    <Button className="cta-button hover:bg-primary-hover !border-none py-6 px-6">
+                      {primaryButtonText} <FaArrowRightLong />
+                    </Button>
+                  }
+                />
+              )}
 
               <Button
                 variant={"outline"}
