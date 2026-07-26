@@ -12,6 +12,7 @@ interface Window {
   dataLayer?: any[];
   __lc?: any;
   LiveChatWidget?: any;
+  Tawk_API?: any;
   clarity?: (...args: any[]) => void;
 }
 
@@ -22,6 +23,7 @@ declare global {
     dataLayer?: any[];
     __lc?: any;
     LiveChatWidget?: any;
+    Tawk_API?: any;
     clarity?: (...args: any[]) => void;
   }
 }
