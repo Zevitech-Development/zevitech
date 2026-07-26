@@ -46,8 +46,9 @@ export default function BusinessLayout({
       {/*
         PPC Google Ads account for this page only. The gtag.js library and the
         window.gtag shim are already loaded site-wide in the root layout, so we
-        only register the extra Ads destination here. The conversion event itself
-        fires from the lead form via trackGoogleAdsPpcConversion().
+        only register the extra Ads destination here. The conversion events fire
+        from the lead form (trackGoogleAdsPpcLeadConversion) and the Calendly
+        scheduler (trackGoogleAdsPpcBookingConversion).
       */}
       <Script id="ga-ppc-ads-config" strategy="afterInteractive">
         {`

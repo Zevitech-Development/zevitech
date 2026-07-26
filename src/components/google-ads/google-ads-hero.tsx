@@ -29,7 +29,7 @@ import { SendGoogleAdsLeadEmail } from "@/services/google-ads-lead-service";
 import { captureGoogleAdsAttribution } from "@/lib/google-ads-attribution";
 import {
   trackGoogleAdsEvent,
-  trackGoogleAdsPpcConversion,
+  trackGoogleAdsPpcLeadConversion,
 } from "@/lib/google-ads-analytics";
 
 import TrustpilotIcon from "../../../public/icons/trustpilot-icon-01.svg";
@@ -223,7 +223,10 @@ export default function GoogleAdsHero() {
 
       try {
         // PPC conversion for the Google Ads account running traffic to this page.
-        trackGoogleAdsPpcConversion();
+        trackGoogleAdsPpcLeadConversion({
+          email: formData.email,
+          phone: formData.phone,
+        });
 
         if (window.gtag_report_conversion) {
           const nameParts = formData.name.trim().split(/\s+/);

@@ -1,0 +1,217 @@
+ZEVITECH GOOGLE ADS + CALENDLY CONVERSION TRACKING
+===================================================
+
+Landing page:
+https://www.zevitech.com/services/digital-marketing/google-ads
+
+Verified Google Ads settings
+----------------------------
+
+Google Ads account tag:
+AW-18263994803
+
+Lead form conversion:
+AW-18263994803/r6EbCPGY6MMcELPj-YRE
+
+Calendly meeting conversion:
+AW-18263994803/qzLGCI_kvNYcELPj-YRE
+
+Google Ads configuration:
+
+- Lead submission: Primary
+- Lead count: One
+- Calendly meeting booked: Secondary / observation only
+- Calendly count: One
+- Calendly click-through conversion window: 30 days
+- Attribution: Data-driven
+
+
+IMPORTANT IMPLEMENTATION RULES
+==============================
+
+1. Install/configure the main Google Ads account tag once.
+2. Do not put either conversion event snippet in the page <head>.
+3. Do not fire a lead conversion when the page loads.
+4. Do not fire a lead conversion merely when the submit button is clicked.
+5. Fire the lead conversion only after the backend confirms that the form was
+   submitted successfully.
+6. Fire the Calendly conversion only after Calendly sends the confirmed
+   calendly.event_scheduled event.
+7. Opening Calendly, viewing a calendar, or selecting a time is not a completed
+   booking and must not fire the booking conversion.
+
+
+STEP 1: CONFIGURE THE GOOGLE ADS DESTINATION
+=============================================
+
+The main Google tag should already be installed. Configure the Tribunebook
+Google Ads destination once on this landing page:
+
+gtag("config", "AW-18263994803");
+
+If this destination is already configured, do not add a duplicate.
+
+
+STEP 2: LEAD FORM CONVERSION
+============================
+
+Recommended codebase location:
+
+src/components/google-ads/google-ads-hero.tsx
+
+Place this code inside the successful form submission block, after the backend
+email/API request returns success:
+
+gtag("set", "user_data", {
+  email: email.trim().toLowerCase(),
+  phone_number: phone
+});
+
+gtag("event", "conversion", {
+  send_to: "AW-18263994803/r6EbCPGY6MMcELPj-YRE",
+  value: 1,
+  currency: "USD",
+  transaction_id: `lead-${Date.now()}`
+});
+
+The phone number should include its international country code when available.
+Example:
+
++13022176872
+
+Correct execution order:
+
+1. Validate the form.
+2. Send the lead to the backend.
+3. Confirm that the backend returned success.
+4. Fire the Google Ads lead conversion.
+5. Show the success message and Calendly scheduler.
+
+Do not fire the conversion when validation fails or when the backend request
+fails.
+
+
+STEP 3: CALENDLY BOOKING CONVERSION
+====================================
+
+Recommended codebase location:
+
+src/components/google-ads/google-ads-scheduler-modal.tsx
+
+The Calendly scheduler must be embedded on the Zevitech page for this listener
+to work.
+
+Make sure useEffect is imported:
+
+import { useEffect, useMemo, useRef } from "react";
+
+Add this effect inside the Calendly scheduler component:
+
+useEffect(() => {
+  if (!open || !schedulerUrl) return;
+
+  const handleCalendlyMessage = (event: MessageEvent) => {
+    // Accept messages only from Calendly.
+    if (
+      !/^https:\/\/([a-z0-9-]+\.)?calendly\.com$/i.test(event.origin)
+    ) {
+      return;
+    }
+
+    // Do not fire until Calendly confirms the completed booking.
+    if (event.data?.event !== "calendly.event_scheduled") {
+      return;
+    }
+
+    const eventUri = event.data?.payload?.event?.uri;
+
+    const bookingId =
+      typeof eventUri === "string"
+        ? eventUri.split("/").pop()
+        : `calendly-${Date.now()}`;
+
+    const guardKey = `calendly-conversion-${bookingId}`;
+
+    // Prevent the same booking from being reported more than once.
+    if (window.sessionStorage.getItem(guardKey)) {
+      return;
+    }
+
+    window.sessionStorage.setItem(guardKey, "1");
+
+    window.gtag?.("event", "conversion", {
+      send_to: "AW-18263994803/qzLGCI_kvNYcELPj-YRE",
+      value: 1,
+      currency: "USD",
+      transaction_id: bookingId
+    });
+
+    // Optional GA4 analytics event.
+    window.gtag?.("event", "ga_scheduler_booked", {
+      provider: "calendly",
+      page_context: "google-ads-landing"
+    });
+  };
+
+  window.addEventListener("message", handleCalendlyMessage);
+
+  return () => {
+    window.removeEventListener("message", handleCalendlyMessage);
+  };
+}, [open, schedulerUrl]);
+
+
+TYPESCRIPT WINDOW TYPE
+======================
+
+If TypeScript reports that gtag does not exist on Window, add this to the
+project's global type declarations:
+
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
+
+export {};
+
+
+TESTING CHECKLIST
+=================
+
+Use Google Tag Assistant and perform these checks:
+
+[ ] Loading the landing page fires no lead conversion.
+[ ] Refreshing the landing page fires no lead conversion.
+[ ] Clicking submit with invalid form fields fires no conversion.
+[ ] A failed form submission fires no conversion.
+[ ] One successful form submission fires the lead conversion once.
+[ ] Opening the Calendly scheduler fires no booking conversion.
+[ ] Viewing available Calendly dates fires no booking conversion.
+[ ] Selecting a Calendly date/time fires no booking conversion.
+[ ] Completing a test Calendly booking fires the booking conversion once.
+[ ] Duplicate Calendly messages do not create duplicate booking conversions.
+
+Expected lead destination:
+AW-18263994803/r6EbCPGY6MMcELPj-YRE
+
+Expected booking destination:
+AW-18263994803/qzLGCI_kvNYcELPj-YRE
+
+
+SEPARATE-TAB WARNING
+====================
+
+The window message listener works when Calendly is embedded inside the
+Zevitech landing page.
+
+If Calendly opens in a separate browser tab or window, the landing page cannot
+reliably receive calendly.event_scheduled. In that case, use one of these:
+
+1. A Calendly webhook handled by the backend.
+2. A Calendly confirmation redirect to a dedicated thank-you page.
+3. A server-side Calendly integration that reports the confirmed booking to
+   Google Ads.
+
+Do not track an external Calendly-link click as a completed appointment.
+

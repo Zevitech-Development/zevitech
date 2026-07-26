@@ -3,7 +3,10 @@
 import { useEffect, useMemo, useRef } from "react";
 import { CalendarCheck, ExternalLink, Mail, Phone, X } from "lucide-react";
 
-import { trackGoogleAdsEvent } from "@/lib/google-ads-analytics";
+import {
+  trackGoogleAdsEvent,
+  trackGoogleAdsPpcBookingConversion,
+} from "@/lib/google-ads-analytics";
 
 type GoogleAdsSchedulerModalProps = {
   open: boolean;
@@ -35,11 +38,57 @@ export default function GoogleAdsSchedulerModal({
       url.searchParams.set("background_color", "ffffff");
       url.searchParams.set("text_color", "17243a");
       url.searchParams.set("primary_color", "007afc");
+
+      // Required for Calendly to post calendly.event_scheduled back to this
+      // page — without embed_domain the widget does not treat itself as an
+      // embed and the booking conversion below never fires.
+      if (typeof window !== "undefined") {
+        url.searchParams.set("embed_domain", window.location.hostname);
+        url.searchParams.set("embed_type", "Inline");
+      }
+
       return url.toString();
     } catch {
       return null;
     }
   }, [email, name]);
+
+  useEffect(() => {
+    if (!open || !schedulerUrl) return;
+
+    const handleCalendlyMessage = (event: MessageEvent) => {
+      // Accept messages only from Calendly.
+      if (!/^https:\/\/([a-z0-9-]+\.)?calendly\.com$/i.test(event.origin)) return;
+
+      // Opening the scheduler or picking a time is not a booking — only the
+      // confirmed scheduled event counts.
+      if (event.data?.event !== "calendly.event_scheduled") return;
+
+      const eventUri = event.data?.payload?.event?.uri;
+      const bookingId =
+        typeof eventUri === "string"
+          ? eventUri.split("/").pop() || `calendly-${Date.now()}`
+          : `calendly-${Date.now()}`;
+
+      // Calendly can deliver the same message more than once.
+      const guardKey = `calendly-conversion-${bookingId}`;
+      try {
+        if (window.sessionStorage.getItem(guardKey)) return;
+        window.sessionStorage.setItem(guardKey, "1");
+      } catch {
+        // Private-browsing storage failures must not block the conversion.
+      }
+
+      trackGoogleAdsPpcBookingConversion(bookingId);
+      trackGoogleAdsEvent("ga_scheduler_booked", { provider: "calendly" });
+    };
+
+    window.addEventListener("message", handleCalendlyMessage);
+
+    return () => {
+      window.removeEventListener("message", handleCalendlyMessage);
+    };
+  }, [open, schedulerUrl]);
 
   useEffect(() => {
     if (!open) return;
