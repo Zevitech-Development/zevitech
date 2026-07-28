@@ -58,6 +58,7 @@ export default function AiOutboundMethod() {
                 </span>
               </div>
             ))}
+            2
           </div>
           <div className="text-center">
             <b className="font-sora text-[15px] text-[var(--ai-ink)] block">

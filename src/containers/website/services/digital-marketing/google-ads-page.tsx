@@ -4,7 +4,10 @@ import DynamicServicesSection from "@/components/common/services-section";
 import LandingReviewsSection from "@/components/common/reviews-section";
 import GoogleAdsHero from "@/components/google-ads/google-ads-hero";
 import GoogleAdsResultsSection from "@/components/google-ads/google-ads-results-section";
-import { GoogleAdsCampaignCta, GoogleAdsStickyCta } from "@/components/google-ads/google-ads-cta";
+import {
+  GoogleAdsCampaignCta,
+  GoogleAdsStickyCta,
+} from "@/components/google-ads/google-ads-cta";
 import GoogleAdsGrowthStory from "@/components/google-ads/google-ads-growth-story";
 import GoogleAdsShowcase from "@/components/google-ads/google-ads-showcase";
 import GoogleAdsPositioning from "@/components/google-ads/google-ads-positioning";
@@ -22,7 +25,10 @@ function GoogleAdsPage() {
     <main className="google-ads-page ga-perspective-root pb-20 lg:pb-0">
       <GoogleAdsHero />
 
-      <GoogleAdsReveal className="ga-why-block ga-why-block-one" direction="left">
+      <GoogleAdsReveal
+        className="ga-why-block ga-why-block-one"
+        direction="left"
+      >
         <GoogleAdsShowcase
           variant="audit"
           badge="Why Choose Us"
@@ -57,7 +63,10 @@ function GoogleAdsPage() {
 
       <GoogleAdsGrowthStory />
 
-      <GoogleAdsReveal className="ga-why-block ga-why-block-two" direction="right">
+      <GoogleAdsReveal
+        className="ga-why-block ga-why-block-two"
+        direction="right"
+      >
         <GoogleAdsShowcase
           variant="system"
           reverse
