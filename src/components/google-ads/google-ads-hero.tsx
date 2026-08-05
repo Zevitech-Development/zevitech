@@ -27,7 +27,10 @@ import HeroMarquee from "@/components/common/hero-marquee";
 import GoogleAdsSchedulerModal from "@/components/google-ads/google-ads-scheduler-modal";
 import { SendGoogleAdsLeadEmail } from "@/services/google-ads-lead-service";
 import { captureGoogleAdsAttribution } from "@/lib/google-ads-attribution";
-import { trackGoogleAdsEvent } from "@/lib/google-ads-analytics";
+import {
+  trackGoogleAdsEvent,
+  trackGoogleAdsPpcLeadConversion,
+} from "@/lib/google-ads-analytics";
 
 import TrustpilotIcon from "../../../public/icons/trustpilot-icon-01.svg";
 import ClutchIOIcon from "../../../public/icons/clutch-io-icon.png";
@@ -219,6 +222,12 @@ export default function GoogleAdsHero() {
       }
 
       try {
+        // PPC conversion for the Google Ads account running traffic to this page.
+        trackGoogleAdsPpcLeadConversion({
+          email: formData.email,
+          phone: formData.phone,
+        });
+
         if (window.gtag_report_conversion) {
           const nameParts = formData.name.trim().split(/\s+/);
           await window.gtag_report_conversion(undefined, {
