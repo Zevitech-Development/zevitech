@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 
 import { motion } from "framer-motion";
 
@@ -13,7 +13,24 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { OpenLiveChat } from "@/utils/open-live-chat";
 import { IoChatbox } from "react-icons/io5";
 
-export function CtaSection() {
+type CtaSectionProps = {
+  /** Optional overrides — default to the logo-design copy when omitted */
+  badgeText?: string;
+  heading?: string;
+  headingHighlight?: string;
+  description?: string;
+  image?: StaticImageData;
+  imageAlt?: string;
+};
+
+export function CtaSection({
+  badgeText = "Professional Logo Design",
+  heading = "Transform Your Vision into a Bold",
+  headingHighlight = "Creative Identity",
+  description = "Bring your ideas to life with vibrant, custom logo designs that reflect your brand's energy and style. Whether minimal, 3D, or animated — we craft visuals that leave a lasting impression.",
+  image = CtaImg,
+  imageAlt = "logo-image",
+}: CtaSectionProps = {}) {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -72,7 +89,7 @@ export function CtaSection() {
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur-sm border shadow-sm">
                 <Sparkles className="w-4 h-4 text-primary" />
                 <span className="text-sm font-semibold text-heading">
-                  Professional Logo Design
+                  {badgeText}
                 </span>
               </div>
             </motion.div>
@@ -81,17 +98,15 @@ export function CtaSection() {
               variants={itemVariants}
               className="text-3xl md:text-5xl font-extrabold text-gray-200 leading-tight text-center lg:text-left"
             >
-              Transform Your Vision into a Bold
-              <span className="text-primary"> Creative Identity</span>
+              {heading}
+              <span className="text-primary"> {headingHighlight}</span>
             </motion.h1>
 
             <motion.p
               variants={itemVariants}
               className="text-base md:text-lg font-medium text-center lg:text-left text-gray-300 leading-relaxed max-w-xl mx-auto lg:mx-0"
             >
-              Bring your ideas to life with vibrant, custom logo designs that
-              reflect your brand&apos;s energy and style. Whether minimal, 3D, or
-              animated — we craft visuals that leave a lasting impression.
+              {description}
             </motion.p>
 
             {/* Buttons */}
@@ -124,8 +139,8 @@ export function CtaSection() {
           >
             <div className="relative w-full rounded-2xl overflow-hidden mx-auto">
               <Image
-                alt="logo-image"
-                src={CtaImg}
+                alt={imageAlt}
+                src={image}
                 className="w-full object-cover"
                 priority
               />

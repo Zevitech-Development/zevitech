@@ -201,6 +201,10 @@ export const servicesConfig = {
           label: "Amazon Marketing",
           href: "/services/digital-marketing/amazon-marketing",
         },
+        {
+          label: "YouTube Automation",
+          href: "/services/youtube-automation",
+        },
       ],
     },
     {

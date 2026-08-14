@@ -12,6 +12,8 @@ import {
 
 import ReviewsCard from "@/components/partials/reviews-card";
 
+import { ReviewCardInterface } from "@/interfaces/components-partials-interface";
+
 import "swiper/css";
 
 type LandingReviewsSectionProps = {
@@ -19,6 +21,10 @@ type LandingReviewsSectionProps = {
   title?: string;
   description?: string;
   autoPlay?: boolean;
+  /** Optional overrides — default to the shared Shopify reviews when omitted */
+  row01?: ReviewCardInterface[];
+  row02?: ReviewCardInterface[];
+  row03?: ReviewCardInterface[];
 };
 
 function LandingReviewsSection({
@@ -26,6 +32,9 @@ function LandingReviewsSection({
   title = "Our Trusted Customers",
   description = "Hear directly from the entrepreneurs and store owners who scaled faster, sold more, and built better experiences — with us behind the scenes.",
   autoPlay = true,
+  row01 = ReviewsSectionContent01,
+  row02 = ReviewsSectionContent02,
+  row03 = ReviewsSectionContent03,
 }: LandingReviewsSectionProps) {
   return (
     <section className=" section-padding-standard ">
@@ -64,7 +73,7 @@ function LandingReviewsSection({
                 1440: { slidesPerView: 3 },
               }}
             >
-              {ReviewsSectionContent01.map((rew, index) => (
+              {row01.map((rew, index) => (
                 <SwiperSlide key={index}>
                   <div className="h-full px-2">
                     <ReviewsCard
@@ -101,7 +110,7 @@ function LandingReviewsSection({
                 1440: { slidesPerView: 3 },
               }}
             >
-              {ReviewsSectionContent02.map((rew, index) => (
+              {row02.map((rew, index) => (
                 <SwiperSlide key={index}>
                   <div className="h-full px-2">
                     <ReviewsCard
@@ -138,7 +147,7 @@ function LandingReviewsSection({
                 1440: { slidesPerView: 3 },
               }}
             >
-              {ReviewsSectionContent03.map((rew, index) => (
+              {row03.map((rew, index) => (
                 <SwiperSlide key={index}>
                   <div className="h-full px-2">
                     <ReviewsCard
