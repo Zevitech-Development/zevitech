@@ -16,7 +16,6 @@ export default function BusinessLayout({
     // LiveChat here and restore it when navigating away. The body class covers
     // the window between first paint and the widget script finishing loading.
     document.body.classList.add("google-ads-livechat-hidden");
-
     let liveChatAttempts = 0;
     let tawkAttempts = 0;
 
