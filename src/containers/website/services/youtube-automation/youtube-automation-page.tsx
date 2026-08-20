@@ -25,7 +25,7 @@ import {
   YoutubeReviewsContent01,
   YoutubeReviewsContent02,
   YoutubeReviewsContent03,
-} from "@/content/services/youtube-automation-reviews-content";
+} from "@/content/services/youtube-automation-reviews-content"; 
 
 import { Youtube } from "lucide-react";
 

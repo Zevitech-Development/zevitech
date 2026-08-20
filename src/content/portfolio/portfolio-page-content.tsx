@@ -48,13 +48,7 @@ import {
   SiTypescript,
 } from "react-icons/si";
 import { SiPhp, SiJavascript, SiWordpress, SiWebflow } from "react-icons/si";
-import {
-  FolderKanban,
-  Palette,
-  ShoppingCart,
-  Globe,
-  Smartphone,
-} from "lucide-react";
+import { FolderKanban, Globe, Smartphone, Sparkles } from "lucide-react";
 
 import { PortfolioItem } from "@/interfaces/components-partials-interface";
 
@@ -72,7 +66,7 @@ export const portfolioData: PortfolioItem[] = [
       { name: "Tailwind CSS", icon: SiTailwindcss },
       { name: "Framer Motion", icon: SiFramer },
     ],
-    category: "ecommerce",
+    category: "websites",
     bgColor: "bg-[#111827]",
   },
 
@@ -88,7 +82,7 @@ export const portfolioData: PortfolioItem[] = [
       { name: "Tailwind CSS", icon: SiTailwindcss },
       { name: "Framer Motion", icon: SiFramer },
     ],
-    category: "ecommerce",
+    category: "websites",
     bgColor: "bg-white",
   },
 
@@ -106,7 +100,7 @@ export const portfolioData: PortfolioItem[] = [
       { name: "WordPress", icon: FaWordpress },
       { name: "Bootstrap", icon: FaBootstrap },
     ],
-    category: "ecommerce",
+    category: "websites",
     bgColor: "bg-[#72A1B6]",
   },
 
@@ -124,7 +118,7 @@ export const portfolioData: PortfolioItem[] = [
       { name: "WordPress", icon: FaWordpress },
       { name: "Bootstrap", icon: FaBootstrap },
     ],
-    category: "ecommerce",
+    category: "websites",
     bgColor: "bg-white",
   },
   {
@@ -139,7 +133,7 @@ export const portfolioData: PortfolioItem[] = [
       { name: "WordPress", icon: SiWordpress },
       { name: "Webflow", icon: SiWebflow },
     ],
-    category: "ecommerce",
+    category: "websites",
     bgColor: "bg-[#091D24]",
   },
 
@@ -150,7 +144,7 @@ export const portfolioData: PortfolioItem[] = [
       "The PROKYT website is designed specifically for dealers and retailers who specialise in the supply of Police,",
     image: EcommerceImg03,
     technologies: [{ name: "Magento", icon: SiMagento }],
-    category: "ecommerce",
+    category: "websites",
     bgColor: "bg-white",
   },
 
@@ -168,7 +162,7 @@ export const portfolioData: PortfolioItem[] = [
       { name: "WordPress", icon: FaWordpress },
       { name: "Bootstrap", icon: FaBootstrap },
     ],
-    category: "ecommerce",
+    category: "websites",
     bgColor: "bg-black/90",
   },
 
@@ -184,7 +178,7 @@ export const portfolioData: PortfolioItem[] = [
       { name: "HTML5", icon: FaHtml5 },
       { name: "JavaScript", icon: SiJavascript },
     ],
-    category: "ecommerce",
+    category: "websites",
     bgColor: "bg-white",
   },
   {
@@ -199,7 +193,7 @@ export const portfolioData: PortfolioItem[] = [
       { name: "HTML5", icon: FaHtml5 },
       { name: "JavaScript", icon: SiJavascript },
     ],
-    category: "ecommerce",
+    category: "websites",
     bgColor: "bg-[#0075C2]",
   },
   {
@@ -214,84 +208,8 @@ export const portfolioData: PortfolioItem[] = [
       { name: "HTML5", icon: FaHtml5 },
       { name: "JavaScript", icon: SiJavascript },
     ],
-    category: "ecommerce",
+    category: "websites",
     bgColor: "bg-[#1A1C2D]",
-  },
-  // UI/UX CATEGORY
-  {
-    id: "college-apply-uiux",
-    title: "College Apply",
-    description:
-      "Colleges18 aims to be the go-to platform for college students. With over 1000 colleges as clients, Colleges18 provides recent news regarding admissions tests, infrastructure building skillsets needed",
-    image: UxUiImg01,
-    technologies: [
-      { name: "Responsive", icon: MdDevices },
-      { name: "NextJS", icon: SiNextdotjs },
-    ],
-    category: "ui-ux",
-    bgColor: "bg-red-600",
-  },
-  {
-    id: "luxury-med-spa-uiux",
-    title: "ID Luxury Med Spa",
-    description:
-      "ID Luxury Med Spa was founded with a vision to meet the growing demand for both invasive and non-invasive cosmetic treatments, all within a serene and sophisticated setting.",
-    image: UxUiImg02,
-    technologies: [
-      { name: "Responsive", icon: MdDevices },
-      { name: "WordPress", icon: SiWordpress },
-    ],
-    category: "ui-ux",
-    bgColor: "bg-white",
-  },
-  {
-    id: "livigno-ski-school-uiux",
-    title: "Livigno Ski School",
-    description:
-      "You will find rolling carpet and wide and gentle slopes …Is a perfect solution for those who are learning firts steps on the ski .",
-    image: UxUiImg03,
-    technologies: [
-      { name: "CSS3", icon: FaCss3Alt },
-      { name: "HTML5", icon: FaHtml5 },
-      { name: "JavaScript", icon: FaJs },
-      { name: "Responsive", icon: MdDevices },
-      { name: "WordPress", icon: FaWordpress },
-      { name: "Bootstrap", icon: FaBootstrap },
-      { name: "UX/UI", icon: MdDesignServices },
-    ],
-    category: "ui-ux",
-    bgColor: "bg-blue-700",
-  },
-  {
-    id: "btek-robots-uiux",
-    title: "Btek Robots",
-    description:
-      "We serve clients in EMEA and North America from offices in London, Sweden, Miami, Washington DC and Las Vegas.",
-    image: UxUiImg04,
-    technologies: [
-      { name: "WordPress", icon: SiWordpress },
-      { name: "Responsive", icon: MdDevices },
-    ],
-    category: "ui-ux",
-    bgColor: "bg-white",
-  },
-  {
-    id: "knowledge-park-uiux",
-    title: "jb knowledge park",
-    description:
-      "JB Knowledge Park, located in Delhi NCR, Faridabad, is an AICTE-approved college affiliated with MDU, a NAAC A+ State Government University. The college specializes in BBA, BCA, and BTech programs, wi",
-    image: UxUiImg05,
-    technologies: [
-      { name: "UX/UI", icon: MdDesignServices },
-      { name: "Responsive", icon: MdDevices },
-      { name: "NextJS", icon: SiNextdotjs },
-      { name: "NodeJS", icon: SiNodedotjs },
-      { name: "Json", icon: SiJson },
-      { name: "Openai", icon: SiOpenai },
-      { name: "Strapi", icon: SiStrapi },
-    ],
-    category: "ui-ux",
-    bgColor: "bg-[#02427C]",
   },
 
   // WEBSITES CATEGORY
@@ -547,10 +465,9 @@ export const portfolioData: PortfolioItem[] = [
 
 export const categories = [
   { id: "all", label: "All Portfolio", icon: FolderKanban },
-  { id: "ui-ux", label: "UI/UX Design", icon: Palette },
-  { id: "ecommerce", label: "Ecommerce Websites", icon: ShoppingCart },
   { id: "websites", label: "Websites", icon: Globe },
   { id: "mobile", label: "Mobile Apps", icon: Smartphone },
+  { id: "custom-projects", label: "Custom Projects", icon: Sparkles },
 ];
 
 // Faq Data

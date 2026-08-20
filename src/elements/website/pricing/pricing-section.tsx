@@ -20,6 +20,8 @@ import { FeatureComparisonTable } from "./feature-comparison-table";
 import {
   shopifyPackages,
   shopifyFeatures,
+  websiteDevelopmentPackages,
+  websiteDevelopmentFeatures,
   twoDLogoPackages,
   twoDLogoFeatures,
   logo3DDesignPackages,
@@ -45,6 +47,7 @@ import {
 // ✅ Non-logo services
 const services = [
   { id: "shopify", name: "Shopify Stores" },
+  { id: "websiteDevelopment", name: "Website Development" },
   { id: "packaging", name: "Packaging Design" },
   { id: "socialMedia", name: "Social Media Kit" },
   { id: "brandIdentity", name: "Brand Identity" },
@@ -64,6 +67,10 @@ const logoServices = [
 // ✅ Pricing Data Map
 const pricingData: Record<string, { packages: any[]; features: any[] }> = {
   shopify: { packages: shopifyPackages, features: shopifyFeatures },
+  websiteDevelopment: {
+    packages: websiteDevelopmentPackages,
+    features: websiteDevelopmentFeatures,
+  },
   logo2d: { packages: twoDLogoPackages, features: twoDLogoFeatures },
   logo3d: { packages: logo3DDesignPackages, features: logo3DDesignFeatures },
   logoAnimated: {

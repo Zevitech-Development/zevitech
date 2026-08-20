@@ -233,6 +233,164 @@ export const shopifyFeatures = [
   },
 ];
 
+export const websiteDevelopmentPackages = [
+  {
+    id: "basic",
+    name: "Starter Site",
+    price: "$399",
+    highlight: false,
+    badge: null,
+  },
+  {
+    id: "business",
+    name: "Business Website",
+    price: "$799",
+    highlight: false,
+    badge: null,
+  },
+  {
+    id: "pro",
+    name: "Pro Website",
+    price: "$1499",
+    highlight: true,
+    badge: "Most Popular",
+  },
+  {
+    id: "brand",
+    name: "Enterprise Website",
+    price: "$2499",
+    highlight: false,
+    badge: "Best Value",
+  },
+];
+
+export const websiteDevelopmentFeatures = [
+  {
+    category: "Website Development Packages",
+    items: [
+      {
+        name: "Number of Pages",
+        basic: "Up to 5",
+        business: "Up to 10",
+        pro: "Up to 20",
+        brand: "Unlimited",
+      },
+      {
+        name: "Custom Design (No Templates)",
+        basic: false,
+        business: true,
+        pro: true,
+        brand: true,
+      },
+      {
+        name: "Mobile Responsive Design",
+        basic: true,
+        business: true,
+        pro: true,
+        brand: true,
+      },
+      {
+        name: "Content Management System",
+        basic: false,
+        business: true,
+        pro: true,
+        brand: true,
+      },
+      {
+        name: "Contact & Lead Forms",
+        basic: true,
+        business: true,
+        pro: true,
+        brand: true,
+      },
+      {
+        name: "Basic On-Page SEO",
+        basic: true,
+        business: true,
+        pro: true,
+        brand: true,
+      },
+      {
+        name: "Advanced SEO Optimization",
+        basic: false,
+        business: false,
+        pro: true,
+        brand: true,
+      },
+      {
+        name: "Blog / News Section",
+        basic: false,
+        business: true,
+        pro: true,
+        brand: true,
+      },
+      {
+        name: "Speed & Performance Optimization",
+        basic: false,
+        business: true,
+        pro: true,
+        brand: true,
+      },
+      {
+        name: "Third-Party Integrations (CRM, Booking, etc.)",
+        basic: false,
+        business: false,
+        pro: true,
+        brand: true,
+      },
+      {
+        name: "Custom Functionality / Web App Features",
+        basic: false,
+        business: false,
+        pro: true,
+        brand: true,
+      },
+      {
+        name: "Analytics & Tracking Setup",
+        basic: true,
+        business: true,
+        pro: true,
+        brand: true,
+      },
+      {
+        name: "Security Hardening & SSL Setup",
+        basic: true,
+        business: true,
+        pro: true,
+        brand: true,
+      },
+      {
+        name: "Dedicated Project Manager",
+        basic: false,
+        business: false,
+        pro: true,
+        brand: true,
+      },
+      {
+        name: "Revisions Included",
+        basic: "1 Round",
+        business: "2 Rounds",
+        pro: "4 Rounds",
+        brand: "Unlimited",
+      },
+      {
+        name: "Delivery Time",
+        basic: "7 Days",
+        business: "12 Days",
+        pro: "18 Days",
+        brand: "25 Days",
+      },
+      {
+        name: "Post-Launch Support",
+        basic: false,
+        business: "7 Days",
+        pro: "15 Days",
+        brand: "30 Days",
+      },
+    ],
+  },
+];
+
 export const twoDLogoPackages = [
   {
     id: "starter",
