@@ -5,7 +5,6 @@ import WebDesignHeader from "@/components/layouts/web-design-header";
 import WebDesignFooter from "@/components/layouts/web-design-footer";
 import WhatsAppPopup from "@/elements/business/logo-design/whatsapp-popup";
 import { useEffect } from "react";
-
 export default function BusinessLayout({
   children,
 }: {
@@ -106,7 +105,10 @@ export default function BusinessLayout({
         `}
       </Script>
 
-      <WebDesignHeader ctaHref="#google-ads-growth-form" ctaLabel="Request Free Growth Audit" />
+      <WebDesignHeader
+        ctaHref="#google-ads-growth-form"
+        ctaLabel="Request Free Growth Audit"
+      />
       {children}
       <WhatsAppPopup
         bodyMessage="👋 Want more qualified leads and online sales from Google Ads?"
