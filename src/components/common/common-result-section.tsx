@@ -19,13 +19,13 @@ function CommonResultSection({
             {subtitle}
           </h2>
         )}
-        <h1 className="text-heading font-heading md:text-6xl text-4xl font-bold text-center md:max-w-4xl tracking-wide">
+        <h2 className="text-heading font-heading md:text-6xl text-4xl font-bold text-center md:max-w-4xl tracking-wide">
           {title}{" "}
           {titleHighlight && (
             <span className="text-primary">{titleHighlight}</span>
           )}{" "}
           {titleAfterHighlight}
-        </h1>
+        </h2>
         <p className="md:text-xl text-base md:max-w-3xl text-center font-medium">
           {description}
         </p>

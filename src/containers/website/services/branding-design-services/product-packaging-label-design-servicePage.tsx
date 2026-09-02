@@ -29,8 +29,8 @@ const ProductPackagingLabelDesignServicePage = () => {
       <DynamicHero
         badgeIcon={<Package />}
         badgeText="Creative Packaging"
-        heading="Designing packaging that"
-        highlightText="tells your brand’s story"
+        heading="Professional Product Packaging"
+        highlightText="& Label Design Services"
         subheading="Eye-catching, functional, and memorable"
         description="Zevitech creates product packaging and label designs that combine aesthetics with strategy. We craft visuals that enhance shelf appeal, communicate value, and strengthen your brand identity across every product line."
         heroImage={ProductPackageDesignkHeroImg}
@@ -40,16 +40,16 @@ const ProductPackagingLabelDesignServicePage = () => {
         img02={WhyChooseUsProductPackagingImg02}
         img03={WhyChooseUsProductPackagingImg03}
         badgeCotent="Why Choose Us"
-        title="Why Choose Zevitech for Packaging & Label Design?"
-        desc01="We create innovative and visually striking packaging designs that attract customers and communicate your brand's story effectively."
-        desc02="Our designs balance creativity and functionality to ensure your products stand out and leave a lasting impression on the shelves."
+        title="Custom Label & Box Packaging Design Solutions"
+        desc01="As a custom product label design company, we produce visually striking box packaging and label systems that attract customers and communicate your brand story effectively."
+        desc02="Our box packaging design services balance creativity with structural function so your products stand out and leave a lasting impression on the shelf."
       />
 
       <CampaignsSection />
 
       <ServicesPorfolioSection02
-        title="Product Packaging & Label Designs That Captivate"
-        description="Explore our collection of product packaging and label designs that blend creativity and strategy. From food labels to cosmetic packaging, our designs help brands stand out on the shelf and win customer attention."
+        title="Manufacturing-Ready Dielines & 3D Realistic Mockups"
+        description="Explore our work as a packaging dieline design agency and cosmetic packaging design studio. Every project ships with print-ready dielines and 3D realistic mockups, so what you approve on screen is exactly what the manufacturer produces."
         portfolioImages={PortfolioProductPackagingLabelDesignContent}
       />
 
@@ -59,7 +59,7 @@ const ProductPackagingLabelDesignServicePage = () => {
         img03={WhyChooseUsProductPackagingImg06}
         badgeCotent="About Packaging & Label Design"
         sectionOrder="order-2"
-        title="Packaging That Sells Your Product at First Glance"
+        title="Packaging Design Services That Sell at First Glance"
         desc01="Our packaging and label designs are crafted to grab attention, communicate value, and reflect your brand identity."
         desc02="We combine functionality and beauty to create designs that stand out on shelves and online marketplaces."
       />

@@ -4,7 +4,10 @@ import Image from "next/image";
 
 import { techColumns } from "@/content/homepage/home-page-content";
 
-import { MarqueeColumnProps } from "@/interfaces/home-interfaces";
+import {
+  MarqueeColumnProps,
+  TechStackExpertiseProps,
+} from "@/interfaces/home-interfaces";
 
 function MarqueeColumn({ items, direction, speed = 30 }: MarqueeColumnProps) {
   // Duplicate items for seamless loop
@@ -49,7 +52,9 @@ function MarqueeColumn({ items, direction, speed = 30 }: MarqueeColumnProps) {
   );
 }
 
-export default function TechStackExpertise() {
+export default function TechStackExpertise({
+  heading,
+}: TechStackExpertiseProps) {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -71,8 +76,12 @@ export default function TechStackExpertise() {
         {/* Heading */}
         <div className="flex flex-col items-center text-center">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading text-heading max-w-4xl leading-tight">
-            Tech Stack Expertise to Build{" "}
-            <span className="text-primary">Future-Ready</span> Solutions
+            {heading ?? (
+              <>
+                Tech Stack Expertise to Build{" "}
+                <span className="text-primary">Future-Ready</span> Solutions
+              </>
+            )}
           </h2>
         </div>
 

@@ -9,6 +9,7 @@ export const metadata: Metadata = GetPageMetadata({
   title: "Logo Design Services | Zevitech Creative Branding Experts",
   description:
     "Create a lasting impression with Zevitech’s logo design services. We craft unique, memorable, and brand-focused logos that define your identity.",
+  path: "/landing-pages/logo-design",
 });
 
 function LogoDesign() {

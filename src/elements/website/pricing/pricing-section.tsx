@@ -141,13 +141,13 @@ export default function PricingSection() {
     <section className="layout-standard section-padding-standard">
       {/* Header */}
       <div className="flex flex-col items-center gap-6 text-center mb-12">
-        <motion.h2
+        <motion.h1
           className="text-3xl md:text-4xl lg:text-6xl xl:text-8xl font-bold font-heading text-blue-heading tracking-wider"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
           Professional <span className="text-primary">Services</span>
-        </motion.h2>
+        </motion.h1>
         <p className="text-lg md:text-lg text-paragraph font-medium max-w-3xl">
           Choose the perfect plan for your creative needs. From logo design to
           full-scale web development.

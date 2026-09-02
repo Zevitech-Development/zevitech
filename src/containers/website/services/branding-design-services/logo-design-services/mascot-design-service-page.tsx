@@ -29,8 +29,8 @@ const MascotDesignServicePage = () => {
       <DynamicHero
         badgeIcon={<Smile />}
         badgeText="Character Branding"
-        heading="Give your brand"
-        highlightText="a face and personality"
+        heading="Custom Mascot Logo"
+        highlightText="Design Services"
         subheading="Memorable characters, powerful stories"
         description="At Zevitech, we design mascots that embody your brand’s spirit and connect with your audience. Our creative team brings characters to life with unique expressions, detail, and emotion that make your brand unforgettable."
         heroImage={MascotHeroImg}
@@ -41,16 +41,16 @@ const MascotDesignServicePage = () => {
         img02={WhyChooseUsMascotImg02}
         img03={WhyChooseUsMascotImg03}
         badgeCotent="Why Choose Us"
-        title="Why Choose Zevitech for Mascot Logo Design?"
-        desc01="Our mascot logos are designed to give your brand a unique character and emotional connection with your audience."
-        desc02="We blend creativity and storytelling to craft mascots that make your brand memorable and stand out in competitive markets."
+        title="Bespoke Brand Character & Vector Mascot Design"
+        desc01="Our brand character design services give your business a distinct personality and an emotional connection with your audience."
+        desc02="As a vector mascot design studio, we blend illustration craft with storytelling to build characters that stay sharp at any size and stand out in competitive markets."
       />
 
       <CampaignsSection />
 
       <ServicesPorfolioSection01
-        title="Mascot Logos That Bring Your Brand to Life"
-        description="Dive into our collection of custom mascot logos designed to add personality, energy, and memorability to your brand. Perfect for sports teams, gaming, and character-driven businesses."
+        title="Commercial Licensing, Source Files & Multi-Platform Assets"
+        description="Every project from our custom mascot logo design company ships with full commercial licensing, layered vector source files, and export-ready assets sized for streaming overlays, jerseys, print, and social. Perfect for esports mascot logo design, sports teams, and character-driven brands."
         portfolioImages={PortfolioMascotLogoDesignContent}
       />
 
@@ -60,7 +60,7 @@ const MascotDesignServicePage = () => {
         img03={WhyChooseUsMascotImg06}
         badgeCotent="About Mascot Logo Design"
         sectionOrder="order-2"
-        title="Mascot Logos That Build Personality & Connection"
+        title="Mascot Logo Design Services That Build Connection"
         desc01="Zevitech creates custom mascot logos that give your brand a face and a voice, perfect for playful or community-driven businesses."
         desc02="From bold illustrations to lovable characters, we make mascots that audiences connect with instantly."
       />

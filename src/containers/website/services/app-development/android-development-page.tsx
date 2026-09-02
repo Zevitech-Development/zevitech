@@ -7,6 +7,7 @@ import FaqSection from "@/components/common/faq-section";
 import Cta from "@/components/common/cta";
 import { ServicesPorfolioSection02 } from "@/components/common/services-porfolio-sections";
 import { DynamicHero } from "@/components/common/dynamic-hero";
+import TopicHighlightsSection from "@/components/common/topic-highlights-section";
 
 import WhyChooseUsAndroidDevelopmentImg01 from "../../../../../public/images/services/app-development/why-choose-us-android-img01.jpg";
 import WhyChooseUsAndroidDevelopmentImg02 from "../../../../../public/images/services/app-development/why-choose-us-android-img02.jpg";
@@ -21,6 +22,7 @@ import AndroidAppDevHeroImg from "../../../.././../public/images/hero-images/and
 import {
   FaqDataAndroidDevelopment,
   PortfolioAndroidDevelopmentContent,
+  AndroidTopicHighlights,
 } from "@/content/overall-services-content/all-services-content";
 
 import { Smartphone } from "lucide-react";
@@ -31,8 +33,8 @@ function AndroidDevelopmentPage() {
       <DynamicHero
         badgeIcon={<Smartphone />}
         badgeText="App Development"
-        heading="Create powerful mobile experiences with"
-        highlightText="custom Android app development"
+        heading="Custom Android App"
+        highlightText="Development Services"
         subheading="Innovative, scalable, and user-focused"
         description="Zevitech builds Android applications that combine intuitive design with robust functionality. Our expert developers deliver high-performance apps tailored to your business goals and audience needs."
         heroImage={AndroidAppDevHeroImg}
@@ -43,16 +45,16 @@ function AndroidDevelopmentPage() {
         img02={WhyChooseUsAndroidDevelopmentImg02}
         img03={WhyChooseUsAndroidDevelopmentImg03}
         badgeCotent="Why Choose Us"
-        title="Why Choose Zevitech for Android App Development?"
-        desc01="At Zevitech, we develop powerful and user-friendly Android applications that run seamlessly across a wide range of devices."
-        desc02="Our team focuses on performance, security, and scalability to ensure your app engages users and supports your business growth."
+        title="Enterprise Android App Development & Native Architecture"
+        desc01="As an Android app development company, Zevitech builds secure, high-performance applications that run seamlessly across phones, tablets, and foldables."
+        desc02="Our enterprise Android app development process is built around clean native architecture, hardened security, and scalability that supports long-term business growth."
       />
 
       <CampaignsSection />
 
       <ServicesPorfolioSection02
-        title="Android App Development for Powerful Mobile Solutions"
-        description="Explore our portfolio of Android applications built for performance, scalability, and user engagement. From e-commerce apps to custom business solutions, we design and develop Android apps that help brands reach wider audiences and deliver value on the go."
+        title="Hire Dedicated Kotlin & Cross-Platform Android Developers"
+        description="Hire Android app developers who ship production-grade work. Our Kotlin app development agency team pairs native Android expertise with cross-platform delivery, from e-commerce apps to custom business solutions that help brands reach wider audiences."
         portfolioImages={PortfolioAndroidDevelopmentContent}
       />
 
@@ -62,9 +64,15 @@ function AndroidDevelopmentPage() {
         img03={WhyChooseUsAndroidDevelopmentImg06}
         badgeCotent="About Android Development"
         sectionOrder="order-2"
-        title="Custom Apps for Every Business Need"
-        desc01="We create Android apps with intuitive designs, advanced features, and smooth functionality tailored to your target audience."
-        desc02="Perfect for startups, enterprises, and businesses seeking reliable, scalable, and future-ready mobile app solutions."
+        title="Android App Development Company Trusted by Startups & Enterprises"
+        desc01="We create Android apps with intuitive designs, advanced features, and smooth functionality tailored to your target audience and device mix."
+        desc02="Perfect for startups and enterprises seeking reliable, scalable, and future-ready custom Android app development services."
+      />
+
+      <TopicHighlightsSection
+        title="End-to-End Google Play Store Launch & Maintenance"
+        description="From architecture decisions through Google Play Store submission, listing optimization, and post-launch maintenance, here is what an Android engagement with Zevitech covers."
+        topics={AndroidTopicHighlights}
       />
 
       <ContactSection />

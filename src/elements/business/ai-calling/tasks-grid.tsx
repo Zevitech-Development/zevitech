@@ -7,8 +7,8 @@ export default function AiTasksGrid() {
     <section className="py-[72px] md:py-[84px] lg:py-[120px] relative z-[2] max-w-[1200px] mx-auto px-6" id="tasks">
       <AiSectionHead
         eyebrow="Your AI workforce"
-        title="The jobs your AI does — so your team doesn't have to."
-        description="Every repetitive, time-draining task that eats your day. Handled, 24/7, the second it's needed."
+        title="Automated 24/7 Appointment Booking & Lead Qualification"
+        description="Automated appointment booking AI that qualifies every lead and fills your calendar around the clock — handling the repetitive, time-draining work the second it's needed."
         center
       />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[18px]">

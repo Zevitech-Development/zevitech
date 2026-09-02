@@ -18,8 +18,27 @@ export default function FaqSection({
     faqItems[defaultOpenIndex]?.question
   );
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.list?.length
+          ? `${item.answer} ${item.list.join(" ")}`
+          : item.answer,
+      },
+    })),
+  };
+
   return (
     <section className="bg-[#1a1a1a] flex items-center page-layout-standard">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <div className="grid lg:grid-cols-2 lg:gap-12 items-center">
         {/* Left Column - Background Image (hidden on small screens) */}
         <div className="hidden lg:block relative min-h-[600px] lg:h-full overflow-hidden w-full bg-faq-img bg-cover bg-no-repeat bg-center">

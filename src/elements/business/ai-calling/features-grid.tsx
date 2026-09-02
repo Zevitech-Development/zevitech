@@ -10,7 +10,7 @@ export default function AiFeaturesGrid() {
     >
       <AiSectionHead
         eyebrow="Everything included"
-        title="One system. Every lead handled."
+        title="Custom CRM & Workflow Automation for AI Agents"
       />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[18px]">
         {aiFeatures.map((feat) => (

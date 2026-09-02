@@ -58,9 +58,9 @@ export const StickyScroll = ({
       ref={ref}
     >
       <div className="flex flex-col items-center gap-4 text-center mb-4">
-        <h1 className="text-4xl md:text-5xl text-gray-300 font-bold font-heading max-w-3xl">
+        <h2 className="text-4xl md:text-5xl text-gray-300 font-bold font-heading max-w-3xl">
           Boost Your Sales with Our Amazon Marketing Expertise
-        </h1>
+        </h2>
         <p className="text-slate-300 font-medium max-w-3xl">
           Unlock your brand&apos;s potential on Amazon with Zevitech&apos;s
           expert marketing. From optimized listings to strategic ads, we help

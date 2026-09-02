@@ -20,9 +20,9 @@ export default function DynamicServicesSection({
     <section className="layout-standard section-padding-standard grid lg:grid-cols-5 gap-4">
       <div className="lg:col-span-2 py-7">
         <div className="flex flex-col gap-5 text-center lg:text-start">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-heading leading-tight">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-heading leading-tight">
             {title} <span className="text-primary">{highlightedText}</span>
-          </h1>
+          </h2>
           <p className="text-base md:text-lg text-paragraph font-medium max-w-3xl">
             {description}
           </p>

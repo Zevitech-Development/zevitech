@@ -6,9 +6,10 @@ import AboutUsPage from "@/containers/website/about-us-page";
 import { GetPageMetadata } from "@/utils/meta-data";
 
 export const metadata: Metadata = GetPageMetadata({
-  title: "About Us | Zevitech – Your Digital Innovation Partner",
+  title: "About Zevitech | Global Digital Solutions & Engineering Agency",
   description:
-    "Discover Zevitech’s mission, values, and team behind innovative software, app development, branding, and digital solutions for growing businesses.",
+    "Learn about Zevitech: an international digital solutions agency delivering custom software, mobile applications, cloud solutions, and growth marketing.",
+  path: "/about-us",
 });
 
 function AboutUs() {

@@ -23,7 +23,7 @@ export const aiNavLinks = [
 export const aiHeroContent = {
   pill: "Built by Zevitech",
   liveLabel: "AI agents calling now",
-  headline: ["Put your sales on ", "autopilot."],
+  headline: ["Conversational AI Voice Agents ", "& Calling Solutions"],
   lead: "We build you a custom AI sales agent that calls every lead in seconds, qualifies them, and books appointments straight to your calendar — across every industry that lives on the phone.",
   leadBold: "20–50× the output of a human rep, for 90% less.",
   ctaPrimary: "Watch it book a live call →",

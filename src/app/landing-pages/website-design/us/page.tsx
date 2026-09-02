@@ -10,6 +10,11 @@ export const metadata: Metadata = GetPageMetadata({
     "Professional Website Design Services | Zevitech Creative Web Solutions",
   description:
     "Looking for a stunning, user-friendly website? Zevitech provides custom website design, responsive layouts, UX/UI optimization, and branding solutions to elevate your online presence.",
+  // Ad-traffic variant of /landing-pages/website-design — canonicalize to the
+  // primary page so the two do not compete in organic search.
+  alternates: {
+    canonical: "/landing-pages/website-design",
+  },
 });
 
 function WebsiteDesignUs() {

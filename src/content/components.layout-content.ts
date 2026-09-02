@@ -98,7 +98,7 @@ export const servicesConfig = {
     {
       id: "ecommerce",
       label: "E-Commerce",
-      href: "/services/ecommerce",
+      href: "/services/ecommerce/custom-ecommerce-development",
       children: [
         {
           label: "OpenCart Website Development",
@@ -129,7 +129,7 @@ export const servicesConfig = {
     {
       id: "design-development",
       label: "Design & Development",
-      href: "/services/design-development",
+      href: "/services/design-&-development/custom-website-design",
       children: [
         {
           label: "WordPress Web Design",
@@ -158,7 +158,7 @@ export const servicesConfig = {
     {
       id: "app-development",
       label: "App Development",
-      href: "/services/app-development",
+      href: "/services/app-development/android-development",
       children: [
         {
           label: "iOS Development",
@@ -187,7 +187,7 @@ export const servicesConfig = {
     {
       id: "digital-marketing",
       label: "Digital Marketing",
-      href: "/services/digital-marketing",
+      href: "/services/digital-marketing/social-media-marketing",
       children: [
         {
           label: "Social Media Marketing",

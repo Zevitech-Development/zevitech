@@ -3,16 +3,23 @@ import { Metadata } from "next";
 
 import GameDevelopmentPage from "@/containers/website/services/app-development/game-development-page";
 
-import { GetPageMetadata } from "@/utils/meta-data";
+import { GetPageMetadata, buildServiceSchema } from "@/utils/meta-data";
+import JsonLd from "@/components/common/json-ld";
 
 export const metadata: Metadata = GetPageMetadata({
-  title: "Game Development Services | Zevitech 2D & 3D Game Studio",
+  title: "2D Game Development Services | 3D & Unity Game Studio | Zevitech",
   description:
-    "Bring your gaming vision to life with Zevitech’s game development services. We create immersive 2D & 3D games with stunning graphics and engaging gameplay.",
+    "Full-cycle 2D and 3D game development for mobile, PC, and web. Custom game mechanics, 3D asset modeling, and cross-platform Unity & Unreal deployment.",
+  path: "/services/app-development/game-development",
 });
 
 function GameDevelopment() {
-  return <GameDevelopmentPage />;
+  return (
+    <>
+      <JsonLd data={buildServiceSchema("/services/app-development/game-development", "Game Development")} />
+      <GameDevelopmentPage />
+    </>
+  );
 }
 
 export default GameDevelopment;

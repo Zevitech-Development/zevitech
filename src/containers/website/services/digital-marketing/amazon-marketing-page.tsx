@@ -8,6 +8,7 @@ import Cta from "@/components/common/cta";
 import ScrollingApproachesSection from "@/components/common/scrolling-approach-section";
 import DynamicServicesSection from "@/components/common/services-section";
 import { DynamicHero } from "@/components/common/dynamic-hero";
+import TopicHighlightsSection from "@/components/common/topic-highlights-section";
 import CommonResultSection from "@/components/common/common-result-section";
 
 import WhyChooseUsAmazonMarketingImg01 from "../../../../../public/images/services/digital-marketing/why-choose-us-amazon-marketing-img01.jpg";
@@ -25,6 +26,7 @@ import {
   amazonMarketingApproachesData,
   AmazonMarketingResultContent,
   FaqDataAmazonMarketing,
+  AmazonTopicHighlights,
 } from "@/content/overall-services-content/all-services-content";
 
 import { ShoppingCart } from "lucide-react";
@@ -35,8 +37,8 @@ function AmazonMarketingPage() {
       <DynamicHero
         badgeIcon={<ShoppingCart />}
         badgeText="Ecommerce Marketing"
-        heading="Boost your product visibility with"
-        highlightText="expert Amazon marketing"
+        heading="Amazon Marketing Services &"
+        highlightText="PPC Campaign Management"
         subheading="Optimized, data-driven, and sales-focused"
         description="Zevitech helps brands succeed on Amazon through powerful marketing strategies. From product listings to sponsored ads, we enhance visibility, drive traffic, and increase your online sales performance."
         heroImage={AmazonMarketingHeroImg}
@@ -47,9 +49,9 @@ function AmazonMarketingPage() {
         img02={WhyChooseUsAmazonMarketingImg02}
         img03={WhyChooseUsAmazonMarketingImg03}
         badgeCotent="Why Choose Us"
-        title="Why Choose Zevitech for Amazon Marketing?"
-        desc01="At Zevitech, we help brands maximize their visibility and sales on Amazon through strategic advertising, listing optimization, and data-driven marketing."
-        desc02="Our Amazon experts manage your campaigns, product pages, and performance analytics to ensure your brand stands out in a competitive marketplace."
+        title="Data-Driven Amazon PPC & DSP Advertising Management"
+        desc01="As an Amazon PPC management company, Zevitech maximizes visibility and sales through Sponsored Products, Sponsored Brands, and Amazon DSP campaigns built on performance data."
+        desc02="Our Amazon marketing services agency team manages bids, budgets, product pages, and ACoS reporting so your brand stands out in a competitive marketplace."
       />
 
       <DynamicServicesSection
@@ -76,17 +78,23 @@ function AmazonMarketingPage() {
         img03={WhyChooseUsAmazonMarketingImg06}
         badgeCotent="About Amazon Marketing"
         sectionOrder="order-2"
-        title="Boost Sales with Smart Amazon Strategies"
-        desc01="We craft customized Amazon marketing solutions including PPC management, SEO optimization, and brand store creation to enhance your reach."
-        desc02="Perfect for sellers and businesses looking to increase conversions, improve rankings, and build a strong presence on Amazon."
+        title="Amazon Listing Optimization, A+ Content & SEO"
+        desc01="Our Amazon listing optimization services cover keyword-rich titles, bullets, backend terms, and A+ Content that lifts both ranking and conversion rate."
+        desc02="Perfect for sellers and businesses looking to increase conversions, improve organic rankings, and build a durable presence on Amazon."
+      />
+
+      <TopicHighlightsSection
+        title="Amazon Storefront Branding & FBA Revenue Scaling"
+        description="Amazon store setup and management, storefront branding, and FBA marketing — the full scope of an engagement, from ad spend to catalog and inventory health."
+        topics={AmazonTopicHighlights}
       />
 
       <ContactSection />
 
       <CommonResultSection
         subtitle="Marketplace Success Stories"
-        title="Amazon Campaigns That Drive"
-        titleHighlight="Sales & Visibility!"
+        title="Amazon PPC & Listing Optimization"
+        titleHighlight="That Drives Conversions"
         description="We help brands stand out and sell more on Amazon through strategic advertising, optimized listings, and performance-focused campaigns. Explore real sales growth, traffic improvements, and feedback from our Amazon marketing clients."
         results={AmazonMarketingResultContent}
       />

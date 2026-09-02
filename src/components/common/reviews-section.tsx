@@ -43,9 +43,9 @@ function LandingReviewsSection({
           <h2 className="md:text-lg text-base font-semibold uppercase text-center text-primary">
             {eyebrow}
           </h2>
-          <h1 className="text-heading font-heading md:text-6xl text-4xl font-bold text-center lg:max-w-5xl tracking-widest">
+          <h2 className="text-heading font-heading md:text-6xl text-4xl font-bold text-center lg:max-w-5xl tracking-widest">
             {title}
-          </h1>
+          </h2>
           <p className="md:text-2xl text-base lg:max-w-3xl text-center font-medium text-paragraph">
             {description}
           </p>

@@ -9,6 +9,7 @@ export const metadata: Metadata = GetPageMetadata({
   title: "2D Logo Design Services | Zevitech",
   description:
     "Get professional 2D logo design services tailored to your brand. Clean, modern, and memorable logos to make your business stand out.",
+  path: "/landing-pages/logo-design/2d-design",
 });
 
 function Design2d() {

@@ -7,6 +7,7 @@ import FaqSection from "@/components/common/faq-section";
 import Cta from "@/components/common/cta";
 import { ServicesPorfolioSection02 } from "@/components/common/services-porfolio-sections";
 import { DynamicHero } from "@/components/common/dynamic-hero";
+import TopicHighlightsSection from "@/components/common/topic-highlights-section";
 
 import WhyChooseUsSocialMediaMarketingImg01 from "../../../../../public/images/services/digital-marketing/why-choose-us-social-media-marketing-img01.jpg";
 import WhyChooseUsSocialMediaMarketingImg02 from "../../../../../public/images/services/digital-marketing/why-choose-us-social-media-marketing-img02.jpg";
@@ -21,6 +22,7 @@ import SocialMediaMarketingHeroImg from "../../../.././../public/images/hero-ima
 import {
   FaqDataSocialMediaMarketing,
   PortfolioSocialMediaMarketingContent,
+  SocialMediaTopicHighlights,
 } from "@/content/overall-services-content/all-services-content";
 
 import { Megaphone } from "lucide-react";
@@ -31,8 +33,8 @@ const SocialMediaMarketingPage = () => {
       <DynamicHero
         badgeIcon={<Megaphone />}
         badgeText="Digital Marketing"
-        heading="Boost your online presence with"
-        highlightText="strategic social media marketing"
+        heading="Strategic Social Media Marketing"
+        highlightText="& Paid Advertising Services"
         subheading="Engaging, data-driven, and brand-focused"
         description="Zevitech helps brands grow through tailored social media marketing strategies. We create impactful campaigns that increase reach, engagement, and conversions across all major platforms."
         heroImage={SocialMediaMarketingHeroImg}
@@ -43,16 +45,16 @@ const SocialMediaMarketingPage = () => {
         img02={WhyChooseUsSocialMediaMarketingImg02}
         img03={WhyChooseUsSocialMediaMarketingImg03}
         badgeCotent="Why Choose Us"
-        title="Why Choose Zevitech for Social Media Marketing?"
-        desc01="At Zevitech, we craft data-driven social media strategies that enhance your brand visibility and build meaningful engagement with your audience."
-        desc02="Our team manages content creation, campaigns, and analytics to help your business grow across all major platforms like Facebook, Instagram, and LinkedIn."
+        title="Performance Paid Social Media Advertising (Meta, TikTok & LinkedIn)"
+        desc01="Zevitech delivers paid social media advertising services built on data — tightly targeted campaigns that lift brand visibility and drive measurable engagement."
+        desc02="As a Meta ads management agency, our team runs creative, budget, and analytics across Facebook, Instagram, TikTok, and LinkedIn to scale what converts."
       />
 
       <CampaignsSection />
 
       <ServicesPorfolioSection02
-        title="Social Media Marketing That Grows Your Brand Online"
-        description="Explore our portfolio of successful social media marketing campaigns designed to boost engagement, awareness, and conversions. From creative content strategies to targeted ad campaigns, we help brands build strong connections and achieve measurable growth across all platforms."
+        title="B2B Social Media Marketing & Demand Generation"
+        description="Explore our work as a social media marketing agency for B2B brands — demand generation programs that fill pipeline, not just feeds. From LinkedIn marketing for business to full-funnel paid campaigns, we build connections that turn into revenue."
         portfolioImages={PortfolioSocialMediaMarketingContent}
       />
 
@@ -62,9 +64,15 @@ const SocialMediaMarketingPage = () => {
         img03={WhyChooseUsSocialMediaMarketingImg06}
         badgeCotent="About Social Media Marketing"
         sectionOrder="order-2"
-        title="Engage, Grow, and Convert"
+        title="SMM Agency Services Across Every Major Platform"
         desc01="We design creative campaigns, compelling visuals, and targeted ads that connect your brand with the right audience."
-        desc02="Perfect for businesses aiming to boost brand awareness, generate leads, and achieve measurable growth through social media."
+        desc02="Our SMM agency services suit businesses aiming to build brand awareness, generate qualified leads, and prove measurable growth from social."
+      />
+
+      <TopicHighlightsSection
+        title="Creative Production, Copywriting & Conversion Tracking"
+        description="Ad creative, copywriting, and conversion tracking built into platform-specific programs — so you can see exactly which campaigns produce pipeline."
+        topics={SocialMediaTopicHighlights}
       />
 
       <ContactSection />

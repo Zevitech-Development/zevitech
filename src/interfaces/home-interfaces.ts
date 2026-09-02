@@ -1,3 +1,4 @@
+import type React from "react";
 import { StaticImageData } from "next/image";
 
 export interface TechItem {
@@ -18,4 +19,10 @@ export interface HomePageBrandSectionProps {
     brandImg: StaticImageData;
     alt: string;
   }[];
+}
+
+export interface TechStackExpertiseProps {
+  /** Overrides the default section heading. Lets the homepage set its own
+      keyword-targeted h2 without changing the landing pages that reuse this. */
+  heading?: React.ReactNode;
 }

@@ -9,6 +9,7 @@ export const metadata: Metadata = GetPageMetadata({
   title: "Terms of Service | Zevitech",
   description:
     "Read Zevitech’s terms and conditions for design and branding services. Understand your rights, responsibilities, and the legal framework.",
+  path: "/terms-service",
 });
 
 function TermsServices() {

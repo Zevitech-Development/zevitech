@@ -242,3 +242,15 @@ export interface LandingDynamicHeroProps {
   subheading: string;
   description: string;
 }
+
+export interface TopicHighlightItem {
+  heading: string;
+  description: string;
+}
+
+export interface TopicHighlightsSectionProps {
+  title: string;
+  description?: string;
+  topics: TopicHighlightItem[];
+  className?: string;
+}

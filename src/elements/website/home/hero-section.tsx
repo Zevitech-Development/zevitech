@@ -85,6 +85,12 @@ export function HeroSection() {
             </div>
 
             <div className="space-y-4">
+              {/* Static, server-rendered primary heading. The rotating tab
+                  headline below is a secondary (h2) subhead. */}
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading text-heading leading-tight max-w-2xl">
+                Custom Software, Mobile App &amp; Digital Product Development
+              </h1>
+
               <div
                 className={`transition-all duration-500 ${
                   isTransitioning
@@ -92,11 +98,11 @@ export function HeroSection() {
                     : "opacity-100 translate-y-0"
                 }`}
               >
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading text-heading leading-tight max-w-2xl">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold font-heading text-heading leading-tight max-w-2xl">
                   {currentTab.heading}
                   <br />
                   <span className="text-primary">{currentTab.subheading}</span>
-                </h1>
+                </h2>
               </div>
 
               <div

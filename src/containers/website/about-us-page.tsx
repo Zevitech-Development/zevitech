@@ -27,8 +27,8 @@ function AboutUsPage() {
       <DynamicHero
         badgeIcon={<UsersRound />}
         badgeText="Get To Know Us"
-        heading="Get to know us, we’re"
-        highlightText="more than just a team"
+        heading="About Zevitech — Engineering Digital"
+        highlightText="Products for Global Brands"
         subheading="Driven by creativity and innovation"
         description="At Zevitech, we’re a passionate team blending technology and creativity to craft digital solutions that help businesses grow, connect, and stand out online."
         heroImage={AboutHeroImg}
@@ -40,7 +40,7 @@ function AboutUsPage() {
         img03={WhyChooseUsAboutUsImg03}
         badgeCotent="About Zevitech"
         title="What Drives Us at Zevitech"
-        desc01="At Zevitech, we’re more than just a tech company — we're a team of passionate creators and problem-solvers committed to making digital experiences seamless and meaningful."
+        desc01="Zevitech is a full-service digital solutions agency providing custom software engineering, native mobile app development, and performance digital marketing to startups and enterprises worldwide. We’re a team of creators and problem-solvers committed to making digital experiences seamless and meaningful."
         desc02="Our journey is driven by innovation, transparency, and a deep respect for our clients. We believe in building solutions that not only meet expectations, but redefine them."
       />
 

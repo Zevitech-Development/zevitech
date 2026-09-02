@@ -24,9 +24,9 @@ function Cta({ image, heading, text }: CtaProps) {
         </div>
 
         <div className="flex flex-col gap-6">
-          <h1 className="text-4xl md:text-5xl leading-tight font-extrabold text-heading max-w-4xl">
+          <h2 className="text-4xl md:text-5xl leading-tight font-extrabold text-heading max-w-4xl">
             {heading}
-          </h1>
+          </h2>
 
           <p className="text-lg sm:text-xl lg:text-2xl text-paragraph font-medium max-w-3xl ">
             {text}

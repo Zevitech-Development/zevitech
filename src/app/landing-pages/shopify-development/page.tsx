@@ -9,6 +9,7 @@ export const metadata: Metadata = GetPageMetadata({
   title: "Launch & Scale Your Shopify Store | Zevitech Experts",
   description:
     "Grow your eCommerce business with Zevitech’s Shopify development. Custom stores, theme design, app integration, and optimization for higher conversions.",
+  path: "/landing-pages/shopify-development",
 });
 
 function ShopifyDevelopment() {

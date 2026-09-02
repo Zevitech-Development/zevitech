@@ -79,8 +79,8 @@ export default function AiOutreachEngine() {
     <section className="py-[72px] md:py-[84px] lg:py-[120px] relative z-[2] max-w-[1200px] mx-auto px-6" id="engine">
       <AiSectionHead
         eyebrow="The outreach engine · how it works"
-        title="Upload your leads. Watch them become booked calls."
-        description="Drop in your lead sheet and your AI agent starts dialing in seconds — qualifying, booking, and syncing every contact while you watch it happen."
+        title="Enterprise Inbound & Outbound AI Calling Integration"
+        description="Our AI calling solutions for business handle both directions — drop in your lead sheet and your AI cold calling agent starts dialing in seconds, while inbound calls are answered, qualified, and booked automatically."
         center
       />
 

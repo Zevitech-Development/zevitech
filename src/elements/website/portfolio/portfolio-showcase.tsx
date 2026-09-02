@@ -1,6 +1,8 @@
 "use client";
 import { useState, useMemo } from "react";
 import Image from "next/image";
+import Link from "next/link";
+
 import { motion, AnimatePresence } from "framer-motion";
 
 import { Button } from "@/components/ui/button";
@@ -10,6 +12,7 @@ import {
   portfolioData,
   categories,
 } from "@/content/portfolio/portfolio-page-content";
+import { customProjectsData } from "@/content/portfolio/custom-projects-content";
 
 import { cn } from "@/lib/utils";
 
@@ -20,9 +23,16 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import DailogLeadForm from "@/components/forms/dailog-lead-form";
 import { OpenLiveChat } from "@/utils/open-live-chat";
 import { isLightBackground } from "./portfolio-utils";
-import type { PortfolioItem } from "@/interfaces/components-partials-interface";
+import type {
+  PortfolioItem,
+  CustomProjectItem,
+} from "@/interfaces/components-partials-interface";
 
 const GRID_CATEGORIES = ["mobile", "custom-projects"];
+
+type GridEntry =
+  | { kind: "portfolio"; item: PortfolioItem }
+  | { kind: "custom"; item: CustomProjectItem };
 
 export default function PortfolioShowcase() {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -36,9 +46,19 @@ export default function PortfolioShowcase() {
   const websiteItems = filteredItems.filter(
     (item) => !GRID_CATEGORIES.includes(item.category),
   );
-  const gridItems = filteredItems.filter((item) =>
-    GRID_CATEGORIES.includes(item.category),
+  const mobileItems = filteredItems.filter(
+    (item) => item.category === "mobile",
   );
+
+  const showCustomProjects =
+    activeCategory === "all" || activeCategory === "custom-projects";
+
+  const gridEntries: GridEntry[] = [
+    ...mobileItems.map((item): GridEntry => ({ kind: "portfolio", item })),
+    ...(showCustomProjects
+      ? customProjectsData.map((item): GridEntry => ({ kind: "custom", item }))
+      : []),
+  ];
 
   return (
     <div className="bg-background">
@@ -86,7 +106,7 @@ export default function PortfolioShowcase() {
           )}
 
           {/* Mobile apps / custom projects — card grid */}
-          {gridItems.length > 0 && (
+          {gridEntries.length > 0 && (
             <div
               className={cn(
                 "layout-standard section-padding-standard",
@@ -94,14 +114,26 @@ export default function PortfolioShowcase() {
               )}
             >
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {gridItems.map((item, index) => (
-                  <PortfolioCard key={item.id} item={item} index={index} />
-                ))}
+                {gridEntries.map((entry, index) =>
+                  entry.kind === "custom" ? (
+                    <CustomProjectCard
+                      key={entry.item.slug}
+                      item={entry.item}
+                      index={index}
+                    />
+                  ) : (
+                    <PortfolioCard
+                      key={entry.item.id}
+                      item={entry.item}
+                      index={index}
+                    />
+                  ),
+                )}
               </div>
             </div>
           )}
 
-          {filteredItems.length === 0 && (
+          {websiteItems.length === 0 && gridEntries.length === 0 && (
             <div className="layout-standard section-padding-standard text-center text-paragraph">
               More projects in this category are coming soon.
             </div>
@@ -311,6 +343,75 @@ function PortfolioCard({
           {item.description}
         </p>
       </div>
+    </motion.div>
+  );
+}
+
+function CustomProjectCard({
+  item,
+  index,
+}: {
+  item: CustomProjectItem;
+  index: number;
+}) {
+  const light = isLightBackground(item.bgColor);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.5, ease: "easeOut", delay: (index % 3) * 0.08 }}
+    >
+      <Link
+        href={`/portfolio/custom-projects/${item.slug}`}
+        className="group relative flex flex-col rounded-2xl border border-border bg-card overflow-hidden animation-standard hover:-translate-y-1 hover:shadow-xl"
+      >
+        <div
+          className={cn(
+            "relative aspect-[16/10] overflow-hidden",
+            item.bgColor,
+          )}
+        >
+          {item.image ? (
+            <Image
+              src={item.image}
+              alt={item.title}
+              fill
+              className="object-cover object-center animation-standard group-hover:scale-110"
+            />
+          ) : (
+            <div className="w-full h-full flex-center bg-gradient-to-br from-primary/25 via-primary/10 to-black/40">
+              <span className="text-white/70 text-sm font-medium tracking-wide">
+                Preview coming soon
+              </span>
+            </div>
+          )}
+          <Badge
+            className={cn(
+              "absolute top-4 left-4 uppercase tracking-wider text-[10px] font-semibold",
+              light
+                ? "bg-black/10 text-black border-transparent"
+                : "bg-white/10 text-white border-transparent",
+            )}
+          >
+            {item.tag}
+          </Badge>
+        </div>
+
+        <div className="p-5 space-y-2 flex-1 flex flex-col">
+          <h3 className="font-heading font-bold text-lg text-heading leading-snug line-clamp-1">
+            {item.title}
+          </h3>
+          <p className="text-sm text-paragraph leading-relaxed line-clamp-2">
+            {item.description}
+          </p>
+          <span className="mt-auto pt-3 inline-flex items-center gap-2 text-sm font-medium text-primary">
+            View Case Study
+            <FaArrowRightLong className="text-xs animation-standard group-hover:translate-x-1" />
+          </span>
+        </div>
+      </Link>
     </motion.div>
   );
 }

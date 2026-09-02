@@ -56,7 +56,7 @@ export function DynamicWebsiteDevHero({
             <div className="space-y-4">
               <div className="transition-all duration-500">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading text-heading leading-tight max-w-2xl">
-                  {heading}
+                  {heading}{" "}
                   <br />
                   <span className="text-primary">{highlightText}</span>
                 </h1>

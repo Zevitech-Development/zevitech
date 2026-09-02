@@ -9,6 +9,7 @@ export const metadata: Metadata = GetPageMetadata({
   title: "3D Logo Design Services | Zevitech",
   description:
     "Eye-catching 3D logo design services to create bold and modern logos that make your brand stand out in digital and print spaces.",
+  path: "/landing-pages/logo-design/3d-design",
 });
 
 function Design3d() {

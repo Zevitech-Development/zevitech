@@ -34,9 +34,9 @@ export default function ScrollingApproachesSection({
           <div className="relative">
             <div className="xl:sticky top-52 xl:self-start">
               <div className="p-8 lg:p-14 bg-gradient-to-tr from-[#40447d] to-[#171e31] space-y-8 rounded-lg">
-                <h1 className="text-3xl md:text-4xl text-gray-200 font-extrabold font-heading leading-tight">
+                <h3 className="text-3xl md:text-4xl text-gray-200 font-extrabold font-heading leading-tight">
                   {leftCardTitle}
-                </h1>
+                </h3>
                 <p className="text-sm md:text-base font-medium text-gray-300">
                   {leftCardDescription}
                 </p>
@@ -68,9 +68,9 @@ export default function ScrollingApproachesSection({
                       </div>
 
                       <div className="flex flex-col gap-3">
-                        <h1 className="text-2xl font-bold text-heading">
+                        <h3 className="text-2xl font-bold text-heading">
                           {item.title}
-                        </h1>
+                        </h3>
                         <p className="max-w-3xl text-black">
                           {item.description}
                         </p>

@@ -10,6 +10,7 @@ export const metadata: Metadata = GetPageMetadata({
   title: "Thank You | Form Submission Successful - Zevitech",
   description:
     "Your payment was successful. Thank you for choosing Zevitech for your digital solutions — from mobile apps to SaaS, Shopify, UI/UX, and web platforms. We'll be in touch shortly.",
+  robots: { index: false, follow: false },
 });
 
 function Thankyou() {

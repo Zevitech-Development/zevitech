@@ -3,7 +3,8 @@ import { Metadata } from "next";
 
 import GoogleAdsPage from "@/containers/website/services/digital-marketing/google-ads-page";
 
-import { GetPageMetadata } from "@/utils/meta-data";
+import { GetPageMetadata, buildServiceSchema } from "@/utils/meta-data";
+import JsonLd from "@/components/common/json-ld";
 
 export const metadata: Metadata = GetPageMetadata({
   title: "Google Ads Management for Leads & Online Sales | Zevitech",
@@ -23,10 +24,16 @@ export const metadata: Metadata = GetPageMetadata({
     card: "summary_large_image",
     images: ["/images/landing/google-ads-social-preview.png"],
   },
+  path: "/services/digital-marketing/google-ads",
 });
 
 function PayPerClick() {
-  return <GoogleAdsPage />;
+  return (
+    <>
+      <JsonLd data={buildServiceSchema("/services/digital-marketing/google-ads", "Google Ads Management")} />
+      <GoogleAdsPage />
+    </>
+  );
 }
 
 export default PayPerClick;

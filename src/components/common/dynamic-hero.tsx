@@ -56,6 +56,9 @@ export function DynamicHero({
                   {heading}
                   {highlightText && (
                     <>
+                      {/* Space kept before the break so the accessible/parsed
+                          h1 text reads as words, not "AppDevelopment". */}
+                      {" "}
                       <br />
                       <span className="text-primary">{highlightText}</span>
                     </>

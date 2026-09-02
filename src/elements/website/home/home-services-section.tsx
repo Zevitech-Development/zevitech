@@ -33,22 +33,34 @@ type HomeServicesSectionProps = {
   showButtons?: boolean;
   services?: ServiceItem[];
   techStack?: TechItem[];
+  /** Optional lead paragraph shown under the section heading. */
+  intro?: string;
+  /** Overrides the default section heading so each page can target its own
+      keyword without affecting the other pages that reuse this section. */
+  heading?: React.ReactNode;
 };
 
 function HomeServicesSection({
   showButtons = true,
   services,
   techStack,
+  intro,
+  heading,
 }: HomeServicesSectionProps) {
   const servicesList = (services ?? defaultServices) as ServiceItem[];
   const techList = (techStack ?? defaultTech) as TechItem[];
   return (
     <section className="bg-gradient-to-t from-[#262626] to-[#121212] section-padding-standard py-14 md:py-20">
       <div className="layout-standard space-y-8 md:space-y-12">
-        <div className="relative py-8">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading text-white leading-tight max-w-5xl">
-            Empowering Brands with Innovative Services
-          </h1>
+        <div className="relative py-8 space-y-5">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading text-white leading-tight max-w-5xl">
+            {heading ?? "Empowering Brands with Innovative Services"}
+          </h2>
+          {intro && (
+            <p className="text-base md:text-lg text-white/80 font-medium max-w-3xl leading-relaxed">
+              {intro}
+            </p>
+          )}
           <span className="absolute top-0 md:top-8 md:-left-9 text-primary">
             <Sparkles className="w-8 h-8" />
           </span>

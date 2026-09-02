@@ -29,6 +29,29 @@ export interface PortfolioItem {
   bgColor: string;
 }
 
+export interface CustomProjectItem {
+  slug: string;
+  title: string;
+  tag: string;
+  description: string;
+  image?: string | StaticImageData | StaticImport;
+  liveUrl?: string;
+  client: string;
+  year: string;
+  scope: string;
+  result: string;
+  technologies: { name: string; icon: string | IconType }[];
+  bgColor: string;
+}
+
 export interface ComingSoonSectionProps {
   serviceName: string;
+}
+
+export interface CustomProjectDetailPageProps {
+  slug: string;
+}
+
+export interface CustomProjectDetailProps {
+  slug: string;
 }

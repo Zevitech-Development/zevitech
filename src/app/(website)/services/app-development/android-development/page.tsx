@@ -3,16 +3,23 @@ import { Metadata } from "next";
 
 import AndroidDevelopmentPage from "@/containers/website/services/app-development/android-development-page";
 
-import { GetPageMetadata } from "@/utils/meta-data";
+import { GetPageMetadata, buildServiceSchema } from "@/utils/meta-data";
+import JsonLd from "@/components/common/json-ld";
 
 export const metadata: Metadata = GetPageMetadata({
-  title: "Android App Development Services | Zevitech ",
+  title: "Custom Android App Development Services | Kotlin & Flutter | Zevitech",
   description:
-    "Build scalable Android apps with Zevitech. We deliver custom features, seamless integrations, and Google Play Store optimization to drive growth.",
+    "End-to-end Android mobile app development. We build secure, high-performance native Kotlin and cross-platform apps scaled for the Google Play Store.",
+  path: "/services/app-development/android-development",
 });
 
 function AndroidDevelopment() {
-  return <AndroidDevelopmentPage />;
+  return (
+    <>
+      <JsonLd data={buildServiceSchema("/services/app-development/android-development", "Android App Development")} />
+      <AndroidDevelopmentPage />
+    </>
+  );
 }
 
 export default AndroidDevelopment;

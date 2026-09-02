@@ -45,7 +45,7 @@ export function LogoHero({}) {
             <div className="space-y-4">
               <div className="transition-all duration-500">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading text-gray-200 leading-tight max-w-2xl">
-                  Shape your brand with
+                  Shape your brand with{" "}
                   <br />
                   <span className="text-primary">professional logo design</span>
                 </h1>

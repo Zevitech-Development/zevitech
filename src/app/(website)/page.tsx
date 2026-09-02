@@ -4,9 +4,10 @@ import HomePage from "@/containers/website/home-page";
 
 import { GetPageMetadata } from "@/utils/meta-data";
 export const metadata: Metadata = GetPageMetadata({
-  title: "Zevitech | Software, Apps & Digital Transformation",
+  title: "Custom Software Development Company | Web & Mobile Apps | Zevitech",
   description:
-    "Zevitech is a full-spectrum digital solutions agency offering mobile apps, web platforms, SaaS, UI/UX design, eCommerce, SEO, automation, and branding.",
+    "Zevitech builds scalable custom software, native iOS & Android mobile apps, web platforms, and data-driven digital marketing campaigns for global brands.",
+  path: "/",
 });
 export default function Home() {
   return (

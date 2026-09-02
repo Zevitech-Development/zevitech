@@ -27,11 +27,11 @@ function CampaignsSection() {
             Live on Passionfroot 🌟
           </div>
 
-          <h1 className="text-center font-heading text-white text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-wider">
+          <h2 className="text-center font-heading text-white text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-wider">
             Thousands of <span className="text-primary">Campaigns</span>
             <br />
             launched to date
-          </h1>
+          </h2>
 
           <TrustedUsers
             avatars={[

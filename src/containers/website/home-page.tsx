@@ -24,7 +24,10 @@ function HomePage() {
 
       <MarqueSection />
 
-      <HomeServicesSection />
+      <HomeServicesSection
+        heading="Full-Stack Software Engineering & Scalable Web Platforms"
+        intro="Zevitech is a full stack software development agency delivering custom web application development, SaaS MVP development, and digital product engineering services to startups and enterprises worldwide."
+      />
 
       <BrandSection
         heading="Chosen by 500+ Brands Worldwide"
@@ -40,7 +43,7 @@ function HomePage() {
 
       <ContactSection />
 
-      <TechStackExpertise />
+      <TechStackExpertise heading="Native Mobile App Development & Digital Growth Solutions" />
 
       <StickyScrollSection />
 

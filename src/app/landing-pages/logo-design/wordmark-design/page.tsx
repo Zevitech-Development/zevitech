@@ -9,6 +9,7 @@ export const metadata: Metadata = GetPageMetadata({
   title: "Wordmark Logo Design Services | Zevitech",
   description:
     "Professional wordmark logo design services to showcase your brand name with clarity, style, and sophistication.",
+  path: "/landing-pages/logo-design/wordmark-design",
 });
 
 function WordmarkDesign() {

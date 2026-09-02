@@ -9,6 +9,7 @@ export const metadata: Metadata = GetPageMetadata({
   title: "Minimal Logo Design Services | Zevitech",
   description:
     "Elegant minimal logo designs for modern businesses. Clean, timeless, and versatile branding solutions tailored to your needs.",
+  path: "/landing-pages/logo-design/minimal-design",
 });
 
 function MinimalDesign() {

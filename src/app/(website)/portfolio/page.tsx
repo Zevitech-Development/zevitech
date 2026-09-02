@@ -6,9 +6,10 @@ import PortfolioPage from "@/containers/website/portfolio-page";
 import { GetPageMetadata } from "@/utils/meta-data";
 
 export const metadata: Metadata = GetPageMetadata({
-  title: "Custom Software & App Development Agency | Zevitech",
+  title: "Zevitech Portfolio | Web, Mobile Apps & SaaS Case Studies",
   description:
-    "Explore Zevitech’s portfolio showcasing mobile apps, web platforms, custom software, SaaS, UI/UX design, eCommerce, SEO, automation, and branding projects.",
+    "Explore real-world software engineering, native mobile apps, custom web platforms, and UI/UX design case studies delivered by Zevitech.",
+  path: "/portfolio",
 });
 
 function Portfolio() {

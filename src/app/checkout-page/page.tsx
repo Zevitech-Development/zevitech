@@ -9,6 +9,7 @@ export const metadata: Metadata = GetPageMetadata({
   title: "Secure Checkout | Zevitech Design & Branding Services",
   description:
     "Complete your Zevitech order securely with our encrypted checkout. Review custom software, app development, and branding packages with confidence.",
+  robots: { index: false, follow: false },
 });
 
 function CheckoutLoading() {

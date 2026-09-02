@@ -886,3 +886,172 @@ export const AmazonMarketingResultContent = [
     img: AmazonResultImg06,
   },
 ];
+
+// ─── TOPIC HIGHLIGHTS ────────────────────────────────────────────────────────
+// Page-specific topical sub-sections. These give each service page distinct,
+// keyword-bearing h2/h3 structure instead of shared template boilerplate.
+
+export const AndroidTopicHighlights = [
+  {
+    heading: "Google Play Store Deployment & ASO",
+    description:
+      "We handle release builds, signing, staged rollouts, and store listing optimization — title, keywords, screenshots, and descriptions tuned for Play Store discovery.",
+  },
+  {
+    heading: "Native Kotlin Engineering",
+    description:
+      "Modern Android built with Kotlin, Jetpack Compose, and Coroutines for type-safe, maintainable code that follows Google's current architecture guidance.",
+  },
+  {
+    heading: "Cross-Platform with Flutter",
+    description:
+      "When one codebase serves both platforms better, we ship Flutter apps that keep native performance while cutting build and maintenance cost.",
+  },
+  {
+    heading: "Device & OS Fragmentation Testing",
+    description:
+      "Validated across screen sizes, densities, and Android API levels so your app behaves consistently from budget handsets to flagship tablets.",
+  },
+  {
+    heading: "Play Console Compliance & Policy",
+    description:
+      "Data safety forms, target API level requirements, permissions review, and billing integration handled so releases pass review the first time.",
+  },
+  {
+    heading: "Performance, Battery & APK Size",
+    description:
+      "Profiling for jank, cold start time, memory, and battery drain, plus App Bundle optimization to keep download size low and install rates high.",
+  },
+];
+
+export const IosTopicHighlights = [
+  {
+    heading: "App Store Submission & Human Interface Guidelines",
+    description:
+      "Review-ready builds that follow Apple's Human Interface Guidelines, with App Store Connect setup, metadata, privacy nutrition labels, and TestFlight rollout.",
+  },
+  {
+    heading: "Native Swift & SwiftUI Development",
+    description:
+      "Built with Swift, SwiftUI, and Combine for fluid, accessible interfaces that feel native on every current iPhone and iPad.",
+  },
+  {
+    heading: "Apple Ecosystem Integration",
+    description:
+      "iPadOS layouts, watchOS companions, widgets, App Clips, Sign in with Apple, and iCloud sync — extending your product across Apple devices.",
+  },
+  {
+    heading: "iPhone App Performance Engineering",
+    description:
+      "Instruments-driven profiling for launch time, scroll performance, memory, and energy use so the app stays fast on older devices too.",
+  },
+  {
+    heading: "App Store Optimization (ASO)",
+    description:
+      "Keyword research, subtitle and description copy, screenshot design, and A/B tested product pages to lift impressions and install conversion.",
+  },
+  {
+    heading: "Privacy, ATT & Security Compliance",
+    description:
+      "App Tracking Transparency, keychain storage, certificate pinning, and privacy manifest requirements handled to Apple's current standards.",
+  },
+];
+
+export const GameTopicHighlights = [
+  {
+    heading: "Unity & Unreal Engine Architecture",
+    description:
+      "Projects built on Unity or Unreal with clean scene structure, reusable prefabs, and physics tuned so gameplay stays smooth as scope grows.",
+  },
+  {
+    heading: "2D Sprite & 3D Asset Production",
+    description:
+      "Characters, environments, and UI produced in-house — sprite sheets, rigging, texturing, and LOD-optimized 3D models ready to drop into the engine.",
+  },
+  {
+    heading: "Core Mechanics & Level Design",
+    description:
+      "Game loops, progression curves, and level pacing prototyped early so the mechanics are proven fun before full production begins.",
+  },
+  {
+    heading: "Mobile, PC & Console Builds",
+    description:
+      "One project configured for multiple targets, with input, resolution, and performance budgets tuned per platform for iOS, Android, and desktop.",
+  },
+  {
+    heading: "Monetization & Live Ops Integration",
+    description:
+      "In-app purchases, rewarded ads, and analytics wired in cleanly, plus remote config so you can tune economy and difficulty after launch.",
+  },
+  {
+    heading: "Multiplayer, Backend & QA",
+    description:
+      "Netcode, matchmaking, and save infrastructure backed by device testing that catches frame drops, crashes, and balance issues before release.",
+  },
+];
+
+export const SocialMediaTopicHighlights = [
+  {
+    heading: "Meta & Instagram Growth Strategies",
+    description:
+      "Full-funnel Facebook and Instagram campaigns — creative testing, audience segmentation, Advantage+ setup, retargeting, and Pixel/CAPI tracking.",
+  },
+  {
+    heading: "B2B LinkedIn Lead Generation",
+    description:
+      "Sponsored content, Lead Gen Forms, and account-based targeting by title, industry, and company size, tuned for qualified pipeline over vanity reach.",
+  },
+  {
+    heading: "TikTok Paid Ads",
+    description:
+      "Native-feel Spark Ads and creator-style video built for TikTok's feed, with Smart Performance campaigns and event tracking for measurable ROAS.",
+  },
+  {
+    heading: "Organic Content Strategy & Calendars",
+    description:
+      "Platform-specific content pillars, posting cadence, and short-form video production that compounds reach between paid pushes.",
+  },
+  {
+    heading: "Community Management & Social Listening",
+    description:
+      "Comment and DM response workflows, brand sentiment monitoring, and escalation handling so engagement turns into retained customers.",
+  },
+  {
+    heading: "Analytics, Attribution & Reporting",
+    description:
+      "Consolidated dashboards across channels with spend, CPA, ROAS, and creative-level breakdowns reported on a fixed cadence.",
+  },
+];
+
+export const AmazonTopicHighlights = [
+  {
+    heading: "Amazon PPC & DSP Advertising",
+    description:
+      "Sponsored Products, Brands, and Display campaigns plus Amazon DSP — structured by match type and ASIN, with bid and placement optimization on ACoS targets.",
+  },
+  {
+    heading: "Listing SEO & A+ Brand Story Content",
+    description:
+      "Backend keyword indexing, title and bullet optimization, and A+ / Brand Story modules that lift both search ranking and detail-page conversion.",
+  },
+  {
+    heading: "FBA Expansion & Inventory Planning",
+    description:
+      "Catalog and shipment setup, replenishment forecasting, and IPI health management to avoid stockouts and long-term storage fees.",
+  },
+  {
+    heading: "Brand Registry & Storefront Design",
+    description:
+      "Brand Registry enrollment, custom Amazon Storefront builds, and protection against hijackers and unauthorized listings.",
+  },
+  {
+    heading: "Product Photography & Creative Assets",
+    description:
+      "Main images, lifestyle shots, infographics, and video that meet Amazon's technical requirements and out-convert category competitors.",
+  },
+  {
+    heading: "Marketplace Analytics & Profitability",
+    description:
+      "Brand Analytics, Search Query Performance, and margin reporting after fees, so spend decisions are grounded in real contribution profit.",
+  },
+];

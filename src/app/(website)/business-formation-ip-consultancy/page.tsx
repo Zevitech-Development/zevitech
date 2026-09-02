@@ -8,6 +8,7 @@ export const metadata: Metadata = GetPageMetadata({
   title: "Business Formation & Intellectual Property Consultancy | Zevitech",
   description:
     "Administrative coordination and documentation support for LLC formation and trademark filings through authorized channels.",
+  path: "/business-formation-ip-consultancy",
 });
 
 function BusinessFormationIP() {

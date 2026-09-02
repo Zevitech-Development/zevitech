@@ -6,9 +6,10 @@ import PricingPage from "@/containers/website/pricing-page";
 import { GetPageMetadata } from "@/utils/meta-data";
 
 export const metadata: Metadata = GetPageMetadata({
-  title: "Custom Software & App Development Agency | Zevitech ",
+  title: "Pricing & Packages | Zevitech Design & Development Services",
   description:
-    "Zevitech is a full-spectrum digital agency delivering mobile apps, web platforms, custom SaaS, UI/UX, eCommerce, SEO, and automation to scale your business.",
+    "Compare Zevitech pricing and packages for Shopify stores, website development, logo design, packaging, social media kits, and brand identity. Transparent plans for every budget.",
+  path: "/pricing",
 });
 
 function Pricing() {

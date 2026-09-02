@@ -116,9 +116,9 @@ function ContactUsForm() {
                 <span className="inline-block px-4 py-2 bg-blue-100 text-primary text-sm font-medium rounded-full">
                   Get in Touch
                 </span>
-                <h1 className="text-3xl lg:text-4xl font-bold text-heading text-balance leading-tight">
+                <h2 className="text-3xl lg:text-4xl font-bold text-heading text-balance leading-tight">
                   Let&apos;s Chat, Reach Out to Us
-                </h1>
+                </h2>
                 <p className="text-paragraph text-base font-medium leading-relaxed">
                   Have questions or feedback? We&apos;re here to help. Send us a
                   message, and we&apos;ll respond within 24 hours

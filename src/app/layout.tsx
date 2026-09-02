@@ -4,7 +4,7 @@ import { Toaster } from "sonner";
 
 // import { Toaster } from "@/components/ui/sonner";
 
-import { GetPageMetadata } from "@/utils/meta-data";
+import { GetPageMetadata, organizationSchema } from "@/utils/meta-data";
 
 // STYLE SHEETS SOURCE
 import "../styles/globals.css";
@@ -64,6 +64,14 @@ export default function RootLayout({
       <head>
         {/* Runs synchronously before first paint — stamps data-ai-dark on <html> so CSS can suppress flash */}
         <script dangerouslySetInnerHTML={{ __html: `(function(){try{if(localStorage.getItem('ai-calling-dark')==='1'){document.documentElement.setAttribute('data-ai-dark','1');}}catch(e){}})();` }} />
+
+        {/* Organization structured data (JSON-LD) */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
+        />
       </head>
       <body suppressHydrationWarning className={`${inter.variable} overflow-x-hidden`}>
         {/* Google Analytics 4 + Google Ads - Single gtag instance */}

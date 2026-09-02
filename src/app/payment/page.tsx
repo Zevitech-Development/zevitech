@@ -9,6 +9,7 @@ export const metadata: Metadata = GetPageMetadata({
   title: "Secure Payment | Zevitech Design & Branding Services",
   description:
     "Complete your payment securely with PayPal. Process your order with confidence using our encrypted payment system for design and branding services.",
+  robots: { index: false, follow: false },
 });
 
 function PaymentLoading() {

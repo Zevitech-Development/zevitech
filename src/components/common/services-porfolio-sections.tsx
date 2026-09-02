@@ -40,9 +40,9 @@ export function ServicesPorfolioSection01({
           <span className="flex items-center gap-2 font-semibold text-primary bg-[#007afc]/10 w-fit px-4 py-2 rounded-full border-primary border-2 text-xs">
             <IoSparklesOutline /> Crafted With Precision
           </span>
-          <h1 className="md:text-6xl font-bold text-heading font-heading text-3xl tracking-wider md:max-w-4xl">
+          <h2 className="md:text-6xl font-bold text-heading font-heading text-3xl tracking-wider md:max-w-4xl">
             {title}
-          </h1>
+          </h2>
 
           <p className="md:text-lg text-base md:max-w-3xl text-center font-medium">
             {description}
@@ -153,9 +153,9 @@ export function ServicesPorfolioSection02({
           <span className="flex items-center gap-2 font-semibold text-primary bg-[#007afc]/10 w-fit px-4 py-2 rounded-full border-primary border-2 text-xs">
             <IoSparklesOutline /> Crafted With Precision
           </span>
-          <h1 className="md:text-6xl font-bold text-heading font-heading text-3xl tracking-wide md:max-w-4xl">
+          <h2 className="md:text-6xl font-bold text-heading font-heading text-3xl tracking-wide md:max-w-4xl">
             {title}
-          </h1>
+          </h2>
 
           <p className="md:text-lg text-base md:max-w-3xl text-center font-medium">
             {description}

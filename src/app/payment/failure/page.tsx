@@ -5,6 +5,7 @@ import { Suspense } from "react";
 export const metadata: Metadata = {
   title: "Payment Failed - Zevitech",
   description: "Payment processing failed. Please try again.",
+  robots: { index: false, follow: false },
 };
 
 function PaymentFailureLoading() {

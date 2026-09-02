@@ -9,6 +9,7 @@ export const metadata: Metadata = GetPageMetadata({
   title: "Animated Logo Design Services | Zevitech",
   description:
     "Dynamic animated logo designs to make your brand more engaging and memorable across videos, websites, and social media.",
+  path: "/landing-pages/logo-design/animated-design",
 });
 
 function AnimatedDesign() {

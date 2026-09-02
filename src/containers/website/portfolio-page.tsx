@@ -14,8 +14,8 @@ function PortfolioPage() {
       <DynamicHero
         badgeIcon={<FolderOpen />}
         badgeText="Our Work"
-        heading="Showcasing our passion"
-        highlightText="through creativity and results"
+        heading="Digital Products & Software"
+        highlightText="Engineering Case Studies"
         subheading="Explore our success stories"
         description="Discover how Zevitech transforms ideas into impactful digital experiences. Our portfolio highlights innovative solutions, powerful designs, and measurable results that help brands grow and stand out."
         heroImage={PortfolioHeroImg}

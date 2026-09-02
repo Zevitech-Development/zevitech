@@ -12,9 +12,9 @@ function ContactUsCardsSection() {
     <main className="section-padding-standard py-12">
       <div className="layout-standard flex flex-col gap-14">
         <div className="text-center flex flex-col items-center gap-3">
-          <h1 className="text-4xl md:text-6xl font-bold font-heading text-blue-heading mb-2">
+          <h2 className="text-4xl md:text-6xl font-bold font-heading text-blue-heading mb-2">
             <span className="text-primary">Let&apos;s</span> Connect Together
-          </h1>
+          </h2>
           <p className="text-xl md:text-2xl max-w-[800px] text-paragraph">
             We&apos;re here to answer your questions, explore opportunities, and
             help bring your vision to life. Drop us a message — we&apos;ll get

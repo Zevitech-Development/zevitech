@@ -9,6 +9,7 @@ export const metadata: Metadata = GetPageMetadata({
   title: "Website Maintenance Services | Zevitech Web Support & Optimization",
   description:
     "Keep your website secure, updated, and running smoothly with Zevitech’s website maintenance services. We handle performance monitoring, security updates, backups, and ongoing support to ensure peak site performance.",
+  path: "/services/web-maintenance",
 });
 
 function WebMaintenance() {

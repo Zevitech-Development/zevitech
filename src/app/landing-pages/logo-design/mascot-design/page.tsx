@@ -8,7 +8,8 @@ import { GetPageMetadata } from "@/utils/meta-data";
 export const metadata: Metadata = GetPageMetadata({
   title: "Mascot Logo Design Services | Zevitech",
   description:
-    "Custom mascot logo designs that give your brand a personality and help you connect with your audience in a unique way.",
+    "Custom mascot logo design services from a vector mascot design studio. Brand character and esports mascot logos delivered with full commercial licensing and source files.",
+  path: "/landing-pages/logo-design/mascot-design",
 });
 
 function MascotDesign() {

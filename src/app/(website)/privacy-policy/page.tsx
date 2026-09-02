@@ -9,6 +9,7 @@ export const metadata: Metadata = GetPageMetadata({
   title: "Privacy Policy | Zevitech",
   description:
     "Learn how Zevitech collects, uses, and protects your personal information. Review our privacy practices and understand your data rights.",
+  path: "/privacy-policy",
 });
 
 function PrivacyPolicy() {
