@@ -5,6 +5,7 @@ import WebDesignHeader from "@/components/layouts/web-design-header";
 import WebDesignFooter from "@/components/layouts/web-design-footer";
 import WhatsAppPopup from "@/elements/business/logo-design/whatsapp-popup";
 import { useEffect } from "react";
+
 export default function BusinessLayout({
   children,
 }: {
