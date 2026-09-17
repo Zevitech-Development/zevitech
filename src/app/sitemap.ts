@@ -6,6 +6,13 @@ const SITE_URL =
   process.env.NEXT_PUBLIC_FRONTEND_URL?.replace(/\/$/, "") ||
   "https://zevitech.com";
 
+// Next.js writes sitemap `url` values into <loc> without any XML escaping,
+// so route segments containing raw `&` (e.g. "design-&-development") break
+// XML parsing. Percent-encode it here since Next won't.
+function toSitemapUrl(url: string): string {
+  return encodeURI(url).replace(/&/g, "%26");
+}
+
 // All publicly indexable routes. Utility/transactional routes
 // (/payment/*, /checkout-page, /thankyou) are intentionally excluded.
 const staticRoutes: string[] = [
@@ -59,14 +66,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
   const routes: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
-    url: `${SITE_URL}${route}`,
+    url: toSitemapUrl(`${SITE_URL}${route}`),
     lastModified: now,
     changeFrequency: route === "/" ? "weekly" : "monthly",
     priority: route === "/" ? 1 : 0.7,
   }));
 
   const projectRoutes: MetadataRoute.Sitemap = customProjectsData.map((project) => ({
-    url: `${SITE_URL}/portfolio/custom-projects/${project.slug}`,
+    url: toSitemapUrl(`${SITE_URL}/portfolio/custom-projects/${project.slug}`),
     lastModified: now,
     changeFrequency: "monthly",
     priority: 0.6,
