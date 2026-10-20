@@ -517,7 +517,7 @@ test('resuming an unconfirmed premium draft preserves its reference and needs wi
   const saved = h.saved();
   assert.equal(saved.packageName, null);
   await h.click(wizard.compare);
-  await h.click(wizard.editDesign);
+  await h.click(wizard.allDesigns);
   await h.chooseReference(0);
   h.setField('projectType', 'New store');
   await h.changeNeeds('10', []);

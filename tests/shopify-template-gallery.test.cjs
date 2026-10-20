@@ -89,7 +89,7 @@ test('Beginner shows one included design with an explicit industry choice and a 
 });
 
 test('every package shows included concepts first, followed by the highest eligible layouts', () => {
-  const expectedLayouts = [[0], [2, 0], [3, 2, 0], [4, 3, 2, 0], [6, 7, 6, 4, 3, 2, 0], [6, 9, 8, 7, 6, 4, 3, 2, 0]];
+  const expectedLayouts = [[0], [2, 0], [3, 2, 0], [4, 3, 2, 0], [7, 6, 4, 3, 2, 0], [8, 9, 8, 7, 6, 4, 3, 2, 0]];
   for (const [index, plan] of studioPlans.entries()) {
     const markup = render({ packageName: plan.name });
     const names = cardNames(markup);
@@ -217,8 +217,9 @@ test('package changes reset the industry list and never retain locked premium ca
   assert.doesNotMatch(beginner, /studio-premium-thumbnail|Unlock with/);
   gallery.update({ packageName: 'Executive' });
   const executive = cardNames(gallery.markup());
-  assert.equal(executive.length, 7);
-  assert.equal(executive[0], 'Clotya Fashion');
+  assert.equal(executive.length, 6);
+  assert.equal(executive[0], 'Atelier Parallax');
+  assert.ok(!executive.includes('Clotya Fashion'));
   assert.ok(!executive.some(name => /Cinematic|Commerce Studio/.test(name)));
 });
 
@@ -237,7 +238,7 @@ test('premium thumbnail storytelling remains visually distinct and noninteractiv
   for (const card of cards(markup)) {
     const name = card.match(/<h4\b[^>]*>([^<]+)<\/h4>/)[1];
     const reference = studioTemplates.find(item => item.name === name);
-    if (reference.layout !== 8 && reference.layout !== 9) continue;
+    if (reference.signatureTheme || (reference.layout !== 8 && reference.layout !== 9)) continue;
     const art = card.split('<div class="p-5 flex')[0];
     assert.match(art, /aria-hidden="true"/);
     assert.doesNotMatch(art, /<button\b|<input\b|<select\b/);
@@ -258,10 +259,10 @@ test('premium thumbnail storytelling remains visually distinct and noninteractiv
 
 test('named premium concepts show their exact artwork and retain one real selection action', () => {
   for (const reference of studioTemplates.filter(item => item.conceptImage)) {
-    for (const packageName of ['Beginner', 'Growth', 'Level Up', 'Pro']) {
+    for (const packageName of ['Beginner', 'Growth', 'Level Up', 'Pro', 'Executive']) {
       assert.ok(!cardNames(render({ packageName, categoryFilter: reference.category })).includes(reference.name), packageName);
     }
-    for (const packageName of ['Executive', 'Top Tier']) {
+    for (const packageName of ['Top Tier']) {
       const markup = render({ packageName, categoryFilter: reference.category });
       const card = cards(markup).find(html => html.includes(`>${reference.name}</h4>`));
       assert.ok(card, `${packageName}: ${reference.name}`);
@@ -277,8 +278,8 @@ test('named premium concepts show their exact artwork and retain one real select
     gallery.preview(reference.name);
     assert.equal(selected, studioTemplates.indexOf(reference));
     const allCard = cards(gallery.markup()).find(html => html.includes(`>${reference.name}</h4>`));
-    assert.match(allCard, /From \$2,499/);
-    assert.match(allCard, />Executive</);
+    assert.match(allCard, /From \$4,999/);
+    assert.match(allCard, />Top Tier</);
   }
 });
 

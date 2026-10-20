@@ -424,7 +424,7 @@ const createReferences = (styles: typeof referenceStyles, categories: CategoryRe
 
 const premiumPortfolioReferences = [
   {
-    ...createReferences([premiumReferenceStyles[0]], categoryTemplates.filter(reference => reference.category === "Fashion"))[0],
+    ...createReferences([additionalReferenceStyles[1]], categoryTemplates.filter(reference => reference.category === "Fashion"))[0],
     id: "clotya-fashion-premium",
     signatureTheme: "clotya" as const,
     name: "Clotya Fashion",
@@ -446,7 +446,7 @@ const premiumPortfolioReferences = [
     },
   },
   {
-    ...createReferences([premiumReferenceStyles[0]], categoryTemplates.filter(reference => reference.category === "Food & drink"))[0],
+    ...createReferences([additionalReferenceStyles[1]], categoryTemplates.filter(reference => reference.category === "Food & drink"))[0],
     id: "ecolife-organic-premium",
     signatureTheme: "ecolife" as const,
     name: "EcoLife Organic",

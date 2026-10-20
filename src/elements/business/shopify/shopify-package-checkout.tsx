@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { shopifyDeclineFeedback, shopifyCheckoutErrorFeedback } from "@/lib/shopify-payment-feedback";
 import { CheckCircle2, Loader2, LockKeyhole } from "lucide-react";
 import ShopifyDeliveryEstimate from "./shopify-delivery-estimate";
 import ShopifyStudioSelect from "./shopify-studio-select";
@@ -87,17 +88,21 @@ export default function ShopifyPackageCheckout({ brief, onValidate, onReviewRequ
     try {
       const result = await requestShopifyCheckout("pay", { ...session.current, paymentToken, billing, briefFingerprint: fingerprint, acceptedTerms: true });
       setOrder(result);
-      setError(result.status === "declined" ? copy.declined : "");
+      setError(result.status === "declined" ? shopifyDeclineFeedback(result.declineCode) : "");
       (window as NmiWindow).CollectJS?.clearInputs();
     } catch (cause) {
       const code = cause instanceof Error ? cause.message : "";
       if (code === "PAYMENT_TERMS_CHANGED") { setPaymentTermsChanged(true); setError(copy.paymentTermsChanged); }
-      else if (["INVALID_DETAILS", "CHECKOUT_BRIEF_CHANGED", "CHECKOUT_CANCELLED", "PAYMENT_RETRY_BLOCKED"].includes(code)) setError(code === "CHECKOUT_BRIEF_CHANGED" ? copy.changed : copy.invalid);
+      else if (shopifyCheckoutErrorFeedback(code)) setError(shopifyCheckoutErrorFeedback(code)!);
       else { setOrder((current) => current ? { ...current, status: "pending" } : current); setError(copy.failed); }
     }
     finally { setBusy(false); paying.current = false; }
   }, [order, fingerprint]);
   useEffect(() => { tokenCallback.current = submitToken; }, [submitToken]);
+
+  useEffect(() => {
+    if (order?.status === "paid") window.location.replace("/landing-pages/shopify-development/thank-you");
+  }, [order?.status]);
 
   const legacyUncharged = Boolean(order?.paymentStage === "full" && ["created", "declined"].includes(order.status));
   const needsCard = Boolean(order && !legacyUncharged && !paymentTermsChanged && fingerprint === order.briefFingerprint && ["created", "declined"].includes(order.status));
@@ -202,7 +207,7 @@ export default function ShopifyPackageCheckout({ brief, onValidate, onReviewRequ
         <div className="flex flex-wrap items-center justify-between gap-2"><dt className="text-sm text-paragraph">{copy.balance}</dt><dd className="font-semibold text-heading">{formatAmount(order.balanceAmount)} USD</dd></div>
       </dl>}
       <ShopifyDeliveryEstimate packageName={order.packageName} showNote className="mt-2" /><p className="mt-3 break-all text-xs text-paragraph">{copy.order}: {order.id}</p></div>}
-    {error && <p role="alert" className="rounded-lg border border-destructive p-3 text-sm text-destructive">{error}</p>}
+    {(error || order?.status === "declined") && <p role="alert" className="rounded-lg border border-destructive p-3 text-sm text-destructive">{error || shopifyDeclineFeedback(order?.declineCode)} <a href="mailto:support@zevitech.com" className="underline underline-offset-4">Contact our team</a></p>}
     {order?.status === "paid" ? <div role="status" className="space-y-3"><CheckCircle2 className="h-7 w-7 text-primary"/><h4 className="text-xl font-semibold text-heading">{config.mode === "live" ? isUpfront ? copy.approved : copy.fullApproved : isUpfront ? copy.sandboxApproved : copy.sandboxFullApproved}</h4><p className="text-sm leading-relaxed text-paragraph">{isUpfront ? copy.approvedBody : copy.fullApprovedBody}</p><p className="break-all text-sm text-heading">{copy.transaction}: {order.transactionId}</p></div> : awaiting ? <div className="space-y-4"><p className="text-sm leading-relaxed text-paragraph" role="status">{copy.pending}</p><button type="button" className={buttonClass} disabled={busy} onClick={checkStatus}>{busy ? copy.checking : copy.checkStatus}</button></div> : changed ? <div className="space-y-4"><p role="status" className="text-sm leading-relaxed text-paragraph">{legacyUncharged || paymentTermsChanged ? copy.paymentTermsChanged : copy.changed}</p><button type="button" className={buttonClass} disabled={busy} onClick={updateCheckout}>{copy.update}</button></div> : !order ? <div className="space-y-4">
       <label className="flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-paragraph"><input type="checkbox" checked={accepted} onChange={(event) => setAccepted(event.target.checked)} className="mt-1 h-5 w-5 shrink-0 accent-primary"/><span>{copy.terms}</span></label>
       <div className="flex flex-wrap gap-4 text-sm"><a className="underline underline-offset-4" href={copy.termsHref} target="_blank" rel="noopener noreferrer">{copy.termsLink}</a><a className="underline underline-offset-4" href="/privacy-policy" target="_blank" rel="noopener noreferrer">{copy.privacyLink}</a></div>

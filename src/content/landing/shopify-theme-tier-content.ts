@@ -84,7 +84,7 @@ export const themeTiers = [
     label: "Signature commerce themes",
     requirementId: "theme-top-tier",
     layouts: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-    description: "Adds Cinematic and Commerce Studio themes alongside every preceding collection.",
+    description: "Adds our custom signature storefronts, Cinematic and Commerce Studio themes alongside every preceding collection.",
     customization: "Combine signature layouts with the package’s advanced commerce functionality.",
     capabilities: {
       ...executiveCapabilities,

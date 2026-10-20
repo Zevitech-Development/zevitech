@@ -7,13 +7,13 @@ import { techProducts } from "./shopify-tech-content";
 /** One catalogue powers the homepage, search, product details and sample bag. */
 export const signatureCatalog = {
   clotya: {
-    id: "clotya-fashion-premium", layout: 6, products: clotyaProducts,
+    id: "clotya-fashion-premium", layout: 8, products: clotyaProducts,
     brand: "CLOTYA", announcement: "THE EVERYDAY EDIT · DISCOVER YOUR NEXT FAVOURITE",
     intro: "Considered pieces. Everyday style. Explore the edit.",
     newsletter: "A little style inspiration, straight to your inbox.",
   },
   ecolife: {
-    id: "ecolife-organic-premium", layout: 6, products: ecolifeProducts,
+    id: "ecolife-organic-premium", layout: 8, products: ecolifeProducts,
     brand: "EcoLife", announcement: "FRESH IDEAS FOR YOUR EVERYDAY TABLE",
     intro: "Fresh ingredients and everyday favourites, all in one place.",
     newsletter: "Fresh ideas for your table.",

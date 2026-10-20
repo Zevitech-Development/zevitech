@@ -496,3 +496,21 @@ test('an older uncharged order without required contact cannot reach the payment
   assert.equal((await payShopifyCheckout(pay(order), store, gateway, 'sandbox')).status, 'paid');
   assert.equal(charges, 0);
 });
+
+
+test('only confirmed declines expose a numeric recovery code without raw provider data', async () => {
+  const { publicCheckoutOrder } = require('../src/services/shopify-checkout-service.ts');
+  const { shopifyDeclineFeedback } = require('../src/lib/shopify-payment-feedback.ts');
+  const store = memoryStore();
+  const order = await createShopifyCheckoutOrder(input(), store, 'sandbox');
+  const saved = await store.get(order.id);
+  for (const code of ['202', '223', '225']) {
+    const result = publicCheckoutOrder({ ...saved, status: 'declined', gatewayCode: code, responseText: 'SECRET PROVIDER TEXT' });
+    assert.equal(result.declineCode, code);
+    assert.ok(shopifyDeclineFeedback(result.declineCode).includes(code));
+    assert.ok(!JSON.stringify(result).includes('SECRET'));
+  }
+  for (const status of ['paid', 'pending', 'processing', 'created']) assert.equal(publicCheckoutOrder({ ...saved, status, gatewayCode: '202' }).declineCode, undefined);
+  assert.equal(publicCheckoutOrder({ ...saved, status: 'declined', gatewayCode: '<script>' }).declineCode, undefined);
+  assert.ok(!shopifyDeclineFeedback('<script>').includes('<script>'));
+});

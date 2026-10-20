@@ -57,6 +57,7 @@ export interface ShopifyCheckoutPublicOrder {
   mode: "sandbox" | "live";
   briefFingerprint: string;
   transactionId?: string;
+  declineCode?: string;
 }
 
 export interface ShopifyCheckoutConfig {

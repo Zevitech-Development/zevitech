@@ -932,7 +932,7 @@ export default function ShopifyStoreStudio({
             <p className="text-xs leading-relaxed text-paragraph mt-5">{copy.billing}</p>
             {selectionError && <p role="alert" className="mt-3 text-sm text-destructive">{selectionError}</p>}
             <div className="flex flex-wrap justify-between gap-3 mt-6">
-              <div className="flex flex-wrap gap-2"><Button type="button" variant="outline" onClick={() => showThemes(true)} className="min-h-12 h-auto whitespace-normal">{directionReady ? wizard.editDesign : wizard.browseAction}</Button>{directionReady && <Button type="button" variant="outline" onClick={() => go(1)} className="min-h-12">{wizard.editNeeds}</Button>}</div>
+              <div className="flex flex-wrap gap-2"><Button type="button" variant="outline" onClick={() => showThemes(true)} className="min-h-12 h-auto whitespace-normal">{wizard.allDesigns}</Button>{directionReady && <Button type="button" variant="outline" onClick={() => go(1)} className="min-h-12">{wizard.editNeeds}</Button>}</div>
               {directionReady && needsReviewed ? <Button type="button" onClick={confirmRecommendedPackage} disabled={recommendationIndex === null || values.projectType !== "New store" || !!values.additionalRequirements.trim()} className="min-h-12 h-auto whitespace-normal">{wizard.confirmPackage} · ${(started && selectedMatchesNeeds ? selected.price : recommendedPlan?.price)?.toLocaleString()}<ArrowRight size={17} aria-hidden="true"/></Button> : <Button type="button" onClick={() => showThemes(false)} disabled={!started} className="min-h-12 h-auto whitespace-normal">{wizard.packageContinue}<ArrowRight size={17} aria-hidden="true"/></Button>}
             </div>
           </div>}
@@ -948,7 +948,14 @@ export default function ShopifyStoreStudio({
             </label>
             <ShopifyBusinessCategoryPicker businessType={values.businessType} category={values.businessCategory} customCategory={values.customCategory} onChange={updateBusinessCategory} />
             {errors.customCategory && <p role="alert" className="my-3 text-sm text-destructive">{errors.customCategory.message}</p>}
-            {started && <div className="flex flex-wrap justify-between items-center gap-2 mb-4 text-sm"><p>{browseAllThemes ? wizard.allDesigns : `${selected.name} · ${wizard.includedDesignsLabel}`}</p><Button type="button" variant="outline" onClick={() => setBrowseAllThemes(!browseAllThemes)} className="min-h-11 h-auto whitespace-normal">{browseAllThemes ? wizard.includedDesigns : wizard.allDesigns}</Button></div>}
+            <div className="mb-5 rounded-xl border border-border bg-muted/40 p-4">
+              <div role="group" aria-label={wizard.designFilter} className="flex flex-wrap gap-2">
+                <Button type="button" variant={browseAllThemes ? "default" : "outline"} aria-pressed={browseAllThemes} onClick={() => setBrowseAllThemes(true)} className="min-h-11 h-auto whitespace-normal">{wizard.allDesigns}</Button>
+                {started && <Button type="button" variant={!browseAllThemes ? "default" : "outline"} aria-pressed={!browseAllThemes} onClick={() => setBrowseAllThemes(false)} className="min-h-11 h-auto whitespace-normal">{wizard.includedDesigns}</Button>}
+              </div>
+              <p className="mt-3 text-sm text-paragraph">{browseAllThemes ? wizard.allDesignsNote : `${selected.name} · ${wizard.includedDesignsLabel}`}</p>
+              <p className="mt-2 text-xs font-medium text-primary">{wizard.premiumNote}</p>
+            </div>
             <ShopifyTemplateGallery browseAll={browseAllThemes} categoryFilter={resolveCategoryReference(values.businessCategory, values.businessType)} initialCategory={studioTemplates[template].category} packageName={selected.name} selected={directionReady && !teamDirection ? template : -1} onSelect={i => openReferencePreview(i)}/>
             {directionReady && <div className="mt-6 flex justify-end"><Button type="button" onClick={() => go(1)} className="min-h-12 h-auto whitespace-normal">{wizard.selectedAction}<ArrowRight size={17}/></Button></div>}
           </div>}

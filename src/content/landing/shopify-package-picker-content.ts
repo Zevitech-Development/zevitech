@@ -46,7 +46,7 @@ export const packagePickerHighlights = {
     visualLevel: 4,
   },
   "Top Tier": {
-    theme: "Adds Cinematic and Commerce Studio",
+    theme: "Adds custom signature storefronts, Cinematic and Commerce Studio",
     functionality: "Customer dashboard and custom forms",
     visualLevel: 5,
   },

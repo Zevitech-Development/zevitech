@@ -35,8 +35,8 @@ const { studioTemplates } = require('../src/content/landing/shopify-studio-templ
 const { signaturePreviewCopy } = require('../src/content/landing/shopify-signature-preview-content.ts');
 const { shopifyPreviewEnhancements: detail } = require('../src/content/landing/shopify-preview-enhancements.ts');
 const cases = [
-  { theme: 'clotya', Home: ClotyaHome, minPackage: 'Executive' },
-  { theme: 'ecolife', Home: EcolifeHome, minPackage: 'Executive' },
+  { theme: 'clotya', Home: ClotyaHome, minPackage: 'Top Tier' },
+  { theme: 'ecolife', Home: EcolifeHome, minPackage: 'Top Tier' },
   { theme: 'beauty', Home: BeautyHome, minPackage: 'Top Tier' },
   { theme: 'living', Home: LivingHome, minPackage: 'Top Tier' },
   { theme: 'tech', Home: TechHome, minPackage: 'Top Tier' },

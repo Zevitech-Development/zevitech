@@ -24,6 +24,7 @@ export function publicCheckoutOrder(order: ShopifyCheckoutOrder): ShopifyCheckou
     amountPaid: order.status === "paid" ? order.amount : 0,
     paymentStage: isUpfront ? "upfront" : "full",
     paymentVersion: isUpfront ? SHOPIFY_PAYMENT_VERSION : SHOPIFY_LEGACY_PAYMENT_VERSION,
+    ...(order.status === "declined" && /^2\d{2}$/.test(order.gatewayCode || "") ? { declineCode: order.gatewayCode } : {}),
     currency: order.currency, mode: order.mode, transactionId: order.transactionId, briefFingerprint: order.briefHash,
   };
 }

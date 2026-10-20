@@ -114,21 +114,21 @@ test('invalid layouts and unrecognized packages never receive theme access', () 
   }
 });
 
-test('the two original portfolio concepts retain stable indices and Executive access', () => {
+test('the two original portfolio concepts retain stable indices and require Top Tier access', () => {
   const concepts = studioTemplates.filter(reference => reference.conceptImage);
   assert.deepEqual(concepts.map(reference => reference.id), ['clotya-fashion-premium', 'ecolife-organic-premium']);
   const coreCount = [...shopifyProductCategories, ...shopifyServiceCategories].length * 8;
   assert.deepEqual(studioTemplates.slice(coreCount, coreCount + 2), concepts);
   assert.deepEqual(concepts.map(reference => reference.category), ['Fashion', 'Food & drink']);
   for (const reference of concepts) {
-    assert.equal(reference.minPackage, 'Executive');
-    assert.equal(getThemeMinimumPackage(reference.layout), 'Executive');
+    assert.equal(reference.minPackage, 'Top Tier');
+    assert.equal(getThemeMinimumPackage(reference.layout), 'Top Tier');
     assert.equal(getThemeLayoutFromLabel(reference.name), reference.layout);
     assert.equal(getThemeLayoutFromLabel(reference.id), reference.layout);
     assert.ok(reference.conceptImage.width > 0 && reference.conceptImage.height > reference.conceptImage.width);
     assert.ok(reference.images.every(src => src !== reference.conceptImage.src), 'Artwork must never be used as a product photo');
     for (const plan of studioPlans) {
-      assert.equal(canUseThemeLayout(plan.name, reference.layout), ['Executive', 'Top Tier'].includes(plan.name), `${plan.name}: ${reference.id}`);
+      assert.equal(canUseThemeLayout(plan.name, reference.layout), plan.name === 'Top Tier', `${plan.name}: ${reference.id}`);
     }
   }
   assert.deepEqual(studioPlans.map(plan => plan.price), [249, 599, 999, 1499, 2499, 4999]);
