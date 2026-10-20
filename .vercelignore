@@ -1,0 +1,10 @@
+output/
+tmp/
+tests/
+*.md
+/*.png
+/*.jpg
+/*.jpeg
+.env*
+!.env.example
+*.tsbuildinfo

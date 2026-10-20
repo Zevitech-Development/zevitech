@@ -1,20 +1,12 @@
-import { TrustbarSectionContent } from "@/content/landing/shopify-landing-page-content";
 import Image from "next/image";
-import React from "react";
+import { shopifyRestoredLogos } from "@/content/landing/shopify-restored-proof-content";
 
-function TrustbarSection() {
+export default function TrustbarSection() {
   return (
-    <section className="layout-standard section-margin-standard mt-8 flex items-center gap-6 border-b border-border pb-8 justify-center max-lg:flex-wrap">
-      {TrustbarSectionContent.map((client, index) => (
-        <Image
-          key={index}
-          src={client.img}
-          alt={`client - 0${client.clientNo}`}
-          className="animation-standard hover:scale-105 cursor-pointer"
-        />
-      ))}
-    </section>
+    <div className="border-b border-border py-8">
+      <div className="layout-standard grid grid-cols-2 items-center justify-items-center gap-x-6 gap-y-8 md:grid-cols-3 lg:grid-cols-6">
+        {shopifyRestoredLogos.map((logo) => <Image key={logo.clientNo} src={logo.img} alt={logo.name} sizes="(min-width: 1024px) 140px, 120px" className="h-auto max-h-12 w-auto max-w-full object-contain" />)}
+      </div>
+    </div>
   );
 }
-
-export default TrustbarSection;

@@ -30,7 +30,7 @@ import { cn } from "@/lib/utils";
 import { LoaderCircle } from "lucide-react";
 import { FaTimesCircle } from "react-icons/fa";
 import { FaCircleXmark } from "react-icons/fa6";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import {
   DailogLeadFormProps,
   DailogLeadFormType,
@@ -45,6 +45,7 @@ function DailogLeadForm({ trigger }: DailogLeadFormProps) {
   const [system01, setSystem01] = useState("");
 
   const router = useRouter();
+  const pathname = usePathname();
 
   const form = useForm({
     resolver: zodResolver(DailogLeadFormSchema),
@@ -130,6 +131,12 @@ function DailogLeadForm({ trigger }: DailogLeadFormProps) {
     { value: "seo", label: "SEO Services" },
     { value: "other", label: "Other" },
   ];
+
+  if (pathname === "/landing-pages/shopify-development" && React.isValidElement(trigger)) {
+    return React.cloneElement(trigger as React.ReactElement<{ onClick: () => void }>, {
+      onClick: () => document.getElementById("studio")?.scrollIntoView({ behavior: "smooth", block: "start" }),
+    });
+  }
 
   return (
     <Dialog>

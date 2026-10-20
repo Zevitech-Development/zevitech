@@ -1,43 +1,22 @@
-import React from "react";
-import Image from "next/image";
+import { ArrowRight } from "lucide-react";
+import { shopifySalesCtaContent } from "@/content/landing/shopify-sales-cta-content";
+import { shopifyLandingSalesContent } from "@/content/landing/shopify-landing-sales-content";
 
-import { Button } from "@/components/ui/button";
-
-import MoneyBackIcon from "../../../../public/icons/money-back-icon.webp";
-import DailogLeadForm from "@/components/forms/dailog-lead-form";
-
-function LandingCTASection() {
+export default function LandingCTASection() {
+  const copy = shopifyLandingSalesContent.final;
   return (
-    <section className="layout-standard h-full section-padding-standard flex-center absolute left-0 md:-top-[50px] top-[-30px] inset-0">
-      <div className="w-full lg:h-[500px] md:h-[400px] h-[350px] bg-pattern rounded-3xl border border-border flex flex-col items-center justify-center md:px-8 px-4">
-        <Image
-          src={MoneyBackIcon}
-          alt="Money-back"
-          className="absolute lg:-translate-y-[16rem] md:-translate-y-[12rem] -translate-y-[10.5rem] lg:w-[200px] md:w-[160px] w-[130px] lg:h-[200px] md:h-[160px] h-[130px]"
-        />
-
-        <div className="w-full flex flex-col h-full justify-center md:gap-8 gap-4 items-center text-center mt-16">
-          <h1 className="lg:text-6xl md:text-4xl text-2xl font-bold text-white font-heading tracking-widest">
-            Money Back Guarantee!
-          </h1>
-          <p className="lg:text-2xl md:text-base text-sm font-medium text-white/80 lg:max-w-[75%] mx-auto">
-            We guarantee complete satisfaction with our Shopify store
-            development services. If we are unable to create a winning store for
-            you within the given time frame, let us know within 15 days and
-            we&apos;ll issue a full refund
-          </p>
-
-          <DailogLeadForm
-            trigger={
-              <Button className="lg:mt-4 mt-2 md:h-[60px] h-[50px] rounded-full md:text-lg text-sm font-bold hover:bg-primary-hover md:px-8 px-4 cta-button">
-                I AM READY, LET&apos;S GET STARTED
-              </Button>
-            }
-          />
+    <section className="section-padding-standard">
+      <div className="layout-standard">
+        <div className="bg-pattern rounded-3xl px-5 py-10 text-center md:px-10 md:py-16">
+          <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-white/80">{copy.eyebrow}</p>
+          <h2 className="mx-auto max-w-3xl font-heading text-3xl font-bold leading-tight text-white md:text-4xl lg:text-5xl">{copy.title}</h2>
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/90 md:text-lg">{copy.description}</p>
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
+            <a href={shopifySalesCtaContent.href} className="inline-flex min-h-12 items-center justify-center gap-3 rounded-xl bg-primary px-5 py-3 font-semibold leading-snug text-primary-foreground transition-colors hover:bg-primary-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">{shopifySalesCtaContent.label}<ArrowRight aria-hidden="true" className="h-5 w-5 shrink-0" /></a>
+            <a href={shopifySalesCtaContent.packageHref} className="inline-flex min-h-12 items-center justify-center rounded-xl border border-white/40 px-5 py-3 font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">{shopifySalesCtaContent.packageLabel}</a>
+          </div>
         </div>
       </div>
     </section>
   );
 }
-
-export default LandingCTASection;

@@ -45,9 +45,10 @@ export function captureGoogleAdsAttribution(): void {
 /**
  * Returns stored attribution, falling back to the live URL if storage is
  * empty. Returns undefined when nothing is available so the payload stays
- * clean for direct visits.
+ * clean for direct visits. storedOnly avoids re-reading or truncating URL
+ * values when a caller applies stricter validation of its own.
  */
-export function getGoogleAdsAttribution(): GoogleAdsAttribution | undefined {
+export function getGoogleAdsAttribution(storedOnly = false): GoogleAdsAttribution | undefined {
   if (typeof window === "undefined") return undefined;
 
   try {
@@ -60,6 +61,7 @@ export function getGoogleAdsAttribution(): GoogleAdsAttribution | undefined {
     // fall through to the live URL
   }
 
+  if (storedOnly) return undefined;
   try {
     const params = new URLSearchParams(window.location.search);
     const live: GoogleAdsAttribution = {};

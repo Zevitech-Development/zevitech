@@ -3,10 +3,9 @@
 import React from "react";
 import Image from "next/image";
 
-import DailogLeadForm from "@/components/forms/dailog-lead-form";
-
 import { Button } from "@/components/ui/button";
 
+import { shopifySalesCtaContent } from "@/content/landing/shopify-sales-cta-content";
 import { OpenLiveChat } from "@/utils/open-live-chat";
 
 import LandingCTAImg from "../../../../public/images/cta-img.jpg";
@@ -22,25 +21,21 @@ function LandingCTA02Section() {
             Scale with Zevitech.
           </h2>
           <p className="mt-6 font-medium md:text-xl text-white/80">
-            Take your online store to the next level with Zevitech. From custom
-            Shopify design to high-converting development, we build stores that
-            grow with your business. Start now and watch your revenue soar.
+            {shopifySalesCtaContent.description}
           </p>
           <div className="flex items-center max-lg:justify-center max-md:flex-col md:gap-4 gap-2 mt-8">
-            <DailogLeadForm
-              trigger={
-                <Button className="cta-button h-[60px] md:px-6 group lg:hover:scale-105 rounded-full lg:hover:bg-primary-hover md:text-xl text-base lg:!animation-standard font-bold max-md:w-full">
-                  Let&apos;s Get Started
-                  <FaArrowRightLong className="group-hover:translate-x-[2px] animation-standard" />
-                </Button>
-              }
-            />
+            <Button asChild className="cta-button h-[60px] md:px-6 group lg:hover:scale-105 rounded-full lg:hover:bg-primary-hover md:text-xl text-base lg:!animation-standard font-bold max-md:w-full">
+              <a href={shopifySalesCtaContent.href}>
+                {shopifySalesCtaContent.label}
+                <FaArrowRightLong className="group-hover:translate-x-[2px] animation-standard" />
+              </a>
+            </Button>
 
             <Button
               onClick={OpenLiveChat}
               className="cta-button h-[60px] md:px-6 bg-transparent border-4 border-primary group lg:hover:scale-105 rounded-full text-primary-foreground md:text-xl text-base lg:!animation-standard font-bold max-md:w-full"
             >
-              Chat Now
+              {shopifySalesCtaContent.chatLabel}
             </Button>
           </div>
         </div>
