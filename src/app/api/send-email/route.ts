@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { z } from "zod";
+import { createCheckoutStore, hashCheckoutValue, resolveCheckoutRedisConfig } from "@/services/shopify-checkout-store";
 
 const GOOGLE_ADS_RECIPIENT = process.env.GOOGLE_ADS_LEAD_EMAIL;
 
@@ -107,10 +108,27 @@ function buildGoogleAdsLeadEmail(lead: z.infer<typeof GoogleAdsLeadSchema>) {
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    if (request.headers.get("origin") !== new URL(request.url).origin || request.headers.get("sec-fetch-site") === "cross-site") {
+      return NextResponse.json({ error: "REQUEST_NOT_ALLOWED" }, { status: 403 });
+    }
+    if (!request.headers.get("content-type")?.includes("application/json")) return NextResponse.json({ error: "INVALID_REQUEST" }, { status: 415 });
+    if (Number(request.headers.get("content-length")) > 65536) return NextResponse.json({ error: "REQUEST_TOO_LARGE" }, { status: 413 });
+    const raw = await request.text();
+    if (Buffer.byteLength(raw, "utf8") > 65536) return NextResponse.json({ error: "REQUEST_TOO_LARGE" }, { status: 413 });
+    const body = JSON.parse(raw);
+    if (!body || typeof body !== "object" || Array.isArray(body)) return NextResponse.json({ error: "INVALID_REQUEST" }, { status: 400 });
+    // Public forms may contact the business only. Never relay to a client-supplied
+    // recipient or permit attachment paths/URLs to read local files or the network.
+    if (body.attachments?.length) return NextResponse.json({ error: "ATTACHMENTS_NOT_SUPPORTED" }, { status: 400 });
+    if (!resolveCheckoutRedisConfig()) return NextResponse.json({ error: "LEAD_ROUTING_UNAVAILABLE" }, { status: 503 });
+    const ip = request.headers.get("x-real-ip") || request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    if (!await createCheckoutStore().rateLimit(`contact:${hashCheckoutValue(ip)}`, 5, 600)) return NextResponse.json({ error: "TOO_MANY_REQUESTS" }, { status: 429 });
     const isGoogleAdsLead = body.formType === "google-ads";
-    let { to, subject, html, attachments } = body;
+    let to = process.env.BUSINESS_EMAIL || process.env.EMAIL_USER;
+    let { subject, html } = body;
+    const attachments = undefined;
     let replyTo: string | undefined = body.replyTo;
+    if (replyTo && !z.string().email().max(254).safeParse(replyTo).success) return NextResponse.json({ error: "INVALID_REQUEST" }, { status: 400 });
 
     if (isGoogleAdsLead) {
       const parsedLead = GoogleAdsLeadSchema.safeParse(body.lead);
@@ -137,10 +155,9 @@ export async function POST(request: NextRequest) {
       replyTo = lead.email;
       subject = `[Google Ads Lead] ${lead.name} — ${lead.growthGoal}`;
       html = buildGoogleAdsLeadEmail(lead);
-      attachments = undefined;
     }
 
-    if (!to || !subject || !html) {
+    if (!to || typeof subject !== "string" || !subject.trim() || subject.length > 300 || /[\r\n]/.test(subject) || typeof html !== "string" || !html.trim() || html.length > 60000) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
@@ -168,7 +185,7 @@ export async function POST(request: NextRequest) {
         user: process.env.HOSTINGER_EMAIL_USER,
         pass: process.env.HOSTINGER_EMAIL_PASSWORD,
       },
-      debug: process.env.NODE_ENV === "development",
+      debug: false,
     });
 
     const gmailPromise = transporter.sendMail({
@@ -178,6 +195,7 @@ export async function POST(request: NextRequest) {
       subject,
       html,
       attachments,
+      disableFileAccess: true, disableUrlAccess: true,
     });
 
     // Google Ads leads are routed to their own inbox on both transports.
@@ -195,19 +213,15 @@ export async function POST(request: NextRequest) {
       subject,
       html,
       attachments,
+      disableFileAccess: true, disableUrlAccess: true,
     });
-
-    // Optional connectivity verification (helps debug misconfigured SMTP)
-    try {
-      await hostingerTransporter.verify();
-    } catch (e) {
-      console.error("Hostinger SMTP verify failed:", e);
-    }
 
     const [gmailResult, hostingerResult] = await Promise.allSettled([
       gmailPromise,
       hostingerPromise,
     ]);
+    transporter.close();
+    hostingerTransporter.close();
 
     const gmailOk =
       gmailResult.status === "fulfilled" &&
@@ -228,23 +242,15 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    console.error(
-      "Dual SMTP delivery failed: ",
-      gmailResult.status === "rejected" ? gmailResult.reason : "Gmail OK",
-      hostingerResult.status === "rejected"
-        ? hostingerResult.reason
-        : "Hostinger OK"
-    );
     return NextResponse.json(
       { error: "Failed to send via both providers" },
       { status: 500 }
     );
   } catch (error) {
-    console.error("Error sending email:", error);
+    // Never disclose provider responses, credentials, customer data or request bodies.
     return NextResponse.json(
       {
         error: "Failed to send email",
-        details: error instanceof Error ? error.message : String(error),
       },
       { status: 500 }
     );

@@ -1,4 +1,5 @@
 // Native select compatibility checks. No browser, network or provider calls.
+require('./setup-next-image.cjs');
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');

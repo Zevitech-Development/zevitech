@@ -24,37 +24,83 @@ export const shopifyBusinessTypeOptions: {
   },
 ];
 
+/**
+ * Customer-facing category names. Some map onto an existing design library
+ * (alias → library category); the rest have their own library of the same name.
+ */
+export const shopifyCategoryAliases: Record<string, string> = {
+  "Clothing & fashion": "Fashion",
+  "Bags & accessories": "Accessories",
+  "Jewellery & watches": "Jewellery",
+  "Beauty & cosmetics": "Beauty",
+  "Health & supplements": "Wellness",
+  "Electronics & gadgets": "Technology",
+  "Home décor": "Home",
+  "Food & groceries": "Food & drink",
+  "Sports & fitness gear": "Sports & outdoors",
+  "General store": "General",
+  "Consulting": "Expert & consulting services",
+  "Other services": "Services",
+};
+
 export const shopifyProductCategories = [
-  "Fashion",
-  "Beauty",
-  "Technology",
-  "Home",
-  "Wellness",
-  "General",
-  "Jewellery",
-  "Food & drink",
-  "Pets",
-  "Sports & outdoors",
-  "Accessories",
+  "Clothing & fashion",
+  "Shoes & footwear",
+  "Bags & accessories",
+  "Jewellery & watches",
+  "Beauty & cosmetics",
+  "Skincare",
+  "Fragrance",
+  "Health & supplements",
+  "Electronics & gadgets",
+  "Home décor",
+  "Furniture",
+  "Kitchen & dining",
+  "Food & groceries",
   "Coffee & tea",
+  "Baby & kids",
+  "Toys & games",
+  "Pets",
+  "Sports & fitness gear",
+  "Books & stationery",
+  "Art & handmade",
+  "Automotive",
+  "General store",
 ];
 
 export const shopifyServiceCategories = [
   "Professional services",
+  "Consulting",
+  "Legal services",
+  "Real estate",
+  "Medical & dental clinics",
   "Creative & digital",
   "Coaching & education",
-  "Home & local services",
+  "Restaurants & catering",
+  "Events & photography",
+  "Travel & tourism",
   "Beauty services",
-  "Fitness services",
-  "Services",
-  "Spas",
   "Salons",
-  "Plumbing",
+  "Spas",
+  "Fitness services",
+  "Home & local services",
   "Home cleaning",
-  "Truck dispatching",
-  "Expert & consulting services",
+  "Plumbing",
   "HVAC",
+  "Auto repair",
+  "Truck dispatching",
+  "Other services",
 ];
+
+/** The design library behind a customer-facing category name. */
+export function shopifyLibraryCategory(category: string) {
+  return shopifyCategoryAliases[category] ?? category;
+}
+
+/** The customer-facing name for a design library category. */
+export function shopifyCategoryLabel(libraryCategory: string) {
+  return Object.keys(shopifyCategoryAliases).find(label => shopifyCategoryAliases[label] === libraryCategory) ?? libraryCategory;
+}
 
 export function getShopifyBusinessCategoryOptions(businessType: ShopifyBusinessType) {
   const categories = businessType === "services"
@@ -66,9 +112,10 @@ export function getShopifyBusinessCategoryOptions(businessType: ShopifyBusinessT
 }
 
 export function resolveCategoryReference(category: string, businessType: ShopifyBusinessType) {
+  const options = getShopifyBusinessCategoryOptions(businessType);
   if (category !== SHOPIFY_CUSTOM_CATEGORY
-    && getShopifyBusinessCategoryOptions(businessType).includes(category)) {
-    return category;
+    && (options.includes(category) || options.includes(shopifyCategoryLabel(category)))) {
+    return shopifyLibraryCategory(category);
   }
   return businessType === "services" ? "Services" : "General";
 }

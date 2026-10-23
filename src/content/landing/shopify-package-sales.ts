@@ -23,7 +23,7 @@ export const shopifyPackageSalesCopy = {
   scopeNote: `${shopifyPackageScopeNotes.fees} ${shopifyPackageScopeNotes.eligibility}`,
   deliveryNote: `${shopifyPackageScopeNotes.delivery} ${shopifyPackageScopeNotes.content}`,
   valueTitle: "See the experience. Understand the work.",
-  valueBody: "Every higher package includes the lower packages. Compare the design collections, customisation options and added store setup work.",
+  valueBody: "Every higher package includes the lower packages. Compare the customisation options, functionality and store setup work. Every design is available with every package.",
 };
 
 export const shopifyPackageSales = {

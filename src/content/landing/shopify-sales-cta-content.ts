@@ -1,5 +1,6 @@
 export const shopifySalesCtaContent = {
   href: "#studio",
+  allDesignsLabel: "See all designs",
   label: "Explore My Store Design",
   packageHref: "#studio-packages",
   packageLabel: "Compare Packages",

@@ -1,4 +1,5 @@
 // Optional upgrade presentation and real selection handler. No browser or network.
+require('./setup-next-image.cjs');
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');

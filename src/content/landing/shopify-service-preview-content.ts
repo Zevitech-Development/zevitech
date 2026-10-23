@@ -132,6 +132,76 @@ export const shopifyServiceCategories: readonly ShopifyServiceCategory[] = [
     ],
   },
   {
+    id: "legal-services", label: "Legal services", brand: "Hartwell Legal",
+    headline: "Clear legal advice, when it matters.",
+    introduction: "Explain your situation, understand your options and book a consultation with the right lawyer.",
+    offers: [
+      { id: "consultation", title: "Initial consultation", group: "Consultations", format: "Fixed-fee consultation", description: "Discuss your matter, the documents involved and the options available to you.", includes: ["Review of your situation", "Your options explained", "A recommended next step"] },
+      { id: "documents", title: "Contracts & documents", group: "Documents", format: "Scoped document review", description: "Have agreements, leases or business documents drafted or reviewed before you sign.", includes: ["Document review or drafting", "Plain-language summary", "Agreed turnaround"] },
+      { id: "representation", title: "Ongoing representation", group: "Representation", format: "Engagement letter", description: "Arrange continuing support for a dispute, transaction or business matter.", includes: ["Defined engagement scope", "Regular updates", "Transparent fee structure"] },
+    ],
+  },
+  {
+    id: "real-estate", label: "Real estate", brand: "Northgate Realty",
+    headline: "Find the place you’ll call home.",
+    introduction: "Browse listings, book viewings and get a free valuation from a local agent.",
+    offers: [
+      { id: "buy", title: "Buy a home", group: "Buying", format: "Viewing appointment", description: "Tell us your budget and must-haves and we’ll line up viewings that fit.", includes: ["Shortlist of matching homes", "Booked viewings", "Offer guidance"] },
+      { id: "sell", title: "Sell your property", group: "Selling", format: "Free valuation", description: "Get a market valuation and a plan to sell at the right price.", includes: ["Property valuation", "Photography and listing", "Viewing management"] },
+      { id: "rent", title: "Rentals & management", group: "Rentals", format: "Management plan", description: "Find tenants and keep your rental running smoothly.", includes: ["Tenant search and checks", "Rent collection", "Maintenance coordination"] },
+    ],
+  },
+  {
+    id: "medical-dental", label: "Medical & dental clinics", brand: "Brightside Dental",
+    headline: "Care that makes you smile.",
+    introduction: "Book an appointment online, meet the team and see what to expect at your visit.",
+    offers: [
+      { id: "checkup", title: "Check-up & clean", group: "General care", format: "Bookable appointment", description: "Routine examination and hygiene clean for the whole family.", includes: ["Full examination", "Professional clean", "Personal care plan"] },
+      { id: "cosmetic", title: "Whitening & cosmetic", group: "Cosmetic", format: "Consultation first", description: "Explore whitening, veneers and treatments to improve your smile.", includes: ["Cosmetic consultation", "Treatment options and pricing", "Before-and-after planning"] },
+      { id: "emergency", title: "Emergency appointments", group: "Urgent care", format: "Same-week slots", description: "Fast help for pain, chips and broken fillings.", includes: ["Priority booking", "Assessment and relief", "Follow-up plan"] },
+    ],
+  },
+  {
+    id: "restaurants-catering", label: "Restaurants & catering", brand: "Saffron Table",
+    headline: "Good food, beautifully served.",
+    introduction: "See the menu, reserve a table or plan catering for your next event.",
+    offers: [
+      { id: "reserve", title: "Reserve a table", group: "Dining", format: "Online booking", description: "Choose a date, time and party size and we’ll have your table ready.", includes: ["Live availability", "Special requests", "Instant confirmation"] },
+      { id: "catering", title: "Event catering", group: "Catering", format: "Custom menu quote", description: "Menus for weddings, offices and private parties, delivered or served.", includes: ["Menu planning", "Dietary options", "Staff and setup"] },
+      { id: "private", title: "Private dining", group: "Private events", format: "Enquiry", description: "Book the private room for celebrations and business dinners.", includes: ["Set or tasting menus", "Wine pairing", "Dedicated host"] },
+    ],
+  },
+  {
+    id: "events-photography", label: "Events & photography", brand: "Golden Hour Studio",
+    headline: "Moments worth keeping.",
+    introduction: "Explore our portfolio, compare packages and check availability for your date.",
+    offers: [
+      { id: "weddings", title: "Wedding photography", group: "Weddings", format: "Full-day package", description: "Story-driven coverage from getting ready to the last dance.", includes: ["Full-day coverage", "Online gallery", "Printed album option"] },
+      { id: "events", title: "Event coverage", group: "Events", format: "Hourly booking", description: "Corporate events, launches and parties captured with care.", includes: ["Agreed shot list", "Fast turnaround", "Usage rights"] },
+      { id: "portraits", title: "Portrait sessions", group: "Portraits", format: "Studio or location", description: "Personal, family and brand portraits in a relaxed session.", includes: ["Styling guidance", "Edited selection", "High-resolution files"] },
+    ],
+  },
+  {
+    id: "travel-tourism", label: "Travel & tourism", brand: "Azure Escapes",
+    headline: "Your next escape starts here.",
+    introduction: "Browse curated trips, compare packages and plan a holiday around you.",
+    offers: [
+      { id: "packages", title: "Holiday packages", group: "Holidays", format: "Bookable package", description: "Flights, stays and transfers bundled into one simple price.", includes: ["Curated itinerary", "Hand-picked hotels", "Airport transfers"] },
+      { id: "tailor", title: "Tailor-made trips", group: "Custom trips", format: "Planning call", description: "Tell us where you dream of going and we’ll build the trip.", includes: ["Personal travel planner", "Flexible itinerary", "24/7 support while away"] },
+      { id: "tours", title: "Tours & experiences", group: "Experiences", format: "Day bookings", description: "Guided tours, adventures and local experiences at your destination.", includes: ["Local guides", "Small groups", "Easy cancellation"] },
+    ],
+  },
+  {
+    id: "auto-repair", label: "Auto repair", brand: "Precision Auto Care",
+    headline: "Back on the road, fast.",
+    introduction: "Book a service, get an upfront quote and track your car while it’s in the workshop.",
+    offers: [
+      { id: "service", title: "Servicing & MOT", group: "Servicing", format: "Bookable slot", description: "Scheduled servicing and inspections to keep your car running well.", includes: ["Multi-point check", "Fluids and filters", "Digital service record"] },
+      { id: "repairs", title: "Repairs & diagnostics", group: "Repairs", format: "Diagnostic first", description: "Find the fault and fix it with an upfront, itemised quote.", includes: ["Diagnostic scan", "Itemised quote", "Warranty on parts"] },
+      { id: "tyres", title: "Tyres & brakes", group: "Tyres & brakes", format: "Same-day fitting", description: "Tyre fitting, alignment and brake replacement while you wait.", includes: ["Price-matched tyres", "Wheel alignment", "Brake safety check"] },
+    ],
+  },
+  {
     id: "services", label: "Services", brand: "Your Service Studio",
     headline: "Good work starts with a conversation.",
     introduction: "Explore the services, understand the process and tell us what you have in mind.",

@@ -2,10 +2,11 @@
 
 import { useId, useState, type CSSProperties } from "react";
 import Image from "next/image";
-import { Apple, ArrowRight, Check, Leaf, ShoppingBasket, ShoppingCart, Truck } from "lucide-react";
-import { ecolifeCopy as copy } from "@/content/landing/shopify-ecolife-content";
+import { Apple, Sparkles, ArrowRight, Check, Leaf, ShoppingBasket, ShoppingCart, Truck } from "lucide-react";
+import { ecolifeCopy as originalCopy } from "@/content/landing/shopify-ecolife-content";
 import type { ShopifyPremiumProduct } from "@/interfaces/shopify-premium-preview-interface";
 import type { ShopifySignatureHomeProps } from "@/interfaces/shopify-signature-storefront-interface";
+import { categoryDiscoveryCopy } from "@/content/landing/shopify-category-signature-content";
 import { cn } from "@/lib/utils";
 
 const gutter = "px-[clamp(1rem,4cqw,3.25rem)]";
@@ -15,7 +16,7 @@ const focus = "focus-visible:outline-none focus-visible:ring-2 focus-visible:rin
 const action = "inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground transition-colors hover:bg-primary-hover motion-reduce:transition-none";
 const grid = "grid grid-cols-2 gap-2 [@container_studio_(min-width:540px)]:grid-cols-3 [@container_studio_(min-width:760px)]:grid-cols-5";
 const icons = { truck: Truck, apple: Apple, leaf: Leaf, basket: ShoppingBasket };
-const tones = {
+const tones: Record<string, string> = {
   leaf: "bg-[var(--eco-leaf)]", yellow: "bg-[var(--eco-yellow)]", peach: "bg-[var(--eco-peach)]",
   coral: "bg-[var(--eco-coral)]", orange: "bg-[var(--eco-orange)]", sand: "bg-[var(--eco-sand)]",
   pink: "bg-[var(--eco-pink)]", apricot: "bg-[var(--eco-apricot)]", tan: "bg-[var(--eco-tan)]",
@@ -23,8 +24,9 @@ const tones = {
 };
 
 export default function ShopifyEcolifeHome({
-  products, headline, brief, onBrowse, onProduct, onAddToBag, onViewBag,
+  products, categoryContext, serviceMode = false, headline, brief, onBrowse, onProduct, onAddToBag, onViewBag,
 }: ShopifySignatureHomeProps) {
+  const copy = categoryContext ? categoryDiscoveryCopy(categoryContext, products, serviceMode) : originalCopy;
   const id = useId();
   const [filters, setFilters] = useState<Record<string, string>>({});
   const [added, setAdded] = useState<number | null>(null);
@@ -34,7 +36,7 @@ export default function ShopifyEcolifeHome({
 
   function addProduct(product: ShopifyPremiumProduct) {
     onAddToBag(product.id);
-    setAdded(product.id);
+    if (!serviceMode) setAdded(product.id);
   }
 
   function productCard(product: ShopifyPremiumProduct, compact = false) {
@@ -43,7 +45,7 @@ export default function ShopifyEcolifeHome({
         <Image src={product.src} alt={product.name} width={160} height={140} unoptimized className="h-full w-full object-contain" />
       </button>
       <div className="min-w-0 flex-1"><button type="button" onClick={() => onProduct(product.id)} className={cn("min-h-11 rounded text-left text-xs font-medium leading-snug", focus)}>{product.name}</button><p className="pb-1 text-xs font-bold text-primary">{product.priceLabel}</p></div>
-      <button type="button" onClick={() => addProduct(product)} aria-label={`${copy.products.add}: ${product.name}`} className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-primary transition-colors hover:bg-primary/10", focus)}>{added === product.id ? <Check size={16} aria-hidden="true" /> : <ShoppingCart size={16} aria-hidden="true" />}</button>
+      <button type="button" onClick={() => addProduct(product)} aria-label={`${copy.products.add}: ${product.name}`} className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-primary transition-colors hover:bg-mix-primary/10", focus)}>{added === product.id ? <Check size={16} aria-hidden="true" /> : serviceMode ? <ArrowRight size={16} aria-hidden="true" /> : <ShoppingCart size={16} aria-hidden="true" />}</button>
     </article>;
     return <article key={product.id} data-ecolife-product={product.id} className="group flex min-w-0 flex-col rounded-lg border border-border bg-background px-2.5 pb-1.5 pt-2 transition-shadow hover:shadow-md motion-reduce:transition-none">
       <button type="button" onClick={() => onProduct(product.id)} aria-label={`${copy.products.view}: ${product.name}`} className={cn("block aspect-[6/5] w-full overflow-hidden rounded-md bg-background", focus)}>
@@ -51,7 +53,7 @@ export default function ShopifyEcolifeHome({
       </button>
       <p className="mt-2 text-[10px] font-medium leading-tight text-primary">{product.collection}</p>
       <button type="button" onClick={() => onProduct(product.id)} className={cn("min-h-11 w-full rounded py-1 text-left text-xs font-semibold leading-snug", focus)}>{product.name}</button>
-      <div className="mt-auto flex items-center justify-between gap-1"><p className="text-sm font-bold text-primary">{product.priceLabel}</p><button type="button" onClick={() => addProduct(product)} aria-label={`${copy.products.add}: ${product.name}`} className={cn("flex min-h-11 min-w-11 items-center justify-center rounded-full text-primary transition-colors hover:bg-primary/10", focus)}><span className="flex h-7 w-7 items-center justify-center rounded-full border border-primary/30">{added === product.id ? <Check size={15} aria-hidden="true" /> : <ShoppingCart size={15} aria-hidden="true" />}</span></button></div>
+      <div className="mt-auto flex items-center justify-between gap-1"><p className="text-sm font-bold text-primary">{product.priceLabel}</p><button type="button" onClick={() => addProduct(product)} aria-label={`${copy.products.add}: ${product.name}`} className={cn("flex min-h-11 min-w-11 items-center justify-center rounded-full text-primary transition-colors hover:bg-mix-primary/10", focus)}><span className="flex h-7 w-7 items-center justify-center rounded-full border border-mix-primary/30">{added === product.id ? <Check size={15} aria-hidden="true" /> : serviceMode ? <ArrowRight size={15} aria-hidden="true" /> : <ShoppingCart size={15} aria-hidden="true" />}</span></button></div>
     </article>;
   }
 
@@ -74,7 +76,7 @@ export default function ShopifyEcolifeHome({
         <Image src={copy.hero.image} alt={copy.hero.imageAlt} width={1000} height={1250} loading="eager" unoptimized className="mx-auto block h-[clamp(17rem,40cqw,28rem)] w-full object-contain object-bottom [@container_studio_(min-width:600px)]:absolute [@container_studio_(min-width:600px)]:inset-0 [@container_studio_(min-width:600px)]:h-full" />
       </div>
       <div className="relative order-1 flex min-w-0 flex-col items-start justify-center px-6 pb-3 pt-9 [@container_studio_(min-width:600px)]:order-2 [@container_studio_(min-width:600px)]:py-10 [@container_studio_(min-width:600px)]:pl-2 [@container_studio_(min-width:600px)]:pr-[5cqw]">
-        <div aria-hidden="true" className="pointer-events-none absolute -right-7 -top-3 flex rotate-[20deg] flex-wrap gap-3 text-primary/10"><Leaf size={100} strokeWidth={0.7} /><Apple size={70} strokeWidth={0.7} /></div>
+        <div aria-hidden="true" className="pointer-events-none absolute -right-7 -top-3 flex rotate-[20deg] flex-wrap gap-3 text-mix-primary/10">{categoryContext ? <Sparkles size={100} strokeWidth={0.7} /> : <><Leaf size={100} strokeWidth={0.7} /><Apple size={70} strokeWidth={0.7} /></>}</div>
         <h2 className="relative max-w-md font-heading text-[clamp(2.3rem,5.2cqw,4.3rem)] leading-[1.03] tracking-tight [text-wrap:balance]">{headline || copy.hero.title}</h2>
         <p className="relative mt-4 max-w-sm text-[clamp(0.875rem,1.4cqw,1rem)] font-medium leading-relaxed text-paragraph">{brief || copy.hero.description}</p>
         <button type="button" onClick={() => onBrowse()} className={cn(action, focus, "mt-5")}>{copy.hero.primary}</button>
@@ -93,8 +95,8 @@ export default function ShopifyEcolifeHome({
         <h3 id={`${id}-offers`} className={cn(heading, "mb-3")}>{copy.offers.title}</h3>
         <div className="grid gap-3 [@container_studio_(min-width:600px)]:grid-cols-2">{copy.offers.items.map(offer => <article key={offer.title} className={cn("relative isolate min-h-44 overflow-hidden rounded-lg", offer.tone === "dark" ? "bg-heading text-background" : "bg-[var(--eco-leaf)]")}>
           <Image src={offer.image} alt={offer.imageAlt} width={800} height={450} unoptimized className={cn("absolute inset-y-0 right-0 h-full w-[53%] object-cover", offer.tone === "dark" && "opacity-70")} />
-          <div className={cn("pointer-events-none absolute inset-0", offer.tone === "dark" ? "bg-gradient-to-r from-heading via-heading/80 to-transparent" : "bg-gradient-to-r from-[var(--eco-leaf)] via-[var(--eco-leaf)] to-transparent")} />
-          <div className="relative w-[68%] px-5 py-5"><h4 className="max-w-xs font-heading text-[clamp(1.25rem,2.4cqw,1.8rem)] leading-tight">{offer.title}</h4><p className="mt-2 text-[11px] leading-relaxed">{offer.body}</p><button type="button" onClick={() => onBrowse(offer.collection)} className={cn(action, focus, "mt-3", offer.tone === "dark" && "bg-background text-heading hover:bg-background/90")}>{offer.action}</button></div>
+          <div className={cn("pointer-events-none absolute inset-0", offer.tone === "dark" ? "bg-gradient-to-r from-heading via-mix-heading/80 to-transparent" : "bg-gradient-to-r from-[var(--eco-leaf)] via-[var(--eco-leaf)] to-transparent")} />
+          <div className="relative w-[68%] px-5 py-5"><h4 className="max-w-xs font-heading text-[clamp(1.25rem,2.4cqw,1.8rem)] leading-tight">{offer.title}</h4><p className="mt-2 text-[11px] leading-relaxed">{offer.body}</p><button type="button" onClick={() => onBrowse(offer.collection)} className={cn(action, focus, "mt-3", offer.tone === "dark" && "bg-background text-heading hover:bg-mix-background/90")}>{offer.action}</button></div>
         </article>)}</div>
       </section>
 
@@ -147,7 +149,7 @@ export default function ShopifyEcolifeHome({
       </section>
     </div>
 
-    <div role="status" aria-live="polite" className={cn(addedProduct && "sticky bottom-0 z-20 flex flex-wrap items-center justify-between gap-2 border-t border-primary/20 bg-background/95 px-4 py-2 shadow-lg backdrop-blur-sm")}>
+    <div role="status" aria-live="polite" className={cn(addedProduct && "sticky bottom-0 z-20 flex flex-wrap items-center justify-between gap-2 border-t border-mix-primary/20 bg-mix-background/95 px-4 py-2 shadow-lg backdrop-blur-sm")}>
       {addedProduct && <><p className="text-xs text-heading"><Check size={14} aria-hidden="true" className="mr-1 inline text-primary" />{copy.products.addedMessage.replace("{product}", addedProduct.name)}</p><button type="button" onClick={onViewBag} className={cn("inline-flex min-h-11 items-center gap-2 rounded px-3 text-xs font-semibold text-primary", focus)}>{copy.products.viewBasket}<ArrowRight size={15} aria-hidden="true" /></button></>}
     </div>
   </div>;

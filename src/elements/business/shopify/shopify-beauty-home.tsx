@@ -42,7 +42,7 @@ export default function ShopifyBeautyHome({ products, headline, brief, onBrowse,
         </div>
         <div className="relative min-w-0 p-[clamp(1rem,3cqw,2.5rem)]">
           <div className="aspect-[4/5] max-h-[42rem] overflow-hidden rounded-t-[45%] rounded-b-[1rem]">{photo(copy.hero.image, copy.hero.imageAlt, "object-center", true)}</div>
-          <div className="absolute bottom-[clamp(2rem,5cqw,4rem)] left-[clamp(2rem,5cqw,4rem)] right-[clamp(2rem,5cqw,4rem)] flex items-center justify-between gap-3 rounded-xl border border-background bg-background/95 p-4 shadow-sm"><div><p className="font-heading text-xl">{copy.hero.note}</p><p className="mt-1 text-[11px] text-paragraph">{copy.hero.noteDetail}</p></div>{serum && <button type="button" aria-label={`${copy.collection.action}: ${serum.name}`} onClick={() => onProduct(serum.id)} className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground", focus)}><ArrowUpRight size={18} aria-hidden="true" /></button>}</div>
+          <div className="absolute bottom-[clamp(2rem,5cqw,4rem)] left-[clamp(2rem,5cqw,4rem)] right-[clamp(2rem,5cqw,4rem)] flex items-center justify-between gap-3 rounded-xl border border-background bg-mix-background/95 p-4 shadow-sm"><div><p className="font-heading text-xl">{copy.hero.note}</p><p className="mt-1 text-[11px] text-paragraph">{copy.hero.noteDetail}</p></div>{serum && <button type="button" aria-label={`${copy.collection.action}: ${serum.name}`} onClick={() => onProduct(serum.id)} className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground", focus)}><ArrowUpRight size={18} aria-hidden="true" /></button>}</div>
         </div>
       </section>
 

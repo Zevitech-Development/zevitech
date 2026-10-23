@@ -1,4 +1,5 @@
 // Requirements discovery and its actual handlers, without provider or network calls.
+require('./setup-next-image.cjs');
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -72,12 +73,12 @@ function renderDiscovery(overrides = {}) {
 }
 
 const paymentAmounts = {
-  '$249': ['$249', '$99.60', '$149.40'],
-  '$599': ['$599', '$239.60', '$359.40'],
-  '$999': ['$999', '$399.60', '$599.40'],
-  '$1,499': ['$1,499', '$599.60', '$899.40'],
-  '$2,499': ['$2,499', '$999.60', '$1,499.40'],
-  '$4,999': ['$4,999', '$1,999.60', '$2,999.40'],
+  '$249': ['$249', '$24.90', '$224.10'],
+  '$599': ['$599', '$59.90', '$539.10'],
+  '$999': ['$999', '$99.90', '$899.10'],
+  '$1,499': ['$1,499', '$149.90', '$1,349.10'],
+  '$2,499': ['$2,499', '$249.90', '$2,249.10'],
+  '$4,999': ['$4,999', '$499.90', '$4,499.10'],
 };
 
 function quotedAmounts(markup) {

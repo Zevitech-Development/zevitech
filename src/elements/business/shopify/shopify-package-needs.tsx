@@ -59,7 +59,7 @@ export default function ShopifyPackageNeeds({ discovery = false, packageSelected
       return <label key={feature.id} className={cn(
         "relative flex min-w-0 items-start gap-3 rounded-xl border bg-background p-4 animation-standard focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2",
         included ? "cursor-default" : "cursor-pointer hover:border-primary",
-        checked ? "border-primary bg-primary/5" : "border-border",
+        checked ? "border-primary bg-mix-primary/5" : "border-border",
       )}>
         <input
           type="checkbox"
@@ -110,7 +110,7 @@ export default function ShopifyPackageNeeds({ discovery = false, packageSelected
       <fieldset className="space-y-4">
         <legend className="font-semibold text-heading">{discoveryCopy.title}</legend>
         <p className="text-sm leading-relaxed text-paragraph">{activePackage ? discoveryCopy.selectedPackageHelp : discoveryCopy.recommendedPackageHelp}</p>
-        <div role="status" aria-live="polite" aria-atomic="true" className="rounded-xl border border-primary/20 bg-primary/5 p-4">
+        <div role="status" aria-live="polite" aria-atomic="true" className="rounded-xl border border-mix-primary/20 bg-mix-primary/5 p-4">
           {matchingPackage ? <>
             <div className="flex flex-wrap items-start justify-between gap-x-6 gap-y-3">
               <div className="min-w-0">

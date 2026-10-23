@@ -1,9 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { useId } from "react";
 
-import { Check, ChevronDown, Layers3, LayoutTemplate, Package, PenTool, ShoppingBag } from "lucide-react";
+import { Check, ChevronDown, Plus, Layers3, Package, PenTool } from "lucide-react";
 
 import ShopifyDeliveryEstimate from "./shopify-delivery-estimate";
 import ShopifyPaymentSchedule from "./shopify-payment-schedule";
@@ -11,7 +10,6 @@ import {
   packagePickerCopy as copy,
   packagePickerHighlights,
 } from "@/content/landing/shopify-package-picker-content";
-import { studioTemplates } from "@/content/landing/shopify-studio-templates";
 import { shopifyDeliveryCopy } from "@/content/landing/shopify-delivery-content";
 import type { ShopifyPackagePickerProps } from "@/interfaces/shopify-package-picker-interface";
 import { cn } from "@/lib/utils";
@@ -21,13 +19,16 @@ const money = new Intl.NumberFormat("en-US", {
   currency: "USD",
   maximumFractionDigits: 0,
 });
-const motifImages = studioTemplates[0].images;
 
 export default function ShopifyPackagePicker({
   plans,
   selected,
   confirmed = true,
   onSelect,
+  minimumIndex = 0,
+  recommendedIndex,
+  designName,
+  onLockedSelect,
 }: ShopifyPackagePickerProps) {
   const pickerId = useId();
   const chosenPlan = confirmed && Number.isInteger(selected) ? plans[selected] : null;
@@ -36,65 +37,42 @@ export default function ShopifyPackagePicker({
     <div className="space-y-5">
       <fieldset>
         <legend className="sr-only">{copy.label}</legend>
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
+        <div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
           {plans.map((plan, index) => {
             const highlights = packagePickerHighlights[plan.name];
             const isSelected = confirmed && selected === index;
             const cardId = `${pickerId}-${index}`;
             const level = highlights.visualLevel;
+            const locked = index < minimumIndex;
+            const recommended = !locked && recommendedIndex === index;
             return (
-              <label key={plan.name} className="relative block h-full min-w-0 cursor-pointer">
+              <article key={plan.name} aria-label={`${plan.name} package`} className="relative min-w-0">
+                {recommended && <span className="absolute -top-3 left-4 z-10 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">{copy.recommended}</span>}
                 <input
                   type="radio"
                   name={`${pickerId}-package`}
                   value={plan.name}
                   checked={isSelected}
+                  disabled={locked}
                   onChange={() => onSelect(index)}
                   aria-labelledby={`${cardId}-name ${cardId}-price`}
                   aria-describedby={`${cardId}-payment ${cardId}-summary`}
-                  className="peer absolute right-4 top-4 z-10 h-11 w-11 cursor-pointer opacity-0"
+                  className="peer sr-only"
                 />
-                <span
+                <div
                   className={cn(
-                    "animation-standard flex h-full min-w-0 flex-col rounded-2xl border bg-background p-4 text-left peer-focus-visible:outline-none peer-focus-visible:ring-2 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-2 md:p-5",
+                    "animation-standard flex min-w-0 flex-col rounded-2xl border bg-background p-4 text-left peer-focus-visible:outline-none peer-focus-visible:ring-2 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-2 md:p-5",
                     isSelected
                       ? "border-primary ring-1 ring-primary"
-                      : "border-border hover:border-primary hover:shadow-sm",
+                      : locked ? "border-dashed border-border bg-mix-muted/40" : "border-border hover:border-primary hover:shadow-sm",
                   )}
                 >
-                  <span
-                    aria-hidden="true"
-                    className="relative mb-4 flex h-20 items-center overflow-hidden rounded-lg border border-border bg-muted px-3"
-                  >
-                    {level >= 3 && <span className="absolute inset-0 bg-primary opacity-10" />}
-                    <span className={cn(
-                      "relative flex h-16 w-full gap-2 rounded-md border border-border bg-background p-2",
-                      level >= 4 && "mr-5 -rotate-2 shadow-sm",
-                    )}>
-                      <span className={cn("flex min-w-0 flex-1 flex-col justify-center gap-1.5", level === 2 && "order-2")}>
-                        <span className="h-1.5 w-3/4 rounded-full bg-heading opacity-40" />
-                        <span className="h-1 w-full rounded-full bg-heading opacity-20" />
-                        <span className={cn("h-2.5 w-1/3 rounded-sm", level >= 1 ? "bg-primary" : "bg-heading opacity-40")} />
-                      </span>
-                      <span className={cn(
-                        "grid flex-1 gap-1",
-                        level >= 2 ? "grid-cols-2" : "grid-cols-1",
-                      )}>
-                        {Array.from({ length: level >= 2 ? (level >= 3 ? 4 : 2) : 1 }, (_, tile) => (
-                          <span key={tile} className="relative min-h-0 overflow-hidden rounded-sm bg-muted">
-                            <Image
-                              src={motifImages[tile % motifImages.length]}
-                              alt=""
-                              fill
-                              sizes="90px"
-                              className="object-cover"
-                            />
-                          </span>
-                        ))}
-                      </span>
-                      {level === 5 && <span className="flex w-3 flex-col gap-1 border-l border-border pl-1"><span className="h-2 rounded-sm bg-primary" /><span className="h-2 rounded-sm bg-primary opacity-40" /><span className="h-2 rounded-sm bg-primary opacity-40" /></span>}
+                  <span className={cn("relative mb-4 flex h-20 flex-col justify-between overflow-hidden rounded-xl p-4", level >= 4 ? "bg-heading text-background" : "bg-mix-primary/10 text-heading")}>
+                    <span className="flex items-center justify-between gap-3">
+                      <Layers3 aria-hidden="true" className={cn("h-6 w-6", level < 4 && "text-primary")} />
+                      <span aria-hidden="true" className="flex gap-1.5">{Array.from({length:6},(_,step)=><span key={step} className={cn("h-1.5 w-4 rounded-full bg-current",step>level&&"opacity-20")} />)}</span>
                     </span>
-                    {level >= 4 && <span className="absolute right-2 top-2 flex h-10 w-9 rotate-6 items-center justify-center rounded-md border border-primary bg-background shadow-sm"><Layers3 className="h-5 w-5 text-primary" /></span>}
+                    <span className="mt-2 text-sm font-semibold leading-5">{highlights.audience}</span>
                   </span>
 
                   <span className="flex flex-wrap items-center justify-between gap-2">
@@ -110,34 +88,59 @@ export default function ShopifyPackagePicker({
                     <span className="font-heading text-3xl tracking-tight text-heading">{money.format(plan.price)}</span>
                     <span className="text-xs text-paragraph">{copy.oneTime}</span>
                   </span>
-                  <span id={`${cardId}-payment`}><ShopifyPaymentSchedule total={plan.price} compact highlight className="mt-2" /></span>
+                  <span id={`${cardId}-payment`} className="[&>span]:min-h-12"><ShopifyPaymentSchedule total={plan.price} compact highlight className="mt-2" /></span>
                   <span id={`${cardId}-summary`} className="my-4 flex flex-1 flex-col gap-2.5 text-sm leading-5 text-paragraph">
-                    <ShopifyDeliveryEstimate packageName={plan.name} />
+                    <span className="min-h-12"><ShopifyDeliveryEstimate packageName={plan.name} /></span>
                     <span className="flex items-start gap-2">
                       <PenTool aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                      <span><span className="sr-only">{copy.logo}: </span>{plan.logoConcepts === 1 ? copy.logoConceptSingle : copy.logoConcepts.replace("{count}", String(plan.logoConcepts))}</span>
-                    </span>
-                    <span className="flex items-start gap-2">
-                      <LayoutTemplate aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                      <span><span className="sr-only">{copy.themes}: </span>{highlights.theme}</span>
-                    </span>
-                    <span className="flex items-start gap-2">
-                      <ShoppingBag aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                      <span><span className="sr-only">{copy.functionality}: </span>{highlights.functionality}</span>
+                      <span className="min-h-8"><span className="sr-only">{copy.logo}: </span>{plan.logoConcepts === 1 ? copy.logoConceptSingle : copy.logoConcepts.replace("{count}", String(plan.logoConcepts))}</span>
                     </span>
                     <span className="flex items-start gap-2">
                       <Package aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
                       <span><span className="sr-only">{copy.products}: </span>{copy.productLimit.replace("{count}", String(plan.products))}</span>
                     </span>
                   </span>
-                  <span className={cn(
-                    "flex min-h-11 items-center justify-center rounded-lg px-3 py-2 text-sm font-semibold",
-                    isSelected ? "bg-primary text-primary-foreground" : "bg-muted text-heading",
-                  )}>
-                    {isSelected ? copy.selected : copy.choose}
-                  </span>
-                </span>
-              </label>
+                  <div className="mb-4 border-t border-border pt-3">
+                    <p className="flex min-h-8 items-center text-xs font-semibold text-primary">{index === 0 ? copy.essentials : copy.inherits.replace("{package}", plans[index - 1].name)}</p>
+                    <ul className="mt-1 space-y-1 text-sm leading-5 text-heading">
+                      {highlights.features.map(feature => <li key={feature} className="flex min-h-8 items-start gap-2 py-1">
+                        {index === 0 ? <Check aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> : <Plus aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-primary" />}
+                        <span>{feature}</span>
+                      </li>)}
+                    </ul>
+                  </div>
+                  {locked && onLockedSelect ? (
+                    <span className="flex flex-col gap-2">
+                      <span className="text-center text-xs text-paragraph">{copy.locked.replace("{design}", designName || "this design")}</span>
+                      <button type="button" onClick={(event) => { event.preventDefault(); onLockedSelect(index); }}
+                        className="relative z-20 flex min-h-11 items-center justify-center rounded-lg border border-primary bg-background px-3 py-2 text-sm font-semibold text-primary hover:bg-mix-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+                        {copy.lockedAction.replace("{package}", plan.name)}
+                      </button>
+                    </span>
+                  ) : (
+                    <span className="flex flex-col gap-2">
+                    <button type="button" onClick={() => onSelect(index)} disabled={locked} className={cn(
+                      "flex min-h-11 items-center justify-center rounded-lg px-3 py-2 text-sm font-semibold focus-visible:ring-2 focus-visible:ring-primary",
+                      isSelected ? "bg-primary text-primary-foreground" : "bg-muted text-heading",
+                    )}>
+                      {locked ? copy.locked.replace("{design}", designName || "this design") : isSelected ? copy.selected : `${copy.choose} · ${plan.name}`}
+                    </button>
+                    </span>
+                  )}
+                  <details className="group mt-4 border-t border-border pt-2">
+                    <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-2 rounded-lg text-sm font-semibold focus-visible:ring-2 focus-visible:ring-primary">
+                      {copy.details}<ChevronDown aria-hidden="true" className="h-4 w-4 shrink-0 transition-transform group-open:rotate-180" />
+                    </summary>
+                    <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-primary">{index === 0 ? copy.foundation : copy.included}</p>
+                    <ul className="mt-3 space-y-3 text-sm leading-relaxed text-paragraph">{plan.features.map(feature => {
+                      const upgraded = index > 0 && plan.additions.includes(feature);
+                      const Icon = upgraded ? Plus : Check;
+                      return <li key={feature} className="flex items-start gap-2"><Icon aria-hidden="true" className="mt-1 h-3.5 w-3.5 shrink-0 text-primary"/><span>{feature}{upgraded && <span className="mt-1 block text-xs font-semibold text-primary">{copy.upgraded}</span>}</span></li>;
+                    })}</ul>
+                    {index === 0 && <p className="mt-4 border-t border-border pt-3 text-xs leading-relaxed text-paragraph">{copy.basicScope}</p>}
+                  </details>
+                </div>
+              </article>
             );
           })}
         </div>

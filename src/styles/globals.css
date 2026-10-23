@@ -177,13 +177,6 @@
   border-color: #121a2c;
 }
 
-@font-face {
-  font-family: "Coolvetica Rg";
-  src: url("/fonts/coolvetica/CoolveticaRg.otf") format("opentype");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
 
 * {
   margin: 0;
@@ -4621,3 +4614,20 @@ main.google-ads-page {
 @media (prefers-reduced-motion: reduce) {
  .studio-premium-cinema-backdrop, .studio-premium-commerce-main-image, .studio-premium-executive-photo { transform: none; }
 }
+
+/* Approved concept artwork translated into responsive store components. */
+.studio-artwork-store .font-heading { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; }
+.studio-artwork-store [data-signature-theme] .rounded-3xl,
+.studio-artwork-store [data-signature-theme] .rounded-2xl { border-radius: 2px; }
+.studio-artwork-store [data-signature-theme] button.rounded-full { border-radius: 2px; }
+.studio-artwork-store [data-signature-theme="bundle"] { --bundle-tint: var(--secondary-background); }
+
+/* Cards render the same storefront at a fixed desktop width. Keep decorative
+   animations still inside miniature previews, and preserve the full modal. */
+.studio-live-thumbnail *, .studio-live-thumbnail *::before, .studio-live-thumbnail *::after {
+  animation-play-state: paused;
+  scroll-behavior: auto;
+}
+
+/* The approved Commerce Studio uses a clean blue-and-white sans-serif system. */
+.studio-commerce-reference { container-type: inline-size; container-name: studio; font-family: inherit; }

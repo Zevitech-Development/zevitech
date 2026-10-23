@@ -8,3 +8,7 @@ tests/
 .env*
 !.env.example
 *.tsbuildinfo
+
+.next-audit/
+artifacts/
+.seo-cache/

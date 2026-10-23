@@ -9,9 +9,15 @@ const money = (amount: number) => new Intl.NumberFormat("en-US", {
 
 export default function ShopifyPaymentSchedule({ total, compact = false, highlight = false, className }: ShopifyPaymentScheduleProps) {
   const payment = getShopifyPaymentSchedule(total);
+  if (compact && highlight) return (
+    <span className={cn("block text-xs leading-relaxed text-paragraph", className)}>
+      <span className="inline-flex rounded-md bg-primary/10 px-2 py-1 text-sm font-semibold text-primary-hover">{copy.upfrontHighlight}</span>
+      <span className="mt-1 block"><span className="font-semibold text-heading">{money(payment.upfront)}</span> {copy.dueToday.toLowerCase()} · {copy.balance}</span>
+    </span>
+  );
   if (compact) return (
-    <span className={cn("block text-xs leading-relaxed text-paragraph", highlight && "rounded-lg bg-primary/10 px-3 py-2", className)}>
-      <span className={cn("font-semibold", highlight ? "text-primary" : "text-heading")}>{copy.upfront}: {money(payment.upfront)}</span>
+    <span className={cn("block text-xs leading-relaxed text-paragraph", className)}>
+      <span className="font-semibold text-heading">{copy.upfront}: {money(payment.upfront)}</span>
       {" · "}{copy.balance}: {money(payment.balance)}
     </span>
   );

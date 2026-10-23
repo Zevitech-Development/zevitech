@@ -42,9 +42,9 @@ export default function YoutubeProcessSection({
                   unoptimized
                   className="w-full h-full rounded-lg"
                 />
-                <h1 className="text-3xl md:text-4xl text-heading font-extrabold font-heading leading-tight">
+                <h2 className="text-3xl md:text-4xl text-heading font-extrabold font-heading leading-tight">
                   {leftCardTitle}
-                </h1>
+                </h2>
                 <p className="text-sm md:text-base font-medium text-paragraph">
                   {leftCardDescription}
                 </p>

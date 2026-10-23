@@ -27,6 +27,7 @@ const env = () => ({
   VERCEL_ENV: "production",
   SHOPIFY_CHECKOUT_ENABLED: "true",
   SHOPIFY_CHECKOUT_TERMS_APPROVED: "true",
+  CRON_SECRET: "test-cron-secret",
   SHOPIFY_CHECKOUT_MODE: "live",
   SHOPIFY_CHECKOUT_ORIGIN: "https://www.example.test",
   SHOPIFY_CHECKOUT_REDIS_REST_URL: "https://dedicated-redis.example.test",
@@ -69,6 +70,7 @@ test("production gating skips with zero network calls", async () => {
 test("config errors block enabled production before contacting any provider", async () => {
   for (const override of [
     { SHOPIFY_CHECKOUT_TERMS_APPROVED: "false" },
+    { CRON_SECRET: undefined }, { CRON_SECRET: "" }, { CRON_SECRET: " invalid secret " },
     { SHOPIFY_CHECKOUT_MODE: "sandbox" }, { SHOPIFY_CHECKOUT_MODE: undefined },
     { SHOPIFY_CHECKOUT_ORIGIN: "http://example.test" }, { SHOPIFY_CHECKOUT_ORIGIN: "https://example.test/checkout" },
     { SHOPIFY_CHECKOUT_ORIGIN: "https://name:password@example.test" },

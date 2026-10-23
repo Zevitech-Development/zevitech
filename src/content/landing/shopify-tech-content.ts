@@ -1,7 +1,7 @@
 import type { ShopifySignatureProductSeed } from "@/interfaces/shopify-signature-storefront-interface";
 
 export const techProducts: ShopifySignatureProductSeed[] = [
-  { name: "Arc Studio Headphones", collection: "Headphones", price: 299, src: "/store-studio/tech-premium/arc-headphones.png", description: "Sculpted over-ear headphones with a charcoal finish, cushioned ear cups and a clean curved headband. A considered centrepiece for your personal listening space." },
+  { name: "Arc Studio Headphones", collection: "Headphones", price: 299, src: "/store-studio/tech-premium/arc-headphones.webp", description: "Sculpted over-ear headphones with a charcoal finish, cushioned ear cups and a clean curved headband. A considered centrepiece for your personal listening space." },
   { name: "Pocket In-Ear Set", collection: "Earbuds", price: 89, src: "/store-studio/tech-premium/earbuds.jpg", description: "A compact black earbud set with a matching charging case. A small, easy-to-carry alternative to over-ear headphones." },
   { name: "Portable Cylinder Speaker", collection: "Speakers", price: 129, src: "/store-studio/tech-premium/portable-speaker.jpg", description: "A portable speaker with a textured black wrap and compact cylindrical shape. Bring shared listening to a desk, shelf or everyday gathering." },
   { name: "Low-Profile Keyboard", collection: "Desk Essentials", price: 99, src: "/store-studio/tech-premium/keyboard.jpg", description: "A compact silver-and-white keyboard with low-profile keys and an uncluttered layout. A simple starting point for a considered workspace." },
@@ -18,7 +18,7 @@ export const techHomeCopy = {
     description: "A new perspective on the things you use every day. Explore considered audio and a workspace that feels like you.",
     action: "Explore Arc Studio",
     secondary: "Shop all technology",
-    image: "/store-studio/tech-premium/arc-headphones.png",
+    image: "/store-studio/tech-premium/arc-headphones.webp",
     imageAlt: "Sculptural charcoal over-ear headphones with cool blue studio lighting",
     model: "ARC / STUDIO",
     note: "Sound. Form. Everyday possibility.",

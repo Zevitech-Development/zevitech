@@ -19,11 +19,13 @@ const money = (amount: number) => new Intl.NumberFormat("en-US", { style: "curre
 /** Only explicit fulfilment fields enter the notification; credentials never do. */
 export function renderShopifyOrderNotification(order: ShopifyCheckoutOrder): ShopifyOrderNotification {
   const upfront = order.paymentStage === "upfront";
+  const historical = order.paymentVersion === "upfront-40-v1";
+  const approvalTerms = order.paymentVersion === "upfront-10-v2";
   const payment = [
     [copy.order, order.id], [copy.transaction, order.transactionId || ""],
     [copy.package, order.packageName], [copy.total, money(order.totalAmount ?? order.amount)],
-    [copy.paid, money(order.amountPaid ?? order.amount)], [copy.balance, money(order.balanceAmount ?? 0)],
-    [copy.stage, upfront ? copy.upfront : copy.full], [copy.productLimit, String(order.productLimit)],
+    [copy.paid, money(order.amountPaid ?? order.amount)], [approvalTerms ? "Remaining balance due after customer approval" : copy.balance, money(order.balanceAmount ?? 0)],
+    [copy.stage, upfront ? historical ? "40% upfront" : copy.upfront : copy.full], [copy.productLimit, String(order.productLimit)],
     [copy.delivery, getShopifyDeliveryEstimate(order.packageName) || ""],
   ];
   const fieldPairs = (labels: Record<string, string>, values: Record<string, unknown>) =>
@@ -41,7 +43,7 @@ export function renderShopifyOrderNotification(order: ShopifyCheckoutOrder): Sho
     { heading: copy.needs, fields: requirements },
     { heading: copy.assets, fields: [[copy.logo, order.brief.logoFilename], [copy.images, order.brief.imageFilenames.join(", ")]] },
   ];
-  const notes = [copy.assetNote, ...(upfront ? [copy.noAutomaticCharge] : [])];
+  const notes = [copy.assetNote, ...(upfront ? [approvalTerms ? "The remaining balance has not been charged and must be collected separately after customer approval." : copy.noAutomaticCharge] : [])];
   return {
     orderId: order.id,
     subject: `${copy.subject} — ${order.id}`,

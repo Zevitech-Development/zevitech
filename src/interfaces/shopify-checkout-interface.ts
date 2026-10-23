@@ -52,12 +52,15 @@ export interface ShopifyCheckoutPublicOrder {
   balanceAmount: number;
   amountPaid: number;
   paymentStage: "upfront" | "full";
-  paymentVersion: "upfront-40-v1" | "legacy-full-v1";
+  paymentVersion: "upfront-10-v3" | "upfront-10-v2" | "upfront-40-v1" | "legacy-full-v1";
   currency: "USD";
   mode: "sandbox" | "live";
   briefFingerprint: string;
   transactionId?: string;
   declineCode?: string;
+  gatewayIssue?: "duplicate";
+  verificationEndsAt?: string;
+  retryAllowed?: boolean;
 }
 
 export interface ShopifyCheckoutConfig {

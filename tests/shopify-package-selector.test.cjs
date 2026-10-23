@@ -1,4 +1,5 @@
 // Render package scope notes without a browser, provider or network request.
+require('./setup-next-image.cjs');
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -85,7 +86,7 @@ test('many scope gaps show two items and expose every remaining need through nat
   assert.match(note, /<details[\s\S]*Unlimited pages with unique designs/);
   assert.match(note, /<details[\s\S]*5 or more custom logo concepts/);
   assert.match(note, /<details[\s\S]*Dedicated project manager/);
-  assert.match(beginner, /Unlimited revisions/);
+  assert.match(beginner, /1 revision round within the agreed launch scope/);
   assert.doesNotMatch(note, /role="alert"/);
 });
 
@@ -137,18 +138,18 @@ test('cards show cumulative additions compactly and preserve every inclusion in 
 test('each package preserves its full price and quotes exact upfront and delivery balance amounts', () => {
   const markup = render();
   for (const [name, total, upfront, balance] of [
-    ['Beginner', '$249', '$99.60', '$149.40'],
-    ['Growth', '$599', '$239.60', '$359.40'],
-    ['Level Up', '$999', '$399.60', '$599.40'],
-    ['Pro', '$1,499', '$599.60', '$899.40'],
-    ['Executive', '$2,499', '$999.60', '$1,499.40'],
-    ['Top Tier', '$4,999', '$1,999.60', '$2,999.40'],
+    ['Beginner', '$249', '$24.90', '$224.10'],
+    ['Growth', '$599', '$59.90', '$539.10'],
+    ['Level Up', '$999', '$99.90', '$899.10'],
+    ['Pro', '$1,499', '$149.90', '$1,349.10'],
+    ['Executive', '$2,499', '$249.90', '$2,249.10'],
+    ['Top Tier', '$4,999', '$499.90', '$4,499.10'],
   ]) {
     const card = article(markup, name);
     assert.ok(card.includes(`>${total}</p>`), `${name} keeps its full price`);
     assert.match(card, /full package price · one-time · USD/);
-    assert.ok(card.includes(`40% upfront: ${upfront}`), `${name} upfront`);
-    assert.ok(card.includes(`60% after delivery: ${balance}`), `${name} balance`);
+    assert.ok(card.includes("Pay only 10% upfront") && card.includes(upfront), `${name} upfront`);
+    assert.ok(card.includes("90% after delivery"), `${name} balance timing`);
     assert.doesNotMatch(card, /monthly|discounted/i);
   }
 });
@@ -160,18 +161,18 @@ test('compact package selection describes the payment split to keyboard and scre
   const inputs = [...markup.matchAll(/<input\b[^>]*type="radio"[^>]*>/g)].map(match => match[0]);
   assert.equal(inputs.length, 6);
   assert.ok(inputs.every(input => /aria-describedby="[^"]+-payment [^"]+-summary"/.test(input)));
-  assert.equal((markup.match(/40% upfront:/g) || []).length, 6);
-  assert.equal((markup.match(/60% after delivery:/g) || []).length, 6);
+  assert.equal((markup.match(/Pay only 10% upfront/g) || []).length, 6);
+  assert.ok((markup.match(/90% after delivery/g) || []).length >= 6);
   assert.match(markup, /Growth selected · \$599 USD full package price/);
 });
 
 test('side-by-side comparison shows full totals and payment splits on mobile and desktop', () => {
   const markup = renderToStaticMarkup(React.createElement(Comparison, { plans: studioPlans }));
   assert.match(markup, /Full package price: USD(?:&nbsp;|\u00a0)249/);
-  assert.match(markup, /40% upfront: \$99\.60/);
-  assert.match(markup, /60% after delivery: \$149\.40/);
-  assert.match(markup, /40% upfront: \$999\.60/);
-  assert.match(markup, /60% after delivery: \$1,499\.40/);
+  assert.match(markup, /10% upfront: \$24\.90/);
+  assert.match(markup, /90% after delivery: \$224\.10/);
+  assert.match(markup, /10% upfront: \$249\.90/);
+  assert.match(markup, /90% after delivery: \$2,249\.10/);
   assert.doesNotMatch(markup, /hidden md:grid/);
 });
 

@@ -17,6 +17,7 @@ export default function RootHeaderFooterGuard({
     "/landing-pages/logo-design",
     "/landing-pages/shopify-development",
     "/landing-pages/shopify-development/thank-you",
+    "/landing-pages/shopify-development/thank-you/preview",
     "/landing-pages/website-design",
     "/services/digital-marketing/google-ads",
     "/landing-pages/website-design/us",

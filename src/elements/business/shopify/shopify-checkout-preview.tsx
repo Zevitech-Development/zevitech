@@ -18,7 +18,7 @@ export default function ShopifyCheckoutPreview({ brief, onEdit }: ShopifyCheckou
   const billingName = suggestShopifyBillingName(brief.business.name);
   const fieldClass = "mt-2 min-h-12 w-full min-w-0 rounded-xl border border-border bg-muted px-3 py-3 text-sm text-paragraph";
   return <div className="space-y-5">
-    <p role="status" className="rounded-xl border border-primary/20 bg-primary/5 p-4 text-sm leading-relaxed text-heading">{copy.previewNotice}</p>
+    <p role="status" className="rounded-xl border border-mix-primary/20 bg-mix-primary/5 p-4 text-sm leading-relaxed text-heading">{copy.previewNotice}</p>
     <div className="flex min-w-0 flex-wrap items-center justify-between gap-4 rounded-xl bg-muted p-4">
       <div><p className="font-semibold text-heading">{plan?.name}</p><p className="mt-1 text-xs text-paragraph">{copy.previewFee}</p></div>
       {plan && <strong className="font-heading text-3xl text-heading">${plan.price.toLocaleString()} USD</strong>}

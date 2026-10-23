@@ -24,7 +24,7 @@ export default function ShopifyLandingHeroSection() {
           </ul>
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <a href={shopifySalesCtaContent.href} className="inline-flex min-h-12 items-center justify-center gap-3 rounded-xl bg-primary px-5 py-3 text-center font-semibold leading-snug text-primary-foreground transition-colors hover:bg-primary-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
-              {shopifySalesCtaContent.label}<ArrowRight aria-hidden="true" className="h-5 w-5 shrink-0" />
+              {shopifySalesCtaContent.allDesignsLabel}<ArrowRight aria-hidden="true" className="h-5 w-5 shrink-0" />
             </a>
             <a href={shopifySalesCtaContent.packageHref} className="inline-flex min-h-12 items-center justify-center rounded-xl border border-white/40 px-5 py-3 text-center font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">{shopifySalesCtaContent.packageLabel}</a>
           </div>

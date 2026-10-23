@@ -15,11 +15,19 @@ const declineMessages: Record<string, string> = {
   "224": "Check your card’s expiry date, then try again.",
   "225": "Check the security code on your card, then try again.",
   "240": "Contact your card issuer before trying this card again, or use another card.",
+  "300": "The payment gateway rejected these payment details. Check your card and billing details, or try another card.",
+  "410": "Card checkout is temporarily unavailable. Please contact our team with your order reference.",
+  "411": "Card checkout is temporarily unavailable. Please contact our team with your order reference.",
+  "440": "The payment details could not be processed. Check your billing details or contact our team.",
+  "441": "The payment information was not accepted. Check your card and billing details, then try again.",
+  "460": "This payment option is unavailable. Please contact our team with your order reference.",
+  "461": "This card type is not supported. Please use a different card.",
   "264": "Your bank has asked that this payment be retried later. Contact your bank or use another card.",
 };
-export function shopifyDeclineFeedback(code?: string): string {
+export function shopifyDeclineFeedback(code?: string, issue?: "duplicate"): string {
+  if (issue === "duplicate") return "The gateway blocked this as a duplicate payment. Please contact your project manager to verify the earlier attempt before paying again. This checkout has not been confirmed.";
   const message = (code && declineMessages[code]) || "Your payment was not approved. Contact your bank or use another card.";
-  return `${message}${code && /^2\d{2}$/.test(code) ? ` Reference code: ${code}.` : ""}`;
+  return `${message}${code && (/^2\d{2}$/.test(code) || Object.hasOwn(declineMessages, code)) ? ` Reference code: ${code}.` : ""}`;
 }
 export function shopifyCheckoutErrorFeedback(code: string): string | null {
   const messages: Record<string, string> = {

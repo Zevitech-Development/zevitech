@@ -78,7 +78,7 @@ export default function ShopifyOrderSummary({
           className="mt-3 rounded-xl border border-border p-3"
         />
 
-        <details key={plan.name} open className="group mt-2">
+        <details key={plan.name} className="group mt-2">
           <summary className="animation-standard flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 rounded-lg text-sm font-medium text-heading hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 [&::-webkit-details-marker]:hidden">
             {copy.inclusions}
             <ChevronDown
@@ -116,7 +116,7 @@ export default function ShopifyOrderSummary({
             </dd>
           </dl>
           <dl className="mt-4 space-y-3 rounded-xl border border-border bg-muted p-3">
-            <div className="flex flex-wrap items-center justify-between gap-2"><dt className="text-sm font-semibold text-heading">{copy.upfront}</dt><dd className="font-heading text-2xl text-heading">{PRICE_FORMATTER.format(payment.upfront)}</dd></div>
+            <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg bg-primary/5 px-3 py-2 text-heading"><dt className="text-sm font-semibold">{copy.upfront}</dt><dd className="text-xl font-semibold tabular-nums">{PRICE_FORMATTER.format(payment.upfront)}</dd></div>
             <div className="flex flex-wrap items-center justify-between gap-2"><dt className="text-sm text-paragraph">{copy.balance}</dt><dd className="font-semibold text-heading">{PRICE_FORMATTER.format(payment.balance)}</dd></div>
           </dl>
           <p className="mt-3 text-xs leading-relaxed text-paragraph">{copy.paymentPlan}</p>

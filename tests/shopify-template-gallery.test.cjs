@@ -1,4 +1,5 @@
 // Server-rendered gallery checks. No browser, provider or network calls.
+require('./setup-next-image.cjs');
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -24,6 +25,9 @@ for (const extension of ['.ts', '.tsx']) {
 const Gallery = require('../src/elements/business/shopify/shopify-template-gallery.tsx').default;
 const ConceptReference = require('../src/elements/business/shopify/shopify-concept-reference.tsx').default;
 const StudioSelect = require('../src/elements/business/shopify/shopify-studio-select.tsx').default;
+const { shopifyCategoryLabel, shopifyLibraryCategory, shopifyProductCategories: productCategoryNames } = require('../src/content/landing/shopify-business-categories.ts');
+// Level Up, Pro, Executive and Top Tier each add a premium storefront to every product category.
+const tierThemes = category => productCategoryNames.map(shopifyLibraryCategory).includes(category) ? 4 : 0;
 const { studioTemplates } = require('../src/content/landing/shopify-studio-templates.ts');
 const { studioPlans } = require('../src/content/landing/shopify-studio-content.ts');
 const { shopifyPackageCatalog } = require('../src/content/landing/shopify-package-catalog.ts');
@@ -71,25 +75,25 @@ function cardNames(markup) {
     .replaceAll('&amp;', '&').replaceAll('&#x27;', "'").replaceAll('&quot;', '"'));
 }
 
-test('Beginner shows one included design with an explicit industry choice and a single preview action', () => {
+test('Beginner shows every design with an explicit industry choice and a single preview action', () => {
   const markup = render();
   const articles = cards(markup);
-  assert.equal(articles.length, 1);
-  assert.match(markup, /Beginner · 1 included design/);
+  assert.equal(articles.length, 14);
+  assert.match(markup, /Beginner · 14 included designs/);
   assert.match(markup, /<label[^>]*for="[^"]+-industry"/);
-  assert.match(markup, /<option value="Fashion" selected="">Fashion<\/option>/);
+  assert.match(markup, /<option value="Fashion" selected="">Clothing &amp; fashion<\/option>/);
   assert.equal((markup.match(/<select\b/g) || []).length, 1);
-  assert.equal((markup.match(/<button\b/g) || []).length, 1);
+  assert.equal((markup.match(/<button\b/g) || []).length, articles.length);
   assert.doesNotMatch(markup, /Shortlist|Compare references|type="search"|Unlock with|Show \d+ more/);
-  assert.match(markup, /Illustrative references for our design team/);
+  assert.match(markup, /We build your store with your own brand/);
   const preview = articles[0].match(/<button\b[^>]*>/)[0];
-  assert.match(preview, /aria-label="Preview Atelier Editorial"/);
+  assert.match(preview, /aria-label="Preview /);
   assert.match(preview, /aria-describedby="[^"]+-status [^"]+-illustration"/);
   assert.doesNotMatch(preview, /\s(?:disabled|aria-disabled)=/);
 });
 
 test('every package shows included concepts first, followed by the highest eligible layouts', () => {
-  const expectedLayouts = [[0], [2, 0], [3, 2, 0], [4, 3, 2, 0], [7, 6, 4, 3, 2, 0], [8, 9, 8, 7, 6, 4, 3, 2, 0]];
+  const expectedLayouts = studioPlans.map(() => [9, 8, 8, 6, 4, 3, 9, 8, 7, 6, 4, 3, 2, 0]);
   for (const [index, plan] of studioPlans.entries()) {
     const markup = render({ packageName: plan.name });
     const names = cardNames(markup);
@@ -102,51 +106,50 @@ test('every package shows included concepts first, followed by the highest eligi
   }
 });
 
-test('browse-all shows eight core designs plus category-specific signatures with canonical package prices', () => {
+test('browse-all shows eight core designs plus category-specific signatures without package prices', () => {
   const categories = [...new Set(studioTemplates.map(reference => reference.category))];
   for (const category of categories) {
     const markup = render({ browseAll: true, initialCategory: category });
     const articles = cards(markup);
     const references = cardNames(markup).map(name => studioTemplates.find(reference => reference.name === name));
-    assert.equal(articles.length, ['Fashion', 'Food & drink', 'Beauty', 'Home', 'Technology'].includes(category) ? 9 : 8, category);
+    assert.equal(articles.length, (['Beauty', 'Home', 'Technology'].includes(category) ? 11 : 10) + tierThemes(category), category);
     assert.deepEqual(references.filter(reference => !reference.conceptImage && !reference.signatureTheme).map(reference => reference.layout), [0, 2, 3, 4, 6, 7, 8, 9], category);
     assert.ok(references.every(reference => reference.category === category));
-    assert.ok(markup.includes(`${category.replaceAll('&', '&amp;')} · ${references.length} designs · All packages`));
+    assert.ok(markup.includes(`${shopifyCategoryLabel(category).replaceAll('&', '&amp;')} · ${references.length} designs · All packages`));
     for (const [index, reference] of references.entries()) {
       const minimumPackage = shopifyPackageCatalog.find(plan => plan.name === getThemeMinimumPackage(reference.layout));
       assert.ok(minimumPackage, `${reference.name} must have a published minimum package`);
-      assert.match(articles[index], /Minimum package/);
-      assert.ok(articles[index].includes(`>${minimumPackage.name}</p>`), reference.name);
-      assert.ok(articles[index].includes(`From $${minimumPackage.price.toLocaleString('en-US')}`), reference.name);
-      assert.match(articles[index], /full package · USD/);
+      assert.ok(articles[index].includes("Available with every package"), reference.name);
+      assert.doesNotMatch(articles[index], /From \$|package · one-time/);
+      assert.doesNotMatch(articles[index], /Estimated delivery/);
       assert.match(articles[index], />Preview design</);
       assert.doesNotMatch(articles[index], /\s(?:disabled|aria-disabled)=|Unlock with|Review theme upgrade/);
     }
-    assert.match(markup, /Shopify subscriptions, paid themes, apps and third-party fees are separate/);
+    assert.match(markup, /Your package determines the included features, setup limits/);
   }
 });
 
 test('browse-all allows premium previews without package selection and preserves industry when package changes', () => {
   let chosen = null;
   const gallery = galleryHarness({ browseAll: true, packageName: 'Unlisted package', onSelect: index => { chosen = index; } });
-  assert.equal(cards(gallery.markup()).length, 9);
+  assert.equal(cards(gallery.markup()).length, 10 + tierThemes('Fashion'));
   assert.equal(chosen, null, 'browsing does not choose a design');
   gallery.industry('Beauty');
   gallery.update({ packageName: 'Beginner' });
   const names = cardNames(gallery.markup());
-  assert.equal(names.length, 9);
+  assert.equal(names.length, 11 + tierThemes('Beauty'));
   assert.ok(names.every(name => name.startsWith('Ritual ')));
   const premium = studioTemplates.find(reference => reference.category === 'Beauty' && reference.layout === 9);
   gallery.preview(premium.name);
   assert.equal(chosen, studioTemplates.indexOf(premium));
-  assert.match(gallery.markup(), /<option value="Beauty" selected="">Beauty<\/option>/);
+  assert.match(gallery.markup(), /<option value="Beauty" selected="">Beauty &amp; cosmetics<\/option>/);
 });
 
 test('an unknown initial industry safely falls back to Fashion in either browsing mode', () => {
   for (const browseAll of [false, true]) {
     const markup = render({ browseAll, initialCategory: 'Unknown industry' });
-    assert.match(markup, /<option value="Fashion" selected="">Fashion<\/option>/);
-    assert.equal(cards(markup).length, browseAll ? 9 : 1);
+    assert.match(markup, /<option value="Fashion" selected="">Clothing &amp; fashion<\/option>/);
+    assert.equal(cards(markup).length, 10 + tierThemes('Fashion'));
   }
 });
 
@@ -154,12 +157,12 @@ test('industry selection covers every business category and preserves original c
   let chosen = null;
   const gallery = galleryHarness({ packageName: 'Top Tier', onSelect: index => { chosen = index; } });
   const categories = [...new Set(studioTemplates.map(reference => reference.category))];
-  assert.deepEqual(categories, [...shopifyProductCategories, ...shopifyServiceCategories]);
+  assert.deepEqual([...categories].sort(), [...shopifyProductCategories, ...shopifyServiceCategories].map(category => require('../src/content/landing/shopify-business-categories.ts').shopifyLibraryCategory(category)).sort());
   const seen = new Set();
   for (const category of categories) {
     gallery.industry(category);
     const names = cardNames(gallery.markup());
-    assert.equal(names.length, ['Fashion', 'Food & drink', 'Beauty', 'Home', 'Technology'].includes(category) ? 9 : 8, category);
+    assert.equal(names.length, (['Beauty', 'Home', 'Technology'].includes(category) ? 11 : 10) + tierThemes(category), category);
     for (const name of names) {
       const index = studioTemplates.findIndex(reference => reference.name === name);
       assert.equal(studioTemplates[index].category, category);
@@ -178,18 +181,18 @@ test('controlled category follows the business picker without a duplicate select
     onSelect: index => { chosen = index; },
   });
   const professionalNames = cardNames(gallery.markup());
-  assert.equal(professionalNames.length, 6);
+  assert.equal(professionalNames.length, 10);
   assert.doesNotMatch(gallery.markup(), /<select\b|Shop collection|Everyday favourites|Pairs beautifully with/);
   assert.ok(professionalNames.every(name => studioTemplates.find(t => t.name === name).category === 'Professional services'));
   gallery.update({ categoryFilter: 'Fitness services', packageName: 'Beginner' });
   const references = cardNames(gallery.markup()).map(name => studioTemplates.find(t => t.name === name));
-  assert.equal(references.length, 1);
+  assert.equal(references.length, 10);
   assert.equal(references[0].category, 'Fitness services');
-  assert.equal(references[0].layout, 0);
+  assert.ok(references.some(reference => reference.layout === 9));
   gallery.preview(references[0].name);
   assert.equal(chosen, studioTemplates.indexOf(references[0]));
   gallery.update({ browseAll: true });
-  assert.equal(cards(gallery.markup()).length, 8);
+  assert.equal(cards(gallery.markup()).length, 10);
   assert.ok(cardNames(gallery.markup()).every(name => studioTemplates.find(t => t.name === name).category === 'Fitness services'));
   assert.doesNotMatch(gallery.markup(), /<select\b/);
 });
@@ -199,28 +202,22 @@ test('controlled custom-category reference fallbacks have complete designs in ei
     for (const browseAll of [false, true]) {
       const markup = render({ categoryFilter, browseAll });
       const references = cardNames(markup).map(name => studioTemplates.find(t => t.name === name));
-      assert.equal(references.length, browseAll ? 8 : 1);
+      assert.equal(references.length, 10 + tierThemes(categoryFilter));
       assert.ok(references.every(reference => reference.category === categoryFilter));
       assert.doesNotMatch(markup, /<select\b/);
     }
   }
 });
 
-test('package changes reset the industry list and never retain locked premium cards', () => {
-  const gallery = galleryHarness({ packageName: 'Top Tier' });
-  gallery.industry('Beauty');
-  assert.ok(cardNames(gallery.markup()).every(name => name.startsWith('Ritual ')));
-  gallery.update({ packageName: 'Beginner' });
-  const beginner = gallery.markup();
-  assert.deepEqual(cardNames(beginner), ['Atelier Editorial']);
-  assert.match(beginner, /<option value="Fashion" selected="">Fashion<\/option>/);
-  assert.doesNotMatch(beginner, /studio-premium-thumbnail|Unlock with/);
-  gallery.update({ packageName: 'Executive' });
-  const executive = cardNames(gallery.markup());
-  assert.equal(executive.length, 6);
-  assert.equal(executive[0], 'Atelier Parallax');
-  assert.ok(!executive.includes('Clotya Fashion'));
-  assert.ok(!executive.some(name => /Cinematic|Commerce Studio/.test(name)));
+test('every package exposes the same complete design library', () => {
+  const gallery = galleryHarness({ packageName: 'Beginner' });
+  const names = cardNames(gallery.markup());
+  assert.ok(names.includes('Atelier Commerce Studio'));
+  assert.ok(names.includes('Clotya Fashion'));
+  for (const plan of studioPlans) {
+    gallery.update({ packageName: plan.name });
+    assert.deepEqual(cardNames(gallery.markup()), names);
+  }
 });
 
 test('unknown packages show no selectable designs rather than granting fallback access', () => {
@@ -228,46 +225,34 @@ test('unknown packages show no selectable designs rather than granting fallback 
   assert.equal(cards(markup).length, 0);
   assert.equal((markup.match(/<button\b/g) || []).length, 0);
   assert.match(markup, /Unlisted package · 0 included designs/);
-  assert.match(markup, /Choose a package to see its included designs/);
+  assert.match(markup, /No designs in this category yet/);
 });
 
-test('premium thumbnail storytelling remains visually distinct and noninteractive', () => {
-  const markup = render({ packageName: 'Top Tier' });
-  assert.equal((markup.match(/studio-premium-thumbnail-cinematic/g) || []).length, 1);
-  assert.equal((markup.match(/studio-premium-thumbnail-commerce/g) || []).length, 1);
-  for (const card of cards(markup)) {
-    const name = card.match(/<h4\b[^>]*>([^<]+)<\/h4>/)[1];
-    const reference = studioTemplates.find(item => item.name === name);
-    if (reference.signatureTheme || (reference.layout !== 8 && reference.layout !== 9)) continue;
-    const art = card.split('<div class="p-5 flex')[0];
-    assert.match(art, /aria-hidden="true"/);
-    assert.doesNotMatch(art, /<button\b|<input\b|<select\b/);
-    assert.match(art, /studio-thumb-storyboard/);
-    if (reference.layout === 8) {
-      assert.match(art, /studio-thumb-cinematic-hotspot/);
-      assert.match(art, /studio-thumb-cinematic-inset/);
-      assert.match(art, /Interactive details/);
-    } else {
-      assert.match(art, /studio-thumb-commerce-sidebar/);
-      assert.match(art, /studio-thumb-commerce-options/);
-      assert.match(art, /studio-thumb-commerce-selection/);
-      assert.match(art, /Choose a piece/);
+test('every design card uses its own live storefront and keeps one accessible selection action', () => {
+  for (const category of new Set(studioTemplates.map(item => item.category))) {
+    const markup = render({ browseAll: true, categoryFilter: category });
+    for (const card of cards(markup)) {
+      const name = card.match(/<h4\b[^>]*>([^<]+)<\/h4>/)[1];
+      const reference = studioTemplates.find(item => card.includes(`data-reference-id="${item.id}"`) || name === item.name.replaceAll('&','&amp;'));
+      assert.ok(reference, name);
+      assert.match(card, /data-thumbnail-layout="live-storefront"|data-thumbnail-layout="approved-reference"/);
+      assert.match(card, /aria-hidden="true"/);
+      assert.equal((card.match(/<button\b/g) || []).length, 1);
+      assert.doesNotMatch(card, /premium-showcase|premium-concept/);
     }
-    for (const src of reference.images) assert.ok(art.includes(encodeURIComponent(src)), `${reference.id}: ${src}`);
   }
 });
 
-test('named premium concepts show their exact artwork and retain one real selection action', () => {
+test('named premium designs use their actual storefront and retain one real selection action', () => {
   for (const reference of studioTemplates.filter(item => item.conceptImage)) {
     for (const packageName of ['Beginner', 'Growth', 'Level Up', 'Pro', 'Executive']) {
-      assert.ok(!cardNames(render({ packageName, categoryFilter: reference.category })).includes(reference.name), packageName);
+      assert.ok(cardNames(render({ packageName, categoryFilter: reference.category })).includes(reference.name), packageName);
     }
     for (const packageName of ['Top Tier']) {
       const markup = render({ packageName, categoryFilter: reference.category });
       const card = cards(markup).find(html => html.includes(`>${reference.name}</h4>`));
       assert.ok(card, `${packageName}: ${reference.name}`);
-      assert.match(card, /data-thumbnail-layout="premium-concept"/);
-      assert.ok(card.includes(reference.conceptImage.src) || card.includes(encodeURIComponent(reference.conceptImage.src)));
+      assert.match(card, /data-thumbnail-layout="live-storefront"|data-thumbnail-layout="approved-reference"/);
       assert.equal((card.match(/<button\b/g) || []).length, 1);
       assert.ok(card.includes(`aria-label="Preview ${reference.name}"`));
     }
@@ -278,20 +263,20 @@ test('named premium concepts show their exact artwork and retain one real select
     gallery.preview(reference.name);
     assert.equal(selected, studioTemplates.indexOf(reference));
     const allCard = cards(gallery.markup()).find(html => html.includes(`>${reference.name}</h4>`));
-    assert.match(allCard, /From \$4,999/);
-    assert.match(allCard, />Top Tier</);
+    assert.doesNotMatch(allCard, /From \$/);
+    assert.match(allCard, /Available with every package/);
   }
 });
 
-test('new premium category storefronts are visible at $4,999 and never appear in an Executive package', () => {
+test('new premium category storefronts are available across every package', () => {
   for (const id of ['ritual-beauty-premium', 'forme-living-premium', 'pulse-audio-premium']) {
     const reference = studioTemplates.find(item => item.id === id);
     assert.ok(reference);
     for (const packageName of ['Beginner', 'Growth', 'Level Up', 'Pro', 'Executive']) {
-      assert.ok(!cardNames(render({ packageName, categoryFilter: reference.category })).includes(reference.name), `${packageName}: ${id}`);
+      assert.ok(cardNames(render({ packageName, categoryFilter: reference.category })).includes(reference.name), `${packageName}: ${id}`);
     }
     const names = cardNames(render({ packageName: 'Top Tier', categoryFilter: reference.category }));
-    assert.equal(names[0], reference.name, 'An included signature reference leads the category');
+    assert.ok(names.slice(0, 6).includes(reference.name), 'Included signature references lead the category');
     for (const browseAll of [false, true]) {
       let selected = null;
       const gallery = galleryHarness({ packageName: 'Top Tier', browseAll, categoryFilter: reference.category, onSelect: index => { selected = index; } });
@@ -300,8 +285,8 @@ test('new premium category storefronts are visible at $4,999 and never appear in
       assert.equal((card.match(/<button\b/g) || []).length, 1);
       assert.match(card, />Preview design</);
       if (browseAll) {
-        assert.match(card, /From \$4,999/);
-        assert.match(card, />Top Tier</);
+        assert.doesNotMatch(card, /From \$/);
+        assert.match(card, /Available with every package/);
       }
       gallery.preview(reference.name);
       assert.equal(selected, studioTemplates.indexOf(reference));

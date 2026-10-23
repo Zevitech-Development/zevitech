@@ -10,7 +10,7 @@ export const studioCopy = {
   startCustomizing: "Choose my package",
   steps: ["Design", "Store needs", "Package", "Your brand", "Checkout"],
   billing:
-    "Full development fee in USD: pay 40% upfront to start, then 60% after delivery. Shopify subscriptions, paid themes, apps and third-party fees are separate. Features depend on your plan, theme, region and supported apps; advanced checkout changes may require Shopify Plus. Custom requirements are scoped before payment.",
+    "Full development fee in USD: pay 10% upfront to start, then 90% after delivery. Shopify subscriptions, paid themes, apps and third-party fees are separate. Features depend on your plan, theme, region and supported apps; advanced checkout changes may require Shopify Plus. Custom requirements are scoped before payment.",
   previewNote:
     "This is an example preview, not your final store. We’ll customize the design, product pages and shopping journey around your business and selected package. Sample products and prices are for illustration only.",
   defaults: {

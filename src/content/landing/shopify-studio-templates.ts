@@ -1,9 +1,14 @@
+import { getCategorySignatureProducts } from "./shopify-category-signature-content";
 import { getShopifyServiceCategory } from "./shopify-service-preview-content";
 import type { ShopifyReferenceConcept } from "@/interfaces/shopify-reference-concept-interface";
 import { clotyaProducts } from "./shopify-clotya-content";
 import { ecolifeProducts } from "./shopify-ecolife-content";
 import { signatureCatalog } from "./shopify-signature-catalog";
 import type { ShopifySignatureTheme } from "@/interfaces/shopify-signature-storefront-interface";
+
+/** Licensed Unsplash photography (free commercial use) for categories without local imagery. */
+const photo = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1400&q=75`;
+const photos = (...ids: string[]) => ids.map(photo);
 
 const categoryTemplates = [
   {
@@ -153,7 +158,7 @@ const referenceStyles = [
   {
     suffix: "Spotlight",
     layout: 2,
-    minPackage: "Growth",
+    minPackage: "Beginner",
     palette: 0,
     tag: "Product-led selling",
     description:
@@ -163,7 +168,7 @@ const referenceStyles = [
   {
     suffix: "Boutique",
     layout: 3,
-    minPackage: "Level Up",
+    minPackage: "Beginner",
     palette: 2,
     tag: "Collection-led shopping",
     description:
@@ -179,7 +184,7 @@ const premiumReferenceStyles = [
   {
     suffix: "Dimensional",
     layout: 6,
-    minPackage: "Executive",
+    minPackage: "Beginner",
     palette: 1,
     tag: "Layered 3D showcase",
     description:
@@ -189,7 +194,7 @@ const premiumReferenceStyles = [
   {
     suffix: "Parallax",
     layout: 7,
-    minPackage: "Executive",
+    minPackage: "Beginner",
     palette: 2,
     tag: "Editorial in motion",
     description:
@@ -201,7 +206,7 @@ const additionalReferenceStyles = [
   {
     suffix: "Campaign",
     layout: 4,
-    minPackage: "Pro",
+    minPackage: "Beginner",
     palette: 1,
     tag: "Campaign storytelling",
     description:
@@ -211,7 +216,7 @@ const additionalReferenceStyles = [
   {
     suffix: "Cinematic",
     layout: 8,
-    minPackage: "Top Tier",
+    minPackage: "Beginner",
     palette: 5,
     tag: "Cinematic brand experience",
     description:
@@ -221,7 +226,7 @@ const additionalReferenceStyles = [
   {
     suffix: "Commerce Studio",
     layout: 9,
-    minPackage: "Top Tier",
+    minPackage: "Beginner",
     palette: 0,
     tag: "Advanced commerce workspace",
     description:
@@ -234,6 +239,8 @@ type CategoryReference = Pick<(typeof categoryTemplates)[number],
 > & {
   businessType?: "products" | "services";
   images?: string[];
+  /** Sample products shown in premium storefront previews (one per image). */
+  products?: { name: string; price: number }[];
 };
 
 const additionalProductCategories: CategoryReference[] = [
@@ -254,6 +261,85 @@ const additionalProductCategories: CategoryReference[] = [
     headline: "A good day starts with a favourite cup.",
     brief: "Find a new favourite for slow mornings and everyday coffee breaks.",
     product: "House coffee blend", price: "24", image: "/store-studio/food.jpg",
+  },  {
+    id: "stride", name: "Stride", category: "Shoes & footwear",
+    products: [{ name: "Suede Chelsea boot", price: 129 }, { name: "Leather brogue boot", price: 159 }, { name: "Classic penny loafer", price: 119 }, { name: "Horsebit leather loafer", price: 139 }, { name: "Tan suede driver", price: 109 }, { name: "Navy derby shoe", price: 149 }],
+    headline: "Step into something new.",
+    brief: "Everyday sneakers and statement pairs, made for the way you move.",
+    product: "Suede Chelsea boot", price: "129", image: photo("photo-1605733160314-4fc7dac4bb16"),
+    images: photos("photo-1605733160314-4fc7dac4bb16", "photo-1638609348722-aa2a3a67db26", "photo-1662541089338-c7d53b88be70", "photo-1616406432452-07bc5938759d", "photo-1676121270762-47c8d3a7b9d5", "photo-1668069226492-508742b03147"),
+  },
+  {
+    id: "lumen", name: "Lumen", category: "Skincare",
+    products: [{ name: "Daily hydrating serum", price: 32 }, { name: "Botanical face oil", price: 38 }, { name: "Gentle cleansing balm", price: 26 }, { name: "Barrier repair cream", price: 36 }, { name: "Night recovery mask", price: 44 }],
+    headline: "Skin that feels like yours.",
+    brief: "Gentle formulas and simple routines for every skin type.",
+    product: "Daily hydrating serum", price: "32", image: photo("photo-1583209814683-c023dd293cc6"),
+    images: photos("photo-1583209814683-c023dd293cc6", "photo-1612817288484-6f916006741a", "photo-1629380108599-ea06489d66f5", "photo-1608068811588-3a67006b7489", "photo-1785581778868-79100f7fe56c"),
+  },
+  {
+    id: "sillage", name: "Sillage", category: "Fragrance",
+    products: [{ name: "Eau de parfum 50 ml", price: 85 }, { name: "Discovery set", price: 42 }, { name: "Signature scent 100 ml", price: 128 }],
+    headline: "Find the scent that stays with you.",
+    brief: "Signature scents, discovery sets and gifts worth giving.",
+    product: "Eau de parfum 50 ml", price: "85", image: photo("photo-1543422655-ac1c6ca993ed"),
+    images: photos("photo-1543422655-ac1c6ca993ed", "photo-1615634260167-c8cdede054de", "photo-1761659760494-32b921a2449f"),
+  },
+  {
+    id: "oakform", name: "Oak & Form", category: "Furniture",
+    products: [{ name: "Lounge armchair", price: 640 }, { name: "Modular sofa", price: 1890 }, { name: "Oak side table", price: 290 }, { name: "Linen three-seater", price: 2150 }, { name: "Walnut dining chair", price: 340 }, { name: "Low media console", price: 890 }],
+    headline: "Furniture made for living.",
+    brief: "Sofas, chairs and tables crafted to last and easy to love.",
+    product: "Lounge armchair", price: "640", image: photo("photo-1634712282287-14ed57b9cc89"),
+    images: photos("photo-1634712282287-14ed57b9cc89", "photo-1724582586529-62622e50c0b3", "photo-1606744824163-985d376605aa", "photo-1600121848594-d8644e57abab", "photo-1616137422495-1e9e46e2aa77", "photo-1680503397107-475907e4f3e3"),
+  },
+  {
+    id: "hearth", name: "Hearth", category: "Kitchen & dining",
+    products: [{ name: "Stoneware dinner set", price: 120 }, { name: "Handmade serving bowl", price: 48 }, { name: "Ceramic mug pair", price: 34 }, { name: "Glazed bowl collection", price: 64 }, { name: "Speckled plate set", price: 72 }, { name: "Stoneware cup trio", price: 42 }],
+    headline: "Set a table worth gathering around.",
+    brief: "Handmade ceramics, cookware and everyday tableware.",
+    product: "Stoneware dinner set", price: "120", image: photo("photo-1610701596007-11502861dcfa"),
+    images: photos("photo-1610701596007-11502861dcfa", "photo-1610701596061-2ecf227e85b2", "photo-1740478949627-155c907b3ca0", "photo-1524259493079-d51c2c78adfe", "photo-1740478949628-ff562c3c3923", "photo-1612870199268-d33b7e0bd9b0"),
+  },
+  {
+    id: "littleleaf", name: "Little Leaf", category: "Baby & kids",
+    products: [{ name: "Organic cotton bodysuit set", price: 34 }, { name: "Knitted nursery blanket", price: 58 }, { name: "Soft cotton romper", price: 29 }, { name: "Muslin swaddle set", price: 38 }, { name: "Nursery storage basket", price: 46 }],
+    headline: "Soft things for small people.",
+    brief: "Organic baby clothes, nursery essentials and thoughtful gifts.",
+    product: "Organic cotton bodysuit set", price: "34", image: photo("photo-1766918780914-e19d9de76d85"),
+    images: photos("photo-1766918780914-e19d9de76d85", "photo-1642379831634-1eb6a4e2788d", "photo-1766918780914-927fb058414b", "photo-1766918780914-5df4a5a98c44", "photo-1766918780917-d541f8cf8a7f"),
+  },
+  {
+    id: "playwright", name: "Playwright", category: "Toys & games",
+    products: [{ name: "Wooden stacking set", price: 28 }, { name: "Pull-along animal", price: 24 }, { name: "Alphabet puzzle", price: 32 }, { name: "Wooden animal friends", price: 36 }, { name: "Building block bucket", price: 42 }],
+    headline: "Play that grows with them.",
+    brief: "Wooden toys, puzzles and games for curious minds.",
+    product: "Wooden stacking set", price: "28", image: photo("photo-1618842676088-c4d48a6a7c9d"),
+    images: photos("photo-1618842676088-c4d48a6a7c9d", "photo-1560859251-d563a49c5e4a", "photo-1769072385024-c962e061c523", "photo-1703581698778-2224c729135b", "photo-1777351396220-9a3801de44df"),
+  },
+  {
+    id: "folio", name: "Folio", category: "Books & stationery",
+    products: [{ name: "Linen-bound notebook", price: 22 }, { name: "Weekly desk planner", price: 28 }, { name: "Dot-grid journal", price: 18 }, { name: "A5 sketchbook", price: 19 }, { name: "Daily task pad", price: 14 }],
+    headline: "Write it down. Make it yours.",
+    brief: "Notebooks, planners and desk essentials for everyday ideas.",
+    product: "Linen-bound notebook", price: "22", image: photo("photo-1501618669935-18b6ecb13d6d"),
+    images: photos("photo-1501618669935-18b6ecb13d6d", "photo-1651761409007-0395097c269d", "photo-1591195852468-03a01d1375d6", "photo-1554757387-fa0367573d09", "photo-1611079830811-865ff4428d17"),
+  },
+  {
+    id: "kiln", name: "Kiln Studio", category: "Art & handmade",
+    products: [{ name: "Hand-thrown vase", price: 58 }, { name: "Studio bowl", price: 44 }, { name: "Glazed bud vase set", price: 36 }, { name: "Speckled serving dish", price: 52 }, { name: "Hand-built planter", price: 46 }, { name: "Studio mug", price: 28 }],
+    headline: "Made by hand, made to keep.",
+    brief: "Small-batch ceramics and handmade pieces from the studio.",
+    product: "Hand-thrown vase", price: "58", image: photo("photo-1597696929736-6d13bed8e6a8"),
+    images: photos("photo-1597696929736-6d13bed8e6a8", "photo-1607556671927-78a6605e290b", "photo-1520408222757-6f9f95d87d5d", "photo-1607556672044-6110fc499247", "photo-1493106641515-6b5631de4bb9", "photo-1595351298020-038700609878"),
+  },
+  {
+    id: "torque", name: "Torque", category: "Automotive",
+    products: [{ name: "Ceramic detailing kit", price: 75 }, { name: "Microfibre wash set", price: 39 }, { name: "Interior care kit", price: 49 }, { name: "Wheel & tyre care kit", price: 45 }],
+    headline: "Care for the car you love.",
+    brief: "Detailing kits, accessories and performance parts.",
+    product: "Ceramic detailing kit", price: "75", image: photo("photo-1780558852670-3f49298ecc1f"),
+    images: photos("photo-1780558852670-3f49298ecc1f", "photo-1520340356584-f9917d1eea6f", "photo-1771340742493-52fbd5476ccb", "photo-1694678505383-676d78ea3b96"),
   },
 ];
 
@@ -263,14 +349,14 @@ const teamImages = [
   "/images/about-us/WhyChooseUsAboutUsImg03.jpeg",
 ];
 const serviceCategoryImages = [
-  { id: "fieldwork", category: "Professional services", images: teamImages },
+  { id: "fieldwork", category: "Professional services", images: photos("photo-1758691737138-7b9b1884b1db", "photo-1568992687947-868a62a9f521", "photo-1522071820081-009f0129c71c") },
   {
     id: "formfield", category: "Creative & digital",
-    images: ["/images/hero-images/about-hero-img.jpg", teamImages[1], teamImages[0]],
+    images: photos("photo-1487338875411-8880f74114a2", "photo-1733381919300-e49929a82a5b", "photo-1563019589-7e7db5152430"),
   },
   {
     id: "chapter", category: "Coaching & education",
-    images: [teamImages[0], "/images/hero-images/about-hero-img.jpg", teamImages[2]],
+    images: photos("photo-1616587226960-4a03badbe8bf", "photo-1588873281272-14886ba1f737", "photo-1758612898312-708f2ffdcd53"),
   },
   {
     id: "neighbour", category: "Home & local services",
@@ -282,40 +368,47 @@ const serviceCategoryImages = [
   },
   {
     id: "movement", category: "Fitness services",
-    images: ["/store-studio/wellness-story.jpg", "/store-studio/wellness-detail.jpg", "/store-studio/wellness.jpg"],
+    images: photos("photo-1758875569256-f37c438cac65", "photo-1648542036561-e1d66a5ae2b1", "photo-1738523686534-7055df5858d6"),
   },
   {
     id: "service", category: "Services",
-    images: ["/images/hero-images/about-hero-img.jpg", teamImages[0], teamImages[1]],
+    images: ["/store-studio/general.jpg", "/store-studio/general-detail.jpg", "/store-studio/general-story.jpg"],
   },
   {
     id: "stillwater", category: "Spas",
-    images: ["/store-studio/beauty-story.jpg", "/store-studio/wellness-story.jpg", "/store-studio/beauty-detail.jpg"],
+    images: photos("photo-1600334089648-b0d9d3028eb2", "photo-1544161515-4ab6ce6db874", "photo-1761470575018-135c213340eb"),
   },
   {
     id: "editsalon", category: "Salons",
-    images: ["/store-studio/beauty-story.jpg", "/store-studio/beauty-detail.jpg", "/store-studio/beauty.jpg"],
+    images: photos("photo-1600948836101-f9ffda59d250", "photo-1580618672591-eb180b1a973f", "photo-1595475884562-073c30d45670"),
   },
   {
     id: "clearflow", category: "Plumbing",
-    images: ["/store-studio/home-detail.jpg", "/store-studio/home-story.jpg", "/store-studio/home.jpg"],
+    images: photos("photo-1676210134188-4c05dd172f89", "photo-1558618666-fcd25c85cd64", "photo-1749532125405-70950966b0e5"),
   },
   {
     id: "freshspace", category: "Home cleaning",
-    images: ["/store-studio/home-story.jpg", "/store-studio/home-detail.jpg", "/store-studio/home.jpg"],
+    images: photos("photo-1758273238415-01ec03d9ef27", "photo-1740657254989-42fe9c3b8cce", "photo-1773579305267-8d75e0af5be4"),
   },
   {
     id: "routewise", category: "Truck dispatching",
-    images: ["/images/hero-images/about-hero-img.jpg", teamImages[0], teamImages[1]],
+    images: photos("photo-1778103617525-76877c583fa5", "photo-1766785368863-f2188a8c8b32", "photo-1761133381018-aed5063d22fe"),
   },
   {
     id: "clarity", category: "Expert & consulting services",
-    images: [teamImages[0], teamImages[1], teamImages[2]],
+    images: photos("photo-1758691737543-09a1b2b715fa", "photo-1517048676732-d65bc937f952", "photo-1758691737568-a1572060ce5a"),
   },
   {
     id: "comfortworks", category: "HVAC",
-    images: ["/store-studio/home-story.jpg", "/store-studio/home-detail.jpg", "/store-studio/home.jpg"],
+    images: photos("photo-1660330589827-da8ab7dd3c02", "photo-1603335730747-ca17baa3aac2", "photo-1705579605238-24a90c8799c5"),
   },
+  { id: "hartwell", category: "Legal services", images: photos("photo-1450101499163-c8848c66ca85", "photo-1562564055-71e051d33c19", "photo-1505664194779-8beaceb93744") },
+  { id: "northgate", category: "Real estate", images: photos("photo-1580587771525-78b9dba3b914", "photo-1600596542815-ffad4c1539a9", "photo-1748063578185-3d68121b11ff") },
+  { id: "brightside", category: "Medical & dental clinics", images: photos("photo-1629909613654-28e377c37b09", "photo-1777331903190-341a3dd0441b", "photo-1606811841689-23dfddce3e95") },
+  { id: "saffron", category: "Restaurants & catering", images: photos("photo-1625861910621-e9385ba1d993", "photo-1661259892845-f84f22e79077", "photo-1565895405140-6b9830a88c19") },
+  { id: "goldenhour", category: "Events & photography", images: photos("photo-1623783356340-95375aac85ce", "photo-1629756048377-09540f52caa1", "photo-1611550287705-7ff8b459c8eb") },
+  { id: "azure", category: "Travel & tourism", images: photos("photo-1610641818989-c2051b5e2cfd", "photo-1614505241498-80a3ec936595", "photo-1561501900-3701fa6a0864") },
+  { id: "precision", category: "Auto repair", images: photos("photo-1619642751034-765dfdf7c58e", "photo-1676018366904-c083ed678e60", "photo-1771340012319-0b4fca008b54") },
 ];
 const serviceCategories: CategoryReference[] = serviceCategoryImages.map((reference) => {
   const service = getShopifyServiceCategory(reference.category);
@@ -502,13 +595,72 @@ const topTierSignatureReferences = [
     id: definition.id,
     signatureTheme: direction.theme,
     layout: 8,
-    minPackage: "Top Tier",
+    minPackage: "Beginner",
     product: definition.products[0].name,
     price: String(definition.products[0].price),
     image: definition.products[0].src,
     images: definition.products.map(product => product.src),
   };
 });
+
+const signatureCategories: CategoryReference[] = [...categoryTemplates, ...additionalProductCategories, ...serviceCategories];
+const categorySignatureReferences = signatureCategories.flatMap(category =>
+  (["clotya", "ecolife"] as const).filter(theme => !(theme === "clotya" && category.category === "Fashion") && !(theme === "ecolife" && category.category === "Food & drink")).map(theme => ({
+    ...createReferences([additionalReferenceStyles[1]], [category])[0],
+    id: `${category.id}-${theme}-signature`,
+    name: `${category.name} ${theme === "clotya" ? "Signature Editorial" : "Signature Discovery"}`,
+    signatureTheme: theme,
+    layout: 8,
+    minPackage: "Beginner",
+    palette: theme === "clotya" ? 1 : 3,
+    tag: theme === "clotya" ? "Premium editorial experience" : "Premium discovery experience",
+    description: category.businessType === "services"
+      ? "Category-led homepage → detailed services → working enquiry journey."
+      : "Complete editorial homepage → collection discovery → product details → interactive sample bag.",
+    focus: category.businessType === "services" ? ["Service discovery", "Detailed scope", "Enquiry journey"] : ["Full-page storytelling", "Collection browsing", "Product discovery"],
+  })).map(reference => {
+    const products = getCategorySignatureProducts(reference);
+    return { ...reference, images: products.map(p => p.src), image: products[0].src, product: products[0].name, price: String(products[0].price) };
+  }),
+);
+
+/** Premium storefronts that unlock package by package, built for every product category. */
+const tierThemes = [
+  { theme: "lookbook" as const, suffix: "Lookbook", layout: 3, minPackage: "Beginner", palette: 2,
+    tag: "Shop-the-look experience",
+    description: "Shoppable lookbook photo with tap-to-shop hotspots → add the complete look in one step → filter and sort the collection.",
+    focus: ["Shop the look", "One-tap complete outfit", "Filter & sort"] },
+  { theme: "bundle" as const, suffix: "Bundle Builder", layout: 4, minPackage: "Beginner", palette: 0,
+    tag: "Build-a-bundle experience",
+    description: "Mix-and-match bundle builder → savings that grow with every item → live bundle tray and one-tap add to bag.",
+    focus: ["Tiered bundle savings", "Live bundle tray", "Bigger average orders"] },
+  { theme: "configurator" as const, suffix: "Configurator", layout: 6, minPackage: "Beginner", palette: 0,
+    tag: "Product configurator",
+    description: "Interactive 3D-tilt product stage → finishes, sizes and personal message with live pricing → currency switcher and wishlist.",
+    focus: ["Live product options", "Personalisation", "Multi-currency & wishlist"] },
+  { theme: "concierge" as const, suffix: "Concierge", layout: 9, minPackage: "Beginner", palette: 1,
+    tag: "Personal-shopper experience",
+    description: "Cinematic hero → personal-shopper quiz with matched products → member rewards, order tracking, subscribe & save and gift wrap.",
+    focus: ["Product-finder quiz", "Member rewards & tracking", "Subscriptions & gifting"] },
+];
+const tierThemeReferences = [...categoryTemplates, ...additionalProductCategories].flatMap(category =>
+  tierThemes.map(direction => {
+    const reference = {
+      ...createReferences([additionalReferenceStyles[1]], [category])[0],
+      id: `${category.id}-${direction.theme}-signature`,
+      name: `${category.name} ${direction.suffix}`,
+      signatureTheme: direction.theme,
+      layout: direction.layout,
+      minPackage: direction.minPackage,
+      palette: direction.palette,
+      tag: direction.tag,
+      description: direction.description,
+      focus: direction.focus,
+    };
+    const products = getCategorySignatureProducts(reference);
+    return { ...reference, images: products.map(p => p.src), image: products[0].src, product: products[0].name, price: String(products[0].price) };
+  }),
+);
 
 // Preserve all existing reference IDs and positions before appending new directions.
 export const studioTemplates = [
@@ -521,6 +673,8 @@ export const studioTemplates = [
   ),
   ...premiumPortfolioReferences,
   ...topTierSignatureReferences,
+  ...categorySignatureReferences,
+  ...tierThemeReferences,
 ];
 export const packageDirections = [
   {
@@ -582,9 +736,9 @@ export const templateCopy = {
 
   packageHeading: "Choose the scope that fits your business.",
   packageIntro:
-    "Compare the themes, customisation and functionality included in each package. Prices show the full development fee in USD: pay 40% upfront and 60% after delivery.",
+    "Every design is available with every package. Compare the customisation, setup limits and functionality included in each package. Prices show the full development fee in USD: pay 10% upfront and 90% after delivery.",
   packageDifference: "What sets this package apart",
-  visualNote: "More themes, customisation and functionality as your package grows.",
+  visualNote: "Every design, with more customisation and functionality as your package grows.",
 
   quantity: "Quantity",
   galleryLabel: "Sample image",

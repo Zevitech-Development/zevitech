@@ -15,7 +15,7 @@ export default function ShopifyThemeUpgrade({ plans, currentIndex, pending, onCo
     <DialogContent className="max-h-[90dvh] w-[calc(100%-2rem)] max-w-xl overflow-y-auto rounded-2xl p-5 sm:p-6 [&>button]:h-11 [&>button]:w-11">
       <DialogHeader><DialogTitle>{copy.title}</DialogTitle><DialogDescription>{copy.body}</DialogDescription></DialogHeader>
       {pending && next && <>
-        <div className="rounded-xl bg-primary/5 p-4"><p className="text-xs font-semibold text-primary">{copy.theme}</p><p className="mt-1 font-heading text-xl">{pending.label}</p><p className="mt-2 text-sm text-paragraph">{tier?.description}</p></div>
+        <div className="rounded-xl bg-mix-primary/5 p-4"><p className="text-xs font-semibold text-primary">{copy.theme}</p><p className="mt-1 font-heading text-xl">{pending.label}</p><p className="mt-2 text-sm text-paragraph">{tier?.description}</p></div>
         <dl className="space-y-3 rounded-xl border border-border p-4 text-sm">
           <div className="flex flex-wrap justify-between gap-2"><dt>{copy.current}</dt><dd>{current.name} · {money(current.price)}</dd></div>
           <div className="flex flex-wrap justify-between gap-2"><dt>{copy.proposed}</dt><dd className="font-semibold">{next.name} · {money(next.price)}</dd></div>

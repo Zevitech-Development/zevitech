@@ -1,5 +1,6 @@
 // Render and interaction contracts for the two new premium references.
 // The hook harness runs local event/effect behavior; it is not a browser layout test.
+require('./setup-next-image.cjs');
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const crypto = require('node:crypto');
@@ -133,14 +134,14 @@ test('both new layouts render every category identity with three distinct local 
   assert.equal(newReferences.length, categories.size * 2);
   for (const layout of [8, 9]) assert.equal(new Set(newReferences.filter(item => item.layout === layout).map(item => item.category)).size, categories.size);
   for (const reference of newReferences) {
-    assert.equal(reference.images.length, 3, reference.id);
-    const hashes = reference.images.map(src => crypto.createHash('sha256').update(fs.readFileSync(path.join(root, 'public', src))).digest('hex'));
-    assert.equal(new Set(hashes).size, 3, `${reference.id} repeats an image file`);
+    assert.ok(reference.images.length >= 3, reference.id);
+    const hashes = reference.images.map(src => crypto.createHash('sha256').update(src.startsWith('https://') ? src : fs.readFileSync(path.join(root, 'public', src))).digest('hex'));
+    assert.equal(new Set(hashes).size, reference.images.length, `${reference.id} repeats an image file`);
     const html = renderToStaticMarkup(React.createElement(PremiumPreview, propsFor(reference)));
     const escaped = value => value.replaceAll('&', '&amp;').replaceAll("'", '&#x27;');
     assert.ok(html.includes(escaped(reference.headline)), reference.id);
     assert.ok(html.includes(escaped(reference.product)), reference.id);
-    for (const src of reference.images) assert.ok(html.includes(`src="${src}"`), `${reference.id}: ${src}`);
+    for (const src of reference.images) assert.ok(html.includes(`src="${src.replaceAll('&', '&amp;')}"`), `${reference.id}: ${src}`);
     assert.doesNotMatch(html, /<canvas|WebGL|photorealistic|5-star|verified reviews/i);
   }
 });

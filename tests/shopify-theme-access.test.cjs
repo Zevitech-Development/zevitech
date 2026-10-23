@@ -19,7 +19,7 @@ require.extensions['.ts'] = function (module, filename) {
 
 const { studioTemplates, templateCopy } = require('../src/content/landing/shopify-studio-templates.ts');
 const { studioPlans } = require('../src/content/landing/shopify-studio-content.ts');
-const { shopifyProductCategories, shopifyServiceCategories } = require('../src/content/landing/shopify-business-categories.ts');
+const { shopifyProductCategories, shopifyServiceCategories, shopifyLibraryCategory } = require('../src/content/landing/shopify-business-categories.ts');
 const { themeTiers } = require('../src/content/landing/shopify-theme-tier-content.ts');
 const { getThemeMinimumPackage, canUseThemeLayout, getThemeTierByPackage, getThemeLayoutFromLabel } = require('../src/lib/shopify-theme-access.ts');
 
@@ -30,12 +30,12 @@ test('every category offers eight distinct theme directions with preserved origi
     ['dimensional', 'parallax'],
     ['campaign', 'cinematic', 'commerce-studio'],
   ].flatMap(styles => originalCategoryIds.flatMap(id => styles.map(style => `${id}-${style}`)));
-  const expectedCategories = [...shopifyProductCategories, ...shopifyServiceCategories];
-  assert.equal(studioTemplates.length, expectedCategories.length * 8 + 5);
+  const expectedCategories = [...shopifyProductCategories, ...shopifyServiceCategories].map(shopifyLibraryCategory);
+  assert.equal(studioTemplates.length, expectedCategories.length * 10 + 3 + shopifyProductCategories.length * 4);
   assert.deepEqual(studioTemplates.slice(0, originalIds.length).map(template => template.id), originalIds);
   assert.equal(new Set(studioTemplates.map(template => template.id)).size, studioTemplates.length);
   const categories = [...new Set(studioTemplates.map(template => template.category))];
-  assert.deepEqual(categories, expectedCategories);
+  assert.deepEqual([...categories].sort(), [...expectedCategories].sort());
   for (const category of categories) {
     const templates = studioTemplates.filter(template => template.category === category && !template.conceptImage && !template.signatureTheme);
     assert.equal(templates.length, 8, category);
@@ -51,10 +51,7 @@ test('every category offers eight distinct theme directions with preserved origi
 });
 
 test('minimum theme packages cover every supported layout, including saved fallback layouts', () => {
-  const minimumByLayout = [
-    'Beginner', 'Beginner', 'Growth', 'Level Up', 'Pro',
-    'Level Up', 'Executive', 'Executive', 'Top Tier', 'Top Tier',
-  ];
+  const minimumByLayout = Array(10).fill('Beginner');
   assert.equal(templateCopy.layoutNames.length, minimumByLayout.length);
   assert.equal(templateCopy.layoutNames[8], 'Cinematic experience');
   assert.equal(templateCopy.layoutNames[9], 'Commerce Studio');
@@ -80,10 +77,10 @@ test('theme tiers follow existing ascending package prices and retain stable req
   }
 });
 
-test('customisation starts with a fixed layout and adds cumulative capabilities at each package', () => {
+test('customisation allows every layout and adds cumulative capabilities at each package', () => {
   const beginner = getThemeTierByPackage('Beginner').capabilities;
-  assert.deepEqual(Object.entries(beginner).filter(([, enabled]) => enabled).map(([key]) => key).sort(), ['logo', 'presetPalette', 'productImages']);
-  assert.equal(beginner.layoutSelection, false);
+  assert.deepEqual(Object.entries(beginner).filter(([, enabled]) => enabled).map(([key]) => key).sort(), ['layoutSelection', 'logo', 'presetPalette', 'productImages']);
+  assert.equal(beginner.layoutSelection, true);
   assert.equal(beginner.customPalette, false);
   assert.equal(getThemeTierByPackage('Growth').capabilities.customPalette, true);
   assert.equal(getThemeTierByPackage('Level Up').capabilities.layoutSelection, true);
@@ -114,39 +111,39 @@ test('invalid layouts and unrecognized packages never receive theme access', () 
   }
 });
 
-test('the two original portfolio concepts retain stable indices and require Top Tier access', () => {
+test('the two original portfolio concepts retain stable indices and are available with every package', () => {
   const concepts = studioTemplates.filter(reference => reference.conceptImage);
   assert.deepEqual(concepts.map(reference => reference.id), ['clotya-fashion-premium', 'ecolife-organic-premium']);
   const coreCount = [...shopifyProductCategories, ...shopifyServiceCategories].length * 8;
   assert.deepEqual(studioTemplates.slice(coreCount, coreCount + 2), concepts);
   assert.deepEqual(concepts.map(reference => reference.category), ['Fashion', 'Food & drink']);
   for (const reference of concepts) {
-    assert.equal(reference.minPackage, 'Top Tier');
-    assert.equal(getThemeMinimumPackage(reference.layout), 'Top Tier');
+    assert.equal(reference.minPackage, 'Beginner');
+    assert.equal(getThemeMinimumPackage(reference.layout), 'Beginner');
     assert.equal(getThemeLayoutFromLabel(reference.name), reference.layout);
     assert.equal(getThemeLayoutFromLabel(reference.id), reference.layout);
     assert.ok(reference.conceptImage.width > 0 && reference.conceptImage.height > reference.conceptImage.width);
     assert.ok(reference.images.every(src => src !== reference.conceptImage.src), 'Artwork must never be used as a product photo');
     for (const plan of studioPlans) {
-      assert.equal(canUseThemeLayout(plan.name, reference.layout), plan.name === 'Top Tier', `${plan.name}: ${reference.id}`);
+      assert.equal(canUseThemeLayout(plan.name, reference.layout), true, `${plan.name}: ${reference.id}`);
     }
   }
   assert.deepEqual(studioPlans.map(plan => plan.price), [249, 599, 999, 1499, 2499, 4999]);
 });
 
-test('beauty, living and technology signatures are appended exclusively to the $4,999 Top Tier', () => {
-  const exclusive = studioTemplates.slice(-3);
+test('beauty, living and technology signatures are appended to every package', () => {
+  const exclusive = studioTemplates.filter(reference => ["beauty", "living", "tech"].includes(reference.signatureTheme));
   assert.deepEqual(exclusive.map(reference => reference.id), ['ritual-beauty-premium', 'forme-living-premium', 'pulse-audio-premium']);
   assert.deepEqual(exclusive.map(reference => reference.category), ['Beauty', 'Home', 'Technology']);
   for (const reference of exclusive) {
-    assert.equal(reference.minPackage, 'Top Tier');
+    assert.equal(reference.minPackage, 'Beginner');
     assert.equal(reference.layout, 8);
-    assert.equal(getThemeMinimumPackage(reference.layout), 'Top Tier');
+    assert.equal(getThemeMinimumPackage(reference.layout), 'Beginner');
     assert.equal(getThemeLayoutFromLabel(reference.name), 8);
     assert.equal(getThemeLayoutFromLabel(reference.id), 8);
     assert.ok(reference.signatureTheme);
     assert.ok(reference.images.length >= 6);
-    for (const plan of studioPlans) assert.equal(canUseThemeLayout(plan.name, reference.layout), plan.name === 'Top Tier', `${plan.name}: ${reference.id}`);
+    for (const plan of studioPlans) assert.equal(canUseThemeLayout(plan.name, reference.layout), true, `${plan.name}: ${reference.id}`);
   }
   assert.equal(studioPlans.find(plan => plan.name === 'Top Tier').price, 4999);
 });

@@ -22,8 +22,8 @@ const { renderShopifyOrderNotification, notifyPaidShopifyOrder, sendShopifyOrder
 function paidOrder() {
   return {
     id: `ZVT-${'a'.repeat(32)}`, status: 'paid', mode: 'live', packageName: 'Executive',
-    amount: 999.6, amountPaid: 999.6, upfrontAmount: 999.6, totalAmount: 2499,
-    balanceAmount: 1499.4, currency: 'USD', paymentStage: 'upfront', paymentVersion: 'upfront-40-v1',
+    amount: 249.9, amountPaid: 249.9, upfrontAmount: 249.9, totalAmount: 2499,
+    balanceAmount: 2249.1, currency: 'USD', paymentStage: 'upfront', paymentVersion: 'upfront-10-v2',
     transactionId: '123456789', productLimit: 250, features: ['Custom logo design: 5 concepts', 'Unique pages'],
     accessHash: 'PRIVATE-ACCESS-HASH', briefHash: 'PRIVATE-BRIEF-HASH', paymentToken: 'PRIVATE-CARD-TOKEN',
     brief: {
@@ -59,12 +59,12 @@ function notificationStore(order) {
   };
 }
 
-test('paid-order notification includes contact, full brief and exact 40/60 terms without payment credentials', () => {
+test('paid-order notification includes contact, full brief and exact 10/90 terms without payment credentials', () => {
   const order = paidOrder();
   const message = renderShopifyOrderNotification(order);
   for (const value of [
-    order.id, order.transactionId, 'Executive', '$2,499.00', '$999.60', '$1,499.40',
-    '40% upfront', 'after delivery', '7 working days', 'Sample Customer', 'customer@example.test',
+    order.id, order.transactionId, 'Executive', '$2,499.00', '$249.90', '$2,249.10',
+    '10% upfront', 'after customer approval', '7 working days', 'Sample Customer', 'customer@example.test',
     '+1 202 555 0123', 'Build a store', 'Soft contrast', 'Clotya Fashion', 'Product reviews and blog',
     'Custom logo design: 5 concepts', 'brand.svg', 'product.jpg',
   ]) assert.ok(message.text.includes(value), value);
@@ -119,7 +119,7 @@ test('concurrent status recovery and repeated requests send the operator brief a
   assert.equal(sends, 1);
   assert.equal(order.operatorNotification.status, 'sent');
   assert.equal(order.status, 'paid');
-  assert.equal(order.amountPaid, 999.6);
+  assert.equal(order.amountPaid, 249.9);
 });
 
 test('failed or ambiguous notification delivery remains recorded and never changes paid state or automatically resends', async () => {
@@ -132,8 +132,8 @@ test('failed or ambiguous notification delivery remains recorded and never chang
   assert.equal(sends, 1);
   assert.equal(order.operatorNotification.status, 'failed');
   assert.equal(order.status, 'paid');
-  assert.equal(order.amountPaid, 999.6);
-  assert.equal(order.balanceAmount, 1499.4);
+  assert.equal(order.amountPaid, 249.9);
+  assert.equal(order.balanceAmount, 2249.1);
 });
 
 test('notification datastore outages cannot turn an approved payment into an exception', async () => {

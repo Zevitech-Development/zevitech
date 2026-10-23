@@ -54,7 +54,7 @@ export default function ShopifyHomeLivingHome({ products, headline, brief, onBro
         </div>
         <div className="relative min-w-0">
           <div className="h-full min-h-72 [@container_studio_(min-width:640px)]:min-h-[29rem]">{photo(copy.hero.image, copy.hero.imageAlt, "object-center", true)}</div>
-          <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-3 border border-background/40 bg-background/90 px-4 py-3 text-heading backdrop-blur-sm"><p className="font-heading text-lg">{copy.hero.note}</p><ArrowDownRight size={22} strokeWidth={1.2} aria-hidden="true" /></div>
+          <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-3 border border-mix-background/40 bg-mix-background/90 px-4 py-3 text-heading backdrop-blur-sm"><p className="font-heading text-lg">{copy.hero.note}</p><ArrowDownRight size={22} strokeWidth={1.2} aria-hidden="true" /></div>
         </div>
       </section>
 
@@ -71,7 +71,7 @@ export default function ShopifyHomeLivingHome({ products, headline, brief, onBro
 
       <section aria-labelledby={`${sectionId}-room`} className={cn(section, "pb-9")}>
         <div className="grid overflow-hidden bg-secondary-background [@container_studio_(min-width:640px)]:grid-cols-2">
-          <figure className="relative min-h-80 [@container_studio_(min-width:640px)]:min-h-[35rem]"><div className="absolute inset-0">{photo(copy.room.image, copy.room.imageAlt, "object-[center_68%]")}</div><figcaption className="absolute bottom-4 left-4 right-4 bg-background/95 px-4 py-3 text-xs font-medium text-heading">{copy.room.imageCaption}</figcaption></figure>
+          <figure className="relative min-h-80 [@container_studio_(min-width:640px)]:min-h-[35rem]"><div className="absolute inset-0">{photo(copy.room.image, copy.room.imageAlt, "object-[center_68%]")}</div><figcaption className="absolute bottom-4 left-4 right-4 bg-mix-background/95 px-4 py-3 text-xs font-medium text-heading">{copy.room.imageCaption}</figcaption></figure>
           <div className="flex min-w-0 flex-col justify-center p-[clamp(1.25rem,3.5cqw,2.75rem)]">
             <p className={eyebrow}>{copy.room.eyebrow}</p><h3 id={`${sectionId}-room`} className={cn(heading, "mt-3 max-w-[18ch]")}>{copy.room.title}</h3><p className={cn(body, "mt-4")}>{copy.room.description}</p>
             <div role="group" aria-label={copy.room.choicesLabel} className="mt-5 grid grid-cols-3 gap-1 border-b border-border">
@@ -94,7 +94,7 @@ export default function ShopifyHomeLivingHome({ products, headline, brief, onBro
       <section aria-labelledby={`${sectionId}-edits`} className={cn(section, "pb-9")}>
         <div className="mb-5 text-center"><p className={eyebrow}>{copy.edits.eyebrow}</p><h3 id={`${sectionId}-edits`} className={cn(heading, "mt-2")}>{copy.edits.title}</h3></div>
         <div className="grid gap-4 [@container_studio_(min-width:640px)]:grid-cols-[1.25fr_.75fr]">
-          {copy.edits.items.map((item, index) => <button type="button" key={item.title} onClick={() => onBrowse(item.collection)} className={cn("group relative flex min-h-80 flex-col justify-end overflow-hidden text-left [@container_studio_(min-width:640px)]:min-h-96", focus)}><div className="absolute inset-0">{photo(item.image, item.imageAlt, cn("transition-transform duration-500 motion-safe:group-hover:scale-[1.025] motion-reduce:transition-none", index === 0 && "object-[65%_center]"))}</div><div className="absolute inset-0 bg-gradient-to-t from-heading/95 via-heading/30 to-transparent" /><div className="relative p-[clamp(1.5rem,3cqw,2.5rem)] text-background"><h4 className="max-w-[19ch] font-heading text-[clamp(1.6rem,3cqw,2.6rem)] font-normal leading-tight">{item.title}</h4><p className="mt-3 max-w-xs text-xs leading-relaxed text-background/90">{item.description}</p><span className="mt-3 inline-flex min-h-11 items-center gap-3 text-xs font-semibold underline underline-offset-8">{copy.edits.action}<ArrowRight size={14} aria-hidden="true" /></span></div></button>)}
+          {copy.edits.items.map((item, index) => <button type="button" key={item.title} onClick={() => onBrowse(item.collection)} className={cn("group relative flex min-h-80 flex-col justify-end overflow-hidden text-left [@container_studio_(min-width:640px)]:min-h-96", focus)}><div className="absolute inset-0">{photo(item.image, item.imageAlt, cn("transition-transform duration-500 motion-safe:group-hover:scale-[1.025] motion-reduce:transition-none", index === 0 && "object-[65%_center]"))}</div><div className="absolute inset-0 bg-gradient-to-t from-mix-heading/95 via-mix-heading/30 to-transparent" /><div className="relative p-[clamp(1.5rem,3cqw,2.5rem)] text-background"><h4 className="max-w-[19ch] font-heading text-[clamp(1.6rem,3cqw,2.6rem)] font-normal leading-tight">{item.title}</h4><p className="mt-3 max-w-xs text-xs leading-relaxed text-mix-background/90">{item.description}</p><span className="mt-3 inline-flex min-h-11 items-center gap-3 text-xs font-semibold underline underline-offset-8">{copy.edits.action}<ArrowRight size={14} aria-hidden="true" /></span></div></button>)}
         </div>
       </section>
 

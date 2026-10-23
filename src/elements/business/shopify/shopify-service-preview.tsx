@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
+import ShopifyClotyaHome from "./shopify-clotya-home";
+import ShopifyEcolifeHome from "./shopify-ecolife-home";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Compass, MessageCircle, Minus, Plus } from "lucide-react";
 import {
@@ -21,6 +23,7 @@ const serviceTemplateImages = new Set(studioTemplates
   .flatMap(template => template.images));
 
 export default function ShopifyServicePreview({
+  signatureTheme,
   plan,
   packageName,
   values,
@@ -30,6 +33,7 @@ export default function ShopifyServicePreview({
   layout,
   palette,
 }: ShopifyServicePreviewProps) {
+  const SignatureHome = signatureTheme === "clotya" ? ShopifyClotyaHome : signatureTheme === "ecolife" ? ShopifyEcolifeHome : null;
   const id = useId();
   const requestedPackage = packageName || studioPlans[plan]?.name || "Beginner";
   const planName = Object.prototype.hasOwnProperty.call(packagePreviewCapabilities, requestedPackage)
@@ -129,7 +133,7 @@ export default function ShopifyServicePreview({
     >
       <div className="bg-primary px-4 py-3 text-center text-[10px] font-semibold tracking-[0.18em] text-primary-foreground">{copy.sample}</div>
       <header className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-[clamp(1rem,4cqw,2.5rem)] py-4">
-        <button type="button" onClick={backToServices} className={cn("min-h-11 min-w-0 flex-1 rounded text-left font-heading text-2xl", focusClass)}>
+        <button type="button" onClick={backToServices} className={cn("min-h-11 min-w-0 flex-[1_1_10rem] rounded text-left font-heading text-2xl", focusClass)}>
           {logo ? <Image src={logo} alt={brand} width={160} height={56} unoptimized className="h-auto max-h-14 w-auto max-w-full object-contain object-left" /> : brand}
         </button>
         <button type="button" onClick={() => openOffer(category.offers[0].id, true)} className={cn("inline-flex min-h-11 items-center gap-2 rounded-full border border-border px-4 py-2 text-xs font-semibold", focusClass)}>
@@ -180,7 +184,15 @@ export default function ShopifyServicePreview({
         </div>
       ) : (
         <>
-          <section data-service-section="hero" className={cn(sectionClass, "grid items-center gap-7", !mobile && "studio-two-column", richerStory && layout !== 3 ? "bg-secondary text-secondary-foreground" : "bg-secondary-background")}>
+          {SignatureHome && <SignatureHome
+            categoryContext={categoryLabel} serviceMode headline={category.headline} brief={category.introduction}
+            products={category.offers.map((offer, index) => ({ id: index, name: offer.title, collection: offer.group, price: 0, priceLabel: offer.format, src: images[index % images.length], description: offer.description }))}
+            onBrowse={(group) => { setGroup(group || "all"); moveTo(servicesHeading.current); }}
+            onProduct={index => openOffer(category.offers[index].id)}
+            onAddToBag={index => openOffer(category.offers[index].id, true)}
+            onViewBag={() => moveTo(servicesHeading.current)}
+          />}
+          {!SignatureHome && <section data-service-section="hero" className={cn(sectionClass, "grid items-center gap-7", !mobile && "studio-two-column", richerStory && layout !== 3 ? "bg-secondary text-secondary-foreground" : "bg-secondary-background")}>
             <div className="min-w-0">
               <p className="text-[10px] font-semibold tracking-[0.18em] opacity-70">{categoryLabel}</p>
               <h3 className="mt-4 max-w-lg font-heading text-[clamp(2rem,5.4cqw,4rem)] leading-tight">{category.headline}</h3>
@@ -194,7 +206,7 @@ export default function ShopifyServicePreview({
                 <span className="text-xs font-normal text-paragraph">{String(index + 1).padStart(2, "0")}</span><span className="min-w-0 flex-1">{offer.title}</span><ArrowUpRight size={16} aria-hidden="true" className="shrink-0 text-primary" />
               </button>)}</div>
             </div>
-          </section>
+          </section>}
 
           <section data-service-section="offers" className={sectionClass}>
             <p className="mb-2 text-[10px] font-semibold tracking-[0.18em] text-primary">{copy.services}</p>

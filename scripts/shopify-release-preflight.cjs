@@ -170,6 +170,9 @@ async function runReleasePreflight({
   if (env.SHOPIFY_CHECKOUT_TERMS_APPROVED !== "true") {
     return fail("TERMS_NOT_APPROVED", "Shopify checkout terms approval is missing.");
   }
+  if (!validOpaqueKey(env.CRON_SECRET)) {
+    return fail("LEAD_RETRY_UNAVAILABLE", "Lead notification retry requires CRON_SECRET for the scheduled retry endpoint.");
+  }
   if (env.SHOPIFY_CHECKOUT_MODE !== "live") {
     return fail("INVALID_CHECKOUT_MODE", "Enabled production checkout must use live mode.");
   }

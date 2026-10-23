@@ -62,7 +62,7 @@ export default function ShopifyPackageSelector({
             aria-controls={gridId}
             aria-expanded={showAll}
             onClick={() => setShowAll((current) => !current)}
-            className="animation-standard inline-flex min-h-12 shrink-0 items-center justify-center rounded-lg border border-primary px-4 py-3 text-sm font-semibold text-primary hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            className="animation-standard inline-flex min-h-12 shrink-0 items-center justify-center rounded-lg border border-primary px-4 py-3 text-sm font-semibold text-primary hover:bg-mix-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             {showAll ? copy.showFocused : copy.showAll.replace("{count}", String(plans.length))}
           </button>
@@ -123,7 +123,7 @@ export default function ShopifyPackageSelector({
               )}
             >
               {hasRecommendation && (recommended === index ? (
-                <p className="mb-3 rounded-lg bg-primary/10 px-3 py-2 text-xs font-semibold text-primary">
+                <p className="mb-3 rounded-lg bg-mix-primary/10 px-3 py-2 text-xs font-semibold text-primary">
                   {packageRecommendationCopy.recommended}
                 </p>
               ) : (
@@ -174,7 +174,7 @@ export default function ShopifyPackageSelector({
                 <div
                   className={cn(
                     "mb-5 rounded-xl border p-3",
-                    coverage.matches ? "border-tertiary/30 bg-tertiary/5" : "border-border bg-muted/50",
+                    coverage.matches ? "border-tertiary/30 bg-tertiary/5" : "border-border bg-mix-muted/50",
                   )}
                 >
                   <p id={`${titleId}-scope`} className="text-sm font-semibold text-heading">
@@ -250,7 +250,7 @@ export default function ShopifyPackageSelector({
                 type="button"
                 onClick={() => onExplore(index)}
                 aria-label={`${copy.explore}: ${plan.name}`}
-                className="mb-3 mt-auto inline-flex min-h-12 w-full min-w-0 items-center justify-center rounded-lg border border-primary px-4 py-3 text-sm font-semibold text-primary hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                className="mb-3 mt-auto inline-flex min-h-12 w-full min-w-0 items-center justify-center rounded-lg border border-primary px-4 py-3 text-sm font-semibold text-primary hover:bg-mix-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
                 {copy.explore}
               </button>}

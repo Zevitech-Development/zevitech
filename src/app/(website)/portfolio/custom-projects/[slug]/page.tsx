@@ -30,6 +30,7 @@ export function generateMetadata({
   return GetPageMetadata({
     title: `${project.title} | Zevitech Custom Projects`,
     description: project.description,
+    path: `/portfolio/custom-projects/${project.slug}`,
   });
 }
 

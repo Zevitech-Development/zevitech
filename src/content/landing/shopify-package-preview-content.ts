@@ -6,6 +6,7 @@ import type {
 } from "@/interfaces/shopify-package-preview-interface";
 import {
   shopifyPackageOrder,
+  shopifyPackageRevisionScope,
   getShopifyLogoConceptSummary,
   shopifyLogoScopeCopy,
   shopifyPackagesForCapability,
@@ -50,17 +51,17 @@ const profileDetails: Record<ShopifyPackageName, Omit<PackagePreviewProfile, "de
   Beginner: {
     designTitle: "Theme-based design",
     designBody: "A mobile-friendly first store with your products, basic search, cart and supported payment setup.",
-    delivery: ["Dedicated designer and developer", "Payment integration", "Launch checks and theme handover", "Unlimited revisions"],
+    delivery: ["Theme-based design", "Payment integration", "Launch checks and theme handover", shopifyPackageRevisionScope.Beginner],
   },
   Growth: {
     designTitle: "Customised design",
     designBody: "All Beginner inclusions, with tailored storefront styling, a mini cart and newsletter setup.",
-    delivery: ["Brand styling for homepage, product and collection templates", "1 abandoned-checkout email automation configured", "Dedicated designer and developer", "Unlimited revisions"],
+    delivery: ["Brand styling for homepage, product and collection templates", "1 abandoned-checkout email automation configured", shopifyPackageRevisionScope.Growth],
   },
   "Level Up": {
     designTitle: "Product discovery and measurement",
     designBody: "All Growth inclusions, with configured filters, related products and analytics setup.",
-    delivery: ["Up to 3 storefront filters configured", "Related and complementary product recommendations for up to 10 products", "GA4 connection and standard ecommerce event checks", "Unlimited revisions"],
+    delivery: ["Up to 3 storefront filters configured", "Related and complementary product recommendations for up to 10 products", "GA4 connection and standard ecommerce event checks", shopifyPackageRevisionScope["Level Up"]],
   },
   Pro: {
     designTitle: "Content, campaigns and operations",

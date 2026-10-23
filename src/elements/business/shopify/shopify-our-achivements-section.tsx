@@ -30,9 +30,9 @@ function PortfolioCard({ project, eager = false }: ShopifyPortfolioCardProps) {
             className="block w-full min-w-0 text-left focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-primary"
           >
             <div className="flex items-center gap-1.5 border-b border-border bg-secondary-background px-4 py-3" aria-hidden="true">
-              <span className="h-2 w-2 rounded-full bg-paragraph/30" />
-              <span className="h-2 w-2 rounded-full bg-paragraph/20" />
-              <span className="h-2 w-2 rounded-full bg-paragraph/15" />
+              <span className="h-2 w-2 rounded-full bg-mix-paragraph/30" />
+              <span className="h-2 w-2 rounded-full bg-mix-paragraph/20" />
+              <span className="h-2 w-2 rounded-full bg-mix-paragraph/15" />
               <span className="ml-3 text-xs font-medium text-paragraph">{copy.frame}</span>
             </div>
             <div className="border-b border-border bg-secondary-background">

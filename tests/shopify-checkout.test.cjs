@@ -35,7 +35,7 @@ function memoryStore() {
     async claim(id, tokenHash, attemptId) {
       const order = data.get(id);
       if (!['created', 'declined'].includes(order.status) || order.attempts >= 3 || tokens.has(tokenHash)) return false;
-      tokens.add(tokenHash); Object.assign(order, { status: 'processing', attemptId, attempts: order.attempts + 1 }); return true;
+      tokens.add(tokenHash); Object.assign(order, { status: 'processing', attemptId, gatewayOrderId: 'ZVP-' + attemptId.replaceAll('-', ''), attempts: order.attempts + 1 }); return true;
     },
     async finish(id, attemptId, patch) {
       if (this.failFinish) throw new Error('datastore unavailable');
@@ -59,14 +59,14 @@ const approved = { status: 'paid', transactionId: '123456789', gatewayCode: '100
 
 test('amount, currency and included scope are owned by server catalogue', async () => {
   const store = memoryStore(); const order = await createShopifyCheckoutOrder(input(), store, 'sandbox');
-  assert.equal(order.amount, 99.6); assert.equal(order.currency, 'USD');
+  assert.equal(order.amount, 24.9); assert.equal(order.currency, 'USD');
   const saved = await store.get(order.id); assert.equal(saved.productLimit, 10); assert.equal(saved.brief.package.price, undefined);
 });
 
-test('all six packages charge the 40% deposit once and retain the 60% delivery balance', async () => {
+test('all six packages charge the 10% deposit once and retain the 90% delivery balance', async () => {
   const expected = [
-    [249, 99.6, 149.4], [599, 239.6, 359.4], [999, 399.6, 599.4],
-    [1499, 599.6, 899.4], [2499, 999.6, 1499.4], [4999, 1999.6, 2999.4],
+    [249, 24.9, 224.1], [599, 59.9, 539.1], [999, 99.9, 899.1],
+    [1499, 149.9, 1349.1], [2499, 249.9, 2249.1], [4999, 499.9, 4499.1],
   ];
   assert.equal(studioPlans.length, expected.length);
   for (const [index, plan] of studioPlans.entries()) {
@@ -97,7 +97,7 @@ test('all six packages charge the 40% deposit once and retain the 60% delivery b
     assert.equal(receipt.paymentStage, 'upfront');
     const saved = await store.get(order.id);
     assert.equal(saved.amountPaid, upfront);
-    assert.equal(saved.consentVersion, 'shopify-development-40-upfront-2026-10-20');
+    assert.equal(saved.consentVersion, 'shopify-development-10-upfront-delivery-2026-10-23');
     assert.equal(saved.brief.package.paymentSchedule, undefined);
     assert.equal(saved.paymentSchedule, undefined);
   }
@@ -127,7 +127,7 @@ test('legacy uncharged full-price sessions cannot charge or silently change paym
     assert.equal(recoverable.amountPaid, 0);
     assert.equal((await cancelShopifyCheckout(order.id, input().accessToken, store)).status, 'cancelled');
     const fresh = input(); fresh.requestId = '98765432-1234-4234-8234-123456789012';
-    assert.equal((await createShopifyCheckoutOrder(fresh, store, 'sandbox')).amount, 99.6);
+    assert.equal((await createShopifyCheckoutOrder(fresh, store, 'sandbox')).amount, 24.9);
   }
 });
 
@@ -188,10 +188,10 @@ test('the NMI request sends the exact deposit and identifies it as an upfront pa
     globalThis.fetch = async (url, options) => {
       requests++;
       assert.equal(url, 'https://sandbox.nmi.com/api/transact.php');
-      assert.equal(options.body.get('amount'), '99.60');
+      assert.equal(options.body.get('amount'), '24.90');
       assert.equal(options.body.get('currency'), 'USD');
       assert.equal(options.body.get('orderid'), order.id);
-      assert.match(options.body.get('order_description'), /40% upfront payment/);
+      assert.match(options.body.get('order_description'), /10% upfront payment/);
       return { ok: true, text: async () => 'response=1&response_code=100&transactionid=123456789' };
     };
     assert.equal((await createNmiCheckoutGateway().charge(saved, pay(order))).status, 'paid');
@@ -205,7 +205,7 @@ test('the NMI request sends the exact deposit and identifies it as an upfront pa
 });
 
 test('payment schedules conserve exact cents and reject invalid or fractional-cent totals', () => {
-  for (const [total, upfront, balance] of [[249, 99.6, 149.4], [4999, 1999.6, 2999.4], [10.01, 4, 6.01], [10.02, 4.01, 6.01], [999.99, 400, 599.99]]) {
+  for (const [total, upfront, balance] of [[249, 24.9, 224.1], [4999, 499.9, 4499.1], [10.01, 1, 9.01], [10.02, 1, 9.02], [999.99, 100, 899.99]]) {
     assert.deepEqual(getShopifyPaymentSchedule(total), { total, upfront, balance });
     assert.equal(Math.round(upfront * 100) + Math.round(balance * 100), Math.round(total * 100));
   }
@@ -229,7 +229,7 @@ test('service and custom business classifications persist privately in the check
     for (const [key, value] of Object.entries(classification)) assert.equal(saved.brief.business[key], value);
     assert.equal(saved.status, 'created');
     assert.equal(saved.attempts, 0);
-    assert.equal(order.amount, 99.6);
+    assert.equal(order.amount, 24.9);
     assert.equal(order.currency, 'USD');
     for (const key of ['business', 'businessType', 'businessCategory', 'customCategory']) assert.equal(order[key], undefined);
   }
@@ -261,7 +261,7 @@ test('older checkout briefs retain compatibility through product classification 
   assert.equal(saved.brief.business.businessType, 'products');
   assert.equal(saved.brief.business.businessCategory, '');
   assert.equal(saved.brief.business.customCategory, '');
-  assert.equal(saved.amount, 99.6);
+  assert.equal(saved.amount, 24.9);
 });
 test('unsupported scope, excess products, custom work and migration cannot bypass review', async () => {
   for (const alter of [x => x.brief.needs.featureIds.push('reviews'), x => x.brief.needs.productCount = '500', x => x.brief.business.requirements = 'Custom ERP integration', x => x.brief.business.projectType = 'Move to Shopify']) {
@@ -326,13 +326,13 @@ test('gateway response must be an approved sale, not an auth-like or ambiguous r
 });
 test('reconciliation validates order, exact USD amount and settled/captured sale', async () => {
   const store = memoryStore(); const order = await createShopifyCheckoutOrder(input(), store, 'sandbox'); const saved = await store.get(order.id);
-  const xml = `<nm_response><transaction><transaction_id>123456</transaction_id><order_id>${order.id}</order_id><condition>pendingsettlement</condition><currency>USD</currency><action><action_type>sale</action_type><success>1</success><amount>99.60</amount></action></transaction></nm_response>`;
+  const xml = `<nm_response><transaction><transaction_id>123456</transaction_id><order_id>${order.id}</order_id><condition>pendingsettlement</condition><currency>USD</currency><action><action_type>sale</action_type><success>1</success><amount>24.90</amount></action></transaction></nm_response>`;
   assert.equal(parseNmiQueryResponse(xml, saved).status, 'paid');
   const declined = '<transaction><transaction_id>111</transaction_id><order_id>' + order.id + '</order_id><condition>failed</condition></transaction>';
   assert.equal(parseNmiQueryResponse(xml.replace('</nm_response>', declined + '</nm_response>'), saved).status, 'paid');
   assert.equal(parseNmiQueryResponse(xml.replace('</transaction>', '<action><action_type>refund</action_type><success>1</success></action></transaction>'), saved).status, 'pending');
   assert.equal(parseNmiQueryResponse(xml.replace('</nm_response>', xml.match(/<transaction>[\s\S]*<\/transaction>/)[0] + '</nm_response>'), saved).status, 'pending');
-  for (const incorrect of [xml.replace('99.60', '1.00'), xml.replace('USD', 'GBP'), xml.replace('pendingsettlement', 'pending'), xml.replace(order.id, 'another-order'), '<!DOCTYPE test><nm_response/>']) assert.equal(parseNmiQueryResponse(incorrect, saved).status, 'pending');
+  for (const incorrect of [xml.replace('24.90', '1.00'), xml.replace('USD', 'GBP'), xml.replace('pendingsettlement', 'pending'), xml.replace(order.id, 'another-order'), '<!DOCTYPE test><nm_response/>']) assert.equal(parseNmiQueryResponse(incorrect, saved).status, 'pending');
 });
 test('missing configuration and live credentials on preview remain disabled', () => {
   const names = ['SHOPIFY_CHECKOUT_ENABLED', 'SHOPIFY_CHECKOUT_TERMS_APPROVED', 'SHOPIFY_CHECKOUT_MODE', 'NMI_SECURITY_KEY', 'NEXT_PUBLIC_NMI_TOKENIZATION_KEY', 'SHOPIFY_CHECKOUT_REDIS_REST_URL', 'SHOPIFY_CHECKOUT_REDIS_REST_TOKEN', 'SHOPIFY_CHECKOUT_KV_REST_API_URL', 'SHOPIFY_CHECKOUT_KV_REST_API_TOKEN', 'SHOPIFY_CHECKOUT_ORIGIN', 'VERCEL_ENV'];
@@ -514,3 +514,102 @@ test('only confirmed declines expose a numeric recovery code without raw provide
   assert.equal(publicCheckoutOrder({ ...saved, status: 'declined', gatewayCode: '<script>' }).declineCode, undefined);
   assert.ok(!shopifyDeclineFeedback('<script>').includes('<script>'));
 });
+
+test('historical 40% deposits remain 40% receipts and uncharged sessions cannot charge under old terms', async () => {
+  for (const status of ['created', 'paid', 'pending']) {
+    const store = memoryStore();
+    const order = await createShopifyCheckoutOrder(input(), store, 'sandbox');
+    Object.assign(store.data.get(order.id), { status, amount: 99.6, upfrontAmount: 99.6, totalAmount: 249, balanceAmount: 149.4, amountPaid: status === 'paid' ? 99.6 : 0, paymentVersion: 'upfront-40-v1' });
+    let charges = 0;
+    const gateway = { charge: async () => { charges++; return approved; } };
+    if (status === 'created') {
+      await assert.rejects(payShopifyCheckout(pay(order), store, gateway, 'sandbox'), error => error.code === 'PAYMENT_TERMS_CHANGED');
+    } else {
+      const receipt = await payShopifyCheckout(pay(order), store, gateway, 'sandbox');
+      assert.equal(receipt.paymentVersion, 'upfront-40-v1');
+      assert.equal(receipt.paymentStage, 'upfront');
+      assert.equal(receipt.totalAmount, 249);
+      assert.equal(receipt.balanceAmount, 149.4);
+      assert.equal(receipt.amountPaid, status === 'paid' ? 99.6 : 0);
+    }
+    assert.equal(charges, 0);
+  }
+});
+
+test('old approval-based 10% sessions must refresh before payment, while paid receipts retain their terms', async () => {
+  const store = memoryStore();
+  const current = await createShopifyCheckoutOrder(input(), store, 'sandbox');
+  const saved = store.data.get(current.id);
+  saved.paymentVersion = 'upfront-10-v2';
+  saved.consentVersion = 'shopify-development-10-upfront-approval-2026-10-22';
+  let charges = 0;
+  const gateway = { charge: async () => { charges++; return approved; } };
+  await assert.rejects(payShopifyCheckout(pay(current), store, gateway, 'sandbox'), { code: 'PAYMENT_TERMS_CHANGED' });
+  assert.equal(charges, 0);
+  saved.status = 'paid'; saved.transactionId = approved.transactionId;
+  const receipt = await payShopifyCheckout(pay(current), store, gateway, 'sandbox');
+  assert.equal(receipt.paymentVersion, 'upfront-10-v2');
+  assert.equal(receipt.paymentStage, 'upfront');
+  assert.equal(receipt.amountPaid, 24.9);
+  assert.equal(receipt.balanceAmount, 224.1);
+  assert.equal(charges, 0);
+});
+
+
+test('documented card and gateway rejections are actionable while uncertain responses stay locked', () => {
+  for (const code of ['220', '223', '224', '225', '300', '410', '411', '440', '441', '460', '461']) {
+    assert.deepEqual(parseNmiChargeResponse(`response=3&response_code=${code}&responsetext=Rejected`), { status: 'declined', gatewayCode: code });
+  }
+  for (const code of ['400', '420', '421', '430', '999']) assert.equal(parseNmiChargeResponse(`response=3&response_code=${code}`).status, 'pending');
+  for (const text of ['Communication error', 'Request timed out']) {
+    assert.equal(parseNmiChargeResponse(`response=3&response_code=300&responsetext=${encodeURIComponent(text)}`).status, 'pending');
+  }
+});
+
+test('confirmed failed query recovers a pending attempt but never an old decline or empty result', async () => {
+  const store = memoryStore(); const order = await createShopifyCheckoutOrder(input(), store, 'sandbox');
+  await payShopifyCheckout(pay(order), store, { charge: async () => ({ status: 'pending' }) }, 'sandbox');
+  const saved = store.data.get(order.id);
+  saved.updatedAt = new Date(Date.now() - 60000).toISOString();
+  const failed = `<nm_response><transaction><transaction_id>456</transaction_id><order_id>${saved.gatewayOrderId}</order_id><condition>failed</condition><currency>USD</currency><action><action_type>sale</action_type><success>0</success><amount>24.90</amount><response_code>300</response_code><response_text>Invalid card number</response_text></action></transaction></nm_response>`;
+  assert.deepEqual(parseNmiQueryResponse(failed, saved), { status: 'declined', gatewayCode: '300' });
+  for (const xml of [failed.replace(saved.gatewayOrderId, order.id), failed.replace('24.90', '1.00'), failed.replace('USD', 'GBP'), failed.replace('failed', 'pending'), failed.replace('Invalid card number', 'Duplicate transaction'), failed.replace('<success>0', '<success>1'), '<nm_response/>']) {
+    assert.equal(parseNmiQueryResponse(xml, saved).status, 'pending');
+  }
+  const result = await checkShopifyCheckout(order.id, 'a'.repeat(64), store, { reconcile: async current => parseNmiQueryResponse(failed, current) }, 'sandbox');
+  assert.equal(result.status, 'declined'); assert.equal(result.declineCode, '300'); assert.equal(result.retryAllowed, true);
+  const oldAttempt = saved.gatewayOrderId;
+  await payShopifyCheckout({ ...pay(order), paymentToken: 'second-card-token' }, store, { charge: async current => {
+    assert.notEqual(current.gatewayOrderId, oldAttempt);
+    assert.equal(parseNmiQueryResponse(failed, current).status, 'pending');
+    return approved;
+  } }, 'sandbox');
+});
+
+test('legacy failed query only recovers one matching first attempt, never ambiguous retry history', async () => {
+  const order = await createShopifyCheckoutOrder(input(), memoryStore(), 'sandbox');
+  const legacy = { ...order, attempts: 1 };
+  const xml = `<nm_response><transaction><order_id>${order.id}</order_id><condition>failed</condition><currency>USD</currency><action><action_type>sale</action_type><success>0</success><amount>24.90</amount><response_code>225</response_code></action></transaction></nm_response>`;
+  assert.equal(parseNmiQueryResponse(xml, legacy).status, 'declined');
+  assert.equal(parseNmiQueryResponse(xml, { ...legacy, attempts: 2 }).status, 'pending');
+});
+
+test('public checkout exposes useful rejection codes and disables exhausted retries', async () => {
+  const store = memoryStore(); const order = await createShopifyCheckoutOrder(input(), store, 'sandbox');
+  const { publicCheckoutOrder } = require('../src/services/shopify-checkout-service.ts');
+  const { shopifyDeclineFeedback } = require('../src/lib/shopify-payment-feedback.ts');
+  for (const code of ['300', '410', '411', '440', '441', '460', '461']) {
+    const result = publicCheckoutOrder({ ...store.data.get(order.id), status: 'declined', gatewayCode: code, attempts: 3 });
+    assert.equal(result.declineCode, code); assert.equal(result.retryAllowed, false);
+    assert.match(shopifyDeclineFeedback(code), new RegExp(code));
+  }
+});
+
+ test('duplicate gateway rejection is a terminal message with retry blocked, never an endless pending spinner', async () => {
+  const parsed = parseNmiChargeResponse('response=3&response_code=300&responsetext=Duplicate+transaction');
+  assert.deepEqual(parsed, {status:'declined',gatewayCode:'300',gatewayIssue:'duplicate'});
+  const store=memoryStore(); const order=await createShopifyCheckoutOrder(input(),store,'sandbox');
+  const result=await payShopifyCheckout(pay(order),store,{charge:async()=>parsed},'sandbox');
+  assert.equal(result.status,'declined'); assert.equal(result.retryAllowed,false); assert.equal(result.gatewayIssue,'duplicate');
+  await assert.rejects(payShopifyCheckout({...pay(order),paymentToken:'another-token'},store,{charge:async()=>assert.fail('must not charge again')},'sandbox'),{code:'PAYMENT_RETRY_BLOCKED'});
+ });

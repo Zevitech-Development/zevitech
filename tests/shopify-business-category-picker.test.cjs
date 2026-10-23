@@ -1,4 +1,5 @@
 // Controlled category selection, local reference coverage, and accessible SSR.
+require('./setup-next-image.cjs');
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -26,6 +27,7 @@ const StudioSelect = require('../src/elements/business/shopify/shopify-studio-se
 const {
   SHOPIFY_CUSTOM_CATEGORY, shopifyBusinessTypeOptions, shopifyProductCategories,
   shopifyServiceCategories, getShopifyBusinessCategoryOptions, resolveCategoryReference,
+  shopifyLibraryCategory,
 } = require('../src/content/landing/shopify-business-categories.ts');
 const { studioTemplates } = require('../src/content/landing/shopify-studio-templates.ts');
 
@@ -73,10 +75,10 @@ test('category options resolve to eight core references and complete premium cat
       const references = studioTemplates.filter(reference => reference.category === resolved);
       assert.equal(references.filter(reference => !reference.conceptImage && !reference.signatureTheme).length, 8, `${businessType}: ${category}`);
       for (const reference of references) {
-        assert.equal(reference.businessType, shopifyServiceCategories.includes(resolved) ? 'services' : 'products');
-        if (reference.conceptImage || reference.signatureTheme) assert.ok(reference.images.length >= 6, 'Premium references retain a complete product catalogue');
-        else assert.equal(reference.images.length, 3);
-        for (const image of reference.images) assert.ok(fs.existsSync(path.join(root, 'public', image)), image);
+        assert.equal(reference.businessType, shopifyServiceCategories.map(shopifyLibraryCategory).includes(resolved) ? 'services' : 'products');
+        if ((reference.conceptImage || reference.signatureTheme) && !reference.id.endsWith("-signature")) assert.ok(reference.images.length >= 6, 'Premium references retain a complete product catalogue');
+        else assert.ok(reference.images.length >= 3);
+        for (const image of reference.images) assert.ok(/^https:\/\/images\.unsplash\.com\/photo-[0-9]+-[0-9a-f]+\?/.test(image) || fs.existsSync(path.join(root, 'public', image)), image);
       }
     }
   }
@@ -91,7 +93,8 @@ test('picker renders labeled native controls and does not commit choices on rend
   const picker = harness();
   const html = picker.markup();
   assert.equal(picker.calls.length, 0);
-  assert.equal((html.match(/type="radio"/g) || []).length, 3);
+  assert.equal((html.match(/type="radio"/g) || []).length, 2);
+  assert.doesNotMatch(html, /value="both"/);
   assert.match(html, /<fieldset><legend/);
   assert.match(html, /Product business/);
   assert.match(html, /Service business/);
@@ -119,8 +122,8 @@ test('requested service industries are selectable with category-specific offers 
     assert.equal(resolveCategoryReference(category, 'services'), category);
     assert.ok(getShopifyServiceCategory(category).offers.some(item => item.title === offer));
     const refs = studioTemplates.filter(item => item.category === category);
-    assert.equal(refs.length, 8);
-    assert.deepEqual(refs.map(item => item.layout).sort((a, b) => a - b), [0, 2, 3, 4, 6, 7, 8, 9]);
+    assert.equal(refs.length, 10);
+    assert.deepEqual(refs.map(item => item.layout).sort((a, b) => a - b), [0, 2, 3, 4, 6, 7, 8, 8, 8, 9]);
   }
 });
 
@@ -129,12 +132,11 @@ test('switching business type preserves compatible categories and selects a vali
   picker.businessType('services');
   assert.equal(picker.props.category, shopifyServiceCategories[0]);
   picker.category('Fitness services');
-  picker.businessType('both');
-  assert.equal(picker.props.category, 'Fitness services');
-  picker.category('Accessories');
   picker.businessType('products');
-  assert.equal(picker.props.category, 'Accessories');
-  assert.equal(picker.calls.length, 5);
+  assert.equal(picker.props.category, shopifyProductCategories[0]);
+  picker.category('Bags & accessories');
+  assert.equal(picker.props.category, 'Bags & accessories');
+  assert.equal(picker.calls.length, 4);
   assert.doesNotMatch(picker.markup(), /<option[^>]*>Fitness services/);
 });
 

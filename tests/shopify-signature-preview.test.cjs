@@ -1,5 +1,6 @@
 // Exercise the signature storefront through the actual preview state and handlers.
 // No browser, network, checkout provider, or real order is used.
+require('./setup-next-image.cjs');
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -142,15 +143,15 @@ test('all five signature references render complete interactive homepages only i
   }
 });
 
-test('passing a premium reference to a cheaper package cannot unlock its signature homepage', () => {
+test('passing a premium reference to a cheaper package retains its signature homepage', () => {
   for (const item of cases) {
     const minimumIndex = studioPlans.findIndex(plan => plan.name === item.minPackage);
     for (const { name: packageName } of studioPlans.slice(0, minimumIndex)) {
       const input = propsFor(item, packageName);
       const instance = harness(input);
-      assert.ok(!nodes(instance.tree()).some(node => cases.some(candidate => node.type === candidate.Home)), `${packageName}: ${item.theme}`);
+      assert.ok(nodes(instance.tree()).some(node => cases.some(candidate => node.type === candidate.Home)), `${packageName}: ${item.theme}`);
       const markup = renderToStaticMarkup(React.createElement(Preview, input));
-      assert.doesNotMatch(markup, /data-signature-theme=/);
+      assert.match(markup, /data-signature-theme=/);
       assert.doesNotMatch(markup, /(?:clotya|ecolife)-refined\.webp/);
     }
   }
@@ -222,11 +223,11 @@ test('food, beauty, living and technology quick-add merge identical products wit
   }
 });
 
-test('each signature owns a distinct local catalogue and retains its exact ID and package threshold', () => {
+test('each signature owns a distinct local catalogue and retains its exact ID and availability in every package', () => {
   assert.deepEqual(cases.map(item => item.id), ['clotya-fashion-premium', 'ecolife-organic-premium', 'ritual-beauty-premium', 'forme-living-premium', 'pulse-audio-premium']);
   for (const item of cases) {
     const reference = studioTemplates.find(reference => reference.id === item.id);
-    assert.equal(reference.minPackage, item.minPackage);
+    assert.equal(reference.minPackage, 'Beginner');
     assert.equal(reference.signatureTheme, item.theme);
     assert.ok(item.products.length >= 6, item.theme);
     assert.equal(new Set(item.products.map(product => product.name)).size, item.products.length);
@@ -235,7 +236,7 @@ test('each signature owns a distinct local catalogue and retains its exact ID an
     for (const product of item.products) {
       assert.ok(Number.isFinite(product.price) && product.price > 0);
       assert.ok(product.description.trim());
-      assert.ok(fs.existsSync(path.join(root, 'public', product.src)), product.src);
+      assert.ok(/^https:\/\/images\.unsplash\.com\//.test(product.src) || fs.existsSync(path.join(root, 'public', product.src)), product.src);
     }
   }
 });
@@ -277,5 +278,36 @@ test('signature product sorting uses real prices and preserves the active collec
     filter.props.onChange({ target: { value: category } });
     assert.deepEqual(collectionNames(instance), item.products.filter(product => product.collection === category)
       .sort((a, b) => b.price - a.price).map(product => product.name));
+  }
+});
+
+const { getCategorySignatureProducts } = require('../src/content/landing/shopify-category-signature-content.ts');
+test('both complete premium layouts exist for every category with valid local imagery', () => {
+  for (const category of new Set(studioTemplates.map(t => t.category))) {
+    const references = studioTemplates.filter(t => t.category === category && ['clotya', 'ecolife'].includes(t.signatureTheme));
+    assert.equal(references.length, 2, category);
+    for (const reference of references) {
+      assert.equal(reference.minPackage, 'Beginner');
+      for (const image of reference.images) assert.ok(/^https:\/\/images\.unsplash\.com\/photo-[0-9]+-[0-9a-f]+\?/.test(image) || fs.existsSync(path.join(root, 'public', image)), image);
+      if (!reference.id.endsWith('-signature')) continue;
+      const products = getCategorySignatureProducts(reference);
+      const Home = reference.signatureTheme === 'clotya' ? ClotyaHome : EcolifeHome;
+      const markup = renderToStaticMarkup(React.createElement(Home, {
+        products: products.map((p, id) => ({ ...p, id, priceLabel: reference.businessType === 'services' ? 'Explore service' : money(p.price) })),
+        categoryContext: category, serviceMode: reference.businessType === 'services',
+        onBrowse() {}, onProduct() {}, onAddToBag() {}, onViewBag() {},
+      }));
+      assert.ok(markup.includes(products[0].name.replaceAll('&', '&amp;')), reference.id);
+      if (reference.businessType === 'services') assert.doesNotMatch(markup, /Add to basket|Choose options|Fresh Food|Street Fashion/);
+      const item = { id: reference.id, products, minPackage: 'Top Tier' };
+      if (reference.businessType !== 'services') {
+        const preview = harness(propsFor(item));
+        const home = nodes(preview.tree()).find(node => node.type === Home);
+        assert.ok(home, reference.id);
+        assert.equal(home.props.categoryContext, require('../src/content/landing/shopify-business-categories.ts').shopifyCategoryLabel(category));
+        const lower = harness(propsFor(item, 'Executive'));
+        assert.ok(nodes(lower.tree()).some(node => node.type === Home), reference.id + ' must remain available');
+      }
+    }
   }
 });

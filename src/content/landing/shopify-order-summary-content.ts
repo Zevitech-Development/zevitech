@@ -9,14 +9,14 @@ export const shopifyOrderSummaryCopy = {
     "Your preview is an example, not the final store. We’ll refine the design with you within your selected package and agreed scope.",
   priceBreakdown: "Your payment plan",
   developmentFee: "Total package price",
-  upfront: "Due today · 40% upfront",
-  balance: "After delivery · 60% balance",
-  paymentPlan: "Start your project with 40% upfront. Pay the remaining 60% after delivery.",
+  upfront: "Due today · 10% upfront",
+  balance: "After delivery · 90% balance",
+  paymentPlan: "Start your project with 10% upfront. Pay the remaining 90% after delivery.",
   oneTime: "One-time · USD",
   exclusions:
     "Shopify subscriptions, paid themes, apps and third-party fees are separate. Custom requirements are scoped before payment.",
   nextTitle: "From your ideas to your store",
-  nextIntro: "Here’s what happens after your 40% upfront payment.",
+  nextIntro: "Here’s what happens after your 10% upfront payment.",
   nextSteps: [
     {
       title: "Design",
@@ -35,7 +35,7 @@ export const shopifyOrderSummaryCopy = {
     },
     {
       title: "Delivery and final payment",
-      description: "Your remaining 60% is due after delivery.",
+      description: "Your remaining 90% is due after delivery.",
     },
   ],
 };

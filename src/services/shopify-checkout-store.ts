@@ -19,6 +19,7 @@ export interface ShopifyCheckoutOrder extends Omit<ShopifyCheckoutPublicOrder, P
   attempts: number;
   attemptId?: string;
   gatewayCode?: string;
+  gatewayOrderId?: string;
   operatorNotification?: { status: "processing" | "sent" | "failed"; updatedAt: string };
 }
 
@@ -93,6 +94,7 @@ export function createCheckoutStore(): CheckoutStore {
         if order.status ~= 'created' and order.status ~= 'declined' then return 0 end
         if order.attempts >= 3 or redis.call('EXISTS', KEYS[2]) == 1 then return 0 end
         order.status = 'processing'; order.attemptId = ARGV[1]
+        order.gatewayOrderId = 'ZVP-' .. string.gsub(ARGV[1], '-', '')
         order.attempts = order.attempts + 1; order.updatedAt = ARGV[2]
         redis.call('SET', KEYS[2], 'used', 'EX', 2592000)
         redis.call('SET', KEYS[1], cjson.encode(order))

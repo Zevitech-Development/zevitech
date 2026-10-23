@@ -1,4 +1,4 @@
-import { getShopifyLogoConceptSummary, shopifyLogoScopeCopy, shopifyPackageCatalog, shopifyPackageScopeNotes } from "@/content/landing/shopify-package-catalog";
+import { getShopifyLogoConceptSummary, shopifyLogoScopeCopy, shopifyPackageCatalog, shopifyPackageRevisionScope, shopifyPackageScopeNotes } from "@/content/landing/shopify-package-catalog";
 
 export const comparisonCopy = {
   title: "Compare the scope, side by side.",
@@ -9,6 +9,7 @@ export const comparisonCopy = {
   included: "Package inclusions",
   total: "Full package price",
   rows: [
+    { label: "Revision allowance", values: shopifyPackageCatalog.map(plan => shopifyPackageRevisionScope[plan.name]) },
     { label: "Custom logo design", values: shopifyPackageCatalog.map((plan) => `${getShopifyLogoConceptSummary(plan.name)}. PNG and SVG included.`) },
     { label: "Product setup", values: shopifyPackageCatalog.map((plan) => `Up to ${plan.products}`) },
     { label: "Design approach", values: ["Theme-based", "Customised design", "Customised design", "Customised design + campaign page", "Unlimited unique pages", "Unique pages + custom development"] },

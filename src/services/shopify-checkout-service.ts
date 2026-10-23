@@ -7,7 +7,7 @@ import { getShopifyPaymentSchedule, SHOPIFY_PAYMENT_VERSION, SHOPIFY_LEGACY_PAYM
 import { canUseThemeLayout, canUseShopifyCustomizations, getThemeLayoutFromLabel } from "@/lib/shopify-theme-access";
 import { ShopifyCheckoutBriefSchema, ShopifyCheckoutCreateSchema, type ShopifyCheckoutPayment, type ShopifyCheckoutValidatedBrief } from "@/schemas/shopify-checkout-schema";
 import { checkoutAccessMatches, hashCheckoutValue, type CheckoutStore, type ShopifyCheckoutOrder } from "@/services/shopify-checkout-store";
-import type { ShopifyCheckoutGateway } from "@/services/shopify-checkout-nmi";
+import { isDefiniteNmiRejection, type ShopifyCheckoutGateway } from "@/services/shopify-checkout-nmi";
 import { notifyPaidShopifyOrder } from "@/services/shopify-checkout-notifications";
 
 export class ShopifyCheckoutError extends Error {
@@ -15,7 +15,7 @@ export class ShopifyCheckoutError extends Error {
 }
 
 export function publicCheckoutOrder(order: ShopifyCheckoutOrder): ShopifyCheckoutPublicOrder {
-  const isUpfront = order.paymentVersion === SHOPIFY_PAYMENT_VERSION && order.paymentStage === "upfront";
+  const isUpfront = (order.paymentVersion === SHOPIFY_PAYMENT_VERSION || order.paymentVersion === "upfront-10-v2" || order.paymentVersion === "upfront-40-v1") && order.paymentStage === "upfront";
   return {
     id: order.id, status: order.status, packageName: order.packageName, amount: order.amount,
     totalAmount: isUpfront ? order.totalAmount! : order.amount,
@@ -23,8 +23,12 @@ export function publicCheckoutOrder(order: ShopifyCheckoutOrder): ShopifyCheckou
     balanceAmount: isUpfront ? order.balanceAmount! : 0,
     amountPaid: order.status === "paid" ? order.amount : 0,
     paymentStage: isUpfront ? "upfront" : "full",
-    paymentVersion: isUpfront ? SHOPIFY_PAYMENT_VERSION : SHOPIFY_LEGACY_PAYMENT_VERSION,
-    ...(order.status === "declined" && /^2\d{2}$/.test(order.gatewayCode || "") ? { declineCode: order.gatewayCode } : {}),
+    paymentVersion: isUpfront ? order.paymentVersion! : SHOPIFY_LEGACY_PAYMENT_VERSION,
+    ...(order.status === "declined" && isDefiniteNmiRejection(order.gatewayCode || "") ? { declineCode: order.gatewayCode } : {}),
+    ...(order.gatewayIssue === "duplicate" ? { gatewayIssue: "duplicate" as const } : {}),
+    ...(["pending", "processing"].includes(order.status) && Number.isFinite(Date.parse(order.updatedAt))
+      ? { verificationEndsAt: new Date(Date.parse(order.updatedAt) + 120000).toISOString() } : {}),
+    retryAllowed: order.gatewayIssue !== "duplicate" && order.attempts < 3 && !["410", "411", "460"].includes(order.gatewayCode || ""),
     currency: order.currency, mode: order.mode, transactionId: order.transactionId, briefFingerprint: order.briefHash,
   };
 }
@@ -72,7 +76,7 @@ export async function createShopifyCheckoutOrder(payload: unknown, store: Checko
     amountPaid: 0, paymentStage: "upfront", paymentVersion: SHOPIFY_PAYMENT_VERSION,
     accessHash: hashCheckoutValue(accessToken), briefHash: hashCheckoutValue(JSON.stringify(brief)), briefFingerprint: hashCheckoutValue(JSON.stringify(brief)), brief,
     features: [...plan.features], productLimit: plan.products, createdAt: now, updatedAt: now,
-    consentVersion: "shopify-development-40-upfront-2026-10-20", attempts: 0,
+    consentVersion: "shopify-development-10-upfront-delivery-2026-10-23", attempts: 0,
     ...(attribution && Object.keys(attribution).length ? { attribution } : {}),
   };
   const saved = await store.create(order);
@@ -96,6 +100,7 @@ export async function payShopifyCheckout(input: ShopifyCheckoutPayment, store: C
     await notifyPaidShopifyOrder(order, store);
     return publicCheckoutOrder(order);
   }
+  if (order.gatewayIssue === "duplicate") throw new ShopifyCheckoutError("PAYMENT_RETRY_BLOCKED", 409);
   if (order.status === "cancelled") throw new ShopifyCheckoutError("CHECKOUT_CANCELLED", 409);
   if (input.briefFingerprint !== order.briefHash) throw new ShopifyCheckoutError("CHECKOUT_BRIEF_CHANGED", 409);
   // Validate legacy and resumed uncharged orders before claiming a token or contacting a gateway.
@@ -115,6 +120,7 @@ export async function payShopifyCheckout(input: ShopifyCheckoutPayment, store: C
   }
   let result;
   try {
+    order = await authorizedCheckoutOrder(order.id, input.accessToken, store);
     result = await gateway.charge(order, input);
   } catch {
     result = { status: "pending" as const };
@@ -138,8 +144,12 @@ export async function checkShopifyCheckout(id: string, token: string, store: Che
   if (order.mode !== mode) throw new ShopifyCheckoutError("CHECKOUT_MODE_CHANGED", 409);
   if (["pending", "processing"].includes(order.status) && order.attemptId && Date.now() - Date.parse(order.updatedAt) > 25000) {
     const result = await gateway.reconcile(order).catch(() => ({ status: "pending" as const }));
-    if (result.status === "paid") {
-      await store.finish(order.id, order.attemptId, { ...result, amountPaid: order.amount });
+    if (result.status === "pending") {
+      // Numeric status only: never log billing data, tokens or raw gateway responses.
+      console.warn("[shopify-checkout] Payment still unconfirmed", { orderId: order.id, gatewayCode: order.gatewayCode, attempts: order.attempts });
+    }
+    if (result.status === "paid" || result.status === "declined") {
+      await store.finish(order.id, order.attemptId, { ...result, amountPaid: result.status === "paid" ? order.amount : 0 });
       order = (await store.get(order.id))!;
     }
   }

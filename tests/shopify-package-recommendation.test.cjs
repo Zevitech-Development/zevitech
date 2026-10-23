@@ -40,7 +40,7 @@ test('product setup recommends the lowest-priced plan at each real package bound
 test('feature recommendations select the first tier that includes the cumulative capability', () => {
   for (const [features, expected] of [
     [['payment'], 'Beginner'], [['search'], 'Beginner'], [['reviews'], 'Pro'],
-    [['currencies'], 'Executive'], [['filters'], 'Top Tier'], [['dashboard'], 'Top Tier'],
+    [['currencies'], 'Executive'], [['filters'], 'Top Tier'], [['dashboard'], 'Pro'],
     [['payment', 'search', 'reviews'], 'Pro'], [['payment', 'reviews', 'currencies'], 'Executive'],
     [['filters', 'dashboard'], 'Top Tier'],
     [['marketing-automation'], 'Growth'], [['storefront-filters'], 'Level Up'],
@@ -66,7 +66,7 @@ test('feature needs and product setup must fit the same single package', () => {
   assert.equal(recommendation('500', ['reviews']), 'Top Tier');
   for (const [combination, expected] of [
     [['reviews', 'filters'], 'Top Tier'], [['payment', 'filters'], 'Top Tier'],
-    [['search', 'currencies'], 'Executive'], [['dashboard', 'reviews'], 'Top Tier'],
+    [['search', 'currencies'], 'Executive'], [['dashboard', 'reviews'], 'Pro'],
   ]) assert.equal(recommendation('10', combination), expected, combination.join(', '));
 });
 
@@ -134,7 +134,7 @@ test('a small catalogue still receives the package required for design and team 
 test('design and advanced selections combine through cumulative scope', () => {
   for (const [features, expected] of [
     [['unique-pages', 'custom-code'], 'Top Tier'], [['custom-logos', 'languages'], 'Executive'],
-    [['project-manager', 'dashboard'], 'Top Tier'], [['currencies', 'languages'], 'Executive'],
+    [['project-manager', 'dashboard'], 'Executive'], [['currencies', 'languages'], 'Executive'],
     [['search', 'newsletter'], 'Growth'],
   ]) assert.equal(recommendation('10', features), expected, features.join(', '));
   for (const id of ['unique-pages', 'custom-logos', 'project-manager']) {
@@ -153,7 +153,7 @@ test('the catalog preserves prices and product limits with cumulative capabiliti
     const plan = studioPlans[index];
     assert.equal(plan.inheritedFrom, index === 0 ? null : studioPlans[index - 1].name);
     assert.ok(plan.additions.length);
-    assert.ok(plan.features.includes('Unlimited revisions'));
+    assert.equal(plan.features.filter(feature => /revision/i.test(feature)).length, 1);
     assert.ok(plan.features.some(feature => /Responsive/.test(feature)));
     assert.equal(plan.features.filter(feature => /shopping cart/i.test(feature)).length, 1);
     assert.equal(plan.features.filter(feature => /Shopify Flow workflows/.test(feature)).length, plan.setupLimits.flowWorkflows > 0 ? 1 : 0);
@@ -201,15 +201,15 @@ test('requirement choices stay grouped, bounded and tied to published package fe
   }
 });
 
-test('all six packages include increasing logo concept allowances without changing prices or legacy scope', () => {
+test('all six packages include increasing logo concept allowances with stable prices and bounded revision scope', () => {
   assert.deepEqual(studioPlans.map(plan => plan.price), [249, 599, 999, 1499, 2499, 4999]);
   assert.deepEqual(studioPlans.map(plan => plan.logoConcepts), [1, 2, 3, 4, 5, 6]);
   for (const [index, plan] of studioPlans.entries()) {
     const concepts = plan.features.filter(feature => feature.startsWith('Custom logo design:'));
     assert.deepEqual(concepts, [`Custom logo design: ${index + 1} ${index === 0 ? 'concept' : 'concepts'} for one final logo`]);
     assert.ok(plan.features.includes('One chosen final logo delivered in PNG and SVG'));
-    assert.ok(plan.features.includes('Unlimited revisions'));
-    assert.ok(plan.features.includes('Unlimited revisions within the agreed logo direction and launch scope'));
+    assert.equal(plan.features.filter(feature => /revision/i.test(feature)).length, 1);
+    assert.match(plan.features.find(feature => /revision/i.test(feature)), /agreed launch scope/);
     assert.ok(plan.capabilityIds.includes('logo-design'));
   }
   assert.equal(recommendation('10', ['logo-design']), 'Beginner');
@@ -293,5 +293,13 @@ test('selected package validation rejects invalid indices and malformed plan rec
     const malformed = [{ ...studioPlans[0], ...patch }];
     assert.equal(findMatchingShopifyPackage(malformed, '10', []), null);
     assert.equal(shopifyPackageMatchesNeeds(malformed, 0, '10', []), false);
+  }
+});
+
+ test('entry package stays lean and higher tiers add progressive scope', () => {
+  assert.ok(studioPlans[0].features.length <= 8);
+  assert.ok(!studioPlans[0].features.some(feature => /Unlimited|Dedicated|dashboard|automation/i.test(feature)));
+  for (let i = 1; i < studioPlans.length; i++) {
+    assert.ok(studioPlans[i].features.length > studioPlans[i-1].features.length);
   }
 });

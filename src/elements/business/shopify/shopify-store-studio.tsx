@@ -1,5 +1,7 @@
 "use client";
+import { shopifyShowcaseThumbnails } from "@/content/landing/shopify-showcase-thumbnails";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { useEffect, useRef, useState, CSSProperties } from "react";
 import { useForm, FieldPath } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,6 +17,11 @@ import {
   Smartphone,
   Maximize2,
   X,
+  Layers3,
+  Lock,
+  ShieldCheck,
+  Star,
+  MessageCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -34,15 +41,12 @@ import ShopifyPaymentSchedule from "./shopify-payment-schedule";
 import { getShopifyPaymentSchedule } from "@/lib/shopify-payment-schedule";
 import { shopifyPaymentCopy } from "@/content/landing/shopify-payment-content";
 import { getShopifyDeliveryEstimate, shopifyDeliveryCopy } from "@/content/landing/shopify-delivery-content";
-import { shopifyNextTierCopy } from "@/content/landing/shopify-package-next-tier-content";
-import { packagePreviewProfiles } from "@/content/landing/shopify-package-preview-content";
 import { shopifyWizardCopy as wizard } from "@/content/landing/shopify-wizard-content";
-import ShopifyPackageNeeds from "./shopify-package-needs";
 import ShopifyThemeUpgrade from "./shopify-theme-upgrade";
 import { themeUpgradeCopy } from "@/content/landing/shopify-theme-upgrade-content";
 import { themeTiers } from "@/content/landing/shopify-theme-tier-content";
 import { canUseThemeLayout, getThemeMinimumPackage, getThemeTierByPackage } from "@/lib/shopify-theme-access";
-import { getAdjacentShopifyReferenceIndex } from "@/lib/shopify-reference-order";
+import { getAdjacentShopifyReferenceIndex, getShopifyReferenceOrder } from "@/lib/shopify-reference-order";
 import type { ShopifyDesignAction, ShopifyPendingThemeUpgrade } from "@/interfaces/shopify-theme-upgrade-interface";
 import { packageUpgradeCopy } from "@/content/landing/shopify-package-upgrade-content";
 import type { ShopifyPendingUpgrade } from "@/interfaces/shopify-package-upgrade-interface";
@@ -56,26 +60,30 @@ import {
   shopifyPackageMatchesNeeds,
 } from "@/lib/shopify-package-recommendation";
 import ShopifyOrderSummary from "./shopify-order-summary";
-import ShopifyPackageCheckout from "./shopify-package-checkout";
 import ShopifyDesignDraftControls from "./shopify-design-draft-controls";
 import { designDraftCopy } from "@/content/landing/shopify-design-draft-content";
 import { SHOPIFY_DESIGN_DRAFT_KEY, parseDesignDraft, serializeDesignDraft, type ShopifyDesignDraft } from "@/lib/shopify-design-draft";
 import ShopifyTemplateGallery from "./shopify-template-gallery";
 import ShopifyBusinessCategoryPicker from "./shopify-business-category-picker";
-import { resolveCategoryReference, SHOPIFY_CUSTOM_CATEGORY, shopifyBusinessTypeOptions, shopifyBusinessCategoryCopy } from "@/content/landing/shopify-business-categories";
+import { resolveCategoryReference, shopifyCategoryLabel, SHOPIFY_CUSTOM_CATEGORY, shopifyBusinessTypeOptions, shopifyBusinessCategoryCopy } from "@/content/landing/shopify-business-categories";
 import {
   studioTemplates,
   templateCopy,
   studioColourPalettes,
 } from "@/content/landing/shopify-studio-templates";
-import ShopifyStudioPreview from "./shopify-studio-preview";
 import { ShopifyStudioCheckoutDetailsSchema, ShopifyStudioSchema } from "@/schemas/shopify-studio-schema";
 import {
   ShopifyStudioProps,
   ShopifyStudioFormType,
 } from "@/interfaces/shopify-studio-interface";
 import { cn } from "@/lib/utils";
-import { captureShopifyCheckoutAttribution } from "@/lib/shopify-checkout-attribution-client";
+import { OpenLiveChat } from "@/utils/open-live-chat";
+import { trackShopifySavedLead } from "@/lib/shopify-lead-analytics";
+import { captureShopifyCheckoutAttribution, readShopifyCheckoutAttribution } from "@/lib/shopify-checkout-attribution-client";
+// The live storefront preview and the card checkout are large; load them only when the customer reaches them.
+const previewFallback = () => <div aria-hidden="true" className="min-h-[430px] w-full animate-pulse rounded-xl bg-muted" />;
+const ShopifyStudioPreview = dynamic(() => import("./shopify-studio-preview"), { ssr: false, loading: previewFallback });
+const ShopifyPackageCheckout = dynamic(() => import("./shopify-package-checkout"), { ssr: false, loading: previewFallback });
 const samples = studioTemplates[0].images;
 function studioScrollBehavior(): ScrollBehavior {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
@@ -111,11 +119,11 @@ export default function ShopifyStoreStudio({
   const [pendingTheme, setPendingTheme] = useState<ShopifyPendingThemeUpgrade | null>(null);
   const [newThemesAvailable, setNewThemesAvailable] = useState(false);
   const [browseAllThemes, setBrowseAllThemes] = useState(true);
-  const [packageComparison, setPackageComparison] = useState(false);
-  const [needsReviewed, setNeedsReviewed] = useState(false);
+  const leadKey = useRef("");
+  const [leadState, setLeadState] = useState<"idle" | "sending" | "sent" | "error">("idle");
   function openPackages() {
-    setPackageComparison(true);
     setGalleryOpen(false);
+    setFurthestStep(current => Math.max(current, 1));
     setStep(2);
     requestAnimationFrame(() => document.getElementById("studio-design-flow")?.scrollIntoView({ behavior: studioScrollBehavior(), block: "start" }));
   }
@@ -175,7 +183,7 @@ export default function ShopifyStoreStudio({
       customSoft: "#eaf2fb",
       projectType: "New store",
       businessType: "products",
-      businessCategory: "Fashion",
+      businessCategory: "Clothing & fashion",
       customCategory: "",
       existingStore: "",
       references: "",
@@ -228,9 +236,11 @@ export default function ShopifyStoreStudio({
     setValue("customInk", savedDesign.customColours.ink);
     setValue("customSurface", savedDesign.customColours.surface);
     setValue("customSoft", savedDesign.customColours.soft);
-    setValue("projectType", savedDesign.projectType ?? "New store");
-    setValue("businessType", savedDesign.businessType ?? "products");
-    setValue("businessCategory", savedDesign.businessCategory ?? studioTemplates[index].category);
+    setValue("projectType", "New store");
+    setValue("businessType", savedDesign.businessType === "both"
+      ? (studioTemplates[index].businessType === "services" ? "services" : "products")
+      : savedDesign.businessType ?? "products");
+    setValue("businessCategory", savedDesign.businessCategory ?? shopifyCategoryLabel(studioTemplates[index].category));
     setValue("customCategory", savedDesign.customCategory ?? "");
     setProductCount(savedDesign.productCount);
     setFeatureNeeds(savedDesign.featureIds.filter(id => !id.startsWith("theme-")));
@@ -239,8 +249,8 @@ export default function ShopifyStoreStudio({
     const usable = savedPlanIndex >= 0 && canUseThemeLayout(plans[savedPlanIndex].name, savedDesign.layout);
     setPlan(usable ? savedPlanIndex : Math.max(0, minimum));
     setStarted(usable); setBrowseAllThemes(true);
-    setDirectionReady(true); setFurthestStep(1); setNeedsReviewed(false);
-    setDraftNotice(designDraftCopy.restored); go(1);
+    setDirectionReady(true); setFurthestStep(1);
+    setDraftNotice(designDraftCopy.restored); go(2);
   }
 
   function removeSavedDesign() {
@@ -267,7 +277,7 @@ export default function ShopifyStoreStudio({
     setPreviewPlan(index);
     setExpanded(true);
   }
-  function showThemes(all = browseAllThemes) {
+  function showThemes(all = browseAllThemes, toGrid = false) {
     setBrowseAllThemes(all);
     setStep(0);
     setGalleryOpen(true);
@@ -276,7 +286,9 @@ export default function ShopifyStoreStudio({
     requestAnimationFrame(() => {
       const library = document.getElementById("studio-reference-library");
       library?.focus({ preventScroll: true });
-      document.getElementById("studio-design-flow")?.scrollIntoView({
+      // "Change design" lands on the design cards, not the business questions above them.
+      const grid = toGrid ? library?.querySelector(".studio-reference-grid")?.parentElement : null;
+      (grid ?? document.getElementById("studio-design-flow"))?.scrollIntoView({
         behavior: studioScrollBehavior(),
         block: "start",
       });
@@ -290,23 +302,17 @@ export default function ShopifyStoreStudio({
     ...(getFieldState("product").isDirty || getFieldState("price").isDirty ? ["productDetails" as const] : []),
   ];
   const themeTier = getThemeTierByPackage(plans[plan].name)!;
-  const designFeatureIds = [...designRequirements(layout, customizationIds), ...(layoutChosen ? ["theme-level-up"] : [])];
+  const designFeatureIds = designRequirements(layout, customizationIds);
   const effectiveFeatureNeeds = Array.from(new Set([...featureNeeds, ...designFeatureIds]));
-  const wizardStep = galleryOpen ? 0 : step === 1 ? 1 : step === 2 ? 2 : step === 0 ? 3 : 4;
+  const wizardStep = galleryOpen ? 0 : step === 2 || step === 1 ? 1 : 2;
   const recommendationIndex = findMatchingShopifyPackage(plans, productCount, effectiveFeatureNeeds);
-  const recommendedPlan = recommendationIndex === null ? null : plans[recommendationIndex];
-  const previewMinimumIndex = Math.max(0, plans.findIndex(item => item.name === getThemeMinimumPackage(studioTemplates[previewTemplate ?? template].layout)));
-  const referencePreviewPlan = previewPlan ?? (previewTemplate !== null
-    ? browseAllThemes ? previewMinimumIndex : Math.max(previewMinimumIndex, started ? plan : 0)
-    : plan);
+  // Recommendations are based on product setup and requested functionality, never a reference layout.
+  const designMinimumIndex = recommendationIndex ?? Math.max(0, plans.findIndex(item => item.name === getThemeMinimumPackage(layout)));
+  const referencePreviewPlan = previewPlan ?? plans.length - 1;
   const selectedMatchesNeeds = shopifyPackageMatchesNeeds(plans, plan, productCount, effectiveFeatureNeeds);
-  const packageForReview = started && selectedMatchesNeeds ? plans[plan] : recommendedPlan;
-  const choseHigherPackage = started && selectedMatchesNeeds && recommendationIndex !== null && plan !== recommendationIndex;
   const featureLabels = packageFeatureNeeds.filter(item => effectiveFeatureNeeds.includes(item.id)).map(item => item.label);
   function designRequirements(nextLayout: number, customizations: typeof customizationIds) {
-    const tier = getThemeTierByPackage(getThemeMinimumPackage(nextLayout));
     return Array.from(new Set([
-      ...(tier?.requirementId ? [tier.requirementId] : []),
       ...customizations.flatMap(id => {
         const minimum = themeTiers.find(item => item.capabilities[id]);
         return minimum?.requirementId ? [minimum.requirementId] : [];
@@ -330,6 +336,9 @@ export default function ShopifyStoreStudio({
   }
 
   const selected = plans[plan];
+  // Redesigns and migrations are priced by quote: they share the details step but send a quote request instead of paying.
+  const quoteMode = values.projectType !== "New store";
+  const libraryCategory = resolveCategoryReference(values.businessCategory, values.businessType);
   const layoutPreference =
     teamDirection && !layoutChosen
       ? salesJourneyCopy.teamDirection
@@ -377,14 +386,14 @@ export default function ShopifyStoreStudio({
       const fallback = studioTemplates.findIndex(item => item.category === referenceCategory);
       if (nextReference >= 0 || fallback >= 0) chooseTemplate(nextReference >= 0 ? nextReference : fallback);
       setDirectionReady(false);
-      setNeedsReviewed(false);
+     
     }
   }
   function applyDesignAction(action: ShopifyDesignAction) {
     if (action.kind === "template") {
       chooseTemplate(action.index);
       setPreviewTemplate(null); setExpanded(false); setGalleryOpen(false);
-      setDirectionReady(true); setNeedsReviewed(false); go(1);
+      setDirectionReady(true); go(2);
     } else if (action.kind === "layout") {
       const matchingReference = studioTemplates.findIndex(item => item.category === studioTemplates[template].category && item.layout === action.index);
       const fallbackReference = studioTemplates.findIndex(item => item.category === studioTemplates[template].category && item.layout === (action.index === 5 ? 3 : 0));
@@ -397,14 +406,7 @@ export default function ShopifyStoreStudio({
   }
   function requestDesignAction(action: ShopifyDesignAction) {
     if (action.kind === "template") {
-      const nextReference = studioTemplates[action.index];
-      const required = [...withoutThemeIds(featureNeeds), ...designRequirements(nextReference.layout, customizationIds)];
-      const target = findMatchingShopifyPackage(plans, productCount, required);
-      // A reference is a preference, not a package commitment.
-      if (!started || !shopifyPackageMatchesNeeds(plans, plan, productCount, required)) {
-        setPlan(target ?? Math.max(0, plans.findIndex(item => item.name === getThemeMinimumPackage(nextReference.layout))));
-        setStarted(false);
-      }
+      // Browsing a visual reference never commits the customer to a package.
       setSelectionError(""); applyDesignAction(action);
       return;
     }
@@ -412,7 +414,7 @@ export default function ShopifyStoreStudio({
     const nextCustomizations = action.kind === "customPalette" || action.kind === "headline" || action.kind === "productDetails"
       ? Array.from(new Set([...customizationIds, action.kind]))
       : customizationIds;
-    const required = [...withoutThemeIds(featureNeeds), ...designRequirements(nextLayout, nextCustomizations), ...(action.kind === "layout" || layoutChosen ? ["theme-level-up"] : [])];
+    const required = [...withoutThemeIds(featureNeeds), ...designRequirements(nextLayout, nextCustomizations)];
     const target = findMatchingShopifyPackage(plans, productCount, required);
     if (target === null) { setSelectionError(themeUpgradeCopy.cannotMatch); return; }
     if (plans[target].price > plans[plan].price) {
@@ -436,7 +438,7 @@ export default function ShopifyStoreStudio({
     const required = Array.from(new Set([...nextIds, ...designFeatureIds]));
     setProductCount(nextProductCount); setFeatureNeeds(nextIds);
     setPendingUpgrade(null); setSelectionError(""); setUpgradeNotice("");
-    setNeedsReviewed(false);
+   
     if (started && !shopifyPackageMatchesNeeds(plans, plan, nextProductCount, required)) {
       const compatiblePlans = plans.map((item, index) => ({ item, index }))
         .filter(({ item, index }) => item.price >= plans[plan].price
@@ -444,9 +446,7 @@ export default function ShopifyStoreStudio({
         .sort((a, b) => a.item.price - b.item.price);
       const upgrade = compatiblePlans[0];
       if (upgrade) {
-        setPlan(upgrade.index);
-        setUpgradeNotice(packageUpgradeCopy.confirmed.replace("{price}", `$${upgrade.item.price.toLocaleString()}`));
-        setNewThemesAvailable(true);
+        setPendingUpgrade({ packageIndex: upgrade.index, previousPackageIndex: plan, difference: upgrade.item.price - plans[plan].price, productCount: nextProductCount, featureIds: nextIds });
       } else {
         setStarted(false);
         setSelectionError(packageUpgradeCopy.needsReview);
@@ -488,7 +488,7 @@ export default function ShopifyStoreStudio({
   function go(n: number) {
     setStep(n);
     setGalleryOpen(false);
-    setFurthestStep((current) => Math.max(current, n === 2 ? 2 : n === 3 ? 4 : n === 1 ? 1 : 3));
+    setFurthestStep((current) => Math.max(current, n === 2 || n === 1 ? 1 : 2));
     setDownloaded(false);
     setPdfState("idle");
     requestAnimationFrame(() => {
@@ -528,7 +528,8 @@ export default function ShopifyStoreStudio({
     ["name", "email", "phone", "brand", "brief"],
   ];
   function revealStepError(index: number, fields = stepFields[index]) {
-    go(index);
+    // Business details live on the design step; branding fields on the optional branding step.
+    if (index === 1) showThemes(true); else go(index);
     requestAnimationFrame(() => {
       const invalidField = fields.find((name) => getFieldState(name).invalid);
       const input = invalidField
@@ -581,24 +582,65 @@ export default function ShopifyStoreStudio({
     }
     return true;
   }
-  async function reviewRecommendation() {
-    if (!businessCategoryReady()) return;
-    if (!(await trigger(stepFields[1], {shouldFocus: false}))) { revealStepError(1); return; }
-    setNeedsReviewed(true); setPackageComparison(false); setSelectionError(""); go(2);
-  }
   async function navigateWizard(target: number) {
     if (target === 0) { showThemes(); return; }
+    if (target === 1) { openPackages(); return; }
     if (!directionReady) { showThemes(true); return; }
-    if (target === 1) { go(1); return; }
-    if (target === 2) { await reviewRecommendation(); return; }
-    if (!started || !selectedMatchesNeeds) { await reviewRecommendation(); return; }
-    if (target === 3) { go(0); return; }
-    if (await validateProjectSteps() && packageReadyForContact()) go(3);
+    await continueToCheckout();
+  }
+  /** A budget buyer taps a locked package: show the designs that package can build. */
+  function showPackageDesigns(index: number) {
+    setPlan(index); setStarted(true); setSelectionError("");
+    showThemes(false, true);
+  }
+  /** Emails the customer's details and brief to the business before any payment. Sent once per unchanged lead. */
+  async function captureLead(intent: "checkout" | "quote") {
+    const form = getValues();
+    const body = JSON.stringify({
+      intent, name: form.name, email: form.email, phone: form.phone, brand: form.brand, brief: form.brief,
+      projectType: form.projectType, businessType: form.businessType, businessCategory: form.businessCategory,
+      customCategory: form.customCategory || undefined, existingStore: form.existingStore || undefined,
+      design: teamDirection ? salesJourneyCopy.teamDirection : studioTemplates[template].name,
+      productCount, featureIds: effectiveFeatureNeeds,
+      designNotes: form.requirements, customRequirements: form.additionalRequirements,
+      packageName: plans[plan].name, packagePrice: plans[plan].price, attribution: readShopifyCheckoutAttribution(),
+    });
+    if (leadKey.current === body) return true;
+    try {
+      const result = await fetch("/api/shopify-lead", { method: "POST", headers: { "Content-Type": "application/json" }, body });
+      if (result.ok) {
+        const saved = await result.json();
+        if (saved.ok !== true || !/^lead-[a-f0-9-]{36}$/.test(saved.leadId || "")) return false;
+        leadKey.current = body;
+        trackShopifySavedLead(saved.leadId, intent);
+        return true;
+      }
+    } catch { /* Only a durable saved lead permits checkout to open. */ }
+    return false;
+  }
+  async function validateAndCaptureCheckoutLead() {
+    const valid = await validateProjectSteps(true);
+    if (!valid) return false;
+    setLeadState("sending");
+    const saved = await captureLead("checkout");
+    setLeadState(saved ? "sent" : "error");
+    return saved;
+  }
+  async function requestQuote() {
+    if (!(await validateProjectSteps(true))) return;
+    setLeadState("sending");
+    setLeadState(await captureLead("quote") ? "sent" : "error");
+  }
+  async function continueToCheckout() {
+    if (!directionReady) { showThemes(false); return; }
+    if (!businessCategoryReady()) return;
+    if (quoteMode && started) { go(3); return; }
+    if (!packageReadyForContact()) { openPackages(); return; }
+    go(3);
   }
   async function next() {
     if (!(await trigger(stepFields[step], {shouldFocus: false}))) { revealStepError(step); return; }
-    if (step === 1) { await reviewRecommendation(); return; }
-    if (!packageReadyForContact()) { setPackageComparison(false); go(2); return; }
+    if (!packageReadyForContact()) { openPackages(); return; }
     go(3);
   }
   function selectPackage(index: number) {
@@ -607,13 +649,6 @@ export default function ShopifyStoreStudio({
     }
     setPendingUpgrade(null); setUpgradeNotice(""); setPlan(index); setStarted(true);
     setSelectionError(""); setPdfState("idle"); setNewThemesAvailable(false);
-  }
-  function confirmRecommendedPackage() {
-    if (recommendationIndex === null || values.projectType !== "New store" || values.additionalRequirements.trim()) {
-      setSelectionError(wizard.customReview); return;
-    }
-    const nextPlan = started && selectedMatchesNeeds ? plan : recommendationIndex;
-    selectPackage(nextPlan); go(0);
   }
   function togglePriority(value: string) {
     if (priorities.includes(value)) {
@@ -684,8 +719,8 @@ export default function ShopifyStoreStudio({
       paymentSchedule: {
         ...getShopifyPaymentSchedule(selected.price),
         currency: "USD",
-        upfrontPercent: 40,
-        balancePercent: 60,
+        upfrontPercent: 10,
+        balancePercent: 90,
         balanceDue: "After delivery",
       },
       business: {
@@ -891,73 +926,87 @@ export default function ShopifyStoreStudio({
           <p className="mt-4 text-paragraph text-lg">{wizard.intro}</p>
         </div>
         <div id="studio-design-flow" className="scroll-mt-6 rounded-2xl border border-border bg-background p-4 md:p-7">
-          <nav aria-label={wizard.progress} className="grid grid-cols-5 gap-1 sm:gap-3 mb-6 border-b border-border pb-5">
+          <nav aria-label={wizard.progress} className="grid grid-cols-3 gap-1 sm:gap-3 mb-6 border-b border-border pb-5">
             {wizard.steps.map((label, index) => (
               <button type="button" key={label} onClick={() => void navigateWizard(index)} disabled={index > furthestStep}
                 aria-current={wizardStep === index ? "step" : undefined}
-                className={cn("flex min-w-0 min-h-14 flex-col items-center gap-2 rounded-xl px-1 py-2 text-[10px] sm:text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-40", wizardStep === index ? "bg-primary/5 text-primary font-semibold" : "text-paragraph")}>
-                <span className={cn("flex h-7 w-7 items-center justify-center rounded-full text-xs", wizardStep === index ? "bg-primary text-primary-foreground" : "bg-muted")}>{(index < wizardStep && (index === 0 ? directionReady : index === 1 ? needsReviewed : index === 2 ? started : furthestStep >= 3)) ? <Check size={14} aria-hidden="true"/> : index + 1}</span>
+                className={cn("flex min-w-0 min-h-14 flex-col items-center gap-2 rounded-xl px-1 py-2 text-[10px] sm:text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-40", wizardStep === index ? "bg-mix-primary/5 text-primary font-semibold" : "text-paragraph")}>
+                <span className={cn("flex h-7 w-7 items-center justify-center rounded-full text-xs", wizardStep === index ? "bg-primary text-primary-foreground" : "bg-muted")}>{(index < wizardStep && (index === 0 ? directionReady : started)) ? <Check size={14} aria-hidden="true"/> : index + 1}</span>
                 <span className="break-words text-center">{label}</span>
               </button>
             ))}
           </nav>
-          {step !== 2 && directionReady && <div className="flex flex-wrap items-center justify-between gap-2 mb-6 text-sm">
+          {!galleryOpen && step !== 2 && directionReady && <div className="flex flex-wrap items-center justify-between gap-2 mb-6 text-sm">
             <div><p className="font-semibold text-heading">{started ? selected.name : wizard.minimum} <span className="font-normal text-paragraph">{started ? "· " : ""}${plans[Math.max(0, started ? plan : plans.findIndex(item => item.name === getThemeMinimumPackage(layout)))].price.toLocaleString()} USD</span></p>{started && <><ShopifyPaymentSchedule total={selected.price} compact className="mt-1"/><ShopifyDeliveryEstimate packageName={selected.name} className="mt-1" /></>}</div>
             <button type="button" onClick={openPackages} className="min-h-11 px-2 text-primary underline underline-offset-4">{wizard.compare}</button>
           </div>}
-          {step === 2 && <div id="studio-packages" className="scroll-mt-8">
-            <h3 ref={heading} tabIndex={-1} className="font-heading text-2xl sm:text-3xl outline-none">{packageComparison ? wizard.packageTitle : wizard.recommendationTitle}</h3>
-            <p className="mt-3 mb-6 max-w-3xl text-paragraph text-sm leading-relaxed">{packageComparison ? wizard.packageIntro : choseHigherPackage ? shopifyNextTierCopy.selectedIntro : wizard.recommendationIntro}</p>
-            {!packageComparison && directionReady && needsReviewed && packageForReview && <div className="rounded-2xl border-2 border-primary p-5 md:p-7 max-w-3xl mx-auto">
-              <p className="text-sm font-semibold text-primary">{choseHigherPackage ? shopifyNextTierCopy.selectedLabel : wizard.recommendationLabel}</p>
-              <div className="flex flex-wrap justify-between items-baseline gap-3 mt-2">
-                <h4 className="font-heading text-3xl">{packageForReview.name}</h4>
-                <p className="font-heading text-4xl">${packageForReview.price.toLocaleString()} <span className="block mt-2 text-sm font-normal text-paragraph">{wizard.oneTime}</span></p>
+          {step === 2 && <div id="studio-packages" className={cn("scroll-mt-8", started && "pb-40 md:pb-28")}>
+            <h3 ref={heading} tabIndex={-1} className="font-heading text-2xl sm:text-3xl outline-none">{wizard.packageTitle}</h3>
+            <p className="mt-3 max-w-3xl text-paragraph text-sm leading-relaxed">{directionReady
+              ? wizard.packageForDesign.replace("{design}", studioTemplates[template].name).replace("{package}", `${plans[designMinimumIndex].name} ($${plans[designMinimumIndex].price.toLocaleString()})`)
+              : wizard.packageIntro}</p>
+            {directionReady && <div className="mt-5 flex flex-wrap items-center gap-4 rounded-2xl border-2 border-mix-primary/30 bg-mix-primary/5 p-3 sm:p-4">
+              <Image src={studioTemplates[template].conceptImage?.src || shopifyShowcaseThumbnails[studioTemplates[template].id] || studioTemplates[template].images[0]} alt="" width={96} height={72} unoptimized className="h-16 w-20 shrink-0 rounded-lg object-cover object-top" />
+              <div className="min-w-0 flex-1">
+                <p className="text-xs text-paragraph">{wizard.chosenDesign}</p>
+                <p className="font-heading text-lg leading-tight text-heading break-words">{studioTemplates[template].name}</p>
+                <p className="mt-0.5 text-xs text-paragraph">{wizard.designFrom.replace("{price}", `$${plans[designMinimumIndex].price.toLocaleString()}`)}</p>
               </div>
-              <ShopifyPaymentSchedule total={packageForReview.price} className="mt-4"/>
-              <ShopifyDeliveryEstimate packageName={packageForReview.name} showNote className="mt-5 rounded-xl bg-muted p-4" />
-              <dl className="mt-5 space-y-4 text-sm">
-                <div><dt className="text-paragraph">{wizard.designReason}</dt><dd className="mt-1 font-semibold">{studioTemplates[template].name}</dd></div>
-                <div><dt className="text-paragraph">{wizard.productsReason}</dt><dd className="mt-1 font-semibold">{journey.productCounts.find(item => item.value === productCount)?.label}</dd></div>
-                <div><dt className="text-paragraph">{wizard.needsReason}</dt><dd className="mt-1 leading-relaxed">{featureLabels.filter(label => !packageFeatureNeeds.some(item => item.label === label && "isThemeAccess" in item)).join(" · ") || wizard.foundationReason}</dd></div>
-              </dl>
-              <div className="mt-5 rounded-xl bg-muted p-4"><p className="font-semibold text-sm">{packagePreviewProfiles[packageForReview.name].designTitle}</p><p className="mt-2 text-sm leading-relaxed text-paragraph">{packagePreviewProfiles[packageForReview.name].designBody}</p><ul className="mt-3 space-y-2 text-sm">{packagePreviewProfiles[packageForReview.name].delivery.slice(0, 3).map(item => <li key={item} className="flex gap-2"><Check size={16} aria-hidden="true" className="mt-0.5 shrink-0 text-primary"/>{item}</li>)}</ul></div>
-              <details className="mt-4 border-t border-border pt-2"><summary className="min-h-12 cursor-pointer content-center text-sm font-semibold text-primary">{wizard.fullScope}</summary><ul className="space-y-2 text-sm text-paragraph pb-3">{packageForReview.features.map(feature => <li key={feature} className="flex gap-2"><Check size={16} className="shrink-0 mt-0.5 text-primary" aria-hidden="true"/>{feature}</li>)}</ul></details>
-              <p className="text-xs text-paragraph mt-3">{wizard.example}</p>
+              <Button type="button" variant="outline" onClick={() => showThemes(true, true)} className="min-h-12 h-auto w-full whitespace-normal border-primary text-primary sm:w-auto"><ChevronLeft size={17} aria-hidden="true" />{wizard.changeTheme}</Button>
+
             </div>}
-            {!packageComparison && (!recommendedPlan || values.projectType !== "New store" || values.additionalRequirements.trim()) && <div role="status" className="rounded-xl bg-muted p-5 max-w-3xl mx-auto my-4"><p className="text-sm leading-relaxed">{wizard.customReview}</p><Button type="button" variant="outline" onClick={() => void downloadPdf()} className="min-h-12 h-auto whitespace-normal mt-4">{salesJourneyCopy.downloadPdf}</Button></div>}
-            {!packageComparison && directionReady && needsReviewed && recommendationIndex !== null && !choseHigherPackage && values.projectType === "New store" && !values.additionalRequirements.trim() && <ShopifyPackageNextTier plans={plans} packageIndex={recommendationIndex} productCount={productCount} featureIds={effectiveFeatureNeeds} onSelect={selectPackage} />}
-            {packageComparison ? <ShopifyPackagePicker plans={plans} selected={plan} confirmed={started} onSelect={selectPackage}/> : <details className="mt-6 rounded-xl border border-border p-4"><summary className="min-h-12 cursor-pointer content-center font-semibold text-sm">{wizard.compareAlternatives}</summary><ShopifyPackagePicker plans={plans} selected={plan} confirmed={started} onSelect={selectPackage}/></details>}
-            {started && directionReady && selectedMatchesNeeds && <p role="status" className="mt-5 text-sm text-heading">{wizard.keepChoice} <strong>{selected.name} · ${selected.price.toLocaleString()} USD</strong></p>}
+            {values.projectType !== "New store" && <div role="status" className="mt-5 rounded-xl border border-mix-primary/30 bg-mix-primary/5 p-5">
+              <p className="text-sm leading-relaxed text-heading">{wizard.customReview}</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <Button type="button" variant="outline" onClick={OpenLiveChat} className="min-h-12 h-auto whitespace-normal"><MessageCircle size={17} aria-hidden="true" />{wizard.quoteAction}</Button>
+                <Button asChild variant="outline" className="min-h-12 h-auto whitespace-normal"><a href="tel:+13022176872">{wizard.quotePhone}</a></Button>
+              </div>
+            </div>}
+            <div className="mt-8">
+              <ShopifyPackagePicker plans={plans} selected={plan} confirmed={started} onSelect={selectPackage}
+                minimumIndex={directionReady ? designMinimumIndex : 0}
+                recommendedIndex={plans.findIndex(item => item.name === "Top Tier")}
+                designName={studioTemplates[template].name}
+                onLockedSelect={directionReady ? showPackageDesigns : undefined} />
+            </div>
+            {started && !quoteMode && <ShopifyPackageNextTier plans={plans} packageIndex={plan} productCount={productCount} featureIds={effectiveFeatureNeeds} onSelect={selectPackage} />}
             <p className="text-xs leading-relaxed text-paragraph mt-5">{copy.billing}</p>
             {selectionError && <p role="alert" className="mt-3 text-sm text-destructive">{selectionError}</p>}
-            <div className="flex flex-wrap justify-between gap-3 mt-6">
-              <div className="flex flex-wrap gap-2"><Button type="button" variant="outline" onClick={() => showThemes(true)} className="min-h-12 h-auto whitespace-normal">{wizard.allDesigns}</Button>{directionReady && <Button type="button" variant="outline" onClick={() => go(1)} className="min-h-12">{wizard.editNeeds}</Button>}</div>
-              {directionReady && needsReviewed ? <Button type="button" onClick={confirmRecommendedPackage} disabled={recommendationIndex === null || values.projectType !== "New store" || !!values.additionalRequirements.trim()} className="min-h-12 h-auto whitespace-normal">{wizard.confirmPackage} · ${(started && selectedMatchesNeeds ? selected.price : recommendedPlan?.price)?.toLocaleString()}<ArrowRight size={17} aria-hidden="true"/></Button> : <Button type="button" onClick={() => showThemes(false)} disabled={!started} className="min-h-12 h-auto whitespace-normal">{wizard.packageContinue}<ArrowRight size={17} aria-hidden="true"/></Button>}
+            <div role="group" aria-label={wizard.packageNextStep} className={cn(
+              started ? "fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-8px_24px_rgba(0,0,0,0.08)] md:px-8 md:py-4" : "mt-6",
+            )}>
+              <div className="mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-x-6 gap-y-3">
+                {started && <div className="flex min-w-0 flex-1 items-center gap-3">
+                  <span className="hidden h-10 w-10 shrink-0 items-center justify-center rounded-full bg-mix-primary/10 text-primary sm:flex"><Check size={20} aria-hidden="true" /></span>
+                  <div className="min-w-0">
+                    <p className="text-xs text-paragraph">{wizard.selectedPackageLabel}</p>
+                    <p className="text-base font-semibold text-heading">{selected.name} · ${selected.price.toLocaleString()} USD</p>
+                    {!quoteMode && <p className="text-xs font-medium text-primary">{shopifyPaymentCopy.upfront}: ${getShopifyPaymentSchedule(selected.price).upfront.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>}
+                  </div>
+                </div>}
+                {directionReady
+                  ? <Button type="button" onClick={() => void continueToCheckout()} disabled={!started} className="h-auto min-h-12 w-full shrink-0 whitespace-normal px-6 text-sm font-semibold shadow-sm sm:w-auto">{!started ? wizard.choosePackage : quoteMode ? wizard.quoteContinue : wizard.confirmPackage}<ArrowRight size={18} aria-hidden="true"/></Button>
+                  : <Button type="button" onClick={() => showThemes(false)} disabled={!started} className="h-auto min-h-12 w-full whitespace-normal px-6 sm:w-auto">{wizard.packageContinue}<ArrowRight size={18} aria-hidden="true"/></Button>}
+              </div>
             </div>
+            <p className="mt-4 flex flex-wrap items-center justify-center gap-x-2 text-sm text-paragraph md:justify-end">
+              {wizard.chatPrompt}
+              <button type="button" onClick={OpenLiveChat} className="inline-flex min-h-11 items-center gap-1 font-semibold text-primary underline underline-offset-4"><MessageCircle size={16} aria-hidden="true" />{wizard.chatAction}</button>
+            </p>
           </div>}
           {galleryOpen && step !== 2 && <div id="studio-reference-library" role="region" aria-label={templateCopy.gallery} tabIndex={-1} className="scroll-mt-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-xl">
             <div className="mb-5 flex flex-wrap items-start justify-between gap-4">
               <div><p className="text-sm font-semibold text-primary">{wizard.startingPrice}</p><p className="text-sm text-paragraph mt-2">{started ? wizard.themeIntro : wizard.browseIntro}</p></div>
               <button type="button" onClick={openPackages} className="min-h-12 text-primary underline underline-offset-4 text-sm font-semibold">{wizard.compare}</button>
             </div>
-            <label className="mb-5 block max-w-lg text-sm font-medium">{wizard.projectType}
-              <ShopifyStudioSelect aria-label={wizard.projectType} {...register("projectType")} wrapperClassName="mt-2">
-                {templateCopy.projectTypes.map(type => <option key={type}>{type}</option>)}
-              </ShopifyStudioSelect>
-            </label>
+            <div className="mb-5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 rounded-xl border border-border bg-mix-primary/5 px-4 py-2">
+              <p className="text-sm leading-relaxed text-paragraph">{wizard.designHelp}</p>
+              <button type="button" onClick={OpenLiveChat} className="inline-flex min-h-11 items-center gap-2 rounded text-left text-sm font-semibold text-primary underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"><MessageCircle size={17} aria-hidden="true" />{wizard.chatAction}</button>
+            </div>
             <ShopifyBusinessCategoryPicker businessType={values.businessType} category={values.businessCategory} customCategory={values.customCategory} onChange={updateBusinessCategory} />
             {errors.customCategory && <p role="alert" className="my-3 text-sm text-destructive">{errors.customCategory.message}</p>}
-            <div className="mb-5 rounded-xl border border-border bg-muted/40 p-4">
-              <div role="group" aria-label={wizard.designFilter} className="flex flex-wrap gap-2">
-                <Button type="button" variant={browseAllThemes ? "default" : "outline"} aria-pressed={browseAllThemes} onClick={() => setBrowseAllThemes(true)} className="min-h-11 h-auto whitespace-normal">{wizard.allDesigns}</Button>
-                {started && <Button type="button" variant={!browseAllThemes ? "default" : "outline"} aria-pressed={!browseAllThemes} onClick={() => setBrowseAllThemes(false)} className="min-h-11 h-auto whitespace-normal">{wizard.includedDesigns}</Button>}
-              </div>
-              <p className="mt-3 text-sm text-paragraph">{browseAllThemes ? wizard.allDesignsNote : `${selected.name} · ${wizard.includedDesignsLabel}`}</p>
-              <p className="mt-2 text-xs font-medium text-primary">{wizard.premiumNote}</p>
-            </div>
             <ShopifyTemplateGallery browseAll={browseAllThemes} categoryFilter={resolveCategoryReference(values.businessCategory, values.businessType)} initialCategory={studioTemplates[template].category} packageName={selected.name} selected={directionReady && !teamDirection ? template : -1} onSelect={i => openReferencePreview(i)}/>
-            {directionReady && <div className="mt-6 flex justify-end"><Button type="button" onClick={() => go(1)} className="min-h-12 h-auto whitespace-normal">{wizard.selectedAction}<ArrowRight size={17}/></Button></div>}
+            {directionReady && <div className="mt-6 flex justify-end"><Button type="button" onClick={openPackages} className="min-h-12 h-auto whitespace-normal">{wizard.selectedAction}<ArrowRight size={17}/></Button></div>}
           </div>}
             {directionReady && !galleryOpen && step !== 2 && (
               <div
@@ -981,54 +1030,15 @@ export default function ShopifyStoreStudio({
                       if (step < 3) void next();
                     }}
                   >
-                    <p className="text-xs text-paragraph mb-2">
-                      {step === 1 ? wizard.needsIntro : journey.help[step]}
-                    </p>
+                    {step !== 3 && <p className="text-xs text-paragraph mb-2">{journey.help[step]}</p>}
                     <h3
                       ref={heading}
                       tabIndex={-1}
                       className="font-heading text-2xl mb-5 outline-none"
                     >
-                      {journey.titles[step]}
+                      {step === 3 ? (quoteMode ? wizard.quoteTitle : wizard.checkoutTitle) : journey.titles[step]}
                     </h3>
-                    {step === 1 && (
-                      <>
-                        <fieldset className="mb-5">
-                          <legend className="text-sm font-medium mb-3">
-                            {templateCopy.projectQuestion}
-                          </legend>
-                          <ShopifyStudioSelect aria-label={templateCopy.projectQuestion} {...register("projectType", {onChange: event => {if (event.target.value === "New store") setValue("existingStore", "", {shouldValidate: true});}})}>
-                            {templateCopy.projectTypes.map(type => <option key={type}>{type}</option>)}
-                          </ShopifyStudioSelect>
-                        </fieldset>
-                        {values.projectType !== "New store" &&
-                          field("existingStore")}
-                        {field("brief", true)}
-                        <ShopifyPackageNeeds
-                          discovery
-                          packageSelected={started}
-                          plans={plans} packageIndex={plan} productCount={productCount} featureIds={effectiveFeatureNeeds}
-                          pending={pendingUpgrade} notice={upgradeNotice} onChange={updateStoreNeeds}
-                          onConfirm={confirmUpgrade} onCancel={cancelUpgrade} onCompare={openPackages}
-                        />
-                        {newThemesAvailable && <div role="status" className="mb-5 rounded-xl bg-primary/5 border border-primary/20 p-4">
-                          <p className="font-semibold text-sm">{wizard.upgradeThemes}</p>
-                          <div className="mt-3 flex flex-wrap gap-2">
-                            <Button type="button" onClick={() => showThemes()} className="min-h-11 h-auto whitespace-normal">{wizard.upgradeThemesAction}</Button>
-                            <Button type="button" variant="outline" onClick={() => setNewThemesAvailable(false)} className="min-h-11 h-auto whitespace-normal">{wizard.keepTheme}</Button>
-                          </div>
-                        </div>}
-                        {selectionError && <p role="alert" className="mb-4 text-sm text-destructive">{selectionError}</p>}
-                        <details className="rounded-xl border border-border p-4 mb-5" open={!!(errors.requirements || errors.additionalRequirements) || undefined}>
-                          <summary className="min-h-11 flex items-center cursor-pointer text-sm font-semibold">{salesJourneyCopy.moreDetails}</summary>
-                          {field("requirements", true)}
-                          <p className="mb-5 text-xs text-paragraph">{copy.hints.requirements}</p>
-                          {field("additionalRequirements", true)}
-                          <p className="text-xs text-paragraph">{copy.hints.additionalRequirements}</p>
-                        </details>
-                        {values.projectType !== "New store" && <p className="text-sm text-paragraph rounded-xl bg-muted p-4">{journey.migrationNote}</p>}
-                      </>
-                    )}
+                    {step === 3 && <p className="-mt-3 mb-5 text-sm text-paragraph">{quoteMode ? wizard.quoteIntro : wizard.checkoutIntro}</p>}
                     {step === 0 && (
                       <>
                         {field("brand")}
@@ -1086,7 +1096,7 @@ export default function ShopifyStoreStudio({
                                     className={cn(
                                       "relative flex flex-col items-center text-center p-6 rounded-2xl border-2 border-dashed cursor-pointer transition-colors focus-within:ring-2 focus-within:ring-primary",
                                       dragging === kind
-                                        ? "border-primary bg-primary/10"
+                                        ? "border-primary bg-mix-primary/10"
                                         : "border-border bg-muted hover:border-primary",
                                     )}
                                   >
@@ -1253,7 +1263,7 @@ export default function ShopifyStoreStudio({
                                 className={cn(
                                   "max-w-full px-4 py-3 rounded-lg border text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
                                   palette === i
-                                    ? "border-primary ring-2 ring-primary/20"
+                                    ? "border-primary ring-2 ring-mix-primary/20"
                                     : "border-border",
                                 )}
                               >
@@ -1288,7 +1298,7 @@ export default function ShopifyStoreStudio({
                             className={cn(
                               "mt-3 max-w-full rounded-lg border px-4 py-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
                               palette === 6
-                                ? "border-primary ring-2 ring-primary/20"
+                                ? "border-primary ring-2 ring-mix-primary/20"
                                 : "border-border",
                             )}
                           >
@@ -1421,133 +1431,7 @@ export default function ShopifyStoreStudio({
                     )}
                     {step === 3 && (
                       <>
-                        <ShopifyOrderSummary
-                          plan={selected}
-                          onChangePackage={openPackages}
-                        />
-                        <Button type="button" variant="outline" onClick={() => explorePackage(plan)} className="min-h-12 h-auto w-full whitespace-normal mb-4">{packageExplorerCopy.openSelected}</Button>
-                        <details
-                          className="my-5 border border-border rounded-xl p-4"
-                        >
-                          <summary className="min-h-11 content-center font-semibold cursor-pointer">
-                            {salesJourneyCopy.summary}
-                          </summary>
-                          <div className="flex gap-2 flex-wrap mb-5">
-                            {[0, 1].map((i) => (
-                              <button
-                                type="button"
-                                key={i}
-                                onClick={() => go(i)}
-                                className="border border-border rounded-lg px-3 py-2 min-h-11 text-sm"
-                              >
-                                {templateCopy.edit} {wizard.steps[i === 0 ? 3 : 1]}
-                              </button>
-                            ))}
-                          </div>
-                          <dl className="space-y-4 text-sm">
-                            <div>
-                              <dt className="text-paragraph">
-                                {copy.ui.selected}
-                              </dt>
-                              <dd className="font-semibold text-xl">
-                                {selected.name} — $
-                                {selected.price.toLocaleString()} USD
-                              </dd>
-                            </div>
-                            <div>
-                              <dt>{shopifyBusinessTypeOptions.find(item => item.value === values.businessType)?.label}</dt>
-                              <dd className="font-semibold">{values.businessCategory === SHOPIFY_CUSTOM_CATEGORY ? values.customCategory : values.businessCategory}</dd>
-                            </div>
-                            <div>
-                              <dt>{copy.fields.projectType}</dt>
-                              <dd className="font-semibold">
-                                {values.projectType}
-                              </dd>
-                            </div>
-                            <div>
-                              <dt>{copy.fields.brand}</dt>
-                              <dd className="font-semibold break-words">
-                                {values.brand}
-                              </dd>
-                            </div>
-                            <div>
-                              <dt>{templateCopy.selectedTemplate}</dt>
-                              <dd>
-                                {teamDirection
-                                  ? salesJourneyCopy.teamDirection
-                                  : studioTemplates[template].name}
-                              </dd>
-                            </div>
-                            <div>
-                              <dt>{workspaceCopy.layout}</dt>
-                              <dd>{layoutPreference}</dd>
-                            </div>
-                            <div>
-                              <dt>{workspaceCopy.palette}</dt>
-                              <dd>{palettePreference}</dd>
-                            </div>
-                            <div>
-                              <dt>{copy.fields.brief}</dt>
-                              <dd className="break-words whitespace-pre-wrap">
-                                {values.brief}
-                              </dd>
-                            </div>
-                            <div>
-                              <dt>{copy.fields.references}</dt>
-                              <dd className="break-words whitespace-pre-wrap">
-                                {values.references || "—"}
-                              </dd>
-                            </div>
-                            <div>
-                              <dt>{journey.productSetup}</dt>
-                              <dd>{productCount === "more" ? "500+" : productCount}</dd>
-                            </div>
-                            <div>
-                              <dt>{journey.selectedFeatures}</dt>
-                              <dd>{featureLabels.join(", ") || journey.noFeatures}</dd>
-                            </div>
-                            <div>
-                              <dt>{copy.fields.requirements}</dt>
-                              <dd className="whitespace-pre-wrap break-words">
-                                {values.requirements || templateCopy.noneYet}
-                              </dd>
-                            </div>
-                            <div>
-                              <dt>{copy.fields.additionalRequirements}</dt>
-                              <dd className="whitespace-pre-wrap break-words">
-                                {values.additionalRequirements || templateCopy.noneYet}
-                              </dd>
-                            </div>
-                            <div>
-                              <dt>{workspaceCopy.prioritiesLabel}</dt>
-                              <dd className="break-words">
-                                {priorities.join(" · ") ||
-                                  workspaceCopy.noPriorities}
-                              </dd>
-                            </div>
-                            <div>
-                              <dt>{templateCopy.assets}</dt>
-                              <dd>{logoName || templateCopy.noLogo}</dd>
-                              <dd className="break-words">
-                                {files.current.join(", ") ||
-                                  templateCopy.noPhotos}
-                              </dd>
-                            </div>
-                            <div>
-                              <dt>{copy.fields.name}</dt>
-                              <dd className="break-words">{values.name}</dd>
-                            </div>
-                            <div>
-                              <dt>{copy.fields.email}</dt>
-                              <dd className="break-words">{values.email}</dd>
-                            </div>
-                            <div>
-                              <dt>{copy.fields.phone}</dt>
-                              <dd className="break-words">{values.phone}</dd>
-                            </div>
-                          </dl>
-                        </details>
-                        <h4 className="font-semibold mt-7 mb-4">
+                        <h4 className="font-semibold mt-2 mb-4">
                           {salesJourneyCopy.contactTitle}
                         </h4>
                         <p className="text-sm text-paragraph mb-5">
@@ -1560,6 +1444,15 @@ export default function ShopifyStoreStudio({
                           {field("brand", false, copy.reviewFields.brand, true)}
                         </div>
                         {field("brief", true, copy.reviewFields.brief, true)}
+                        {quoteMode && field("existingStore", false, wizard.existingStoreLabel)}
+                        <ShopifyOrderSummary
+                          plan={selected}
+                          onChangePackage={openPackages}
+                        />
+                        <div className="my-5 rounded-xl bg-muted p-4 text-sm leading-relaxed text-paragraph">
+                          <p>{wizard.afterCheckout}</p>
+                          <button type="button" onClick={() => go(0)} className="mt-2 min-h-11 text-left font-semibold text-primary underline underline-offset-4">{wizard.brandingOptional}</button>
+                        </div>
                         {!selectedMatchesNeeds && <p role="status" className="text-sm text-paragraph rounded-xl bg-muted p-4 my-4">{journey.selectedBelowScope}</p>}
                       </>
                     )}
@@ -1568,7 +1461,7 @@ export default function ShopifyStoreStudio({
                         type="button"
                         variant="outline"
                         className="min-h-11"
-                        onClick={() => step === 0 ? (setPackageComparison(false), go(2)) : step === 1 ? showThemes() : go(0)}
+                        onClick={() => step === 0 ? go(3) : step === 1 ? showThemes() : openPackages()}
                       >
                         {copy.ui.back}
                       </Button>
@@ -1583,11 +1476,33 @@ export default function ShopifyStoreStudio({
                   </form>
                   {step === 3 && (
                     <div className="mt-6">
-                      <ShopifyPackageCheckout
-                        brief={buildBriefPayload()}
-                        onValidate={() => validateProjectSteps(true)}
-                        onReviewRequirements={() => go(1)}
-                      />
+                      {quoteMode ? (
+                        <div className="rounded-xl border border-mix-primary/30 bg-mix-primary/5 p-5">
+                          {leadState === "sent"
+                            ? <p role="status" className="flex items-start gap-2 text-sm font-semibold text-heading"><Check size={18} aria-hidden="true" className="mt-0.5 shrink-0 text-primary" />{wizard.quoteSent}</p>
+                            : <Button type="button" onClick={() => void requestQuote()} disabled={leadState === "sending"} className="min-h-12 h-auto w-full whitespace-normal">{leadState === "sending" ? <Loader2 size={17} aria-hidden="true" className="animate-spin" /> : null}{wizard.quoteSubmit}<ArrowRight size={17} aria-hidden="true" /></Button>}
+                          {leadState === "error" && <p role="alert" className="mt-3 text-sm text-destructive">{wizard.quoteError}</p>}
+                        </div>
+                      ) : (
+                        <>
+                          <ul aria-label={wizard.trustLabel} className="mb-5 grid gap-3 rounded-xl border border-border bg-mix-muted/40 p-4 text-sm text-heading sm:grid-cols-3">
+                            <li className="flex items-start gap-2"><Lock size={17} aria-hidden="true" className="mt-0.5 shrink-0 text-primary" />{wizard.trustSecure}</li>
+                            <li className="flex items-start gap-2"><ShieldCheck size={17} aria-hidden="true" className="mt-0.5 shrink-0 text-primary" />{wizard.trustBalance}</li>
+                            <li className="flex items-start gap-2"><Star size={17} aria-hidden="true" className="mt-0.5 shrink-0 text-primary" /><a href={wizard.trustReviewsUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">{wizard.trustReviews}</a></li>
+                          </ul>
+                          <p className="mb-4 text-sm text-paragraph">{wizard.leadNotice} <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">{wizard.leadPrivacy}</a></p>
+                          <ShopifyPackageCheckout
+                            brief={buildBriefPayload()}
+                            onValidate={validateAndCaptureCheckoutLead}
+                            onReviewRequirements={openPackages}
+                          />
+                          {leadState === "error" && <p role="alert" className="mt-3 text-sm text-destructive">{wizard.leadError}</p>}
+                          <p className="mt-4 flex flex-wrap items-center justify-center gap-x-2 text-sm text-paragraph">
+                            {wizard.chatBeforePaying}
+                            <button type="button" onClick={OpenLiveChat} className="inline-flex min-h-11 items-center gap-1 font-semibold text-primary underline underline-offset-4"><MessageCircle size={16} aria-hidden="true" />{wizard.chatAction}</button>
+                          </p>
+                        </>
+                      )}
                       <div className="mt-6 border-t border-border pt-6">
                         <Button
                           type="button"
@@ -1700,7 +1615,7 @@ export default function ShopifyStoreStudio({
                   </div>
                   <div
                     role="status"
-                    className="text-sm text-primary bg-primary/5 rounded-lg p-3 mb-3"
+                    className="text-sm text-primary bg-mix-primary/5 rounded-lg p-3 mb-3"
                   >
                     {journey.previewNote}
                   </div>
@@ -1734,7 +1649,7 @@ export default function ShopifyStoreStudio({
               </div>
             )}
           </div>
-        {wizardStep !== 4 && <details className="mt-5 rounded-xl border border-border bg-background px-4">
+        {(galleryOpen || step !== 3) && <details className="mt-5 rounded-xl border border-border bg-background px-4">
           <summary className="min-h-12 cursor-pointer content-center text-sm text-paragraph">{wizard.saved}</summary>
           <ShopifyDesignDraftControls saved={savedDesign} canSave={directionReady || started} notice={draftNotice} onSave={saveDesign} onResume={resumeDesign} onRemove={removeSavedDesign}/>
         </details>}
@@ -1825,12 +1740,12 @@ export default function ShopifyStoreStudio({
               </Button>
             </div>
             </div>
-            {previewPlan !== null && <div className="mb-4 rounded-xl bg-primary/5 border border-primary/15 p-4 text-sm" role="status">
+            {previewPlan !== null && <div className="mb-4 rounded-xl bg-mix-primary/5 border border-mix-primary/15 p-4 text-sm" role="status">
               <p className="font-semibold text-heading">{packageExplorerCopy.previewing}: {plans[previewPlan].name} · ${plans[previewPlan].price.toLocaleString()} USD</p>
               <p className="mt-1 text-paragraph">{started ? `${packageExplorerCopy.selected}: ${selected.name} · $${selected.price.toLocaleString()} USD.` : packageExplorerCopy.noSelection} {packageExplorerCopy.previewOnly}</p>
             </div>}
-            {previewPlan === null && <p className="mb-4 text-sm text-paragraph"><strong className="text-heading">{wizard.minimum} ${plans[previewMinimumIndex].price.toLocaleString()} USD · {plans[previewMinimumIndex].name}</strong><span className="block mt-1">{wizard.example}</span></p>}
-            <ShopifyDeliveryEstimate packageName={plans[referencePreviewPlan].name} className="mb-4" />
+            {previewPlan === null && <p className="mb-4 text-sm text-paragraph">{wizard.example}</p>}
+            {previewPlan !== null && <ShopifyDeliveryEstimate packageName={plans[referencePreviewPlan].name} className="mb-4" />}
             <ShopifyStudioPreview
               compactScope={previewPlan === null}
               expanded
@@ -1838,7 +1753,7 @@ export default function ShopifyStoreStudio({
               copy={copy}
               plan={referencePreviewPlan}
               packageName={plans[referencePreviewPlan].name}
-              scopeMode="package"
+              scopeMode={previewPlan === null ? "reference" : "package"}
               values={previewValues}
               images={
                 previewTemplate !== null && !imageUrls.current.length
@@ -1857,14 +1772,14 @@ export default function ShopifyStoreStudio({
               </summary>
               <p className="mt-3">{templateCopy.modalScope}</p>
               <p className="mt-2">
-                {previewPlan !== null ? `${plans[previewPlan].name} · $${plans[previewPlan].price.toLocaleString()} · ${plans[previewPlan].features.join(" · ")}` : `${plans[referencePreviewPlan].name} · $${plans[referencePreviewPlan].price.toLocaleString()} · ${plans[referencePreviewPlan].features.join(" · ")}`}
+                {previewPlan !== null ? `${plans[previewPlan].name} · $${plans[previewPlan].price.toLocaleString()} · ${plans[previewPlan].features.join(" · ")}` : wizard.example}
               </p>
             </details>
           </div>
           </div>
-          <div className="shrink-0 border-t border-border bg-background p-2 md:p-3 grid grid-cols-2 sm:flex sm:items-center sm:justify-between gap-2 shadow-lg">
+          <div className="shrink-0 border-t border-border bg-background p-2 md:p-3 grid grid-cols-2 md:grid-cols-3 items-center gap-2 shadow-lg">
             <Button
-              className="min-w-0 min-h-11 h-auto max-w-full whitespace-normal px-3 py-2 sm:w-auto"
+              className="col-span-2 md:col-span-1 md:justify-self-start min-w-0 min-h-11 h-auto max-w-full whitespace-normal px-3 py-2"
               type="button"
               onClick={() => {
                 previewCloseDestination.current = "customize";
@@ -1878,14 +1793,14 @@ export default function ShopifyStoreStudio({
                   return;
                 }
                 if (previewTemplate === null) {
-                  setExpanded(false); setGalleryOpen(false); setDirectionReady(true); go(step === 0 && started ? 0 : 1);
+                  setExpanded(false); setGalleryOpen(false); setDirectionReady(true); go(step === 0 ? 0 : 2);
                 } else requestDesignAction({kind: "template", index: previewTemplate});
               }}
             >
               {previewPlan !== null ? `${started && previewPlan === plan ? packageExplorerCopy.chooseSelected : packageExplorerCopy.choose} ${plans[previewPlan].name}` : wizard.previewAction}
             </Button>
             <Button
-              className="min-w-0 min-h-11 h-auto max-w-full whitespace-normal px-3 py-2 sm:w-auto"
+              className="col-start-2 row-start-2 md:col-start-3 md:row-start-1 justify-self-end min-w-0 min-h-11 h-auto max-w-full whitespace-normal px-3 py-2"
               variant="outline"
               type="button"
               onClick={() => {
@@ -1908,12 +1823,13 @@ export default function ShopifyStoreStudio({
             >
               {previewPlan !== null ? packageExplorerCopy.back : templateCopy.return}
             </Button>
+            <button type="button" onClick={() => { setExpanded(false); requestAnimationFrame(OpenLiveChat); }} className="col-start-1 row-start-2 md:col-start-2 md:row-start-1 justify-self-center inline-flex min-h-11 items-center justify-center gap-2 rounded px-2 text-sm font-semibold text-primary underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"><MessageCircle size={17} aria-hidden="true" />{wizard.chatAction}</button>
           </div>
         </DialogContent>
       </Dialog>
       <ShopifyThemeUpgrade plans={plans} currentIndex={plan} pending={pendingTheme} onConfirm={confirmThemeUpgrade} onCancel={() => { setPendingTheme(null); setUpgradeNotice(packageUpgradeCopy.unchanged); }} />
       {directionReady && !galleryOpen && step === 0 && (
-        <div className="lg:hidden sticky bottom-3 mx-4 mt-5 z-20 bg-background/95 p-2 rounded-xl border border-border shadow-lg">
+        <div className="lg:hidden sticky bottom-3 mx-4 mt-5 z-20 bg-mix-background/95 p-2 rounded-xl border border-border shadow-lg">
           <Button type="button" variant="outline" className="w-full min-h-12 h-auto whitespace-normal" onClick={() => openReferencePreview(undefined, true)}><Maximize2 size={17}/>{salesJourneyCopy.mobilePreview}</Button>
         </div>
       )}

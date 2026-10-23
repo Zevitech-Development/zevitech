@@ -1,6 +1,6 @@
 export const shopifyCheckoutCopy = {
   title: "Start your Shopify project",
-  intro: "Pay only 40% upfront to start your project. The remaining 60% is due after delivery.",
+  intro: "Pay only 10% upfront to start your project. The remaining 90% is due after delivery.",
   legacyIntro: "This is your saved checkout under its original payment terms.",
   prepare: "Continue to checkout",
   previewTitle: "Checkout preview",
@@ -9,9 +9,9 @@ export const shopifyCheckoutCopy = {
   previewContinueNote: "Open the same-page checkout preview. No payment will be taken.",
   previewFee: "Total package price",
   packageTotal: "Total package price",
-  upfront: "Due today · 40% upfront",
-  balance: "After delivery · 60% balance",
-  upfrontReceived: "Upfront payment received · 40%",
+  upfront: "Due today · 10% upfront",
+  balance: "After delivery · 90% balance",
+  upfrontReceived: "Upfront payment received · 10%",
   paymentPlan: "Your package price is split into two payments. The balance is due after delivery.",
   previewBilling: "Billing details",
   previewPayment: "Secure card payment",
@@ -25,13 +25,13 @@ export const shopifyCheckoutCopy = {
   prepareFailed: "We couldn’t open checkout. Please try again.",
   unavailable: "Online payment is being prepared. Your design choices are saved in this session; download your project brief to keep a copy.",
   scopeReview: "Your package or requirements need a scope review before checkout. Edit them to continue; your design preferences stay saved.",
-  terms: "I have reviewed the selected package and agree to pay 40% upfront and the remaining 60% after delivery, under the Terms & Conditions and Privacy Policy. The preview is a design reference. Shopify subscriptions, paid themes, apps and third-party fees are separate.",
+  terms: "I have reviewed the selected package and agree to pay 10% upfront and the remaining 90% after delivery, under the Terms & Conditions and Privacy Policy. The preview is a design reference. Shopify subscriptions, paid themes, apps and third-party fees are separate.",
   termsLink: "Terms & Conditions",
   termsHref: "/shopify-project-terms",
   privacyLink: "Privacy Policy",
   filesNote: "Your brief records uploaded filenames. Custom logo design is included. Share original product images and any existing logo during onboarding.",
   pay: "Pay",
-  payUpfront: "Pay 40% upfront",
+  payUpfront: "Pay 10% upfront",
   processing: "Confirming payment…",
   sandbox: "Test checkout — no live order",
   loadingCard: "Loading secure card fields…",
@@ -51,16 +51,23 @@ export const shopifyCheckoutCopy = {
   fullApproved: "Payment confirmed",
   sandboxApproved: "Test upfront payment confirmed",
   sandboxFullApproved: "Test payment confirmed",
-  approvedBody: "Your 40% upfront payment is confirmed, and your project brief is saved for our team to start work. The remaining 60% is due after delivery. Keep this order reference.",
+  approvedBody: "Your 10% upfront payment is confirmed, and your project brief is saved for our team to start work. The remaining 90% is due after delivery. Keep this order reference.",
   fullApprovedBody: "Keep this order reference. Your package and project brief are saved for our team to start onboarding.",
-  paymentTermsChanged: "This checkout was prepared under the previous payment terms. Update checkout to pay 40% upfront and the remaining 60% after delivery. No new payment has been taken.",
-  pending: "Your payment result is still being confirmed. Please do not pay again. Check the status here or contact our team with your order reference.",
+  paymentTermsChanged: "This checkout was prepared under the previous payment terms. Update checkout to pay 10% upfront and the remaining 90% after delivery. No new payment has been taken.",
+  pending: "Confirming your payment automatically. Please keep this page open and do not pay again.",
   declined: "The payment was not approved. Check your billing details or use another card.",
   invalid: "Review your contact details, package and billing fields, then try again.",
-  failed: "Checkout could not complete. Your payment may still be processing; check its status before attempting another payment.",
+  failed: "We couldn’t confirm the payment yet. Please contact your project manager before attempting another payment.",
   cardFailed: "The secure card fields could not load. Refresh the page or contact our team.",
-  checkStatus: "Check payment status",
-  checking: "Checking…",
+  verificationDelayed: "Payment confirmation is taking longer than expected. Your details are saved. Please contact your project manager before trying again.",
+  paymentHelp: "Get help with this payment",
+  retryPayment: "Try payment again",
+  retryLimit: "Please contact your project manager to continue this checkout. Your details are saved.",
+  cardInvalid: "Check the card details marked below. No payment has been submitted.",
+  cardNumberInvalid: "Enter a valid card number.",
+  cardExpiryInvalid: "Enter a valid, unexpired date (MM / YY).",
+  cardSecurityInvalid: "Enter your card’s 3- or 4-digit security code.",
+  tokenFailed: "We couldn’t verify your card details. Check the card number, expiry date and security code, then try again. No payment has been submitted.",
   order: "Order reference",
   transaction: "Payment reference",
   descriptor: "Your statement will show",
@@ -77,3 +84,16 @@ export const shopifyCheckoutBillingFields = [
   { name: "state", label: shopifyCheckoutCopy.state, autoComplete: "address-level1", maxLength: 80, minLength: 1 },
   { name: "postalCode", label: shopifyCheckoutCopy.postalCode, autoComplete: "postal-code", maxLength: 20, minLength: 2 },
 ] as const;
+
+/** Saved receipts must keep the payment terms that the customer accepted. */
+const legacyDepositCopy = Object.fromEntries(Object.entries(shopifyCheckoutCopy).map(([key, value]) => [
+  key, value.replaceAll("10%", "40%").replaceAll("90%", "60%").replaceAll("after your approval", "after delivery").replaceAll("After your approval", "After delivery").replaceAll("after I approve the completed store", "after delivery"),
+])) as typeof shopifyCheckoutCopy;
+export function getShopifyCheckoutCopy(version?: string) {
+  if (version === "upfront-40-v1") return { ...legacyDepositCopy, paymentTermsChanged: shopifyCheckoutCopy.paymentTermsChanged };
+  if (version === "upfront-10-v2") return {
+    ...Object.fromEntries(Object.entries(shopifyCheckoutCopy).map(([key, value]) => [key, value.replaceAll("after delivery", "after your approval").replaceAll("After delivery", "After your approval")])) as typeof shopifyCheckoutCopy,
+    paymentTermsChanged: shopifyCheckoutCopy.paymentTermsChanged,
+  };
+  return shopifyCheckoutCopy;
+}

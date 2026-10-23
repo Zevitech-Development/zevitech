@@ -4,7 +4,7 @@ export const salesJourneyCopy = {
     { title: "Share your store needs", body: "Set your product count and choose the features your business needs." },
     { title: "Review your recommended package", body: "Compare the price and included work before choosing your package." },
     { title: "Add your business details", body: "Share your branding, business information and contact details." },
-    { title: "Review and checkout", body: "Review your design and scope. Pay 40% upfront to start; the remaining 60% is due after delivery." },
+    { title: "Review and checkout", body: "Review your design and scope. Pay 10% upfront to start; the remaining 90% is due after delivery." },
   ],
   scope:
     "Explore designs with package pricing in view. Your design and store needs help us recommend a package before you add your business details.",

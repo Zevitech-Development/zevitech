@@ -1,8 +1,6 @@
 import { Metadata } from "next";
+import { SITE_URL as BASE_URL } from "@/utils/site-url";
 
-const BASE_URL =
-  process.env.NEXT_PUBLIC_FRONTEND_URL?.replace(/\/$/, "") ||
-  "https://zevitech.com";
 
 export const SITE_URL = BASE_URL;
 
@@ -133,7 +131,9 @@ export function GetPageMetadata(
         rest.description || defaultMetadata.openGraph?.description,
       ...(canonicalPath
         ? { url: `${BASE_URL}${canonicalPath === "/" ? "" : canonicalPath}` }
-        : {}),
+        : rest.alternates?.canonical
+          ? { url: new URL(String(rest.alternates.canonical), BASE_URL).href }
+          : {}),
     },
 
     twitter: {
@@ -153,6 +153,7 @@ export function GetPageMetadata(
 export const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": `${BASE_URL}/#organization`,
   name: "Zevitech",
   url: BASE_URL,
   logo: `${BASE_URL}/favicon/logo-512x512.png`,
@@ -182,7 +183,6 @@ export function buildServiceSchema(path: string, name?: string) {
   const segments = clean.split("/").filter(Boolean);
   const serviceName = name || titleCase(segments[segments.length - 1] || "");
 
-  const lastIndex = segments.length - 1;
   const itemListElement = [
     {
       "@type": "ListItem",
@@ -190,19 +190,14 @@ export function buildServiceSchema(path: string, name?: string) {
       name: "Home",
       item: BASE_URL,
     },
-    ...segments.map((seg, i) => {
-      const crumb: Record<string, unknown> = {
-        "@type": "ListItem",
-        position: i + 2,
-        name: titleCase(seg),
-      };
-      // Only the final crumb (this page) links — intermediate service
-      // hub routes have no page and would 404.
-      if (i === lastIndex) {
-        crumb.item = `${BASE_URL}${clean}`;
-      }
-      return crumb;
-    }),
+    // Only include real navigable pages. Intermediate service folders have
+    // no index routes and must not become either broken or item-less crumbs.
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: serviceName,
+      item: `${BASE_URL}${clean}`,
+    },
   ];
 
   return [

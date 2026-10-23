@@ -89,24 +89,20 @@ test('new design scope fields are optional for legacy briefs but validate every 
   }
 });
 
-test('the $249 package cannot prepare either signature theme despite a true client scope flag', async () => {
-  for (const designLayout of [8, 9]) {
-    const input = request();
-    input.brief.needs.designLayout = designLayout;
+test('Beginner checkout accepts any valid reference layout at its canonical deposit', async () => {
+  for (let designLayout = 0; designLayout < 10; designLayout++) {
+    const input = request(); input.brief.needs.designLayout = designLayout;
     input.brief.package.price = 4999;
     const store = memoryStore();
-    await assert.rejects(createShopifyCheckoutOrder(input, store, 'sandbox'), { code: 'SCOPE_REVIEW_REQUIRED' });
-    assert.equal(store.createCalls, 0);
-    assert.equal(store.data.size, 0);
+    const order = await createShopifyCheckoutOrder(input, store, 'sandbox');
+    assert.equal(order.amount, 24.9);
+    assert.equal(store.createCalls, 1);
+    assert.equal((await store.get(order.id)).brief.needs.designLayout, designLayout);
   }
 });
 
-test('omitting or disguising IDs cannot override recognized premium theme and custom palette labels', async () => {
+test('omitting customization IDs cannot bypass custom palette scope', async () => {
   for (const mutate of [
-    input => { input.brief.design.layout = 'Cinematic experience'; },
-    input => { input.brief.design.template = 'Atelier Commerce Studio'; },
-    input => { input.brief.design.template = 'atelier-cinematic'; },
-    input => { input.brief.needs.designLayout = 0; input.brief.design.layout = 'Commerce Studio'; },
     input => { input.brief.design.palette = ' Custom palette '; input.brief.needs.customizationIds = []; },
   ]) {
     const input = request(); mutate(input);
@@ -132,7 +128,7 @@ test('customisation capabilities are enforced at their minimum package independe
   const growth = request('Growth');
   growth.brief.needs.designLayout = 2;
   growth.brief.needs.customizationIds = ['customPalette', 'headline'];
-  assert.equal((await createShopifyCheckoutOrder(growth, memoryStore(), 'sandbox')).amount, 239.6);
+  assert.equal((await createShopifyCheckoutOrder(growth, memoryStore(), 'sandbox')).amount, 59.9);
 });
 
 test('Top Tier preserves both signature themes and all allowed customisations in the canonical order', async () => {
@@ -143,7 +139,7 @@ test('Top Tier preserves both signature themes and all allowed customisations in
     input.brief.design.palette = 'Custom palette';
     const store = memoryStore();
     const order = await createShopifyCheckoutOrder(input, store, 'sandbox');
-    assert.equal(order.amount, 1999.6);
+    assert.equal(order.amount, 499.9);
     const saved = await store.get(order.id);
     assert.equal(saved.brief.needs.designLayout, designLayout);
     assert.deepEqual(saved.brief.needs.customizationIds, shopifyCustomizationIds);
@@ -156,10 +152,7 @@ test('Top Tier preserves both signature themes and all allowed customisations in
 
 test('resumed uncharged orders are rechecked before claiming a token or calling a gateway', async () => {
   for (const mutate of [
-    saved => { saved.brief.needs.designLayout = 8; },
-    saved => { saved.brief.needs.designLayout = 9; },
     saved => { saved.brief.needs.customizationIds = ['customPalette']; },
-    saved => { saved.brief.design.template = 'Atelier Cinematic'; },
     saved => { saved.brief.package.name = 'Top Tier'; saved.brief.needs.designLayout = 8; },
   ]) {
     const store = memoryStore();

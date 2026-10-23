@@ -23,6 +23,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import DailogLeadForm from "@/components/forms/dailog-lead-form";
 import { OpenLiveChat } from "@/utils/open-live-chat";
 import { isLightBackground } from "./portfolio-utils";
+import PortfolioMotionPreview from "./portfolio-motion-preview";
 import type {
   PortfolioItem,
   CustomProjectItem,
@@ -301,15 +302,16 @@ function PortfolioCard({
           isMobile ? "aspect-[4/5]" : "aspect-[4/3]",
         )}
       >
-        <Image
-          src={(isMobile ? item.video : item.image) || "/placeholder.svg"}
+        {isMobile && item.video ? <PortfolioMotionPreview item={item} /> : <Image
+          src={item.image || "/placeholder.svg"}
           alt={item.title}
           fill
+          sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
           className="object-cover animation-standard group-hover:scale-110"
-        />
+        />}
 
         {/* Hover overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 animation-standard flex flex-col justify-end p-5">
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 animation-standard flex flex-col justify-end p-5">
           <div className="flex flex-wrap gap-2 mb-3">
             {item.technologies.slice(0, 4).map((tech, techIndex) => (
               <span
@@ -325,7 +327,7 @@ function PortfolioCard({
             trigger={
               <Button
                 size="sm"
-                className="w-fit flex items-center gap-2 font-medium bg-primary hover:bg-primary-hover text-white"
+                className="pointer-events-auto w-fit flex items-center gap-2 font-medium bg-primary hover:bg-primary-hover text-white"
               >
                 Let&apos;s Get Started
                 <FaArrowRightLong className="text-xs" />

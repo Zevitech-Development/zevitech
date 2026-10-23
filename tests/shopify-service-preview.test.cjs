@@ -1,4 +1,5 @@
 // Service preview scope and local interactions. No browser, provider or network.
+require('./setup-next-image.cjs');
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -64,7 +65,7 @@ function harness(input) {
 const findButton = (instance, text) => nodes(instance.tree()).find(node => node.type === 'button' && textOf(node) === text);
 
 test('every service category resolves by label and id and presents its own credible offers', () => {
-  assert.equal(categories.length, 14);
+  assert.equal(categories.length, 21);
   for (const category of categories) {
     assert.equal(getShopifyServiceCategory(category.id), category);
     assert.equal(getShopifyServiceCategory(category.label), category);
@@ -167,7 +168,7 @@ test('Creative & digital renders its catalog service photo while unrelated fashi
   const input = props({ images: ['/store-studio/fashion.jpg', ...template.images] });
   input.values.businessCategory = template.category;
   let markup = renderToStaticMarkup(React.createElement(Preview, input));
-  assert.ok(markup.includes(`src="${template.images[0]}"`));
+  assert.ok(markup.includes(`src="${template.images[0].replaceAll('&', '&amp;')}"`));
   assert.doesNotMatch(markup, /fashion\.jpg/);
   input.images = ['/store-studio/fashion.jpg'];
   markup = renderToStaticMarkup(React.createElement(Preview, input));

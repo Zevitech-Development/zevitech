@@ -1,7 +1,7 @@
 export const packageExplorerCopy = {
   eyebrow: "PACKAGE EXPERIENCE · ILLUSTRATIVE PREVIEW",
   title: "Explore the value in your package",
-  intro: "Compare the included designs, shopping features and setup work before choosing a package.",
+  intro: "Compare shopping features, customization and setup work before choosing a package.",
   picker: "Package to explore",
   previewing: "Previewing",
   selected: "Selected for your project",

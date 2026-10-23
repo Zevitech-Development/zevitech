@@ -21,7 +21,7 @@ export default function ShopifyPackageNextTier({ plans, packageIndex, productCou
   if (!next || next.price <= current.price || !shopifyPackageMatchesNeeds(plans, nextIndex, productCount, featureIds)) return null;
   const details = shopifyNextTierBenefits[nextName];
 
-  return <aside aria-label={`${copy.eyebrow}: ${next.name}`} className="mx-auto mt-5 max-w-3xl rounded-2xl border border-border bg-muted/40 p-5 md:p-6">
+  return <aside aria-label={`${copy.eyebrow}: ${next.name}`} className="mx-auto mt-5 max-w-3xl rounded-2xl border border-border bg-mix-muted/40 p-5 md:p-6">
     <p className="text-xs font-semibold text-primary">{copy.eyebrow}</p>
     <h4 className="mt-2 font-heading text-2xl text-heading">{details.title}</h4>
     <p className="mt-3 text-sm font-semibold text-heading">{copy.includes.replace("{package}", current.name)}</p>
@@ -35,7 +35,7 @@ export default function ShopifyPackageNextTier({ plans, packageIndex, productCou
         <ShopifyPaymentSchedule total={next.price} compact highlight className="mt-2" />
         <p className="mt-1 text-xs text-paragraph">{copy.difference.replace("{price}", money(next.price - current.price)).replace("{package}", current.name)}</p>
       </div>
-      <button type="button" onClick={() => onSelect(nextIndex)} className="inline-flex min-h-12 items-center justify-center gap-2 whitespace-normal rounded-lg border border-primary bg-background px-4 py-3 text-sm font-semibold text-primary transition-colors hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
+      <button type="button" onClick={() => onSelect(nextIndex)} className="inline-flex min-h-12 items-center justify-center gap-2 whitespace-normal rounded-lg border border-primary bg-background px-4 py-3 text-sm font-semibold text-primary transition-colors hover:bg-mix-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
         {copy.action.replace("{package}", next.name).replace("{price}", money(next.price))}
         <ArrowUpRight size={17} aria-hidden="true" className="shrink-0" />
       </button>

@@ -1,5 +1,6 @@
 import LandingHeader from "@/elements/business/shopify/shopify-landing-header";
 import ShopifyLandingFooter from "@/elements/business/shopify/shopify-landing-footer";
+import ShopifyConversionTracking from "@/elements/business/shopify/shopify-conversion-tracking";
 
 export default function BusinessLayout({
   children,
@@ -8,6 +9,7 @@ export default function BusinessLayout({
 }) {
   return (
     <>
+      <ShopifyConversionTracking />
       <LandingHeader />
       {children}
       <ShopifyLandingFooter />

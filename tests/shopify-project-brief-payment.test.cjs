@@ -55,10 +55,10 @@ test('the real project PDF records the package total and both payment stages wit
   const text = drawn.join(' ');
   assert.match(text, /Total package price/);
   assert.match(text, /\$599 USD/);
-  assert.match(text, /Due at checkout — 40% upfront/);
-  assert.match(text, /\$239\.60 USD/);
-  assert.match(text, /Due after delivery — 60% balance/);
-  assert.match(text, /\$359\.40 USD/);
+  assert.match(text, /Due at checkout — 10% upfront/);
+  assert.match(text, /\$59\.90 USD/);
+  assert.match(text, /Due after delivery — 90% balance/);
+  assert.match(text, /\$539\.10 USD/);
   assert.match(text, /Planning brief — not a payment receipt/);
   assert.match(text, /does not confirm a payment/);
 });

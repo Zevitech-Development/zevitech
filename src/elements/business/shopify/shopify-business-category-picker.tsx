@@ -26,14 +26,14 @@ export default function ShopifyBusinessCategoryPicker({
     <div className="mb-6 space-y-5">
       <fieldset>
         <legend className="mb-3 font-medium text-heading">{copy.businessTypeLabel}</legend>
-        <div className="grid gap-3 md:grid-cols-3">
-          {shopifyBusinessTypeOptions.map((option) => (
+        <div className="grid gap-3 md:grid-cols-2">
+          {shopifyBusinessTypeOptions.filter(option => option.value !== "both").map((option) => (
             <label
               key={option.value}
               className={cn(
                 "flex min-h-20 cursor-pointer items-start gap-3 rounded-xl border-2 p-4 animation-standard focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2",
                 businessType === option.value
-                  ? "border-primary bg-primary/5"
+                  ? "border-primary bg-mix-primary/5"
                   : "border-border bg-background hover:border-primary",
               )}
             >

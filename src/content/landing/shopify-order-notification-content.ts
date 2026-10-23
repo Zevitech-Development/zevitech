@@ -9,7 +9,7 @@ export const shopifyOrderNotificationCopy = {
   paid: "Payment received",
   balance: "Remaining balance due after delivery",
   stage: "Payment stage",
-  upfront: "40% upfront",
+  upfront: "10% upfront",
   full: "Full payment",
   productLimit: "Product setup allowance",
   delivery: "Estimated delivery",

@@ -1,7 +1,7 @@
 export const themeUpgradeCopy = {
   resetCustomizations: "Use reference defaults for this package",
   title: "Unlock this design direction",
-  body: "Review the full package price before applying this change. Pay 40% upfront and 60% after delivery. Your existing choices stay in place if you cancel.",
+  body: "Review the full package price before applying this change. Pay 10% upfront and 90% after delivery. Your existing choices stay in place if you cancel.",
   current: "Current package",
   proposed: "New package",
   difference: "Additional project cost",

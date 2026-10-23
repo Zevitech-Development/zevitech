@@ -14,7 +14,7 @@ export const ecolifeCopy = {
     title: "Eat Organic & Healthy Food",
     description: "Fresh fruit, colourful vegetables and simple ingredients for a delicious everyday table.",
     primary: "Shop Now",
-    image: "/store-studio/ecolife/hero-basket.png",
+    image: "/store-studio/ecolife/hero-basket.webp",
     imageAlt: "A kraft grocery bag filled with colourful fresh vegetables and leafy greens",
   },
   benefits: [
@@ -26,7 +26,7 @@ export const ecolifeCopy = {
   offers: {
     title: "Fresh Offers:",
     items: [
-      { title: "The good green things in life", body: "Make every meal a little fresher", action: "Shop Vegetables", collection: "Vegetables", image: "/store-studio/ecolife/harvest.jpg", imageAlt: "Fresh green vegetables and a seasonal salad", tone: "dark" },
+      { title: "The good green things in life", body: "Make every meal a little fresher", action: "Shop Vegetables", collection: "Vegetables", image: "/store-studio/ecolife/harvest.webp", imageAlt: "Fresh green vegetables and a seasonal salad", tone: "dark" },
       { title: "Fresh fruit. A brighter basket.", body: "A little sunshine, picked for you", action: "Shop Now", collection: "Fresh Fruit", image: "/store-studio/ecolife/citrus.jpg", imageAlt: "A selection of fresh tangerines", tone: "leaf" },
     ],
   },
@@ -64,7 +64,7 @@ export const ecolifeCopy = {
     action: "Shop Now",
     leftImage: "/store-studio/ecolife/grower.jpg",
     leftAlt: "A grower carrying a basket of fresh produce",
-    rightImage: "/store-studio/ecolife/hero-basket.png",
+    rightImage: "/store-studio/ecolife/hero-basket.webp",
     rightAlt: "A bag of fresh colourful vegetables",
   },
   promotions: [

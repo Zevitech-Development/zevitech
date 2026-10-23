@@ -19,6 +19,7 @@ export interface ShopifyServiceCategory {
 }
 
 export interface ShopifyServicePreviewProps {
+  signatureTheme?: import("./shopify-signature-storefront-interface").ShopifySignatureTheme;
   plan: number;
   packageName?: string;
   values: ShopifyStudioFormType & {

@@ -1,16 +1,14 @@
 import { MetadataRoute } from "next";
 
 import { customProjectsData } from "@/content/portfolio/custom-projects-content";
-
-const SITE_URL =
-  process.env.NEXT_PUBLIC_FRONTEND_URL?.replace(/\/$/, "") ||
-  "https://zevitech.com";
+import { SITE_URL } from "@/utils/site-url";
 
 // Next.js writes sitemap `url` values into <loc> without any XML escaping,
 // so route segments containing raw `&` (e.g. "design-&-development") break
-// XML parsing. Percent-encode it here since Next won't.
+// XML parsing. Escape XML text, keeping the real route unchanged; %26 is
+// a different path for the current static App Router route.
 function toSitemapUrl(url: string): string {
-  return encodeURI(url).replace(/&/g, "%26");
+  return encodeURI(url).replace(/&/g, "&amp;");
 }
 
 // All publicly indexable routes. Utility/transactional routes
@@ -24,6 +22,7 @@ const staticRoutes: string[] = [
   "/business-formation-ip-consultancy",
   "/privacy-policy",
   "/terms-service",
+  "/shopify-project-terms",
 
   // Services
   "/services/app-development/android-development",
@@ -63,18 +62,14 @@ const staticRoutes: string[] = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
-
   const routes: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
     url: toSitemapUrl(`${SITE_URL}${route}`),
-    lastModified: now,
     changeFrequency: route === "/" ? "weekly" : "monthly",
     priority: route === "/" ? 1 : 0.7,
   }));
 
   const projectRoutes: MetadataRoute.Sitemap = customProjectsData.map((project) => ({
     url: toSitemapUrl(`${SITE_URL}/portfolio/custom-projects/${project.slug}`),
-    lastModified: now,
     changeFrequency: "monthly",
     priority: 0.6,
   }));

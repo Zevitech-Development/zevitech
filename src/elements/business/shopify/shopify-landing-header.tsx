@@ -10,7 +10,7 @@ import { OpenLiveChat } from "@/utils/open-live-chat";
 import Logo from "../../../../public/favicon/logo-white.png";
 
 export default function ShopifyLandingHeader() {
-  const confirmation = usePathname()?.endsWith("/thank-you");
+  const confirmation = usePathname()?.includes("/thank-you");
   const landingHref = (hash: string) => confirmation ? `/landing-pages/shopify-development${hash}` : hash;
   const copy = shopifyLandingSalesContent.header;
   return <header className={confirmation ? "relative z-40 bg-slate-950" : "absolute inset-x-0 top-0 z-40 border-b border-white/20"}>

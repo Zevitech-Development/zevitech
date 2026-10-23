@@ -39,7 +39,7 @@ export const shopifyNextTierBenefits = {
   Executive: {
     title: "Build a richer brand experience",
     benefits: [
-      "Dimensional and parallax designs, unique pages and 5 logo concepts",
+      "Custom motion direction, unique pages and 5 logo concepts",
       "Up to 2 markets and 1 additional language, where eligible",
       "Dedicated project manager, 2 supported app integrations and 250 products",
     ],
@@ -47,7 +47,7 @@ export const shopifyNextTierBenefits = {
   "Top Tier": {
     title: "Create a shopping experience built around your business",
     benefits: [
-      "Cinematic and interactive design directions, plus 6 logo concepts",
+      "Advanced commerce customization, plus 6 logo concepts",
       "Tailored customer dashboard, forms and 1 comparison or enquiry flow",
       "Up to 5 workflows, 3 supported app integrations and 500 products",
     ],

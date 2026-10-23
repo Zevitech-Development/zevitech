@@ -13,16 +13,21 @@ import LandingReviewsSection from "@/elements/business/shopify/landing-reviews-s
 import CustomerSatisfactionSection from "@/elements/business/shopify/customer-satisfaction";
 import { studioCopy, studioPlans } from "@/content/landing/shopify-studio-content";
 
+import JsonLd from "@/components/common/json-ld";
+import { shopifyServiceSchema } from "@/content/landing/shopify-seo-content";
+
 export default function ShopifyDevelopmentPage() {
   return (
     <main>
+      <JsonLd data={shopifyServiceSchema} />
       <ShopifyLandingHeroSection />
       <TrustbarSection />
-      <ShopifyStudioFilm copy={studioCopy} />
-      <OurAchievementSection />
-      <ResultSection />
-      <LandingReviewsSection />
+      {/* The 3-step studio sits directly under the hero so ad visitors reach designs and prices first. */}
       <ShopifyStoreStudio copy={studioCopy} plans={studioPlans} />
+      <LandingReviewsSection />
+      <ShopifyStudioFilm copy={studioCopy} />
+      <ResultSection />
+      <OurAchievementSection />
       <InformationSection />
       <ProcessSection />
       <WhyChooseUsSection />

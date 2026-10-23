@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useId, useRef, useState, CSSProperties } from "react";
-import Image from "next/image";
+import Image from "./shopify-preview-image";
 import {
   ArrowLeft,
   ArrowRight,
@@ -17,12 +17,14 @@ import {
   UserRound,
   X,
 } from "lucide-react";
+import ShopifyCommerceStudio from "./shopify-commerce-studio";
 import ShopifyStudioSelect from "./shopify-studio-select";
 import ShopifyStorefrontSections from "./shopify-storefront-sections";
 import ShopifyServicePreview from "./shopify-service-preview";
 import { ShopifyStudioPreviewProps } from "@/interfaces/shopify-studio-interface";
 import {
   templateCopy,
+  studioTemplates,
   studioColourPalettes,
 } from "@/content/landing/shopify-studio-templates";
 import { shopifyPreviewEnhancements as detail } from "@/content/landing/shopify-preview-enhancements";
@@ -35,6 +37,7 @@ import {
   packagePreviewCopy as scopeCopy,
 } from "@/content/landing/shopify-package-preview-content";
 import type { PackagePreviewCapabilities, PackagePreviewDemo, PreviewDemoFeature } from "@/interfaces/shopify-package-preview-interface";
+import { shopifyCategoryLabel } from "@/content/landing/shopify-business-categories";
 import { cn } from "@/lib/utils";
 import { canUseThemeLayout, getThemeMinimumPackage, getThemeTierByPackage } from "@/lib/shopify-theme-access";
 import { themeUpgradeCopy } from "@/content/landing/shopify-theme-upgrade-content";
@@ -44,10 +47,19 @@ import ShopifyEcolifeHome from "./shopify-ecolife-home";
 import ShopifyBeautyHome from "./shopify-beauty-home";
 import ShopifyHomeLivingHome from "./shopify-home-living-home";
 import ShopifyTechHome from "./shopify-tech-home";
+import ShopifyLookbookHome from "./shopify-lookbook-home";
+import ShopifyBundleHome from "./shopify-bundle-home";
+import ShopifyConfiguratorHome from "./shopify-configurator-home";
+import ShopifyConciergeHome from "./shopify-concierge-home";
+import { getCategorySignatureProducts } from "@/content/landing/shopify-category-signature-content";
 import { signatureCatalog } from "@/content/landing/shopify-signature-catalog";
 import type { ShopifySignatureTheme } from "@/interfaces/shopify-signature-storefront-interface";
+import ShopifyReferenceHome from "./shopify-reference-home";
+import { addDemoCartItem, demoCartSubtotal, type DemoCartItem } from "@/lib/shopify-demo-cart";
+import { getReferenceArtwork } from "@/content/landing/shopify-reference-artwork";
+import { getShopifyShowcase } from "@/content/landing/shopify-showcase-content";
 
-const signatureHomes = { clotya: ShopifyClotyaHome, ecolife: ShopifyEcolifeHome, beauty: ShopifyBeautyHome, living: ShopifyHomeLivingHome, tech: ShopifyTechHome };
+const signatureHomes = { clotya: ShopifyClotyaHome, ecolife: ShopifyEcolifeHome, beauty: ShopifyBeautyHome, living: ShopifyHomeLivingHome, tech: ShopifyTechHome, lookbook: ShopifyLookbookHome, bundle: ShopifyBundleHome, configurator: ShopifyConfiguratorHome, concierge: ShopifyConciergeHome };
 import { signaturePreviewCopy } from "@/content/landing/shopify-signature-preview-content";
 
 const REFERENCE_CAPABILITIES: PackagePreviewCapabilities = {
@@ -86,11 +98,16 @@ export default function ShopifyStudioPreview({
   const allowedLayouts = getThemeTierByPackage(planName)!.layouts;
   const layout = themeFallback ? allowedLayouts[allowedLayouts.length - 1] : requestedLayout;
   const premiumLayout = layout >= 6 && layout <= 9;
+  const categoryReference = studioTemplates.find(reference => reference.id === referenceId);
+  const categoryContext = referenceId?.endsWith("-signature") ? categoryReference?.category : undefined;
   const signature = !themeFallback
-    ? (Object.keys(signatureCatalog) as ShopifySignatureTheme[]).find(key => signatureCatalog[key].id === referenceId && signatureCatalog[key].layout === layout) ?? null
+    ? (categoryReference?.layout === layout ? categoryReference.signatureTheme : undefined) ?? (Object.keys(signatureCatalog) as (keyof typeof signatureCatalog)[]).find(key => signatureCatalog[key].id === referenceId && signatureCatalog[key].layout === layout) ?? null
     : null;
-  const signatureDefinition = signature ? signatureCatalog[signature] : null;
-  const signatureProducts = signatureDefinition?.products;
+  const signatureDefinition = signature && signature in signatureCatalog ? signatureCatalog[signature as keyof typeof signatureCatalog] : null;
+  const artwork = !themeFallback ? getReferenceArtwork(referenceId) : undefined;
+  const signatureProducts = artwork?.products ?? (categoryContext && categoryReference
+    ? getCategorySignatureProducts(categoryReference)
+    : signatureDefinition?.products);
   const SignatureHome = signature ? signatureHomes[signature] : null;
   const capabilities = scopeMode === "package"
     ? packagePreviewCapabilities[planName]
@@ -113,7 +130,7 @@ export default function ShopifyStudioPreview({
   const validColour = (value: string, fallback: string) =>
     /^#[0-9a-fA-F]{6}$/.test(value) ? value : fallback;
   const defaultColours = studioColourPalettes[0];
-  const colours = studioColourPalettes[palette] || {
+  const colours = (artwork && palette === categoryReference?.palette ? artwork.palette : studioColourPalettes[palette]) || {
     accent: validColour(values.customAccent, defaultColours.accent),
     ink: validColour(values.customInk, defaultColours.ink),
     surface: validColour(values.customSurface, defaultColours.surface),
@@ -133,7 +150,7 @@ export default function ShopifyStudioPreview({
   const [page, setPage] = useState("home");
   const [selectedProduct, setSelectedProduct] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [cart, setCart] = useState<{ product: number; quantity: number; variant?: string }[]>([]);
+  const [cart, setCart] = useState<DemoCartItem[]>([]);
   const [productSize, setProductSize] = useState("M");
   const [saved, setSaved] = useState<number[]>([]);
   const [search, setSearch] = useState("");
@@ -151,7 +168,7 @@ export default function ShopifyStudioPreview({
   const viewport = useRef<HTMLDivElement>(null);
   const sourceImages = images.length ? images : ["/store-studio/sample-1.svg"];
   const productName = values.product || copy.defaults.product;
-  const brand = values.brand || signatureDefinition?.brand || copy.defaults.brand;
+  const brand = values.brand || (referenceId === "atelier-commerce-studio" ? "ATELIER" : undefined) || (categoryContext ? categoryReference?.name.split(/ Signature| Lookbook| Bundle Builder| Configurator| Concierge/)[0] : signatureDefinition?.brand) || copy.defaults.brand;
   const price = Number.isFinite(Number(values.price))
     ? Math.max(0, Number(values.price))
     : 0;
@@ -159,8 +176,8 @@ export default function ShopifyStudioPreview({
     ...item,
     id,
     src: images[id]?.startsWith("blob:") ? images[id] : item.src,
-    name: id === 0 && productName !== signatureProducts[0].name ? productName : item.name,
-    price: id === 0 && values.price ? price : item.price,
+    name: id === 0 && productName !== signatureProducts[0].name && (!artwork || productName !== categoryReference?.product) ? productName : item.name,
+    price: id === 0 && values.price && (!artwork || values.price !== categoryReference?.price) ? price : item.price,
   })) : sourceImages.map((src, id) => ({
     id,
     src,
@@ -176,10 +193,7 @@ export default function ShopifyStudioPreview({
   const product = catalog[selectedProduct] || catalog[0];
   const catalogIdentity = JSON.stringify([sourceImages, productName, price, referenceId]);
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-  const subtotal = cart.reduce(
-    (sum, item) => sum + (catalog[item.product]?.price || 0) * item.quantity,
-    0,
-  );
+  const subtotal = demoCartSubtotal(cart, catalog);
   const formatPrice = (value: number) =>
     new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -314,20 +328,12 @@ export default function ShopifyStudioPreview({
         ? current.filter((item) => item !== id)
         : [...current, id],
     );
-  const addProductToBag = (productId: number, amount = 1, variant = "") => {
+  const addProductToBag = (productId: number, amount = 1, variant = "", unitPrice?: number) => {
     if (!hasCart || !catalog.some(item => item.id === productId)) return;
-    setCart((current) =>
-      current.some((item) => item.product === productId && (item.variant || "") === variant)
-        ? current.map((item) =>
-            item.product === productId && (item.variant || "") === variant
-              ? { ...item, quantity: Math.min(99, item.quantity + amount) }
-              : item,
-          )
-        : [...current, { product: productId, quantity: amount, variant }],
-    );
+    setCart(current => addDemoCartItem(current, { product: productId, quantity: amount, variant, unitPrice }));
   };
   const addToBag = () => {
-    addProductToBag(product.id, quantity, signature === "clotya" ? productSize : "");
+    addProductToBag(product.id, quantity, (signature === "clotya" && (!categoryContext || categoryContext === "Fashion")) ? productSize : "");
     setAdded(true);
     if (isMiniCart) navigate("cart");
   };
@@ -546,8 +552,8 @@ export default function ShopifyStudioPreview({
         "min-h-11 rounded-xl border p-3 text-left motion-safe:transition-colors",
         focus,
         activeDemo === demo.id
-          ? "border-primary bg-primary/5"
-          : "border-border bg-background hover:border-primary/50",
+          ? "border-primary bg-mix-primary/5"
+          : "border-border bg-background hover:border-mix-primary/50",
       )}
     >
       <span className="flex items-center justify-between gap-3 text-sm font-semibold text-heading">
@@ -560,7 +566,21 @@ export default function ShopifyStudioPreview({
     </button>
   );
 
-  if (values.businessType === "services") return <ShopifyServicePreview plan={plan} packageName={planName} values={values} images={images} logo={logo} mobile={mobile} layout={layout} palette={palette} />;
+  const dedicatedHome = ["clotya", "ecolife", "beauty", "living", "tech"].includes(categoryReference?.signatureTheme ?? "");
+  const showcase = !themeFallback && !dedicatedHome && categoryReference?.layout === layout ? (getShopifyShowcase(referenceId) || artwork) : null;
+
+
+  if (values.businessType === "services") return <ShopifyServicePreview plan={plan} packageName={planName} values={values} images={images} logo={logo} mobile={mobile} layout={layout} palette={palette} signatureTheme={categoryContext ? signature ?? undefined : undefined} />;
+
+  if (referenceId === "atelier-commerce-studio" && !themeFallback && page === "home") {
+    return <div className={cn("w-full min-w-0 mx-auto", mobile && "max-w-sm")}>
+      <ShopifyCommerceStudio brand={values.brand || "ATELIER"} cartCount={cartCount}
+        products={catalog.map(item => ({ ...item, priceLabel: formatPrice(item.price) }))}
+        onBrowse={openCollection} onProduct={selectProduct}
+        onAddToBag={(id, purchase) => addProductToBag(id, purchase?.quantity, purchase?.variant, purchase?.unitPrice)}
+        onViewBag={() => navigate("cart")} />
+    </div>;
+  }
 
   return (
     <div className={cn("w-full min-w-0 space-y-4 mx-auto", mobile && "max-w-sm")}>
@@ -638,13 +658,14 @@ export default function ShopifyStudioPreview({
         } as CSSProperties
       }
       className={cn(
+        artwork && referenceId !== "atelier-commerce-studio" && "studio-artwork-store",
         "studio-storeframe bg-background text-heading rounded-2xl border border-border overflow-hidden mx-auto shadow-xl w-full min-w-0 [overflow-wrap:anywhere]",
         mobile && "max-w-sm",
       )}
     >
       {!compactScope && scopeMode === "package" && <p className="border-b border-border bg-secondary-background px-4 py-3 text-[11px] leading-relaxed">{scopeCopy.illustrativeNote}</p>}
       <div className={cn("text-center text-[10px] font-semibold tracking-[0.18em] px-4 text-primary-foreground bg-primary", signature ? "py-2" : "py-3")}>
-        {signatureDefinition?.announcement || p.welcome}
+        {categoryContext ? `EXPLORE ${categoryContext.toUpperCase()}` : signatureDefinition?.announcement || p.welcome}
       </div>
       <header className={cn("px-[clamp(1rem,4cqw,2.5rem)] border-b border-border flex flex-wrap justify-between gap-3 items-center", signature ? "py-2.5" : "py-4")}>
         <button
@@ -780,15 +801,23 @@ export default function ShopifyStudioPreview({
           <>
             {SignatureHome ? (
               <SignatureHome
-                products={catalog.map(item => ({ ...item, priceLabel: formatPrice(item.price) }))}
-                headline={values.headline}
-                brief={values.brief}
+                artworkMode={!!artwork}
+                heroSrc={artwork?.hero}
+                categoryContext={categoryContext && shopifyCategoryLabel(categoryContext)}
+                products={catalog.map(item => ({ ...item, priceLabel: new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(item.price) }))}
+                headline={artwork?.headline && values.headline === categoryReference?.headline ? artwork.headline : values.headline}
+                brief={artwork?.brief && values.brief === categoryReference?.brief ? artwork.brief : values.brief}
                 onBrowse={openCollection}
                 onProduct={selectProduct}
-                onAddToBag={signature === "clotya" ? selectProduct : id => addProductToBag(id)}
+                onAddToBag={(signature === "clotya" && (!categoryContext || categoryContext === "Fashion")) ? selectProduct : (id, purchase) => addProductToBag(id, purchase?.quantity, purchase?.variant, purchase?.unitPrice)}
                 onViewBag={() => navigate("cart")}
                 onJournal={() => navigate("journal")}
               />
+            ) : showcase && categoryReference && layout < 6 ? (
+              <ShopifyReferenceHome heroSrc={artwork?.hero} products={catalog.map(item => ({ ...item, priceLabel: formatPrice(item.price) }))}
+                layout={layout} headline={values.headline || categoryReference.headline} brief={values.brief || categoryReference.brief}
+                categoryContext={categoryReference.category} onBrowse={openCollection} onProduct={selectProduct}
+                onAddToBag={id => addProductToBag(id)} onViewBag={() => navigate("cart")} onJournal={() => navigate("journal")} />
             ) : layout === 6 || layout === 7 || layout === 8 || layout === 9 ? (
               <ShopifyPremiumPreview
                 layout={layout}
@@ -859,7 +888,7 @@ export default function ShopifyStudioPreview({
                 )}
               </div>
             )}
-            {!premiumLayout && (
+            {!premiumLayout && !SignatureHome && !showcase && (
               <ShopifyStorefrontSections
                 key={`${planName}-${catalogIdentity}`}
                 mode={storefrontProfile.layout}
@@ -875,7 +904,7 @@ export default function ShopifyStudioPreview({
                 } : undefined}
               />
             )}
-            {capabilities.journal && (
+            {capabilities.journal && !showcase && !SignatureHome && (
               <section className={cn("bg-secondary-background", section)}>
                 <p className="text-[10px] tracking-widest text-primary mb-3">
                   {detail.journalEyebrow}
@@ -895,12 +924,12 @@ export default function ShopifyStudioPreview({
                 </div>
               </section>
             )}
-            {capabilities.newsletter && (
-              <section ref={newsletterSection} tabIndex={-1} className={cn("border-t border-border text-center rounded", section, signature === "clotya" && "bg-secondary text-secondary-foreground", signature === "ecolife" && "bg-secondary-background", focus)}>
+            {capabilities.newsletter && !(showcase && !SignatureHome && layout < 6) && (
+              <section ref={newsletterSection} tabIndex={-1} className={cn("border-t border-border text-center rounded", section, (signature === "clotya" && (!categoryContext || categoryContext === "Fashion")) && "bg-secondary text-secondary-foreground", signature === "ecolife" && "bg-secondary-background", focus)}>
                 <p className="text-[10px] tracking-widest text-primary mb-3">
                   {detail.newsletterTag}
                 </p>
-                <h4 className="text-2xl font-heading">{signatureDefinition?.newsletter || p.newsletter}</h4>
+                <h4 className="text-2xl font-heading">{categoryContext ? "New ideas, delivered." : signatureDefinition?.newsletter || p.newsletter}</h4>
                 <p className="text-sm opacity-75 py-4">{signature ? signaturePreviewCopy.newsletterBody : p.newsletterBody}</p>
                 <form
                   className="mx-auto flex max-w-lg flex-wrap items-end justify-center gap-3"
@@ -1158,7 +1187,7 @@ export default function ShopifyStudioPreview({
                 <p className="text-sm leading-relaxed opacity-75 mb-6">
                   {product.description}
                 </p>
-                {signature === "clotya" && (
+                {(signature === "clotya" && (!categoryContext || categoryContext === "Fashion")) && (
                   <fieldset className="mb-6">
                     <legend className="mb-3 text-sm font-semibold">{signaturePreviewCopy.size}</legend>
                     <div className="flex flex-wrap gap-2">
@@ -1378,10 +1407,10 @@ export default function ShopifyStudioPreview({
                         </button>
                         <div className="min-w-[min(100%,10rem)] flex-1">
                           <p className="text-sm font-semibold break-words">
-                            {entry.name}{item.variant && <span className="mt-1 block text-xs font-normal opacity-70">{signaturePreviewCopy.selectedSize}: {item.variant}</span>}
+                            {entry.name}{item.variant && <span className="mt-1 block text-xs font-normal opacity-70">{item.variant}</span>}
                           </p>
                           <p className="text-xs opacity-70 my-2">
-                            {formatPrice(entry.price * item.quantity)}
+                            {formatPrice((item.unitPrice ?? entry.price) * item.quantity)}
                           </p>
                           <div className="flex flex-wrap items-center justify-between gap-2">
                             <div className="flex items-center border border-border rounded-full">
@@ -1636,7 +1665,7 @@ export default function ShopifyStudioPreview({
                       <button type="button" onClick={() => selectProduct(entry.id)} aria-label={`${detail.viewProduct}: ${entry.name}`} className={cn("h-20 w-16 shrink-0 overflow-hidden rounded-lg bg-muted", focus)}>{photo(entry.src, entry.name)}</button>
                       <div className="min-w-0 flex-1">
                         <p className="text-sm font-semibold">{entry.name}{item.variant && <span className="block text-xs font-normal">{item.variant}</span>}</p>
-                        <p className="text-xs mt-1">{formatPrice(entry.price * item.quantity)}</p>
+                        <p className="text-xs mt-1">{formatPrice((item.unitPrice ?? entry.price) * item.quantity)}</p>
                         <div className="mt-2 inline-flex items-center rounded-full border border-border">
                           <button type="button" onClick={() => setCartQuantity(item.product, item.quantity - 1, item.variant)} aria-label={`${detail.decrease}: ${entry.name}${item.variant ? ` (${item.variant})` : ""}`} className={cn("size-11 rounded-full flex items-center justify-center", focus)}><Minus size={14} aria-hidden="true" /></button>
                           <span aria-live="polite" className="min-w-5 text-center text-xs">{item.quantity}</span>
@@ -1663,7 +1692,7 @@ export default function ShopifyStudioPreview({
         <footer className="grid grid-cols-2 gap-x-5 gap-y-4 border-t border-border px-[clamp(1rem,4cqw,2.5rem)] py-7 [@container_studio_(min-width:640px)]:grid-cols-4">
           <div className="col-span-2 [@container_studio_(min-width:640px)]:col-span-1">
             <p className="font-heading text-2xl">{brand}</p>
-            <p className="mt-2 text-xs leading-relaxed opacity-70">{signatureDefinition?.intro}</p>
+            <p className="mt-2 text-xs leading-relaxed opacity-70">{categoryContext ? categoryReference?.brief : signatureDefinition?.intro}</p>
           </div>
           <div><p className="mb-2 text-xs font-semibold">{signaturePreviewCopy.shop}</p>{Array.from(new Set(catalog.map(item => item.collection))).slice(0, 4).map(name => <button key={name} type="button" className={cn("block min-h-11 text-xs", focus)} onClick={() => openCollection(name)}>{name}</button>)}</div>
           <div><p className="mb-2 text-xs font-semibold">{signaturePreviewCopy.discover}</p><button type="button" className={cn("block min-h-11 text-xs", focus)} onClick={() => openCollection()}>{p.featured}</button><button type="button" className={cn("block min-h-11 text-xs", focus)} onClick={() => navigate("journal")}>{detail.journalTitle}</button></div>
