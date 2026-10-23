@@ -386,7 +386,7 @@ export default function ShopifyStoreStudio({
       const fallback = studioTemplates.findIndex(item => item.category === referenceCategory);
       if (nextReference >= 0 || fallback >= 0) chooseTemplate(nextReference >= 0 ? nextReference : fallback);
       setDirectionReady(false);
-     
+
     }
   }
   function applyDesignAction(action: ShopifyDesignAction) {
@@ -438,7 +438,7 @@ export default function ShopifyStoreStudio({
     const required = Array.from(new Set([...nextIds, ...designFeatureIds]));
     setProductCount(nextProductCount); setFeatureNeeds(nextIds);
     setPendingUpgrade(null); setSelectionError(""); setUpgradeNotice("");
-   
+
     if (started && !shopifyPackageMatchesNeeds(plans, plan, nextProductCount, required)) {
       const compatiblePlans = plans.map((item, index) => ({ item, index }))
         .filter(({ item, index }) => item.price >= plans[plan].price

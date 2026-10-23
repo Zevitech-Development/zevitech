@@ -53,7 +53,7 @@ test('missing, declined and pending orders never show a successful confirmation 
     assert.ok(!html.includes('Thank you. Your project starts here.'));
     assert.ok(!html.includes('Save / print confirmation'));
     assert.ok(!html.includes('Check status'));
-    assert.ok(html.includes('Talk to your project manager')); 
+    assert.ok(html.includes('Talk to your project manager'));
     if (current) assert.equal(shopifyCheckoutEvents(current).filter(event => event.name === 'purchase').length, 0);
   }
   assert.ok(renderOrder({ ...order, status: 'declined', declineCode: '223' }).includes('This card has expired'));
