@@ -1,20 +1,9 @@
 export const OpenLiveChat = () => {
   if (typeof window === "undefined") return;
 
-  // Widgets survive client-side navigation. Use Tawk only on its own pages;
-  // Shopify project-manager buttons must always use the site’s LiveChat account.
-  try {
-    const tawk = (window as any).Tawk_API;
-    const tawkPage = window.location.pathname.startsWith("/services/digital-marketing/google-ads")
-      || window.location.pathname.startsWith("/landing-pages/website-design");
-    if (tawkPage && tawk && typeof tawk.maximize === "function") {
-      tawk.maximize();
-      return;
-    }
-  } catch {}
-
-  document.body.classList.remove("google-ads-livechat-hidden");
-
+  // Text (text.com) is the single site-wide chat widget, loaded in the root
+  // layout. It exposes the same LiveChatWidget global, so every chat CTA
+  // maximizes it the same way on every page.
   try {
     const liveChat = (window as any).LiveChatWidget;
     if (liveChat && typeof liveChat.call === "function") {
@@ -24,5 +13,5 @@ export const OpenLiveChat = () => {
   } catch {}
 
   // Local previews and browsers blocking the embed can still reach our chat.
-  window.open("https://www.livechat.com/chat-with/19229942/", "_blank", "noopener,noreferrer");
+  window.open("https://www.text.com/chat-with-ai-agent/2fa5b9f6-8ddb-461f-8145-75ca7c3e4544/", "_blank", "noopener,noreferrer");
 };
