@@ -20,7 +20,7 @@ import RootHeaderFooterGuard from "@/components/layouts/RootHeaderFooterGuard";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  weight: "variable",
 });
 
 // WEBSITE METADATA AND VIEWPORT
@@ -74,6 +74,7 @@ export default function RootLayout({
         />
       </head>
       <body suppressHydrationWarning className={`${inter.variable} overflow-x-hidden`}>
+        {process.env.NODE_ENV === "production" && <>
         {/* Google Analytics 4 + Google Ads - Single gtag instance */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-4V3XW7Q5EG"
@@ -201,6 +202,7 @@ export default function RootLayout({
             Text
           </a>
         </noscript>
+        </>}
         {/* <Header /> */}
         <RootHeaderFooterGuard>
           {children}
@@ -209,6 +211,7 @@ export default function RootLayout({
 
         <Toaster richColors closeButton position="top-right" />
 
+        {process.env.NODE_ENV === "production" && <>
         <Script id="clarity-script" strategy="afterInteractive">
           {`
             (function(c,l,a,r,i,t,y){
@@ -217,7 +220,8 @@ export default function RootLayout({
               y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
             })(window, document, "clarity", "script", "ujhgmiiqop");
           `}
-        </Script>
+        </Script>        </>}
+
       </body>
     </html>
   );

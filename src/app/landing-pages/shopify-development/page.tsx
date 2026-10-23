@@ -6,9 +6,9 @@ import ShopifyDevelopmentPage from "@/containers/website/services/e-commerce/sho
 import { GetPageMetadata } from "@/utils/meta-data";
 
 export const metadata: Metadata = GetPageMetadata({
-  title: "Launch & Scale Your Shopify Store | Zevitech Experts",
+  title: "Custom Sales-Focused Shopify Store Development | Zevitech",
   description:
-    "Grow your eCommerce business with Zevitech’s Shopify development. Custom stores, theme design, app integration, and optimization for higher conversions.",
+    "Explore custom Shopify store designs and development packages from $249. Pay 10% upfront, with the remaining balance after delivery. Built around your brand.",
   path: "/landing-pages/shopify-development",
 });
 

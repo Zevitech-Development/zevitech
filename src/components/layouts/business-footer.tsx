@@ -36,9 +36,9 @@ Your Digital Growth Partner`;
   return (
     <footer className="py-8 bg-secondary-background">
       <div className="layout-standard flex flex-col gap-2">
-        <h1 className="text-center text-sm text-muted-foreground font-semibold">
+        <p className="text-center text-sm text-muted-foreground font-semibold">
           Copyright © 2025 Zevitech All Rights Reserved.
-        </h1>
+        </p>
         <p className="text-center md:text-sm text-xs text-muted-foreground">
           {description}
         </p>

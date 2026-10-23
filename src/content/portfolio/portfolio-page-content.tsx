@@ -395,7 +395,7 @@ export const portfolioData: PortfolioItem[] = [
     title: "Photobecho",
     description:
       "At Photo Becho, we provide our clients with thousands of stock photos. Our pool of beginner and expert photographers add to our repertoire of images every day.",
-    video: "/videos/mobile-video01.gif",
+    video: "/videos/mobile-video01.mp4",
     technologies: [
       { name: "Android", icon: SiAndroid },
       { name: "Sketch", icon: SiSketch },
@@ -408,7 +408,7 @@ export const portfolioData: PortfolioItem[] = [
     title: "Grosvenor House",
     description:
       "JW Marriott luxury hotels and resorts provide business and leisure travelers with simple elegance, an inviting atmosphere, and a deluxe level of comfort and personal service on their terms.",
-    video: "/videos/mobile-video02.gif",
+    video: "/videos/mobile-video02.mp4",
     technologies: [
       { name: "Android", icon: SiAndroid },
       { name: "IOS", icon: SiApple },
@@ -421,7 +421,7 @@ export const portfolioData: PortfolioItem[] = [
     title: "Avantha App",
     description:
       "Avantha Global Communication app enables more than 25,000 employees of Avantha Group to have a secure access to company news, press releases and newsletters on the go.",
-    video: "/videos/mobile-video03.gif",
+    video: "/videos/mobile-video03.mp4",
     technologies: [
       { name: "Android", icon: SiAndroid },
       { name: "IOS", icon: SiApple },
@@ -435,7 +435,7 @@ export const portfolioData: PortfolioItem[] = [
     title: "Field Trip Friend App",
     description:
       "Field Trip Friend empowers its users to know where everyone is at any given moment.",
-    video: "/videos/mobile-video04.gif",
+    video: "/videos/mobile-video04.mp4",
     technologies: [
       { name: "Android", icon: SiAndroid },
       { name: "IOS", icon: SiApple },
@@ -450,7 +450,7 @@ export const portfolioData: PortfolioItem[] = [
     title: "ztaat App",
     description:
       "One individual with the name of Zero, whom could not see his own race die anymore and do nothing, decided to act.",
-    video: "/videos/mobile-video05.gif",
+    video: "/videos/mobile-video05.mp4",
     technologies: [
       { name: "Android", icon: SiAndroid },
       { name: "IOS", icon: SiApple },

@@ -1,21 +1,14 @@
 import { MetadataRoute } from "next";
-
-const SITE_URL =
-  process.env.NEXT_PUBLIC_FRONTEND_URL?.replace(/\/$/, "") ||
-  "https://zevitech.com";
+import { SITE_URL } from "@/utils/site-url";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: [
-        "/payment/",
-        "/payment",
-        "/checkout-page",
-        "/thankyou",
-        "/api/",
-      ],
+      // Transactional pages serve noindex. Allow crawling so search engines
+      // can actually read that directive; robots blocking cannot deindex URLs.
+      disallow: ["/api/"],
     },
     sitemap: `${SITE_URL}/sitemap.xml`,
     host: SITE_URL,

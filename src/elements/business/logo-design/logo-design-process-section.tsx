@@ -33,10 +33,10 @@ export default function LogoDesignProcess({ approaches }: LogoProcessProps) {
                   alt="Logo Design Process"
                   className="w-full h-full"
                 />
-                <h1 className="text-3xl md:text-4xl text-heading font-extrabold font-heading leading-tight">
+                <h2 className="text-3xl md:text-4xl text-heading font-extrabold font-heading leading-tight">
                   <span className="text-primary"> Transforming Ideas</span> Into
                   Iconic Logos
-                </h1>
+                </h2>
                 <p className="text-sm md:text-base font-medium text-paragraph">
                   Every great brand starts with a powerful idea. At Zevitech, we
                   transform ideas into impactful visual identities through a

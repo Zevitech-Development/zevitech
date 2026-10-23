@@ -18,7 +18,7 @@ export function Testimonial() {
   return (
     <section className="layout-standard section-padding-standard relative">
       <div className="relative z-10 flex flex-col items-center px-4 text-gray-900 dark:text-white pt-[5rem] md:pt-[3rem]">
-        <motion.h1
+        <motion.h2
           variants={{
             hidden: {
               opacity: 0,
@@ -43,7 +43,7 @@ export function Testimonial() {
         >
           Innovate with Ease,{" "}
           <span className="text-primary">Trusted by Global Developers</span>
-        </motion.h1>
+        </motion.h2>
 
         <motion.p
           variants={{

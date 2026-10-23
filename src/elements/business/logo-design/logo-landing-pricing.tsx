@@ -57,10 +57,10 @@ const Header = () => (
       </div>
     </div>
 
-    <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-heading leading-tight tracking-tighter animate-fade-in-down">
+    <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-heading leading-tight tracking-tighter animate-fade-in-down">
       Find the Perfect Plan to <br />
       <span className="text-primary-hover">Power Your Brand</span>
-    </h1>
+    </h2>
 
     <p
       className="text-paragraph mt-6 text-base sm:text-lg max-w-2xl mx-auto animate-fade-in-down"

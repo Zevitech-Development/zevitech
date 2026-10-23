@@ -44,30 +44,18 @@ const TermsServicesSection = () => {
         }
     };
     return (
-        <div className="layout-standard">
-            {/* Desktop Layout with Sidebar */}
-            <div className="hidden lg:block">
-                <div className="flex gap-8">
-                    <div className="w-80 flex-shrink-0">
-                        <GlobalSidebar
-                            activeSection={activeSection}
-                            onSectionClick={scrollToSection}
-                            data={TermsServicesData}
-                        />
-                    </div>
-                    <div className="flex-1">
-                        <GlobalAccordian data={TermsServicesData} />
-
-                    </div>
-                </div>
-            </div>
-
-            {/* Mobile Layout without Sidebar */}
-            <div className="lg:hidden">
-                <GlobalAccordian data={TermsServicesData} />
-
-            </div>
-        </div>
+    <div className="layout-standard flex items-start gap-8">
+      <aside className="hidden w-80 shrink-0 lg:block">
+        <GlobalSidebar
+          activeSection={activeSection}
+          onSectionClick={scrollToSection}
+          data={TermsServicesData}
+        />
+      </aside>
+      <div className="min-w-0 flex-1">
+        <GlobalAccordian data={TermsServicesData} />
+      </div>
+    </div>
     )
 }
 

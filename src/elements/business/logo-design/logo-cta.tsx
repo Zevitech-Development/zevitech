@@ -94,13 +94,13 @@ export function CtaSection({
               </div>
             </motion.div>
 
-            <motion.h1
+            <motion.h2
               variants={itemVariants}
               className="text-3xl md:text-5xl font-extrabold text-gray-200 leading-tight text-center lg:text-left"
             >
               {heading}
               <span className="text-primary"> {headingHighlight}</span>
-            </motion.h1>
+            </motion.h2>
 
             <motion.p
               variants={itemVariants}

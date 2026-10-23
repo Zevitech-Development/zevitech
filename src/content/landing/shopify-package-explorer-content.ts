@@ -1,0 +1,15 @@
+export const packageExplorerCopy = {
+  eyebrow: "PACKAGE EXPERIENCE · ILLUSTRATIVE PREVIEW",
+  title: "Explore the value in your package",
+  intro: "Compare shopping features, customization and setup work before choosing a package.",
+  picker: "Package to explore",
+  previewing: "Previewing",
+  selected: "Selected for your project",
+  noSelection: "You haven’t selected a package yet.",
+  previewOnly: "Exploring does not change your selected package.",
+  choose: "Choose",
+  chooseSelected: "Continue with",
+  back: "Back to packages",
+  openSelected: "Explore selected package",
+  perProject: "full package price · USD",
+};

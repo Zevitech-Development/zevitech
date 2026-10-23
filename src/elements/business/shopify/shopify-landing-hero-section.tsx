@@ -1,133 +1,43 @@
-"use client";
-
-import React from "react";
+import { Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
-import { Button } from "@/components/ui/button";
-
-import { OpenLiveChat } from "@/utils/open-live-chat";
-import DailogLeadForm from "@/components/forms/dailog-lead-form";
-
-import ShopifyLandingHeroImg from "../../../../public/images/landing/shopify-landing-hero-img.png";
-
-import { FaCheck, FaArrowRightLong } from "react-icons/fa6";
+import { ArrowRight, Check } from "lucide-react";
+import { shopifySalesCtaContent } from "@/content/landing/shopify-sales-cta-content";
+import { shopifyLandingSalesContent } from "@/content/landing/shopify-landing-sales-content";
+import ShopifyHeroPreview from "./shopify-hero-preview";
 import ClutchIOIcon from "../../../../public/icons/clutch-io-icon.png";
 import TrustpilotIcon from "../../../../public/icons/trustpilot-icon-01.svg";
-import GoogleReviewsIcon from "../../../../public/icons/google-reviews-icon.png";
-import { IoChatbox } from "react-icons/io5";
 
-function ShopifyLandingHeroSection() {
+export default function ShopifyLandingHeroSection() {
+  const copy = shopifyLandingSalesContent.hero;
   return (
-    <section className="md:pt-[12rem] pt-[10rem] lg:pb-[8rem] pb-16 bg-pattern">
-      <div className="layout-standard grid lg:grid-cols-2  gap-16 relative items-center">
-        <div className="flex flex-col gap-6 relative z-10 lg:order-1 order-2">
-          <h1 className="font-heading text-white font-bold md:text-6xl text-4xl tracking-widest">
-            Build A <span className="text-tertiary">Shopify</span> Store That
-            Drives Results
+    <section className="bg-pattern pb-12 pt-36 md:pb-16 md:pt-40 lg:pb-24 lg:pt-44">
+      <div className="layout-standard relative grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
+        <div className="relative z-10 min-w-0 space-y-6">
+          <h1 className="break-words font-heading text-3xl font-bold leading-tight tracking-normal text-white xs:text-4xl md:text-5xl xl:text-6xl">
+            {copy.before} <span className="inline-block max-w-full text-tertiary">{copy.highlight}</span>{" "}
+            {copy.after.split(" ").map((word, index) => <Fragment key={`${word}-${index}`}>{index > 0 && " "}<span className="inline-block">{word}</span></Fragment>)}
           </h1>
-
-          <h2 className="text-white/90 font-medium md:text-xl text-base leading-relaxed">
-            Shopify is a top choice for online businesses. Whether you&apos;re
-            starting fresh or moving an established business to Shopify,
-            we&apos;ll help your brand reach its full potential. Our Shopify
-            store development ensures maximum lead generation and exponential
-            sales growth.
-          </h2>
-
-          <div className="flex flex-col gap-4 md:text-lg text-sm">
-            <div className="flex items-center gap-2">
-              <FaCheck className="text-tertiary" />
-              <p className="text-white/80">
-                Mobile-responsive Shopify designs for all devices
-              </p>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <FaCheck className="text-tertiary" />
-              <p className="text-white/80">
-                Ongoing maintenance and updates for Shopify stores
-              </p>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <FaCheck className="text-tertiary" />
-              <p className="text-white/80">
-                Expert in-house team of designers, developers, and marketers
-              </p>
-            </div>
+          <p className="max-w-2xl text-base leading-relaxed text-white/90 md:text-lg">{copy.description}</p>
+          <ul className="space-y-3 text-sm leading-relaxed text-white/90 md:text-base">
+            {copy.benefits.map((benefit) => <li key={benefit} className="flex items-start gap-3"><Check aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-tertiary" /><span>{benefit}</span></li>)}
+          </ul>
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <a href={shopifySalesCtaContent.href} className="inline-flex min-h-12 items-center justify-center gap-3 rounded-xl bg-primary px-5 py-3 text-center font-semibold leading-snug text-primary-foreground transition-colors hover:bg-primary-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+              {shopifySalesCtaContent.allDesignsLabel}<ArrowRight aria-hidden="true" className="h-5 w-5 shrink-0" />
+            </a>
+            <a href={shopifySalesCtaContent.packageHref} className="inline-flex min-h-12 items-center justify-center rounded-xl border border-white/40 px-5 py-3 text-center font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">{shopifySalesCtaContent.packageLabel}</a>
           </div>
-
-          <div className="flex items-center md:gap-4 gap-2 mt-4">
-            <Button
-              onClick={OpenLiveChat}
-              className="cta-button-02 hidden sm:flex hover:bg-primary-hover"
-            >
-              <IoChatbox /> Chat Now
-            </Button>
-            <DailogLeadForm
-              trigger={
-                <Button className="cta-button-02 bg-transparent !border-primary">
-                  Let&apos;s get started! <FaArrowRightLong />
-                </Button>
-              }
-            />
-          </div>
-
-          <div className="flex items-center gap-8 mt-6">
-            <Link
-              href={"https://clutch.co/profile/zevitech"}
-              target="_blank"
-              passHref
-            >
-              <Image
-                src={ClutchIOIcon}
-                alt="Clutch IO"
-                className="brightness-50 invert flex-shrink-0 hover:scale-105 animation-standard"
-                width={120}
-              />
-            </Link>
-
-            <Link
-              href={"https://www.trustpilot.com/review/zevitech.com"}
-              target="_blank"
-              passHref
-            >
-              <Image
-                src={TrustpilotIcon}
-                alt="Trustpilot"
-                width={140}
-                className="flex-shrink-0 hover:scale-105 animation-standard"
-              />
-            </Link>
-
-            <Link
-              href={
-                "https://www.google.com/search?q=zevitech&oq=zevitech&gs_lcrp=EgZjaHJvbWUyDggAEEUYJxg5GIAEGIoFMgYIARBFGDwyBggCECMYJzIHCAMQABjvBTIKCAQQABiABBiiBDIKCAUQABiABBiiBDIKCAYQABiABBiiBDIGCAcQRRg80gEJNjkzN2owajE1qAIIsAIB8QXmrH0VQ5vS1A&sourceid=chrome&ie=UTF-8#lrd=0xa6b3ae377e4210c3:0x375b0f1a6e9d091e,1,,,,"
-              }
-              target="_blank"
-              passHref
-            >
-              <Image
-                src={GoogleReviewsIcon}
-                alt="Google Reviews"
-                width={120}
-                className="flex-shrink-0 hover:scale-105 animation-standard"
-              />
-            </Link>
+          <p className="text-sm leading-relaxed text-white/80">{copy.startingPrice}</p>
+          <div className="flex flex-wrap items-center gap-6 pt-2">
+            <Link href="https://clutch.co/profile/zevitech" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"><Image src={ClutchIOIcon} alt="View Zevitech on Clutch" width={100} className="h-auto w-24 brightness-50 invert" /></Link>
+            <Link href="https://www.trustpilot.com/review/zevitech.com" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"><Image src={TrustpilotIcon} alt="Read Zevitech reviews on Trustpilot" width={120} className="h-auto w-28" /></Link>
           </div>
         </div>
-
-        <div className="md:flex hidden h-full items-center flex-shrink-0 lg:order-2 order-1 w-full relative z-10">
-          <Image
-            src={ShopifyLandingHeroImg}
-            alt="Hero Section"
-            className="drop-shadow-[0_0_25px_rgba(255,255,255,0.2)]"
-          />
+        <div className="relative mx-auto w-full max-w-2xl min-w-0">
+          <ShopifyHeroPreview />
         </div>
       </div>
     </section>
   );
 }
-
-export default ShopifyLandingHeroSection;
