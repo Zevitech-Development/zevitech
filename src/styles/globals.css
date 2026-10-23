@@ -219,11 +219,6 @@ body {
   background: #fff;
 }
 
-.google-ads-livechat-hidden #chat-widget,
-.google-ads-livechat-hidden #chat-widget-minimized {
-  display: none !important;
-}
-
 .ga-hero {
   background:
     radial-gradient(circle at 73% 15%, rgba(54, 197, 255, 0.16), transparent 25%),

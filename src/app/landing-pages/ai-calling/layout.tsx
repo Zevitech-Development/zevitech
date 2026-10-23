@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import Script from "next/script";
 import { Sora, Space_Mono } from "next/font/google";
 
@@ -35,21 +34,6 @@ export default function AiCallingLayout({
 }: {
   children: React.ReactNode;
 }) {
-  useEffect(() => {
-    try {
-      if (typeof window !== "undefined" && (window as any).LiveChatWidget) {
-        (window as any).LiveChatWidget.call("hide");
-      }
-    } catch {}
-    return () => {
-      try {
-        if (typeof window !== "undefined" && (window as any).LiveChatWidget) {
-          (window as any).LiveChatWidget.call("show");
-        }
-      } catch {}
-    };
-  }, []);
-
   return (
     <div className={`${sora.variable} ${spaceMono.variable}`}>
       {/* Blocking script — must run before paint to avoid dark-mode flash */}
