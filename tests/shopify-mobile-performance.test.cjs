@@ -28,11 +28,15 @@ test('lightweight thumbnail manifest points to the same approved design and real
   assert.ok(fs.existsSync(path.resolve(__dirname,'../public'+src)));
  }
 });
-test('Shopify chat never opens a stale Tawk widget left over from another landing page',()=>{
+test('project chat consistently opens the current site-wide widget despite a stale Tawk widget',()=>{
  const {OpenLiveChat}=require('../src/utils/open-live-chat.ts');
  const old={window:global.window,document:global.document};const calls=[];
  global.window={location:{pathname:'/landing-pages/shopify-development'},Tawk_API:{maximize:()=>calls.push('tawk')},LiveChatWidget:{call:method=>calls.push(method)}};
  global.document={body:{classList:{remove(){}}}};
- try{OpenLiveChat();assert.deepEqual(calls,['maximize']);calls.length=0;global.window.location.pathname='/services/digital-marketing/google-ads';OpenLiveChat();assert.deepEqual(calls,['tawk']);}
+ try{
+  for(const route of ['/landing-pages/shopify-development','/services/digital-marketing/google-ads','/landing-pages/website-design']){
+   calls.length=0;global.window.location.pathname=route;OpenLiveChat();assert.deepEqual(calls,['maximize']);
+  }
+ }
  finally{global.window=old.window;global.document=old.document;}
 });
